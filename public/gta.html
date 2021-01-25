@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="/__/firebase/8.2.4/firebase-app.js"></script>
+    <script src="/__/firebase/8.2.4/firebase-firestore.js"></script>
+    <script src="/__/firebase/init.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+    <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
+
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <script
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjBDyhwbXcp9kEIA2pMHLDGxmCM4Sn6Eg&libraries=places&callback=initMap"
+    ></script>
+    <style type="text/css">
+      @font-face {
+        font-family: "Chalet";
+        font-style: normal;
+        font-weight: normal;
+        src: url("fonts/chalet.woff") format("woff");
+      }
+
+      body {
+        font-family: "Chalet";
+      }
+    </style>
+  </head>
+  <body>
+    <div style="display: flex; align-items: flex-end">
+      <div style="position: relative">
+        <div id="map" style="width: 300px; height: 250px"></div>
+        <div
+          id="marker"
+          style="
+            background-color: white;
+            height: 12px;
+            width: 12px;
+            position: absolute;
+            border-radius: 50%;
+            top: 119px;
+            left: 144px;
+            box-shadow: 0 0 10px black;
+          "
+        ></div>
+      </div>
+      <div
+        style="
+          width: 80px;
+          height: 110px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          font-size: 48pt;
+          font-weight: bold;
+          -webkit-text-stroke-width: 1px;
+          -webkit-text-stroke-color: rgba(0, 0, 0, 0.9);
+        "
+        id="compass"
+      ></div>
+      <div
+        style="
+          margin: 16px 0;
+          height: 70px;
+          width: 2px;
+          border: 3px solid rgba(0, 0, 0, 0.9);
+          background-color: white;
+        "
+      ></div>
+      <div style="padding: 16px">
+        <div
+          style="
+            width: 400px;
+            color: #e8c673;
+            font-size: 32pt;
+            font-weight: bold;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            -webkit-text-stroke-width: 1px;
+            -webkit-text-stroke-color: rgba(0, 0, 0, 0.9);
+          "
+          id="stop"
+        ></div>
+        <div
+          style="
+            width: 400px;
+            color: white;
+            font-size: 24pt;
+            font-weight: bold;
+            -webkit-line-clamp: 1;
+            -webkit-text-stroke-width: 1px;
+            -webkit-text-stroke-color: rgba(0, 0, 0, 0.9);
+          "
+          id="neighborhood"
+        ></div>
+      </div>
+    </div>
+    <div style="opacity: 0" id="map"></div>
+    <script>
+      function initMap() {
+        mapboxgl.accessToken =
+          "pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2oyMDFlMGpsMDN3bTJ4bjR1MzRrbDFleCJ9.7XEB3HHBGr-N6ataUZh_6g";
+        var map = new mapboxgl.Map({
+          container: "map",
+          style: "mapbox://styles/adoucett/cjf5k84bp0p7t2rmiwvwikhyn",
+          interactive: false,
+        });
+
+        let i = 0;
+
+        var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
+        var addresses = [];
+
+        function resolve() {
+          const last = addresses[addresses.length - 1];
+          if (addresses.length < 3) {
+            if (last) {
+              return `${last.street} @ ${last.crossStreet}`;
+            } else {
+              return "";
+            }
+          }
+          const count = {};
+          for (const address of addresses) {
+            count[address.street] = (count[address.street] || 0) + 1;
+            count[address.crossStreet] = (count[address.crossStreet] || 0) + 1;
+          }
+          const sorted = Object.entries(count).sort(([, a], [, b]) => b - a);
+          const activeStreet = sorted[0][0];
+          if (last.street == activeStreet) {
+            return `${activeStreet} @ ${last.crossStreet}`;
+          } else if (last.crossStreet == activeStreet) {
+            return `${activeStreet} @ ${last.street}`;
+          } else {
+            return `${last.street} @ ${last.crossStreet}`;
+          }
+        }
+
+        function getHeading(
+          prevLatitude,
+          prevLongitude,
+          nextLatitude,
+          nextLongitude
+        ) {
+          if (prevLatitude && prevLongitude && nextLatitude && nextLongitude) {
+            var deltaLatitude = nextLatitude - prevLatitude;
+            var deltaLongitude = nextLongitude - prevLongitude;
+
+            var radians = Math.atan2(deltaLongitude, deltaLatitude);
+            var degrees = ((180 * radians) / Math.PI + 360) % 360;
+
+            if (degrees < 22.5) {
+              return "N";
+            } else if (degrees < 45 + 22.5) {
+              return "NE";
+            } else if (degrees < 90 + 22.5) {
+              return "E";
+            } else if (degrees < 135 + 22.5) {
+              return "SE";
+            } else if (degrees < 180 + 22.5) {
+              return "S";
+            } else if (degrees < 225 + 22.5) {
+              return "SW";
+            } else if (degrees < 270 + 22.5) {
+              return "W";
+            } else if (degrees < 315 + 22.5) {
+              return "NW";
+            } else {
+              return "N";
+            }
+          }
+          return " ";
+        }
+
+        var prevLatitude = null,
+          prevLongitude = null;
+
+        var params = new URLSearchParams(window.location.search);
+        var id = params.get("id");
+        if (!id) {
+          return;
+        }
+        firebase
+          .firestore()
+          .collection("streamers")
+          .doc(id)
+          .onSnapshot((doc) => {
+            var data = doc.get("location");
+            if (
+              data.latitude === prevLatitude &&
+              data.longitude === prevLongitude
+            ) {
+              return;
+            }
+
+            // Compute the heading
+            const heading = getHeading(
+              prevLatitude,
+              prevLongitude,
+              data.latitude,
+              data.longitude
+            );
+
+            document.getElementById("compass").innerText = heading;
+
+            prevLatitude = data.latitude;
+            prevLongitude = data.longitude;
+
+            map.panTo([data.longitude, data.latitude], {
+              duration: 1500,
+              easing: (x) => x,
+            });
+
+            if (i % 5 == 0) {
+              fetch(
+                `https://api.tomtom.com/search/2/reverseGeocode/crossStreet/${data.latitude}%2C${data.longitude}.json?limit=1&spatialKeys=false&allowFreeformNewLine=false&view=Unified&key=2h0TAqdKXzJHQHDfc33OejR09uIvi2fA`
+              )
+                .then((response) => response.json())
+                .then((data) => {
+                  const address = data["addresses"][0]["address"];
+                  if (address) {
+                    addresses.push(address);
+                    if (addresses.length > 3) {
+                      addresses.splice(0, 1);
+                    }
+                  }
+
+                  document.getElementById("stop").innerText = resolve();
+                });
+            }
+            if (i % 30 == 0) {
+              mapboxClient.geocoding
+                .reverseGeocode({
+                  query: [data.longitude, data.latitude],
+                })
+                .send()
+                .then((response) => {
+                  const match = response.body.features.find((feature) =>
+                    feature.place_type.includes("neighborhood")
+                  );
+
+                  if (match) {
+                    document.getElementById("neighborhood").innerText =
+                      match.text + ", New York City";
+                  } else {
+                    document.getElementById("neighborhood").innerText = "";
+                  }
+                });
+            }
+            i++;
+          });
+      }
+    </script>
+  </body>
+</html>

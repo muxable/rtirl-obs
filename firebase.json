@@ -1,0 +1,7 @@
+{
+  "hosting": {
+    "site": "rtirl-overlays",
+    "public": "public",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+  }
+}
