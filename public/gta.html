@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="/__/firebase/8.2.4/firebase-app.js"></script>
-    <script src="/__/firebase/8.2.4/firebase-firestore.js"></script>
-    <script src="/__/firebase/init.js"></script>
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
     <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
 
@@ -11,10 +8,6 @@
       href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
       rel="stylesheet"
     />
-    <script
-      defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjBDyhwbXcp9kEIA2pMHLDGxmCM4Sn6Eg&libraries=places&callback=initMap"
-    ></script>
     <style type="text/css">
       @font-face {
         font-family: "Chalet";
@@ -103,7 +96,7 @@
     </div>
     <div style="opacity: 0" id="map"></div>
     <script>
-      function initMap() {
+      (function () {
         mapboxgl.accessToken =
           "pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2oyMDFlMGpsMDN3bTJ4bjR1MzRrbDFleCJ9.7XEB3HHBGr-N6ataUZh_6g";
         var map = new mapboxgl.Map({
@@ -183,80 +176,84 @@
           prevLongitude = null;
 
         var params = new URLSearchParams(window.location.search);
-        var id = params.get("id");
-        if (!id) {
+        var key = params.get("key");
+        if (!key) {
           return;
         }
-        firebase
-          .firestore()
-          .collection("streamers")
-          .doc(id)
-          .onSnapshot((doc) => {
-            var data = doc.get("location");
-            if (
-              data.latitude === prevLatitude &&
-              data.longitude === prevLongitude
-            ) {
-              return;
-            }
+        setInterval(async function () {
+          const response = await fetch("https://rtirl.com/api/pull?key=" + key);
+          const data = await response.json();
+          if (
+            data.latitude === prevLatitude &&
+            data.longitude === prevLongitude
+          ) {
+            return;
+          }
 
-            // Compute the heading
-            const heading = getHeading(
-              prevLatitude,
-              prevLongitude,
-              data.latitude,
-              data.longitude
-            );
+          // Compute the heading
+          const heading = getHeading(
+            prevLatitude,
+            prevLongitude,
+            data.latitude,
+            data.longitude
+          );
 
-            document.getElementById("compass").innerText = heading;
+          document.getElementById("compass").innerText = heading;
 
-            prevLatitude = data.latitude;
-            prevLongitude = data.longitude;
+          prevLatitude = data.latitude;
+          prevLongitude = data.longitude;
 
-            map.panTo([data.longitude, data.latitude], {
-              duration: 1500,
-              easing: (x) => x,
-            });
-
-            if (i % 5 == 0) {
-              fetch(
-                `https://api.tomtom.com/search/2/reverseGeocode/crossStreet/${data.latitude}%2C${data.longitude}.json?limit=1&spatialKeys=false&allowFreeformNewLine=false&view=Unified&key=2h0TAqdKXzJHQHDfc33OejR09uIvi2fA`
-              )
-                .then((response) => response.json())
-                .then((data) => {
-                  const address = data["addresses"][0]["address"];
-                  if (address) {
-                    addresses.push(address);
-                    if (addresses.length > 3) {
-                      addresses.splice(0, 1);
-                    }
-                  }
-
-                  document.getElementById("stop").innerText = resolve();
-                });
-            }
-            if (i % 30 == 0) {
-              mapboxClient.geocoding
-                .reverseGeocode({
-                  query: [data.longitude, data.latitude],
-                })
-                .send()
-                .then((response) => {
-                  const match = response.body.features.find((feature) =>
-                    feature.place_type.includes("neighborhood")
-                  );
-
-                  if (match) {
-                    document.getElementById("neighborhood").innerText =
-                      match.text + ", New York City";
-                  } else {
-                    document.getElementById("neighborhood").innerText = "";
-                  }
-                });
-            }
-            i++;
+          map.panTo([data.longitude, data.latitude], {
+            duration: 1500,
+            easing: (x) => x,
           });
-      }
+
+          if (i % 5 == 0) {
+            fetch(
+              `https://api.tomtom.com/search/2/reverseGeocode/crossStreet/${data.latitude}%2C${data.longitude}.json?limit=1&spatialKeys=false&allowFreeformNewLine=false&view=Unified&key=2h0TAqdKXzJHQHDfc33OejR09uIvi2fA`
+            )
+              .then((response) => response.json())
+              .then((data) => {
+                const address = data["addresses"][0]["address"];
+                if (address) {
+                  addresses.push(address);
+                  if (addresses.length > 3) {
+                    addresses.splice(0, 1);
+                  }
+                }
+
+                document.getElementById("stop").innerText = resolve();
+              });
+          }
+          if (i % 30 == 0) {
+            mapboxClient.geocoding
+              .reverseGeocode({
+                query: [data.longitude, data.latitude],
+              })
+              .send()
+              .then((response) => {
+                console.log(response.body);
+                const neighborhoodMatch = response.body.features.find(
+                  (feature) => feature.place_type.includes("neighborhood")
+                );
+                const cityMatch = response.body.features.find((feature) =>
+                  feature.place_type.includes("place")
+                );
+
+                if (neighborhoodMatch && cityMatch) {
+                  document.getElementById("neighborhood").innerText =
+                    neighborhoodMatch.text + ", " + cityMatch.text;
+                } else if (cityMatch) {
+                  document.getElementById("neighborhood").innerText =
+                    cityMatch.text;
+                } else {
+                  document.getElementById("neighborhood").innerText = "";
+                }
+              });
+          }
+          i++;
+        }, 2500);
+      })();
     </script>
   </body>
 </html>

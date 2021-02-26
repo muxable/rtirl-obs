@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+    <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
+
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div style="position: relative">
+      <div id="map" style="width: 300px; height: 250px"></div>
+      <div
+        id="marker"
+        style="
+          background-color: cyan;
+          height: 12px;
+          width: 12px;
+          position: absolute;
+          border-radius: 50%;
+          top: 119px;
+          left: 144px;
+          box-shadow: 0 0 10px cyan;
+        "
+      ></div>
+    </div>
+    <script>
+      (function () {
+        mapboxgl.accessToken =
+          "pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2oyMDFlMGpsMDN3bTJ4bjR1MzRrbDFleCJ9.7XEB3HHBGr-N6ataUZh_6g";
+        var map = new mapboxgl.Map({
+          container: "map",
+          style: "mapbox://styles/kevmo314/cklm3fg673gk217p89dy9up54",
+          interactive: false,
+          zoom: 13,
+        });
+
+        var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
+        var addresses = [];
+
+        var params = new URLSearchParams(window.location.search);
+        var key = params.get("key");
+        if (!key) {
+          return;
+        }
+        setInterval(async function () {
+          const response = await fetch("https://rtirl.com/api/pull?key=" + key);
+          const data = await response.json();
+
+          map.panTo([data.longitude, data.latitude], {
+            duration: 1500,
+            easing: (x) => x,
+          });
+        }, 2500);
+      })();
+    </script>
+  </body>
+</html>
