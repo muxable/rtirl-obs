@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+    <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div style="position: relative">
+      <div id="map" style="width: 300px; height: 250px"></div>
+      <div
+        id="marker"
+        style="
+          background-color: cyan;
+          height: 12px;
+          width: 12px;
+          position: absolute;
+          border-radius: 50%;
+          top: 119px;
+          left: 144px;
+          box-shadow: 0 0 10px cyan;
+        "
+      ></div>
+    </div>
+    <script>
+      var params = new URLSearchParams(window.location.search);
+      var script = document.createElement("script");
+      script.src =
+        "https://maps.googleapis.com/maps/api/js?key=" +
+        params.get("api_key") +
+        "&callback=initMap";
+      var styles = params.get("style");
+      script.async = true;
+      var map;
+      window.initMap = function () {
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: -34.397, lng: 150.644 },
+          zoom: 13,
+          disableDefaultUI: true,
+          styles: styles ? JSON.parse(atob(decodeURIComponent(styles))) : [],
+        });
+      };
+      document.head.appendChild(script);
+      function onData(data) {
+        if (!map) {
+          return;
+        }
+        map.panTo({ lng: data.longitude, lat: data.latitude });
+      }
+    </script>
+    <script src="/js/pull.js"></script>
+  </body>
+</html>

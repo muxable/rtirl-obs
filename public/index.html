@@ -13,9 +13,52 @@
         URL as a Browser Source in OBS.
       </p>
       <h2>Generic Mapbox</h2>
+      <p>
+        This style is the fastest to get started with. If you're looking for
+        just an OBS map overlay, use this one!
+      </p>
       <code
-        >https://overlays.rtirl.com/generic.html?key=&lt;your pull key&gt;</code
+        >https://overlays.rtirl.com/generic.html?key=&lt;YOUR_PULL_KEY&gt;</code
       >
+
+      <h2>Custom Mapbox Styles</h2>
+      <p>
+        If you have a Mapbox Studio style id, use this overlay. The style id
+        looks like <code>adoucett/cjf5k84bp0p7t2rmiwvwikhyn</code>. Be sure to
+        set your Mapbox access token in the url as well.
+      </p>
+      <code
+        >https://overlays.rtirl.com/mapbox.html?key=&lt;YOUR_PULL_KEY&gt;&access_token=&lt;YOUR_MAPBOX_ACCESS_TOKEN&gt;&style=&lt;MAPBOX_STYLE_ID&gt;</code
+      >
+
+      <h2>Custom Google Maps or Snazzy Maps Styles</h2>
+      <p>If you have a Google Maps style json, paste it below.</p>
+      <textarea id="gmaps-style"></textarea>
+      <p>
+        Then use the following link as your obs overlay source. Make sure to
+        copy the entire thing, and be sure to set your Google Maps API key in
+        the url as well.
+      </p>
+      <code
+        >https://overlays.rtirl.com/googlemaps.html?key=&lt;YOUR_PULL_KEY&gt;&api_key=&lt;YOUR_GOOGLE_MAPS_API_KEY&gt;&style=<span
+          id="gmaps-style-code"
+        ></span
+      ></code>
     </main>
+    <script type="text/javascript">
+      var pullKey = new URLSearchParams(window.location.search).get("key");
+      if (pullKey) {
+        document.body.innerHTML = document.body.innerHTML.replaceAll(
+          "&lt;YOUR_PULL_KEY&gt;",
+          pullKey
+        );
+      }
+      document.getElementById("gmaps-style").oninput = function () {
+        const value = encodeURIComponent(
+          btoa(document.getElementById("gmaps-style").value)
+        );
+        document.getElementById("gmaps-style-code").innerText = value;
+      };
+    </script>
   </body>
 </html>
