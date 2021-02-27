@@ -18,7 +18,9 @@
         just an OBS map overlay, use this one!
       </p>
       <code
-        >https://overlays.rtirl.com/generic.html?key=&lt;YOUR_PULL_KEY&gt;</code
+        >https://overlays.rtirl.com/generic.html?key=<span class="pull-key"
+          >&lt;YOUR_PULL_KEY&gt;</span
+        ></code
       >
 
       <h2>Custom Mapbox Styles</h2>
@@ -28,7 +30,9 @@
         set your Mapbox access token in the url as well.
       </p>
       <code
-        >https://overlays.rtirl.com/mapbox.html?key=&lt;YOUR_PULL_KEY&gt;&access_token=&lt;YOUR_MAPBOX_ACCESS_TOKEN&gt;&style=&lt;MAPBOX_STYLE_ID&gt;</code
+        >https://overlays.rtirl.com/mapbox.html?key=<span class="pull-key"
+          >&lt;YOUR_PULL_KEY&gt;</span
+        >&access_token=&lt;YOUR_MAPBOX_ACCESS_TOKEN&gt;&style=&lt;MAPBOX_STYLE_ID&gt;</code
       >
 
       <h2>Custom Google Maps or Snazzy Maps Styles</h2>
@@ -40,7 +44,9 @@
         the url as well.
       </p>
       <code
-        >https://overlays.rtirl.com/googlemaps.html?key=&lt;YOUR_PULL_KEY&gt;&api_key=&lt;YOUR_GOOGLE_MAPS_API_KEY&gt;&style=<span
+        >https://overlays.rtirl.com/googlemaps.html?key=<span class="pull-key"
+          >&lt;YOUR_PULL_KEY&gt;</span
+        >&api_key=&lt;YOUR_GOOGLE_MAPS_API_KEY&gt;&style=<span
           id="gmaps-style-code"
         ></span
       ></code>
@@ -48,10 +54,9 @@
     <script type="text/javascript">
       var pullKey = new URLSearchParams(window.location.search).get("key");
       if (pullKey) {
-        document.body.innerHTML = document.body.innerHTML.replaceAll(
-          "&lt;YOUR_PULL_KEY&gt;",
-          pullKey
-        );
+        document.querySelectorAll(".pull-key").forEach(function (element) {
+          element.innerText = pullKey;
+        });
       }
       document.getElementById("gmaps-style").oninput = function () {
         const value = encodeURIComponent(
