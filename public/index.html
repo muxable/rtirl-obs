@@ -60,7 +60,11 @@
       }
       document.getElementById("gmaps-style").oninput = function () {
         const value = encodeURIComponent(
-          btoa(document.getElementById("gmaps-style").value)
+          btoa(
+            JSON.stringify(
+              JSON.parse(document.getElementById("gmaps-style").value)
+            )
+          )
         );
         document.getElementById("gmaps-style-code").innerText = value;
       };
