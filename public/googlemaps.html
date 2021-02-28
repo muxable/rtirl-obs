@@ -48,7 +48,10 @@
         if (!map) {
           return;
         }
-        map.panTo({ lng: data.longitude, lat: data.latitude });
+        map.panTo({
+          lng: data.location.longitude,
+          lat: data.location.latitude,
+        });
       }
     </script>
     <script src="/js/pull.js"></script>

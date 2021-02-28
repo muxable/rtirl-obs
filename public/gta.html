@@ -175,9 +175,10 @@
         prevLongitude = null;
 
       function onData(data) {
+        const location = data.location;
         if (
-          data.latitude === prevLatitude &&
-          data.longitude === prevLongitude
+          location.latitude === prevLatitude &&
+          location.longitude === prevLongitude
         ) {
           return;
         }
@@ -186,23 +187,23 @@
         const heading = getHeading(
           prevLatitude,
           prevLongitude,
-          data.latitude,
-          data.longitude
+          location.latitude,
+          location.longitude
         );
 
         document.getElementById("compass").innerText = heading;
 
-        prevLatitude = data.latitude;
-        prevLongitude = data.longitude;
+        prevLatitude = location.latitude;
+        prevLongitude = location.longitude;
 
-        map.panTo([data.longitude, data.latitude], {
+        map.panTo([location.longitude, location.latitude], {
           duration: 1500,
           easing: (x) => x,
         });
 
         if (i % 5 == 0) {
           fetch(
-            `https://api.tomtom.com/search/2/reverseGeocode/crossStreet/${data.latitude}%2C${data.longitude}.json?limit=1&spatialKeys=false&allowFreeformNewLine=false&view=Unified&key=2h0TAqdKXzJHQHDfc33OejR09uIvi2fA`
+            `https://api.tomtom.com/search/2/reverseGeocode/crossStreet/${location.latitude}%2C${location.longitude}.json?limit=1&spatialKeys=false&allowFreeformNewLine=false&view=Unified&key=2h0TAqdKXzJHQHDfc33OejR09uIvi2fA`
           )
             .then((response) => response.json())
             .then((data) => {
@@ -220,7 +221,7 @@
         if (i % 30 == 0) {
           mapboxClient.geocoding
             .reverseGeocode({
-              query: [data.longitude, data.latitude],
+              query: [location.longitude, location.latitude],
             })
             .send()
             .then((response) => {
