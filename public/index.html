@@ -7,55 +7,61 @@
   </head>
   <body>
     <main>
-      <h1>RealtimeIRL Overlay Gallery</h1>
-      <p>
-        Check out these cool OBS overlays you can use on your stream! Add the
-        URL as a Browser Source in OBS.
-      </p>
-      <p>
-        A note on the map watermarks: it's tempting to crop them out with OBS,
-        however most mapping providers require displaying attribution on the map
-        itself, even when used in non-interactive video. Verify you are meeting
-        the relevant attribution requirements for your mapping provider.
-      </p>
-      <h2>Generic Mapbox</h2>
-      <p>
-        This style is the fastest to get started with. If you're looking for
-        just an OBS map overlay, use this one!
-      </p>
-      <code
-        >https://overlays.rtirl.com/generic.html?key=<span class="pull-key"
-          >&lt;YOUR_PULL_KEY&gt;</span
-        ></code
-      >
+      <article>
+        <h1>RealtimeIRL Overlay Gallery</h1>
+        <p>
+          Check out these cool OBS overlays you can use on your stream! Add the
+          URL as a Browser Source in OBS.
+        </p>
+        <aside>
+          <p>
+            <strong>A note on the map watermarks:</strong> it's tempting to crop
+            them out with OBS, however most mapping providers require displaying
+            attribution, even when used in non-interactive video. Verify you are
+            meeting the relevant attribution requirements for your mapping
+            provider. RealtimeIRL does not provide legal support if you are
+            contacted regarding an attribution violation.
+          </p>
+        </aside>
+        <h2>Generic Mapbox</h2>
+        <p>
+          This style is the fastest to get started with. If you're looking for
+          just an OBS map overlay, use this one!
+        </p>
+        <code
+          >https://overlays.rtirl.com/generic.html?key=<span class="pull-key"
+            >&lt;YOUR_PULL_KEY&gt;</span
+          ></code
+        >
 
-      <h2>Custom Mapbox Styles</h2>
-      <p>
-        If you have a Mapbox Studio style id, use this overlay. The style id
-        looks like <code>adoucett/cjf5k84bp0p7t2rmiwvwikhyn</code>. Be sure to
-        set your Mapbox access token in the url as well.
-      </p>
-      <code
-        >https://overlays.rtirl.com/mapbox.html?key=<span class="pull-key"
-          >&lt;YOUR_PULL_KEY&gt;</span
-        >&access_token=&lt;YOUR_MAPBOX_ACCESS_TOKEN&gt;&style=&lt;MAPBOX_STYLE_ID&gt;</code
-      >
+        <h2>Custom Mapbox Styles</h2>
+        <p>
+          If you have a Mapbox Studio style id, use this overlay. The style id
+          looks like <code>adoucett/cjf5k84bp0p7t2rmiwvwikhyn</code>. Be sure to
+          set your Mapbox access token in the url as well.
+        </p>
+        <code
+          >https://overlays.rtirl.com/mapbox.html?key=<span class="pull-key"
+            >&lt;YOUR_PULL_KEY&gt;</span
+          >&access_token=&lt;YOUR_MAPBOX_ACCESS_TOKEN&gt;&style=&lt;MAPBOX_STYLE_ID&gt;</code
+        >
 
-      <h2>Custom Google Maps or Snazzy Maps Styles</h2>
-      <p>If you have a Google Maps style json, paste it below.</p>
-      <textarea id="gmaps-style"></textarea>
-      <p>
-        Then use the following link as your obs overlay source. Make sure to
-        copy the entire thing, and be sure to set your Google Maps API key in
-        the url as well.
-      </p>
-      <code
-        >https://overlays.rtirl.com/googlemaps.html?key=<span class="pull-key"
-          >&lt;YOUR_PULL_KEY&gt;</span
-        >&api_key=&lt;YOUR_GOOGLE_MAPS_API_KEY&gt;&style=<span
-          id="gmaps-style-code"
-        ></span
-      ></code>
+        <h2>Custom Google Maps or Snazzy Maps Styles</h2>
+        <p>If you have a Google Maps style json, paste it below.</p>
+        <textarea id="gmaps-style"></textarea>
+        <p>
+          Then use the following link as your obs overlay source. Make sure to
+          copy the entire thing, and be sure to set your Google Maps API key in
+          the url as well.
+        </p>
+        <code
+          >https://overlays.rtirl.com/googlemaps.html?key=<span class="pull-key"
+            >&lt;YOUR_PULL_KEY&gt;</span
+          >&api_key=&lt;YOUR_GOOGLE_MAPS_API_KEY&gt;&style=<span
+            id="gmaps-style-code"
+          ></span
+        ></code>
+      </article>
     </main>
     <script type="text/javascript">
       var pullKey = new URLSearchParams(window.location.search).get("key");
