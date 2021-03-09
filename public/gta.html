@@ -78,8 +78,10 @@
             -webkit-text-stroke-width: 1px;
             -webkit-text-stroke-color: rgba(0, 0, 0, 0.9);
           "
-          id="stop"
-        ></div>
+        >
+          <span style="display: inline-block" id="street"></span
+          ><span style="display: inline-block" id="cross"></span>
+        </div>
         <div
           style="
             width: 400px;
@@ -114,9 +116,9 @@
         const last = addresses[addresses.length - 1];
         if (addresses.length < 3) {
           if (last) {
-            return `${last.street} @ ${last.crossStreet}`;
+            return [last.street, last.crossStreet];
           } else {
-            return "";
+            return ["", ""];
           }
         }
         const count = {};
@@ -127,11 +129,11 @@
         const sorted = Object.entries(count).sort(([, a], [, b]) => b - a);
         const activeStreet = sorted[0][0];
         if (last.street == activeStreet) {
-          return `${activeStreet} @ ${last.crossStreet}`;
+          return [activeStreet, last.crossStreet];
         } else if (last.crossStreet == activeStreet) {
-          return `${activeStreet} @ ${last.street}`;
+          return [activeStreet, last.street];
         } else {
-          return `${last.street} @ ${last.crossStreet}`;
+          return [last.street, last.crossStreet];
         }
       }
 
@@ -215,7 +217,9 @@
                 }
               }
 
-              document.getElementById("stop").innerText = resolve();
+              const [street, cross] = resolve();
+              document.getElementById("street").innerText = `${street}\u00a0`;
+              document.getElementById("cross").innerText = `@ ${cross}`;
             });
         }
         if (i % 30 == 0) {
