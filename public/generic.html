@@ -38,10 +38,12 @@
 
       var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
 
-      function onData(data) {
-        map.panTo([data.location.longitude, data.location.latitude], {
-          duration: 1500,
-          easing: (x) => x,
+      function onReady() {
+        addLocationListener(function (data) {
+          map.panTo([data.location.longitude, data.location.latitude], {
+            duration: 1500,
+            easing: (x) => x,
+          });
         });
       }
     </script>

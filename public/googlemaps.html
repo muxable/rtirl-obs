@@ -44,13 +44,13 @@
         });
       };
       document.head.appendChild(script);
-      function onData(data) {
-        if (!map) {
-          return;
-        }
-        map.panTo({
-          lng: data.location.longitude,
-          lat: data.location.latitude,
+
+      function onReady() {
+        addLocationListener(function (data) {
+          map.panTo({
+            lng: data.location.longitude,
+            lat: data.location.latitude,
+          });
         });
       }
     </script>

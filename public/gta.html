@@ -177,79 +177,81 @@
       var prevLatitude = null,
         prevLongitude = null;
 
-      function onData(data) {
-        const location = data.location;
-        if (
-          location.latitude === prevLatitude &&
-          location.longitude === prevLongitude
-        ) {
-          return;
-        }
+      function onReady() {
+        addLocationListener(function (data) {
+          const location = data.location;
+          if (
+            location.latitude === prevLatitude &&
+            location.longitude === prevLongitude
+          ) {
+            return;
+          }
 
-        // Compute the heading
-        const heading = getHeading(
-          prevLatitude,
-          prevLongitude,
-          location.latitude,
-          location.longitude
-        );
+          // Compute the heading
+          const heading = getHeading(
+            prevLatitude,
+            prevLongitude,
+            location.latitude,
+            location.longitude
+          );
 
-        document.getElementById("compass").innerText = heading;
+          document.getElementById("compass").innerText = heading;
 
-        prevLatitude = location.latitude;
-        prevLongitude = location.longitude;
+          prevLatitude = location.latitude;
+          prevLongitude = location.longitude;
 
-        map.panTo([location.longitude, location.latitude], {
-          duration: 1500,
-          easing: (x) => x,
-        });
+          map.panTo([location.longitude, location.latitude], {
+            duration: 1500,
+            easing: (x) => x,
+          });
 
-        if (i % 5 == 0) {
-          fetch(
-            `https://api.tomtom.com/search/2/reverseGeocode/crossStreet/${location.latitude}%2C${location.longitude}.json?limit=1&spatialKeys=false&allowFreeformNewLine=false&view=Unified&key=2h0TAqdKXzJHQHDfc33OejR09uIvi2fA`
-          )
-            .then((response) => response.json())
-            .then((data) => {
-              const address = data["addresses"][0]["address"];
-              if (address) {
-                addresses.push(address);
-                if (addresses.length > 3) {
-                  addresses.splice(0, 1);
+          if (i % 5 == 0) {
+            fetch(
+              `https://api.tomtom.com/search/2/reverseGeocode/crossStreet/${location.latitude}%2C${location.longitude}.json?limit=1&spatialKeys=false&allowFreeformNewLine=false&view=Unified&key=2h0TAqdKXzJHQHDfc33OejR09uIvi2fA`
+            )
+              .then((response) => response.json())
+              .then((data) => {
+                const address = data["addresses"][0]["address"];
+                if (address) {
+                  addresses.push(address);
+                  if (addresses.length > 3) {
+                    addresses.splice(0, 1);
+                  }
                 }
-              }
 
-              const [street, cross] = resolve();
-              document.getElementById("street").innerText = `${street}\u00a0`;
-              document.getElementById("cross").innerText = `@ ${cross}`;
-            });
-        }
-        if (i % 30 == 0) {
-          mapboxClient.geocoding
-            .reverseGeocode({
-              query: [location.longitude, location.latitude],
-            })
-            .send()
-            .then((response) => {
-              console.log(response.body);
-              const neighborhoodMatch = response.body.features.find((feature) =>
-                feature.place_type.includes("neighborhood")
-              );
-              const cityMatch = response.body.features.find((feature) =>
-                feature.place_type.includes("place")
-              );
+                const [street, cross] = resolve();
+                document.getElementById("street").innerText = `${street}\u00a0`;
+                document.getElementById("cross").innerText = `@ ${cross}`;
+              });
+          }
+          if (i % 30 == 0) {
+            mapboxClient.geocoding
+              .reverseGeocode({
+                query: [location.longitude, location.latitude],
+              })
+              .send()
+              .then((response) => {
+                console.log(response.body);
+                const neighborhoodMatch = response.body.features.find(
+                  (feature) => feature.place_type.includes("neighborhood")
+                );
+                const cityMatch = response.body.features.find((feature) =>
+                  feature.place_type.includes("place")
+                );
 
-              if (neighborhoodMatch && cityMatch) {
-                document.getElementById("neighborhood").innerText =
-                  neighborhoodMatch.text + ", " + cityMatch.text;
-              } else if (cityMatch) {
-                document.getElementById("neighborhood").innerText =
-                  cityMatch.text;
-              } else {
-                document.getElementById("neighborhood").innerText = "";
-              }
-            });
-        }
-        i++;
+                if (neighborhoodMatch && cityMatch) {
+                  document.getElementById("neighborhood").innerText =
+                    neighborhoodMatch.text + ", " + cityMatch.text;
+                } else if (cityMatch) {
+                  document.getElementById("neighborhood").innerText =
+                    cityMatch.text;
+                } else {
+                  document.getElementById("neighborhood").innerText = "";
+                }
+              });
+          }
+          i++;
+        });
       }
     </script>
     <script src="/js/pull.js"></script>

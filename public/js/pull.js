@@ -8,16 +8,21 @@ function loadScript(url, callback) {
   head.appendChild(script);
 }
 
+function addLocationListener(callback) {
+  var key = new URLSearchParams(window.location.search).get("key");
+  return firebase
+    .firestore()
+    .collection("pullables")
+    .doc(`${key}:location`)
+    .onSnapshot(function (doc) {
+      callback(doc.data());
+    });
+}
+
 loadScript("/__/firebase/8.2.9/firebase-app.js", function () {
   loadScript("/__/firebase/8.2.9/firebase-firestore.js", function () {
     loadScript("/__/firebase/init.js", function () {
-      firebase
-        .firestore()
-        .collection("pullables")
-        .doc(new URLSearchParams(window.location.search).get("key"))
-        .onSnapshot(function (doc) {
-          onData(doc.data());
-        });
+      onReady();
     });
   });
 });
