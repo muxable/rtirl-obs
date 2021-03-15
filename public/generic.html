@@ -28,12 +28,13 @@
     <script>
       mapboxgl.accessToken =
         "pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2oyMDFlMGpsMDN3bTJ4bjR1MzRrbDFleCJ9.7XEB3HHBGr-N6ataUZh_6g";
+      var zoom = new URLSearchParams(window.location.search).get("zoom");
       var map = new mapboxgl.Map({
         container: "map",
         style: "mapbox://styles/mapbox/streets-v11",
         interactive: false,
         attributionControl: false,
-        zoom: 13,
+        zoom: zoom ? Number(zoom) : 13,
       });
 
       var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
