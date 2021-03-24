@@ -40,8 +40,8 @@
       var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
 
       function onReady() {
-        addLocationListener(function (data) {
-          map.panTo([data.location.longitude, data.location.latitude], {
+        addLocationListener(function (location) {
+          map.panTo([location.longitude, location.latitude], {
             duration: 1500,
             easing: (x) => x,
           });

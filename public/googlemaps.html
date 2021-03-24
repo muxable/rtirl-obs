@@ -46,10 +46,10 @@
       document.head.appendChild(script);
 
       function onReady() {
-        addLocationListener(function (data) {
+        addLocationListener(function (location) {
           map.panTo({
-            lng: data.location.longitude,
-            lat: data.location.latitude,
+            lng: location.longitude,
+            lat: location.latitude,
           });
         });
       }

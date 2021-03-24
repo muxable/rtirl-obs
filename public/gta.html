@@ -74,18 +74,26 @@
             -webkit-text-stroke-color: rgba(0, 0, 0, 0.9);
           "
         >
-          <span style="
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-inline-box;
-            -webkit-line-clamp: 1;
-            -webkit-box-orient: vertical;" id="street"></span
-          ><span style="
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-inline-box;
-            -webkit-line-clamp: 1;
-            -webkit-box-orient: vertical;" id="cross"></span>
+          <span
+            style="
+              overflow: hidden;
+              text-overflow: ellipsis;
+              display: -webkit-inline-box;
+              -webkit-line-clamp: 1;
+              -webkit-box-orient: vertical;
+            "
+            id="street"
+          ></span
+          ><span
+            style="
+              overflow: hidden;
+              text-overflow: ellipsis;
+              display: -webkit-inline-box;
+              -webkit-line-clamp: 1;
+              -webkit-box-orient: vertical;
+            "
+            id="cross"
+          ></span>
         </div>
         <div
           style="
@@ -183,8 +191,7 @@
         prevLongitude = null;
 
       function onReady() {
-        addLocationListener(function (data) {
-          const location = data.location;
+        addLocationListener(function (location) {
           if (
             location.latitude === prevLatitude &&
             location.longitude === prevLongitude
