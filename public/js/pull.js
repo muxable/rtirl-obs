@@ -16,7 +16,6 @@ function addLocationListener(callback) {
     .child("pullables")
     .child(key)
     .child("location")
-    .doc(`${key}:location`)
     .on("value", function (snapshot) {
       callback(snapshot.val());
     });
