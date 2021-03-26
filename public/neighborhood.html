@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+    <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="text"></div>
+    <script>
+      var params = new URLSearchParams(window.location.search);
+
+      var mapboxClient = mapboxSdk({
+        accessToken:
+          "pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2oyMDFlMGpsMDN3bTJ4bjR1MzRrbDFleCJ9.7XEB3HHBGr-N6ataUZh_6g",
+      });
+
+      var i = 0;
+
+      function onReady() {
+        addLocationListener(function (location) {
+          if (i++ % 50 == 0) {
+            mapboxClient.geocoding
+              .reverseGeocode({
+                query: [location.longitude, location.latitude],
+              })
+              .send()
+              .then((response) => {
+                console.log(response.body);
+                var neighborhoodMatch = response.body.features.find((feature) =>
+                  feature.place_type.includes("neighborhood")
+                );
+                var cityMatch = response.body.features.find((feature) =>
+                  feature.place_type.includes("place")
+                );
+
+                if (neighborhoodMatch && cityMatch) {
+                  document.getElementById("text").innerText =
+                    neighborhoodMatch.text + ", " + cityMatch.text;
+                } else if (cityMatch) {
+                  document.getElementById("text").innerText = cityMatch.text;
+                } else {
+                  document.getElementById("text").innerText = "";
+                }
+              });
+          }
+        });
+      }
+    </script>
+    <script src="/js/pull.js"></script>
+  </body>
+</html>
