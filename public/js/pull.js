@@ -9,13 +9,25 @@ function loadScript(url, callback) {
 }
 
 function addLocationListener(callback) {
+  return addListener("location", callback);
+}
+
+function addSpeedListener(callback) {
+  return addListener("speed", callback);
+}
+
+function addHeadingListener(callback) {
+  return addListener("heading", callback);
+}
+
+function addListener(type, callback) {
   var key = new URLSearchParams(window.location.search).get("key");
   return firebase
     .database()
     .ref()
     .child("pullables")
     .child(key)
-    .child("location")
+    .child(type)
     .on("value", function (snapshot) {
       callback(snapshot.val());
     });

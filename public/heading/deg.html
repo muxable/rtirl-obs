@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="text"><span id="heading">0</span>&deg;</div>
+    <script>
+      function onReady() {
+        addHeadingListener(function (heading) {
+          document.getElementById("heading").innerHTML = heading | 0;
+        });
+      }
+    </script>
+    <script src="/js/pull.js"></script>
+  </body>
+</html>

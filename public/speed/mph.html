@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="text"><span id="speed">0</span> mph</div>
+    <script>
+      function onReady() {
+        addSpeedListener(function (speed) {
+          document.getElementById("speed").innerHTML = (speed * 2.23694) | 0;
+        });
+      }
+    </script>
+    <script src="/js/pull.js"></script>
+  </body>
+</html>
