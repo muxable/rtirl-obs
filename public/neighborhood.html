@@ -11,8 +11,6 @@
   <body>
     <div id="text"></div>
     <script>
-      var params = new URLSearchParams(window.location.search);
-
       var mapboxClient = mapboxSdk({
         accessToken:
           "pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2oyMDFlMGpsMDN3bTJ4bjR1MzRrbDFleCJ9.7XEB3HHBGr-N6ataUZh_6g",
@@ -21,11 +19,13 @@
       var i = 0;
 
       function onReady() {
+        var params = new URLSearchParams(window.location.search);
         addLocationListener(function (location) {
           if (i++ % 50 == 0) {
             mapboxClient.geocoding
               .reverseGeocode({
                 query: [location.longitude, location.latitude],
+                language: [params.get("lang") || "en"],
               })
               .send()
               .then((response) => {

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
     <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
+    <script src="https://mapbox.github.io/mapbox-gl-language/index.js"></script>
     <link
-      href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
+      href="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css"
       rel="stylesheet"
     />
   </head>
@@ -26,9 +27,10 @@
       ></div>
     </div>
     <script>
+      var params = new URLSearchParams(window.location.search);
       mapboxgl.accessToken =
         "pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2oyMDFlMGpsMDN3bTJ4bjR1MzRrbDFleCJ9.7XEB3HHBGr-N6ataUZh_6g";
-      var zoom = new URLSearchParams(window.location.search).get("zoom");
+      var zoom = params.get("zoom");
       var map = new mapboxgl.Map({
         container: "map",
         style: "mapbox://styles/mapbox/streets-v11",
@@ -36,6 +38,9 @@
         attributionControl: false,
         zoom: zoom ? Number(zoom) : 13,
       });
+      map.addControl(
+        new MapboxLanguage({ defaultLanguage: params.get("lang") || "en" })
+      );
 
       var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
 

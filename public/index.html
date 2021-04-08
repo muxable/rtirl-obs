@@ -39,10 +39,18 @@
             >&lt;YOUR_PULL_KEY&gt;</span
           ></code
         >
-        <p>
-          Optionally, add <code>&zoom=13</code> to tweak the zoom level. The
-          default zoom level is 13.
-        </p>
+        <h3>Optional URL parameters</h3>
+        <ul>
+          <li><code>&zoom=13</code> to tweak the zoom level.</li>
+          <li>
+            <code>&lang=en</code> to set the language of the overlay. See
+            <a
+              href="https://github.com/mapbox/mapbox-gl-language/blob/master/index.js#L37"
+              >this list</a
+            >
+            for acceptable values.
+          </li>
+        </ul>
         <h2>Custom Mapbox Styles</h2>
         <p>
           If you have a Mapbox Studio style id, use this overlay. The style id
@@ -88,6 +96,17 @@
             >&lt;YOUR_PULL_KEY&gt;</span
           >
         </code>
+        <h3>Optional URL parameters</h3>
+        <ul>
+          <li>
+            <code>&lang=en</code> to set the language of the overlay. See
+            <a
+              href="https://docs.mapbox.com/api/search/geocoding/#language-coverage"
+              >the coverage table</a
+            >
+            for acceptable values.
+          </li>
+        </ul>
         <h2>[BETA] Speed</h2>
         <p>
           This overlay is in beta. The speed is not super accurate, especially
