@@ -20,6 +20,10 @@ function addHeadingListener(callback) {
   return addListener("heading", callback);
 }
 
+function addAltitudeListener(callback) {
+  return addListener("altitude", callback);
+}
+
 function addListener(type, callback) {
   var key = new URLSearchParams(window.location.search).get("key");
   return firebase

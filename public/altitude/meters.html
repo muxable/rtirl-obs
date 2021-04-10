@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="text"><span id="altitude">0</span> m</div>
+    <script>
+      function onReady() {
+        addAltitudeListener(function (altitude) {
+          if (!altitude) {
+            return;
+          }
+          document.getElementById("altitude").innerText = altitude["EGM96"] | 0;
+        });
+      }
+    </script>
+    <script src="/js/pull.js"></script>
+  </body>
+</html>
