@@ -66,7 +66,18 @@
             >&lt;YOUR_PULL_KEY&gt;</span
           >&access_token=&lt;YOUR_MAPBOX_ACCESS_TOKEN&gt;&style=&lt;MAPBOX_STYLE_ID&gt;</code
         >
-
+        <h3>Optional URL parameters</h3>
+        <ul>
+          <li><code>&zoom=13</code> to tweak the zoom level.</li>
+          <li>
+            <code>&lang=en</code> to set the language of the map. See
+            <a
+              href="https://github.com/mapbox/mapbox-gl-language/blob/master/index.js#L37"
+              >this list</a
+            >
+            for acceptable values, note that not all labels can be translated.
+          </li>
+        </ul>
         <h2>Custom Google Maps or Snazzy Maps Styles</h2>
         <p>If you have a Google Maps style json, paste it below.</p>
         <textarea id="gmaps-style"></textarea>
