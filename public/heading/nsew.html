@@ -3,29 +3,17 @@
   <body>
     <div id="text"></div>
     <script>
+      var COMPASS = {
+        en: ["N", "NE", "E", "SE", "S", "SW", "W", "NW"],
+        sv: ["N", "NÖ", "Ö", "SÖ", "S", "SV", "V", "NV"],
+      };
+
       function onReady() {
         addHeadingListener(function (heading) {
-          let s = "";
-          if (heading < 45 * 0.5) {
-            s = "N";
-          } else if (heading < 45 * 1.5) {
-            s = "NE";
-          } else if (heading < 45 * 2.5) {
-            s = "E";
-          } else if (heading < 45 * 3.5) {
-            s = "SE";
-          } else if (heading < 45 * 4.5) {
-            s = "S";
-          } else if (heading < 45 * 5.5) {
-            s = "SW";
-          } else if (heading < 45 * 6.5) {
-            s = "W";
-          } else if (heading < 45 * 7.5) {
-            s = "NW";
-          } else {
-            s = "N";
-          }
-          document.getElementById("text").innerText = s;
+          var params = new URLSearchParams(window.location.search);
+          var data = COMPASS[params.get("lang") || "en"];
+          document.getElementById("text").innerText =
+            data[(((heading + 22.5) % 360) / 45) | 0];
         });
       }
     </script>
