@@ -45,15 +45,15 @@
 
       var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
 
-      function onReady() {
-        addLocationListener(function (location) {
+      RealtimeIRL.addLocationListener(
+        new URLSearchParams(window.location.search).get("key"),
+        function (location) {
           map.panTo([location.longitude, location.latitude], {
             duration: 1500,
             easing: (x) => x,
           });
-        });
-      }
+        }
+      );
     </script>
-    <script src="/js/pull.js"></script>
   </body>
 </html>
