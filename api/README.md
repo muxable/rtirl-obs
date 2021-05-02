@@ -20,7 +20,7 @@ Alternatively, use it in the browser:
 RealtimeIRL.addLocationListener(
   YOUR_PULL_KEY,
   function ({latitude, longitude}) {
-      ... do something with latitude/longitude ...
+      // do something with latitude/longitude
   }
 );
 ```
