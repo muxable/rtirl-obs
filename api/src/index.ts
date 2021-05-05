@@ -5,6 +5,7 @@ type MetersPerSecond = number;
 type Degrees = number;
 type Meters = number;
 type Location = { latitude: Degrees; longitude: Degrees };
+type UUID = string | null;
 
 export function addLocationListener(
   pullKey: string,
@@ -42,11 +43,29 @@ export function addAltitudeListener(
   });
 }
 
+/**
+ * This listener detects changes in the active session id. When a streamer
+ * goes online, a new session id is created and this listener is triggered.
+ * null sessionId's indicate the streamer is offline. Note that it is
+ * possible for two sequential non-null sessionIds to be sent.
+ * @param pullKey
+ * @param callback
+ * @returns
+ */
+export function addSessionIdListener(
+  pullKey: string,
+  callback: (sessionId: UUID) => void
+) {
+  return getRef(pullKey, "sessionId").on("value", (snapshot) => {
+    callback(snapshot.val());
+  });
+}
+
 let app: firebase.app.App | null = null;
 
 function getRef(
   key: string,
-  type: "location" | "speed" | "heading" | "altitude"
+  type: "location" | "speed" | "heading" | "altitude" | "sessionId"
 ) {
   if (!app) {
     app = firebase.initializeApp(
