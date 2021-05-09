@@ -2,6 +2,21 @@
   "hosting": {
     "site": "rtirl-overlays",
     "public": "public",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "headers": [
+      {
+        "source": "**/*",
+        "headers": [
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "*"
+          },
+          {
+            "key": "X-Frame-Options",
+            "value": "ALLOW-FROM https://streamelements.com/"
+          }
+        ]
+      }
+    ]
   }
 }
