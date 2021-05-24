@@ -17,12 +17,21 @@ Alternatively, use it in the browser:
 ## Usage
 
 ```javascript
-RealtimeIRL.addLocationListener(
-  YOUR_PULL_KEY,
-  function ({latitude, longitude}) {
-      // do something with latitude/longitude
-  }
-);
+RealtimeIRL.forPullKey(YOUR_PULL_KEY).addLocationListener(function ({
+  latitude,
+  longitude,
+}) {
+  // do something with latitude/longitude
+});
+```
+
+```javascript
+// muxfd = 158394109
+RealtimeIRL.forStreamer("twitch", "158394109").addLocationListener(function (
+  location
+) {
+  // do something with location.latitude/location.longitude
+});
 ```
 
 See `src/index.ts` for all available functions and types.

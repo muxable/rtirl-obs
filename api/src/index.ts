@@ -5,7 +5,7 @@ type MetersPerSecond = number;
 type Degrees = number;
 type Meters = number;
 type Location = { latitude: Degrees; longitude: Degrees };
-type UUID = string | null;
+type UUID = string;
 
 export function addLocationListener(
   pullKey: string,
@@ -37,7 +37,7 @@ export function addAltitudeListener(
 
 export function addSessionIdListener(
   pullKey: string,
-  callback: (sessionId: UUID) => void
+  callback: (sessionId: UUID | null) => void
 ) {
   return forPullKey(pullKey).addSessionIdListener(callback);
 }
@@ -72,7 +72,7 @@ export function forPullKey(pullKey: string) {
      * null sessionId's indicate the streamer is offline. Note that it is
      * possible for two sequential non-null sessionIds to be sent.
      */
-    addSessionIdListener(callback: (sessionId: UUID) => void) {
+    addSessionIdListener(callback: (sessionId: UUID | null) => void) {
       return ref.child("sessionId").on("value", (snapshot) => {
         callback(snapshot.val());
       });
@@ -84,6 +84,7 @@ export function forPullKey(pullKey: string) {
 export function forStreamer(provider: "twitch", userId: string) {
   const ref = getDb().ref().child("streamers").child(`${provider}:${userId}`);
   return {
+    /** If the public location is hidden (eg streamer is offline), null is passed. */
     addLocationListener(callback: (location: Location | null) => void) {
       return ref.child("location").on("value", (snapshot) => {
         callback(snapshot.val());
