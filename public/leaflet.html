@@ -8,7 +8,7 @@
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin=""></script>
-  <script src="https://unpkg.com/@rtirl/api@1.0.5/lib/index.min.js"></script>
+  <script src="https://unpkg.com/@rtirl/api@latest/lib/index.min.js"></script>
 </head>
 
 <body>
@@ -43,11 +43,11 @@
     map.removeControl(map.zoomControl);
     map.dragging.disable();
 
-    RealtimeIRL.addLocationListener(
-      new URLSearchParams(window.location.search).get("key"),
+    const pullKey = new URLSearchParams(window.location.search).get("key");
+    RealtimeIRL.forPullKey(pullKey).addLocationListener(
       function (location) {
-        map.panTo([location.longitude, location.latitude], {
-          duration: 1500
+        map.panTo([location.latitude, location.longitude], {
+          duration: 1.5,
         });
       }
     );
