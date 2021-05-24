@@ -47,7 +47,7 @@
     RealtimeIRL.forPullKey(pullKey).addLocationListener(
       function (location) {
         map.panTo([location.latitude, location.longitude], {
-          duration: 1500
+          duration: 1.5,
         });
       }
     );
