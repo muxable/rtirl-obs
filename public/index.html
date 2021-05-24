@@ -16,14 +16,9 @@
           Email <a href="mailto:muxfdz@gmail.com">muxfdz@gmail.com</a>.
         </p>
         <p>
-          <strong>Need StreamElements/Prism Live support?</strong> Unfortunately
-          the map overlays don't work yet. If you're interested in trying to fix
-          it, take a look at this
-          <a href="https://github.com/firebase/firebase-js-sdk/issues/4883"
-            >GitHub issue</a
-          >
-          and post on the
-          <a href="https://discord.gg/UKHJMQs74u">RealtimeIRL discord</a>.
+          <strong>Need StreamElements/Prism Live support?</strong> Use the
+          Leaflet overlay. The Google Maps and Mapbox overlays seem to have
+          compatibility issues.
         </p>
         <aside>
           <p>
@@ -95,6 +90,23 @@
             id="gmaps-style-code"
           ></span
         ></code>
+        <h2>Leaflet Maps</h2>
+        <p>
+          If you would like to use
+          <a href="https://leafletjs.com/">Leaflet</a> to render your maps, try
+          this overlay. Leaflet is more compatible with tools such as
+          StreamElements or Prism Live. This overlay currently requires a Mapbox
+          API key and Mapbox style id.
+        </p>
+        <code
+          >https://overlays.rtirl.com/leaflet.html?key=<span class="pull-key"
+            >&lt;YOUR_PULL_KEY&gt;</span
+          >&access_token=&lt;YOUR_MAPBOX_ACCESS_TOKEN&gt;&style=&lt;MAPBOX_STYLE_ID&gt;</code
+        >
+        <h3>Optional URL parameters</h3>
+        <ul>
+          <li><code>&zoom=13</code> to tweak the zoom level.</li>
+        </ul>
         <h2>Current Neighborhood/City</h2>
         <p>
           This overlay renders your current neighborhood as text. For example,
