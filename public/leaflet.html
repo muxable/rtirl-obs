@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+  <script src="https://unpkg.com/@rtirl/api@1.0.5/lib/index.min.js"></script>
+</head>
+
+<body>
+  <div style="position: relative">
+    <div id="map" style="width: 300px; height: 250px"></div>
+    <div id="marker" style="
+          background-color: cyan;
+          height: 12px;
+          width: 12px;
+          position: absolute;
+          border-radius: 50%;
+          top: 119px;
+          left: 144px;
+          box-shadow: 0 0 10px cyan;
+          z-index: 400;
+        "></div>
+  </div>
+  <script>
+    var params = new URLSearchParams(window.location.search);
+    var zoom = params.get("zoom");
+    var map = L.map("map").setView([0, 0], zoom ? Number(zoom) : 13);
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+      accessToken: params.get("access_token"),
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> © <a href="https://www.mapbox.com/">Mapbox</a>',
+      id: params.get("style"),
+      tileSize: 512,
+      zoomOffset: -1,
+      zoom: zoom ? Number(zoom) : 13,
+    }).addTo(map);
+
+    // Setting this through options does not seem to work
+    map.removeControl(map.zoomControl);
+    map.dragging.disable();
+
+    RealtimeIRL.addLocationListener(
+      new URLSearchParams(window.location.search).get("key"),
+      function (location) {
+        map.panTo([location.longitude, location.latitude], {
+          duration: 1500
+        });
+      }
+    );
+  </script>
+</body>
+
+</html>
