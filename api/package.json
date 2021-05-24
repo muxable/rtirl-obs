@@ -1,6 +1,6 @@
 {
   "name": "@rtirl/api",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "lib/index.js",
   "browser": "lib/index.min.js",
   "types": "lib/index.d.ts",
