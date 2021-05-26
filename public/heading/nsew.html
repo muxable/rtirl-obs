@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <script src="https://unpkg.com/@rtirl/api@latest/lib/index.min.js"></script>
+  </head>
   <body>
     <div id="text"></div>
     <script>
@@ -10,15 +13,13 @@
         tr: ["K", "KD", "D", "GD", "G", "GB", "B", "KB"],
       };
 
-      function onReady() {
-        addHeadingListener(function (heading) {
+      const pullKey = new URLSearchParams(window.location.search).get("key");
+      RealtimeIRL.forPullKey(pullKey).addHeadingListener(function (heading) {
           var params = new URLSearchParams(window.location.search);
           var data = COMPASS[params.get("lang") || "en"];
           document.getElementById("text").innerText =
             data[(((heading + 22.5) % 360) / 45) | 0];
-        });
-      }
+      });
     </script>
-    <script src="/js/pull.js"></script>
   </body>
 </html>
