@@ -3,7 +3,7 @@
   <head>
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
     <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
-
+    <script src="https://unpkg.com/@rtirl/api@latest/lib/index.min.js"></script>
     <link
       href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
       rel="stylesheet"
@@ -109,86 +109,86 @@
     <div style="opacity: 0" id="map"></div>
     <script>
       mapboxgl.accessToken =
-        "pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2oyMDFlMGpsMDN3bTJ4bjR1MzRrbDFleCJ9.7XEB3HHBGr-N6ataUZh_6g";
-      var map = new mapboxgl.Map({
-        container: "map",
-        style: "mapbox://styles/adoucett/cjf5k84bp0p7t2rmiwvwikhyn",
-        interactive: false,
-        attributionControl: false,
-        zoom: 13,
-      });
+          "pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2oyMDFlMGpsMDN3bTJ4bjR1MzRrbDFleCJ9.7XEB3HHBGr-N6ataUZh_6g";
+        var map = new mapboxgl.Map({
+          container: "map",
+          style: "mapbox://styles/adoucett/cjf5k84bp0p7t2rmiwvwikhyn",
+          interactive: false,
+          attributionControl: false,
+          zoom: 13,
+        });
 
-      let i = 0;
+        let i = 0;
 
-      var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
-      var addresses = [];
+        var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
+        var addresses = [];
 
-      function resolve() {
-        const last = addresses[addresses.length - 1];
-        if (addresses.length < 3) {
-          if (last) {
+        function resolve() {
+          const last = addresses[addresses.length - 1];
+          if (addresses.length < 3) {
+            if (last) {
+              return [last.street, last.crossStreet];
+            } else {
+              return ["", ""];
+            }
+          }
+          const count = {};
+          for (const address of addresses) {
+            count[address.street] = (count[address.street] || 0) + 1;
+            count[address.crossStreet] = (count[address.crossStreet] || 0) + 1;
+          }
+          const sorted = Object.entries(count).sort(([, a], [, b]) => b - a);
+          const activeStreet = sorted[0][0];
+          if (last.street == activeStreet) {
+            return [activeStreet, last.crossStreet];
+          } else if (last.crossStreet == activeStreet) {
+            return [activeStreet, last.street];
+          } else {
             return [last.street, last.crossStreet];
-          } else {
-            return ["", ""];
           }
         }
-        const count = {};
-        for (const address of addresses) {
-          count[address.street] = (count[address.street] || 0) + 1;
-          count[address.crossStreet] = (count[address.crossStreet] || 0) + 1;
-        }
-        const sorted = Object.entries(count).sort(([, a], [, b]) => b - a);
-        const activeStreet = sorted[0][0];
-        if (last.street == activeStreet) {
-          return [activeStreet, last.crossStreet];
-        } else if (last.crossStreet == activeStreet) {
-          return [activeStreet, last.street];
-        } else {
-          return [last.street, last.crossStreet];
-        }
-      }
 
-      function getHeading(
-        prevLatitude,
-        prevLongitude,
-        nextLatitude,
-        nextLongitude
-      ) {
-        if (prevLatitude && prevLongitude && nextLatitude && nextLongitude) {
-          var deltaLatitude = nextLatitude - prevLatitude;
-          var deltaLongitude = nextLongitude - prevLongitude;
+        function getHeading(
+          prevLatitude,
+          prevLongitude,
+          nextLatitude,
+          nextLongitude
+        ) {
+          if (prevLatitude && prevLongitude && nextLatitude && nextLongitude) {
+            var deltaLatitude = nextLatitude - prevLatitude;
+            var deltaLongitude = nextLongitude - prevLongitude;
 
-          var radians = Math.atan2(deltaLongitude, deltaLatitude);
-          var degrees = ((180 * radians) / Math.PI + 360) % 360;
+            var radians = Math.atan2(deltaLongitude, deltaLatitude);
+            var degrees = ((180 * radians) / Math.PI + 360) % 360;
 
-          if (degrees < 22.5) {
-            return "N";
-          } else if (degrees < 45 + 22.5) {
-            return "NE";
-          } else if (degrees < 90 + 22.5) {
-            return "E";
-          } else if (degrees < 135 + 22.5) {
-            return "SE";
-          } else if (degrees < 180 + 22.5) {
-            return "S";
-          } else if (degrees < 225 + 22.5) {
-            return "SW";
-          } else if (degrees < 270 + 22.5) {
-            return "W";
-          } else if (degrees < 315 + 22.5) {
-            return "NW";
-          } else {
-            return "N";
+            if (degrees < 22.5) {
+              return "N";
+            } else if (degrees < 45 + 22.5) {
+              return "NE";
+            } else if (degrees < 90 + 22.5) {
+              return "E";
+            } else if (degrees < 135 + 22.5) {
+              return "SE";
+            } else if (degrees < 180 + 22.5) {
+              return "S";
+            } else if (degrees < 225 + 22.5) {
+              return "SW";
+            } else if (degrees < 270 + 22.5) {
+              return "W";
+            } else if (degrees < 315 + 22.5) {
+              return "NW";
+            } else {
+              return "N";
+            }
           }
+          return " ";
         }
-        return " ";
-      }
 
-      var prevLatitude = null,
-        prevLongitude = null;
+        var prevLatitude = null,
+          prevLongitude = null;
 
-      function onReady() {
-        addLocationListener(function (location) {
+        const pullKey = new URLSearchParams(window.location.search).get("key");
+        RealtimeIRL.forPullKey(pullKey).addLocationListener(function (location) {
           if (
             location.latitude === prevLatitude &&
             location.longitude === prevLongitude
@@ -240,7 +240,6 @@
               })
               .send()
               .then((response) => {
-                console.log(response.body);
                 const neighborhoodMatch = response.body.features.find(
                   (feature) => feature.place_type.includes("neighborhood")
                 );
@@ -261,8 +260,6 @@
           }
           i++;
         });
-      }
     </script>
-    <script src="/js/pull.js"></script>
   </body>
 </html>

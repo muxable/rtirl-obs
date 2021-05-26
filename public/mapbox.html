@@ -3,6 +3,7 @@
   <head>
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
     <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
+    <script src="https://unpkg.com/@rtirl/api@latest/lib/index.min.js"></script>
     <link
       href="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css"
       rel="stylesheet"
@@ -40,15 +41,15 @@
 
       var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
 
-      function onReady() {
-        addLocationListener(function (location) {
+      const pullKey = new URLSearchParams(window.location.search).get("key");
+      RealtimeIRL.forPullKey(pullKey).addLocationListener(
+        function (location) {
           map.panTo([location.longitude, location.latitude], {
             duration: 1500,
             easing: (x) => x,
           });
-        });
-      }
+        }
+      );
     </script>
-    <script src="/js/pull.js"></script>
   </body>
 </html>

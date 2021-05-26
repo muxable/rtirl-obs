@@ -9,8 +9,7 @@ var gps = { old: { latitude: 0.0, longitude: 0.0 }, new: { latitude: 0.0, longit
 var params = new URLSearchParams(window.location.search);
 key = params.get('key') || '';
 
-RealtimeIRL.addLocationListener(
-   key,
+RealtimeIRL.forPullKey(key).addLocationListener(
    function ({ latitude, longitude }) {
       gps.new.latitude = latitude;
       gps.new.longitude = longitude;
@@ -36,8 +35,7 @@ RealtimeIRL.addLocationListener(
    }
 );
 
-RealtimeIRL.addSessionIdListener(
-   key,
+RealtimeIRL.forPullKey(key).addSessionIdListener(
    function (sessionId) {
       if (sessionId != oldsessionID) {
          oldsessionID = sessionId;

@@ -3,6 +3,7 @@
   <head>
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
     <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
+    <script src="https://unpkg.com/@rtirl/api@latest/lib/index.min.js"></script>
     <link
       href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
       rel="stylesheet"
@@ -18,38 +19,36 @@
 
       var i = 0;
 
-      function onReady() {
-        var params = new URLSearchParams(window.location.search);
-        addLocationListener(function (location) {
-          if (i++ % 50 == 0) {
-            mapboxClient.geocoding
-              .reverseGeocode({
-                query: [location.longitude, location.latitude],
-                language: [params.get("lang") || "en"],
-              })
-              .send()
-              .then((response) => {
-                console.log(response.body);
-                var neighborhoodMatch = response.body.features.find((feature) =>
-                  feature.place_type.includes("neighborhood")
-                );
-                var cityMatch = response.body.features.find((feature) =>
-                  feature.place_type.includes("place")
-                );
+      var params = new URLSearchParams(window.location.search);
+      const pullKey = new URLSearchParams(window.location.search).get("key");
+      RealtimeIRL.forPullKey(pullKey).addLocationListener(function (location) {
+        if (i++ % 50 == 0) {
+          mapboxClient.geocoding
+            .reverseGeocode({
+              query: [location.longitude, location.latitude],
+              language: [params.get("lang") || "en"],
+            })
+            .send()
+            .then((response) => {
+              var neighborhoodMatch = response.body.features.find((feature) =>
+                feature.place_type.includes("neighborhood")
+              );
+              var cityMatch = response.body.features.find((feature) =>
+                feature.place_type.includes("place")
+              );
 
-                if (neighborhoodMatch && cityMatch) {
-                  document.getElementById("text").innerText =
-                    neighborhoodMatch.text + ", " + cityMatch.text;
-                } else if (cityMatch) {
-                  document.getElementById("text").innerText = cityMatch.text;
-                } else {
-                  document.getElementById("text").innerText = "";
-                }
-              });
-          }
-        });
-      }
+              if (neighborhoodMatch && cityMatch) {
+                document.getElementById("text").innerText =
+                  neighborhoodMatch.text + ", " + cityMatch.text;
+              } else if (cityMatch) {
+                document.getElementById("text").innerText = cityMatch.text;
+              } else {
+                document.getElementById("text").innerText = "";
+              }
+            });
+        }
+      });
+        
     </script>
-    <script src="/js/pull.js"></script>
   </body>
 </html>
