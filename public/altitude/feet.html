@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <script src="https://unpkg.com/@rtirl/api@latest/lib/index.min.js"></script>
+  </head>
   <body>
     <div id="text"><span id="altitude">0</span> ft</div>
     <script>
-      function onReady() {
-        addAltitudeListener(function (altitude) {
-          if (!altitude) {
-            return;
-          }
-          document.getElementById("altitude").innerText =
-            (altitude["EGM96"] * 3.28084) | 0;
-        });
-      }
+      const pullKey = new URLSearchParams(window.location.search).get("key");
+      RealtimeIRL.forPullKey(pullKey).addAltitudeListener(function (altitude) {
+        if (!altitude) {
+          return;
+        }
+        document.getElementById("altitude").innerText =
+          (altitude["EGM96"] * 3.28084) | 0;
+      });
     </script>
-    <script src="/js/pull.js"></script>
   </body>
 </html>
