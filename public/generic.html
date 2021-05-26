@@ -4,7 +4,7 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
     <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
     <script src="https://mapbox.github.io/mapbox-gl-language/index.js"></script>
-    <script src="https://unpkg.com/@rtirl/api@1.0.3/lib/index.min.js"></script>
+    <script src="https://unpkg.com/@rtirl/api@latest/lib/index.min.js"></script>
     <link
       href="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css"
       rel="stylesheet"
@@ -43,10 +43,8 @@
         new MapboxLanguage({ defaultLanguage: params.get("lang") || "en" })
       );
 
-      var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
-
-      RealtimeIRL.addLocationListener(
-        new URLSearchParams(window.location.search).get("key"),
+      const pullKey = new URLSearchParams(window.location.search).get("key");
+      RealtimeIRL.forPullKey(pullKey).addLocationListener(
         function (location) {
           map.panTo([location.longitude, location.latitude], {
             duration: 1500,
