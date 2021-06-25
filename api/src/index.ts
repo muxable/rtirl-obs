@@ -4,6 +4,7 @@ import "firebase/database";
 type MetersPerSecond = number;
 type Degrees = number;
 type Meters = number;
+type BeatsPerMinute = number;
 type Location = { latitude: Degrees; longitude: Degrees };
 type UUID = string;
 
@@ -63,6 +64,11 @@ export function forPullKey(pullKey: string) {
     },
     addAltitudeListener(callback: (altitude: Meters) => void) {
       return ref.child("altitude").on("value", (snapshot) => {
+        callback(snapshot.val());
+      });
+    },
+    addHeartRateListener(callback: (altitude: BeatsPerMinute) => void) {
+      return ref.child("heart_rate").on("value", (snapshot) => {
         callback(snapshot.val());
       });
     },
