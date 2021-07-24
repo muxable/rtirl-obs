@@ -39,7 +39,7 @@
 
       RealtimeIRL.forPullKey(pullKey).addLocationListener(function (location) {
         latestLocation = location;
-        if (i++ % 1000 == 0) {
+        if (i++ % 100 == 0) {
           refreshTzOffset();
         }
       });
