@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://unpkg.com/@rtirl/api@latest/lib/index.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/luxon@2.0.1/build/global/luxon.min.js"
+      integrity="sha256-BdqBGuaawDzMtW2Wn9ISUuYKUY/A7d5NVcj6Ix3jwv8="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div id="text"></div>
+    <script>
+      var pullKey = new URLSearchParams(window.location.search).get("key");
+      var lang =
+        new URLSearchParams(window.location.search).get("lang") || "en";
+      var format =
+        new URLSearchParams(window.location.search).get("format") || "tt";
+      var i = 0;
+      var j = 0;
+      var latestLocation = null;
+      var zoneId = null;
+
+      function refreshTzOffset() {
+        var timestamp = (Date.now() / 1000) | 0;
+        console.log(
+          `https://maps.googleapis.com/maps/api/timezone/json?location=${latestLocation.latitude},${latestLocation.longitude}&timestamp=${timestamp}&key=AIzaSyDs0skEj6nVAY1RXEkaHkdoN_i-DWF27rg`
+        );
+        fetch(
+          `https://maps.googleapis.com/maps/api/timezone/json?location=${latestLocation.latitude},${latestLocation.longitude}&timestamp=${timestamp}&key=AIzaSyDs0skEj6nVAY1RXEkaHkdoN_i-DWF27rg`
+        )
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            zoneId = data["timeZoneId"];
+          });
+      }
+
+      RealtimeIRL.forPullKey(pullKey).addLocationListener(function (location) {
+        latestLocation = location;
+        if (i++ % 1000 == 0) {
+          refreshTzOffset();
+        }
+      });
+      setInterval(function () {
+        if (++j % (60 * 60) == 0) {
+          refreshTzOffset();
+        }
+        if (zoneId == null) {
+          return;
+        }
+        document.getElementById("text").innerText = luxon.DateTime.now()
+          .setZone(zoneId)
+          .setLocale(lang)
+          .toFormat(format);
+      }, 1000);
+    </script>
+  </body>
+</html>
