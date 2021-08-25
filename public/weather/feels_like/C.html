@@ -7,8 +7,12 @@
     <div id="text"><span id="temperature">0</span>°C</div>
     <script>
       const pullKey = new URLSearchParams(window.location.search).get("key");
+      var i = 0;
       RealtimeIRL.forPullKey(pullKey).addLocationListener(function (location) {
         if (!location) {
+          return;
+        }
+        if (i++ % 50 !== 0) {
           return;
         }
         fetch(
