@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://unpkg.com/@rtirl/api@latest/lib/index.min.js"></script>
+  </head>
+  <body>
+    <div id="text"><span id="temperature">0</span>°C</div>
+    <script>
+      const pullKey = new URLSearchParams(window.location.search).get("key");
+      RealtimeIRL.forPullKey(pullKey).addLocationListener(function (location) {
+        if (!location) {
+          return;
+        }
+        fetch(
+          "https://api.openweathermap.org/data/2.5/weather?lat=" +
+            location.latitude +
+            "&lon=" +
+            location.longitude +
+            "&appid=64fb789b4ab267d578a5b1c24fd4b5ba"
+        )
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (json) {
+            document.getElementById("temperature").innerText = (
+              json["main"]["feels_like"] - 273.15
+            ).toFixed(0);
+          });
+      });
+    </script>
+  </body>
+</html>
