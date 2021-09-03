@@ -29,6 +29,11 @@
     </div>
     <script>
       var params = new URLSearchParams(window.location.search);
+      if(params.get("fullscreen")) {
+        document.documentElement.setAttribute('style', 'margin: 0; padding: 0; width: 100%; height: 100%;');
+        document.body.setAttribute('style', 'margin: 0; padding: 0; width: 100%; height: 100%;');
+        document.getElementById('wrapper').setAttribute('style', 'height: 100%; width: 100%;');
+      }
       var script = document.createElement("script");
       script.src =
         "https://maps.googleapis.com/maps/api/js?key=" +

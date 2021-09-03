@@ -11,7 +11,7 @@
     />
   </head>
   <body>
-    <div style="position: relative">
+    <div style="position: relative; width: 100%; height: 100%;">
       <div id="map" style="width: 300px; height: 250px"></div>
       <div
         id="marker"
@@ -29,6 +29,13 @@
     </div>
     <script>
       var params = new URLSearchParams(window.location.search);
+      if(params.get("fullscreen")) {
+        document.documentElement.setAttribute('style', 'margin: 0; padding: 0; width: 100%; height: 100%;');
+        document.body.setAttribute('style', 'margin: 0; padding: 0; width: 100%; height: 100%;');
+        document.getElementById('map').setAttribute('style', 'height: 100%; width: 100%;');
+        document.getElementById('marker').style.top = 'calc(50% - 6px)';
+        document.getElementById('marker').style.left = 'calc(50% - 6px)';
+      }
       mapboxgl.accessToken =
         "pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2oyMDFlMGpsMDN3bTJ4bjR1MzRrbDFleCJ9.7XEB3HHBGr-N6ataUZh_6g";
       var zoom = params.get("zoom");
