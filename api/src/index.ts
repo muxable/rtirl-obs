@@ -1,5 +1,5 @@
-import firebase from "firebase/app";
-import "firebase/database";
+import { FirebaseApp, initializeApp } from "firebase/app";
+import { child, getDatabase, onValue, ref } from "firebase/database";
 
 type MetersPerSecond = number;
 type Degrees = number;
@@ -45,30 +45,30 @@ export function addSessionIdListener(
 
 /** Creates a listener source for a streamer's private data with a pull key. */
 export function forPullKey(pullKey: string) {
-  const ref = getDb().ref().child("pullables").child(pullKey);
+  const reference = child(ref(getDb(), "pullables"), pullKey);
   return {
     addLocationListener(callback: (location: Location) => void) {
-      return ref.child("location").on("value", (snapshot) => {
+      return onValue(child(reference, "location"), (snapshot) => {
         callback(snapshot.val());
       });
     },
     addSpeedListener(callback: (speed: MetersPerSecond) => void) {
-      return ref.child("speed").on("value", (snapshot) => {
+      return onValue(child(reference, "speed"), (snapshot) => {
         callback(snapshot.val());
       });
     },
     addHeadingListener(callback: (heading: Degrees) => void) {
-      return ref.child("heading").on("value", (snapshot) => {
+      return onValue(child(reference, "heading"), (snapshot) => {
         callback(snapshot.val());
       });
     },
     addAltitudeListener(callback: (altitude: Meters) => void) {
-      return ref.child("altitude").on("value", (snapshot) => {
+      return onValue(child(reference, "altitude"), (snapshot) => {
         callback(snapshot.val());
       });
     },
     addHeartRateListener(callback: (altitude: BeatsPerMinute) => void) {
-      return ref.child("heart_rate").on("value", (snapshot) => {
+      return onValue(child(reference, "heart_rate"), (snapshot) => {
         callback(snapshot.val());
       });
     },
@@ -79,7 +79,7 @@ export function forPullKey(pullKey: string) {
      * possible for two sequential non-null sessionIds to be sent.
      */
     addSessionIdListener(callback: (sessionId: UUID | null) => void) {
-      return ref.child("sessionId").on("value", (snapshot) => {
+      return onValue(child(reference, "sessionId"), (snapshot) => {
         callback(snapshot.val());
       });
     },
@@ -88,22 +88,22 @@ export function forPullKey(pullKey: string) {
 
 /** Creates a listener source for a streamer's public data. */
 export function forStreamer(provider: "twitch", userId: string) {
-  const ref = getDb().ref().child("streamers").child(`${provider}:${userId}`);
+  const reference = child(ref(getDb(), "streamers"), `${provider}:${userId}`);
   return {
     /** If the public location is hidden (eg streamer is offline), null is passed. */
     addLocationListener(callback: (location: Location | null) => void) {
-      return ref.child("location").on("value", (snapshot) => {
+      return onValue(child(reference, "location"), (snapshot) => {
         callback(snapshot.val());
       });
     },
   };
 }
 
-let app: firebase.app.App | null = null;
+let app: FirebaseApp | null = null;
 
 function getDb() {
   if (!app) {
-    app = firebase.initializeApp(
+    app = initializeApp(
       {
         apiKey: "AIzaSyC4L8ICZbJDufxe8bimRdB5cAulPCaYVQQ",
         databaseURL: "https://rtirl-a1d7f-default-rtdb.firebaseio.com",
@@ -113,5 +113,5 @@ function getDb() {
       "rtirl-api"
     );
   }
-  return app.database();
+  return getDatabase(app);
 }
