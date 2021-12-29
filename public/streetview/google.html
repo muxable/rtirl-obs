@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html style="width: 100%; height: 100%; margin: 0; padding: 0">
+  <head>
+    <script src="https://unpkg.com/@rtirl/api@latest/lib/index.min.js"></script>
+  </head>
+  <body style="width: 100%; height: 100%; margin: 0; padding: 0">
+    <img
+      id="image"
+      src="lskdjflsdf.jpg"
+      alt=""
+      style="width: 100%; height: 100%; object-fit: cover"
+    />
+    <script>
+      var params = new URLSearchParams(window.location.search);
+      var img = document.getElementById("image");
+      var apiKey = params.get("api_key");
+      var latestLocation = null;
+      var latestHeading = null;
+      var i = 0;
+      var api = RealtimeIRL.forPullKey(params.get("key"));
+      function update() {
+        if (!latestLocation || !latestHeading) {
+          return;
+        }
+        if (i++ % 10 == 0) {
+          img.src = `https://maps.googleapis.com/maps/api/streetview?size=640x320&location=${latestLocation.latitude},${latestLocation.longitude}&fov=80&heading=${latestHeading}&pitch=0&key=${apiKey}&return_error_code=true`;
+        }
+      }
+      api.addLocationListener(function (location) {
+        latestLocation = location;
+        update();
+      });
+      api.addHeadingListener(function (heading) {
+        latestHeading = heading;
+        update();
+      });
+    </script>
+  </body>
+</html>
