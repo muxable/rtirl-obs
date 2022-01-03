@@ -23,9 +23,6 @@
 
       function refreshTzOffset() {
         var timestamp = (Date.now() / 1000) | 0;
-        console.log(
-          `https://maps.googleapis.com/maps/api/timezone/json?location=${latestLocation.latitude},${latestLocation.longitude}&timestamp=${timestamp}&key=AIzaSyDs0skEj6nVAY1RXEkaHkdoN_i-DWF27rg`
-        );
         fetch(
           `https://maps.googleapis.com/maps/api/timezone/json?location=${latestLocation.latitude},${latestLocation.longitude}&timestamp=${timestamp}&key=AIzaSyDs0skEj6nVAY1RXEkaHkdoN_i-DWF27rg`
         )
