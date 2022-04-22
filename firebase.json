@@ -23,6 +23,7 @@
     {
       "site": "rtirl-editor",
       "public": "web-editor/build",
+      "predeploy": "npm --prefix web-editor ci && npm --prefix web-editor run build",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [
         {
