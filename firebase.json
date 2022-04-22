@@ -1,22 +1,35 @@
 {
-  "hosting": {
-    "site": "rtirl-overlays",
-    "public": "public",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-    "headers": [
-      {
-        "source": "**/*",
-        "headers": [
-          {
-            "key": "Access-Control-Allow-Origin",
-            "value": "*"
-          },
-          {
-            "key": "X-Frame-Options",
-            "value": "ALLOW-FROM https://streamelements.com/"
-          }
-        ]
-      }
-    ]
-  }
+  "hosting": [
+    {
+      "site": "rtirl-overlays",
+      "public": "public",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "headers": [
+        {
+          "source": "**/*",
+          "headers": [
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "ALLOW-FROM https://streamelements.com/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "site": "rtirl-editor",
+      "public": "web-editor/build",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
 }
