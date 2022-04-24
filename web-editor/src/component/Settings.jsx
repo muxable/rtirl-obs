@@ -8,6 +8,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
+import CountryPicker from './CountryPicker';
 
 
 export const Settings = (props) => {
@@ -92,20 +93,7 @@ export const Settings = (props) => {
 				<Box>
 					<FormControl  style={{width: 128}}>
 						<InputLabel id="select-language-label"> Language </InputLabel>
-						<Select
-							labelId="demo-simple-select-label"
-							id="demo-simple-select"
-							// value={age}
-							label="Zoom level"
-							// onChange={handleChange}
-						>
-							<MenuItem> EN </MenuItem>
-							<MenuItem> AR </MenuItem>
-							<MenuItem> FR </MenuItem>
-							<MenuItem> JA </MenuItem>
-							<MenuItem> KO </MenuItem>
-							<MenuItem> CN </MenuItem>
-						</Select>
+						<CountryPicker countries={["EN", "AR", "FR", "JA", "KO", "CN"]} />
 					</FormControl>
 				</Box>
 
