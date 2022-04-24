@@ -93,7 +93,7 @@ export const Settings = (props) => {
 				<Box>
 					<FormControl  style={{width: 128}}>
 						<InputLabel id="select-language-label"> Language </InputLabel>
-						<CountryPicker countries={["EN", "AR", "FR", "JA", "KO", "CN"]} />
+						<CountryPicker countries={["EN", "FR", "JA", "KO", "ZH"]} />
 					</FormControl>
 				</Box>
 
