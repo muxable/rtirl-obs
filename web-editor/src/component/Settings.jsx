@@ -72,7 +72,7 @@ export const Settings = ({apiKey, setAPIKey, styleID, setStyleID, pullKey, setPu
 					<TextField
 						required
 						id="standard-required"
-						label="Required"
+						label="Pull Key"
 						defaultValue="Pull Key from rtirl.com"
 						variant="standard"
 						value = {pullKey}
