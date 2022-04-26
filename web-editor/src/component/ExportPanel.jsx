@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 

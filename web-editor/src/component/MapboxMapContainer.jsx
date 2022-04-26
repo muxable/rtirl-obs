@@ -1,9 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
-import MapGL, { Layer, Source } from "react-map-gl";
-import { Box, Stack, Typography} from '@mui/material';
-import { ExportPanel } from "./ExportPanel";
-import { ConsolePanel } from "./ConsolePanel";
+import MapGL from "react-map-gl";
+import { Box, Typography} from '@mui/material';
 
 
 export const MapboxMapContainer = ({mapboxToken}) => {

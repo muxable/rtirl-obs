@@ -19,12 +19,6 @@ export const Settings = ({apiKey, setAPIKey, styleID, setStyleID, pullKey, setPu
 		setZoom(event.target.value);
 	}
 
-	const handleLangChange = (event) => {
-		console.log(event.target.value);
-		setLang(event.target.value);
-	}
-
-
 	const ZOOM_LEVELS = [...Array(15).keys()].map(i => i + 1);
 	return (
 		
@@ -111,7 +105,10 @@ export const Settings = ({apiKey, setAPIKey, styleID, setStyleID, pullKey, setPu
 				<Box>
 					<FormControl  style={{width: 128}}>
 						<InputLabel id="select-language-label"> Language </InputLabel>
-						<CountryPicker countries={["EN", "FR", "JA", "KO", "ZH"]} />
+						<CountryPicker 
+							lang={lang}
+						 	setLang={setLang}
+							countries={["EN", "FR", "JA", "KO", "ZH"]} />
 					</FormControl>
 				</Box>
 

@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import Stack from '@mui/material/Stack';
-import { LeafletMapContainer } from '../component/LeafletMapContainer';
 import { Settings } from '../component/Settings';
-import { MapboxMapContainer } from '../component/MapboxMapContainer';
 import { RightPanel } from '../component/RightPanel';
 
 export const EditorScreen = (props) => {
@@ -33,7 +31,7 @@ export const EditorScreen = (props) => {
         zoom={zoom}
         lang={lang}
         pullKey={pullKey}
-        mapboxToken={apiKey}
+        apiKey={apiKey}
         styleID={styleID}
         >
       </RightPanel>
