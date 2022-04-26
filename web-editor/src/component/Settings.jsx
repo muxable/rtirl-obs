@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -11,8 +12,19 @@ import TextField from '@mui/material/TextField';
 import CountryPicker from './CountryPicker';
 
 
-export const Settings = (props) => {
+export const Settings = ({apiKey, setAPIKey, styleID, setStyleID, pullKey, setPullKey, zoom, setZoom, lang, setLang}) => {
 	
+	const handleZoomChange = (event) => {
+		console.log(event.target.value);
+		setZoom(event.target.value);
+	}
+
+	const handleLangChange = (event) => {
+		console.log(event.target.value);
+		setLang(event.target.value);
+	}
+
+
 	const ZOOM_LEVELS = [...Array(15).keys()].map(i => i + 1);
 	return (
 		
@@ -38,6 +50,8 @@ export const Settings = (props) => {
 						label="API Key"
 						defaultValue="Your API Key"
 						variant="standard"
+						value={apiKey}
+						onChange={(e) => setAPIKey(e.target.value)}
         	/>
 				</Box>
 
@@ -51,6 +65,8 @@ export const Settings = (props) => {
 						id="tf-style-id"
 						label="Style ID"
 						variant="standard"
+						value={styleID}
+						onChange={(e) => setStyleID(e.target.value)}
         	/>
 				</Box>
 
@@ -66,6 +82,8 @@ export const Settings = (props) => {
 						label="Required"
 						defaultValue="Pull Key from rtirl.com"
 						variant="standard"
+						value = {pullKey}
+						onChange = {(e) => setPullKey(e.target.value)}
         	/>
 				</Box>
 
@@ -76,9 +94,9 @@ export const Settings = (props) => {
 						<Select
 							labelId="demo-simple-select-label"
 							id="demo-simple-select"
-							// value={age}
+							value={zoom}
 							label="Zoom level"
-							// onChange={handleChange}
+							onChange={handleZoomChange}
 						>
 							{
 								ZOOM_LEVELS.map(zoomLevel => (

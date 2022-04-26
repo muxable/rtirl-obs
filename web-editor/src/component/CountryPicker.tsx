@@ -145,13 +145,18 @@ function getFlagEmoji(countryCode: string) {
 }
 
 function CountryPicker({ countries }: { countries: string[] }) {
+
+  const handleLanguageChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+
+  }
+
   return (
     <Select
       labelId="demo-simple-select-label"
       id="demo-simple-select"
       // value={age}
       label="Zoom level"
-      // onChange={handleChange}
+    // onChange={handleChange}
     >
       {countries.map((country) => (
         <MenuItem>

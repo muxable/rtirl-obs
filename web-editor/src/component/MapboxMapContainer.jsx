@@ -3,9 +3,8 @@ import { useState } from "react";
 import MapGL, { Layer, Source } from "react-map-gl";
 import { Box, Stack, Typography} from '@mui/material';
 import { ExportPanel } from "./ExportPanel";
+import { ConsolePanel } from "./ConsolePanel";
 
-// const MAPBOX_TOKEN =
-//   "pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2t3bjR3cTloMDJ1ajJ1cW9obGh2ZmcybCJ9.uWdEuy9ilDupIiaOQIcMpQ";
 
 export const MapboxMapContainer = ({mapboxToken}) => {
 
@@ -18,7 +17,7 @@ export const MapboxMapContainer = ({mapboxToken}) => {
   });
 
   return (
-		<Stack>
+		<div>
     {
 			mapboxToken !== undefined && mapboxToken !== null && mapboxToken !== "" &&
 			      <MapGL
@@ -43,7 +42,6 @@ export const MapboxMapContainer = ({mapboxToken}) => {
 				</Typography>
 			</Box>
 		}
-			<ExportPanel></ExportPanel>
-		</Stack>
+		</div>
   );
 }

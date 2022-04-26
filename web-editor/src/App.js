@@ -5,16 +5,14 @@ import { Settings } from './component/Settings';
 import Stack from '@mui/material/Stack';
 import { HomeScreen } from './screen/HomeScreen';
 import { MapboxMapContainer } from './component/MapboxMapContainer';
+import { EditorScreen } from './screen/EditorScreen';
 
 function App() {
   return (
     <div className="App">
       <Stack>
         <EditorAppbar />
-        <Stack direction="row">
-          <Settings></Settings>
-          <MapboxMapContainer></MapboxMapContainer>
-        </Stack>
+        <EditorScreen></EditorScreen>
       </Stack>
       {/* <HomeScreen /> */}
     </div>
