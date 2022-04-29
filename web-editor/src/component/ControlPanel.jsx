@@ -58,7 +58,7 @@ function getMapStyle({ visibility, color, language }) {
 	return defaultMapStyle.set('layers', layers);
 }
 
-function StyleControls(props) {
+function StyleControls({onChange, language, setLanguage}) {
 	const [visibility, setVisibility] = useState({
 		water: true,
 		parks: true,
@@ -77,10 +77,8 @@ function StyleControls(props) {
 		background: '#EBF0F0'
 	});
 
-	const [language, setLanguage] = useState('en');
-
 	useEffect(() => {
-		props.onChange(getMapStyle({ visibility, color, language }));
+		onChange(getMapStyle({ visibility, color, language }));
 	}, [visibility, color, language]);
 
 	const onColorChange = (name, value) => {

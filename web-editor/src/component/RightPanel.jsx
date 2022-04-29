@@ -6,8 +6,7 @@ import { ConsolePanel } from './ConsolePanel';
 import { MapboxMapContainer } from './MapboxMapContainer';
 
 
-export const RightPanel = ({zoom, pullKey, apiKey, styleID, mapStyle}) => {
-
+export const RightPanel = ({lang, pullKey, apiKey, styleID, mapStyle}) => {
 	const [viewState, setViewState] = React.useState({
     longitude: -100,
     latitude: 40,
@@ -22,11 +21,7 @@ export const RightPanel = ({zoom, pullKey, apiKey, styleID, mapStyle}) => {
 			<MapboxMapContainer 
 				viewState={viewState}
 				setViewState={setViewState}
-				apiKey={apiKey} 
 				mapStyle={mapStyle} 
-				styleID={styleID}
-				pullKey={pullKey}
-				lang={lang}
 			/>
 			{
 				`Longitude: ${viewState.longitude}, Latitude: ${viewState.latitude}, zoom: ${viewState.zoom}`

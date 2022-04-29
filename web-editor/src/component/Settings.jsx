@@ -72,7 +72,7 @@ export const Settings = ({apiKey, setAPIKey, styleID, setStyleID, pullKey, setPu
 
 				{/* Map style controll */}
 				<Box>
-					<ControlPanel onChange={setMapStyle}></ControlPanel>
+					<ControlPanel onChange={setMapStyle} language={lang} setLanguage={setLang}></ControlPanel>
 				</Box>
 			</Stack>
 		</Box>

@@ -5,6 +5,7 @@ import Stack from '@mui/material/Stack';
 
 export const ConsolePanel = ({zoom, lang, pullKey, apiKey, styleID}) => {
 
+	console.log(`lang: ${lang}`);
 	const hasPullKey = pullKey !== undefined && pullKey !== null && pullKey !== "";
 	const hasStyleID = styleID !== undefined && styleID !== null && styleID !== "";
 	const hasAPIKey = apiKey !== undefined && apiKey !== null && apiKey !== "";

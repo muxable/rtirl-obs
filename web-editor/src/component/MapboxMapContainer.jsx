@@ -1,33 +1,27 @@
 import * as React from "react";
 import MapGL from "react-map-gl";
-import { Box, Typography} from '@mui/material';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 
 
-export const MapboxMapContainer = ({mapboxToken, mapStyle, viewState, setViewState}) => {
-  mapboxToken="qwer"
+export const MapboxMapContainer = ({mapStyle, viewState, setViewState}) => {
   
   return (
 		<div
       style={{height: "524px", width: "80vw", marginTop: "16px"}}
     >
-    {
-			mapboxToken !== undefined && mapboxToken !== null && mapboxToken !== "" &&
-      <>
-      	<MapGL
+
+      <MapGL
         {...viewState}
         mapStyle={mapStyle && mapStyle.toJS()}
         styleDiffing
         width="100%"
         height="100%"
         onMove={evt => setViewState(evt.viewState)}
-        mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-        />
-      </>
-		
-		}
-		{
+        mapboxAccessToken="pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2oyMDFlMGpsMDN3bTJ4bjR1MzRrbDFleCJ9.7XEB3HHBGr-N6ataUZh_6g"
+      />
+
+		{/* {
 			(mapboxToken === undefined || mapboxToken === null || mapboxToken === "") &&
 			<Box style={{height: "512px",  backgroundColor: "gray", margin: "16px"}} borderRadius={4}
 				width="80vw"
@@ -38,7 +32,7 @@ export const MapboxMapContainer = ({mapboxToken, mapStyle, viewState, setViewSta
 					Please enter a valid API Key
 				</Typography>
 			</Box>
-		}
+		} */}
 		</div>
   );
 }
