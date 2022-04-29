@@ -79,7 +79,7 @@ function StyleControls({onChange, language, setLanguage}) {
 
 	useEffect(() => {
 		onChange(getMapStyle({ visibility, color, language }));
-	}, [visibility, color, language]);
+	}, [visibility, color, language, onChange]);
 
 	const onColorChange = (name, value) => {
 		setColor({ ...color, [name]: value });
