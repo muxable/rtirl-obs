@@ -1,32 +1,31 @@
 import * as React from "react";
-import { useState } from "react";
 import MapGL from "react-map-gl";
 import { Box, Typography} from '@mui/material';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 
-export const MapboxMapContainer = ({mapboxToken}) => {
 
-  const [viewport, setViewport] = useState({
-    latitude: 40,
-    longitude: -100,
-    zoom: 3,
-    bearing: 0,
-    pitch: 0,
-  });
-
+export const MapboxMapContainer = ({mapboxToken, mapStyle, viewState, setViewState}) => {
+  mapboxToken="qwer"
+  
   return (
-		<div>
+		<div
+      style={{height: "524px", width: "80vw", marginTop: "16px"}}
+    >
     {
 			mapboxToken !== undefined && mapboxToken !== null && mapboxToken !== "" &&
-			      <MapGL
-        {...viewport}
-        width="100vw"
-        height="100vh"
-        mapStyle="mapbox://styles/mapbox/dark-v9"
-        onViewportChange={setViewport}
-        mapboxApiAccessToken={mapboxToken}
-      >
-      </MapGL>
+      <>
+      	<MapGL
+        {...viewState}
+        mapStyle={mapStyle && mapStyle.toJS()}
+        styleDiffing
+        width="100%"
+        height="100%"
+        onMove={evt => setViewState(evt.viewState)}
+        mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+        />
+      </>
+		
 		}
 		{
 			(mapboxToken === undefined || mapboxToken === null || mapboxToken === "") &&

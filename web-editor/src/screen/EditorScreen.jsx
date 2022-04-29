@@ -6,6 +6,7 @@ import { RightPanel } from '../component/RightPanel';
 
 export const EditorScreen = (props) => {
 
+  const [mapStyle, setMapStyle] = useState(null);
 	const [apiKey, setAPIKey] = useState("");
 	const [styleID, setStyleID] = useState("");
 	const [pullKey, setPullKey] = useState("");
@@ -15,6 +16,8 @@ export const EditorScreen = (props) => {
 	return (
     <Stack direction="row">
       <Settings 
+        mapStyle={mapStyle}
+        setMapStyle={setMapStyle}
         apiKey={apiKey} 
         setAPIKey={setAPIKey}
         styleID={styleID}
@@ -28,6 +31,7 @@ export const EditorScreen = (props) => {
         >
       </Settings>
       <RightPanel
+        mapStyle={mapStyle}
         zoom={zoom}
         lang={lang}
         pullKey={pullKey}

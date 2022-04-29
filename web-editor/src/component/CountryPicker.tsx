@@ -144,10 +144,17 @@ function getFlagEmoji(countryCode: string) {
   return String.fromCodePoint(...codePoints);
 }
 
-function CountryPicker({ countries, lang, setLang }: { countries: string[], lang: string, setLang: any }) {
+function CountryPicker({ countries, lang, setLang, mapboxMapRef }: { countries: string[], lang: string, setLang: any, mapboxMapRef: any }) {
 
   const handleLanguageChange = (event: SelectChangeEvent) => {
-    setLang(event.target.value as string);
+    const newLang = event.target.value as string;
+    setLang(newLang);
+    // console.log(mapboxMapRef.current);
+    // mapboxMapRef.current
+    // mapboxMapRef.current.setLayoutProperty('country-label', 'text-field', [
+    //   'get',
+    //   `name_${newLang.toLowerCase()}`
+    // ]);
   };
 
 
