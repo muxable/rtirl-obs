@@ -38,8 +38,8 @@
   },
   "browserslist": {
     "production": [
-      ">0.2%",
-      "not op_mini all"
+      "defaults", 
+      "not ie 11"
     ],
     "development": [
       "last 1 chrome version",
