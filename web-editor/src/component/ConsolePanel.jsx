@@ -5,31 +5,40 @@ import Stack from '@mui/material/Stack';
 
 export const ConsolePanel = ({zoom, lang, pullKey, apiKey, styleID}) => {
 
-	console.log(`lang: ${lang}`);
+	
+
 	const hasPullKey = pullKey !== undefined && pullKey !== null && pullKey !== "";
 	const hasStyleID = styleID !== undefined && styleID !== null && styleID !== "";
 	const hasAPIKey = apiKey !== undefined && apiKey !== null && apiKey !== "";
-	const hasLang = lang !== undefined && lang !== null && lang !== "" && lang !== "EN";
+	const hasLang = lang !== undefined && lang !== null && lang !== "";
 
-	var genericBaseURL = "https://overlays.rtirl.com/generic.html?";
-	var customizedBaseURL = "https://overlays.rtirl.com/mapbox.html?";
+	
+	const genericBaseURL = "https://overlays.rtirl.com/generic.html?";
+	const genericBaseParamsString = "key=YOUR_PULL_KEY&zoom=YOUR_ZOOM_LEVEL&lang=YOUR_LANGUAGE";
+	const genericBaseParams = new URLSearchParams(genericBaseParamsString);
+
+	const customizedBaseURL = "https://overlays.rtirl.com/mapbox.html?";
+	const customizeBaseParamsString = "key=<YOUR_PULL_KEY>&access_token=<YOUR_MAPBOX_ACCESS_TOKEN>&style=<MAPBOX_STYLE_ID>&zoom=YOUR_ZOOM_LEVEL&lang=YOUR_LANGUAGE";
+	const customizeBaseParams = new URLSearchParams(customizeBaseParamsString);
+	
 	if (hasPullKey) {
-		genericBaseURL += "key=" + pullKey;
+		genericBaseParams.set('key', pullKey);
+		customizeBaseParams.set('key', pullKey);
 	}
-	if (hasAPIKey) {
-		customizedBaseURL += "&access_token" + apiKey;
 
+	if (hasAPIKey) {
+		customizeBaseParams.set('access_token', apiKey);
 	}
 	if (hasStyleID) {
-		customizedBaseURL += "&style=" + styleID;
+		customizeBaseParams.set('style', styleID);
 	}
 	if (hasLang) {
-		genericBaseURL += "&lang=" + lang;
-		customizedBaseURL += "&lang=" + lang;
+		genericBaseParams.set('lang', lang.toLowerCase());
+		customizeBaseParams.set('lang', lang.toLowerCase());
 	}
 
-	genericBaseURL += "&zoom=" + zoom;
-	customizedBaseURL += "&zoom=" + zoom;
+	genericBaseParams.set('zoom', zoom);
+	customizeBaseParams.set('zoom', zoom);
 
 	return (
 			<Stack 
@@ -38,16 +47,13 @@ export const ConsolePanel = ({zoom, lang, pullKey, apiKey, styleID}) => {
 				>
 				<aside>
 					<h2> Generic URL by Muxable</h2>
-					{hasPullKey && 				
+					{hasPullKey ? 				
 						<Typography
 							color="inherit"
 							component="div"
 							style={{textOverflow: "ellipsis"}}>
-							{genericBaseURL}
-						</Typography>	
-					}
-					{
-						!hasPullKey &&
+							{genericBaseURL + genericBaseParams.toString()}
+						</Typography>	 : 	
 						<Typography
 							color="inherit"
 							component="div"
@@ -58,22 +64,20 @@ export const ConsolePanel = ({zoom, lang, pullKey, apiKey, styleID}) => {
 				</aside>
 				<aside>
 					<h2> Your Customized Mapbox Style</h2>
-					{hasAPIKey && hasStyleID && hasPullKey &&
+					{hasAPIKey && hasStyleID && hasPullKey ?
 						<Typography
 							color="inherit"
 							component="div"
 							style={{textOverflow: "ellipsis"}}>
-							{customizedBaseURL}
-						</Typography>	
-					}
-					{!(hasAPIKey && hasStyleID && hasPullKey) &&
+							{customizedBaseURL + customizeBaseParams.toString()}
+						</Typography>	:
 						<Typography
 							color="inherit"
 							component="div"
 							style={{textOverflow: "ellipsis"}}>
 							Pull key and Mapbox token and style ID are required for a customized overlay URL
 						</Typography>	
-						}
+					}
 				</aside>
 
 			</Stack>
