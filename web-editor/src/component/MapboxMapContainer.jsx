@@ -12,7 +12,7 @@ export const MapboxMapContainer = ({mapStyle, viewState, setViewState}) => {
     >
       <MapGL
         {...viewState}
-        mapStyle={mapStyle && mapStyle.toJS()}
+        mapStyle={mapStyle}
         styleDiffing
         width="100%"
         height="100%"

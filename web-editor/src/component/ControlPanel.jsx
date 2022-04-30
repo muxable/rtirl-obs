@@ -48,8 +48,6 @@ function getMapStyle({ visibility, color, language }) {
 			const type = layer.get('type');
 			const layout = layer.get('layout');
 			if (type === 'symbol' && layout) {
-				console.log(`new lang: ${language}`);
-				console.log(layout.get('text-field'));
 				return layer.setIn(['layout', 'text-field'], `{name_${language.toLowerCase()}}`);
 			}
 			return layer
