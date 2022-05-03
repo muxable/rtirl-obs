@@ -18,7 +18,7 @@ export const ConsolePanel = ({zoom, lang, pullKey, apiKey, styleID}) => {
 	const genericBaseParams = new URLSearchParams(genericBaseParamsString);
 
 	const customizedBaseURL = "https://overlays.rtirl.com/mapbox.html?";
-	const customizeBaseParamsString = "key=<YOUR_PULL_KEY>&access_token=<YOUR_MAPBOX_ACCESS_TOKEN>&style=<MAPBOX_STYLE_ID>&zoom=YOUR_ZOOM_LEVEL&lang=YOUR_LANGUAGE";
+	const customizeBaseParamsString = "key=YOUR_PULL_KEY&access_token=YOUR_MAPBOX_ACCESS_TOKEN&style=MAPBOX_STYLE_ID&zoom=YOUR_ZOOM_LEVEL&lang=YOUR_LANGUAGE";
 	const customizeBaseParams = new URLSearchParams(customizeBaseParamsString);
 	
 	if (hasPullKey) {

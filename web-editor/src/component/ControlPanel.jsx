@@ -29,34 +29,64 @@ const colorClass = {
 };
 
 
-function getMapStyle({ visibility, color, language }) {
-	const layers = defaultLayers
-		.filter((layer) => {
-			const id = layer.get('id');
-			return categories.every(name => visibility[name] || !layerSelector[name].test(id));
-		})
+function getMapStyle({ visibility, color, language, mapStyle }) {
+	mapStyle = fromJS(mapStyle);
+	const layers = mapStyle.get('layers')
+		// .filter((layer) => {
+		// 	const id = layer.get('id');
+		// 	return categories.every(name => visibility[name] || !layerSelector[name].test(id));
+		// })
+		// .map((layer) => {
+		// 	const id = layer.get('id');
+		// 	const type = layer.get('type');
+		// 	const category = categories.find(name => layerSelector[name].test(id));
+		// 	if (category && colorClass[type]) {
+		// 		return layer.setIn(['paint', colorClass[type]], color[category]);
+		// 	}
+		// 	return layer;
+		// })
 		.map((layer) => {
 			const id = layer.get('id');
-			const type = layer.get('type');
-			const category = categories.find(name => layerSelector[name].test(id));
-			if (category && colorClass[type]) {
-				return layer.setIn(['paint', colorClass[type]], color[category]);
+			const layout = layer.get('layout');
+			const type = layer.get('type')
+			// if (id.indexOf('-label') > 0 && layout) {
+			// 	return layer.setIn(['layout', 'text-field'], 
+			// 		[
+			// 			"coalesce",
+			// 			["get","name_en"],
+      //       ["get",`name_${language.toLowerCase()}`],
+      //     ]
+			// 	);
+			// }
+			if (type && type === 'symbol') { 
+				layer.setIn(['layout', 'text-field'], 
+					[
+						"coalesce",
+						["get","name"],
+            ["get",`name_${language.toLowerCase()}`],
+          ]
+				);
+				console.log(layer.get('layout'));
+				return layer
 			}
 			return layer;
 		})
-		.map((layer) => {
-			const type = layer.get('type');
-			const layout = layer.get('layout');
-			if (type === 'symbol' && layout) {
-				return layer.setIn(['layout', 'text-field'], `{name_${language.toLowerCase()}}`);
-			}
-			return layer
-		});
 
-	return defaultMapStyle.set('layers', layers);
+
+		// .map((layer) => {
+		// 	const type = layer.get('type');
+		// 	const layout = layer.get('layout');
+		// 	if (layout && layout.get('text-field')) {
+		// 		return layer.setIn(['layout', 'text-field'], `{name_${language.toLowerCase()}}`);
+		// 	}
+		// 	return layer
+		// });
+
+	return mapStyle.set('layers', layers);
 }
 
-function StyleControls({onChange, language, setLanguage}) {
+function StyleControls({onChange, language, setLanguage, mapStyle}) {
+	console.log(`mapStyle: ${mapStyle}`);
 	const [visibility, setVisibility] = useState({
 		water: true,
 		parks: true,
@@ -75,9 +105,9 @@ function StyleControls({onChange, language, setLanguage}) {
 		background: '#EBF0F0'
 	});
 
-	useEffect(() => {
-		onChange(getMapStyle({ visibility, color, language }));
-	}, [visibility, color, language, onChange]);
+	// useEffect(() => {
+	// 	onChange(getMapStyle({ visibility, color, language, mapStyle }));
+	// }, [visibility, color, language, onChange]);
 
 	const onColorChange = (name, value) => {
 		setColor({ ...color, [name]: value });
@@ -94,9 +124,9 @@ function StyleControls({onChange, language, setLanguage}) {
 					<CountryPicker 
 						lang={language}
 						setLang={setLanguage}
-						countries={["EN", "FR", "JA", "KO", "ZH", "AR", "DE", "ES", "PT", "RU"]} />
+						countries={["EN", "FR", "JA", "KO", "ZH", "DE", "ES", "PT", "RU"]} />
 			</FormControl>
-			{categories.map(name => (
+			{/* {categories.map(name => (
 				<div key={name} className="input">
 					<label>{name}</label>
 					<input
@@ -111,7 +141,7 @@ function StyleControls({onChange, language, setLanguage}) {
 						onChange={evt => onColorChange(name, evt.target.value)}
 					/>
 				</div>
-			))}			
+			))}			 */}
 		</div>
 	);
 }
