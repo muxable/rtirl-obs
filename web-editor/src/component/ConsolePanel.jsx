@@ -46,7 +46,8 @@ export const ConsolePanel = ({zoom, lang, pullKey, apiKey, styleID}) => {
 				alignSelf="flex-start"
 				>
 				<aside>
-					<h2> Generic URL by Muxable</h2>
+					<h2> Generic URL by Muxable </h2>
+					<h4> API Key is supplied by Muxable in the generic URL </h4>
 					{hasPullKey ? 				
 						<Typography
 							color="inherit"
