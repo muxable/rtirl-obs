@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
 
 
 export const ConsolePanel = ({zoom, lang, pullKey, apiKey, styleID}) => {
@@ -41,47 +42,51 @@ export const ConsolePanel = ({zoom, lang, pullKey, apiKey, styleID}) => {
 	customizeBaseParams.set('zoom', zoom);
 
 	return (
-			<Stack 
-				style={{marginLeft: "16px"}}
-				alignSelf="flex-start"
-				>
-				<aside>
-					<h2> Generic URL by Muxable </h2>
-					<h4> API Key is supplied by Muxable in the generic URL </h4>
-					{hasPullKey ? 				
-						<Typography
-							color="inherit"
-							component="div"
-							style={{textOverflow: "ellipsis"}}>
-							{genericBaseURL + genericBaseParams.toString()}
-						</Typography>	 : 	
-						<Typography
-							color="inherit"
-							component="div"
-							style={{textOverflow: "ellipsis"}}>
-							Pull key is required for a generic overlay URL
-						</Typography>	
-					}
-				</aside>
-				<aside>
-					<h2> Your Customized Mapbox Style</h2>
-					{hasAPIKey && hasStyleID && hasPullKey ?
-						<Typography
-							color="inherit"
-							component="div"
-							style={{textOverflow: "ellipsis"}}>
-							{customizedBaseURL + customizeBaseParams.toString()}
-						</Typography>	:
-						<Typography
-							color="inherit"
-							component="div"
-							style={{textOverflow: "ellipsis"}}>
-							Pull key and Mapbox token and style ID are required for a customized overlay URL
-						</Typography>	
-					}
-				</aside>
+			<Box
+				style={{width: "80vw", backgroundColor: "#ADD8E6", marginTop: "8px"}}
+			>
+				<Stack 
+					style={{marginLeft: "16px"}}
+					alignSelf="flex-start"
+					>
+					<aside>
+						<h2> Generic URL by Muxable </h2>
+						<h4> API Key is supplied by Muxable in the generic URL </h4>
+						{hasPullKey ? 				
+							<Typography
+								color="inherit"
+								component="div"
+								style={{textOverflow: "ellipsis"}}>
+								{genericBaseURL + genericBaseParams.toString()}
+							</Typography>	 : 	
+							<Typography
+								color="inherit"
+								component="div"
+								style={{textOverflow: "ellipsis"}}>
+								Pull key is required for a generic overlay URL
+							</Typography>	
+						}
+					</aside>
+					<aside>
+						<h2> Your Customized Mapbox Style</h2>
+						{hasAPIKey && hasStyleID && hasPullKey ?
+							<Typography
+								color="inherit"
+								component="div"
+								style={{textOverflow: "ellipsis"}}>
+								{customizedBaseURL + customizeBaseParams.toString()}
+							</Typography>	:
+							<Typography
+								color="inherit"
+								component="div"
+								style={{textOverflow: "ellipsis"}}>
+								Pull key and Mapbox token and style ID are required for a customized overlay URL
+							</Typography>	
+						}
+					</aside>
 
-			</Stack>
+				</Stack>
+			</Box>
 	
 	)
 

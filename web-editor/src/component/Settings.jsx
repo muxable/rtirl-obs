@@ -18,7 +18,7 @@ export const Settings = ({onStyleIDSubmit, apiKey, setAPIKey, styleID, setStyleI
 	
 	return (
 		
-		<Box style={{width: "256px", height: "656px", backgroundColor: "#d6a1ed", margin: "16px", padding: "16px"}} paddingLeft={4} borderRadius={4}>
+		<Box style={{width: "256px", height: "100vh", backgroundColor: "#d6a1ed", margin: "16px", padding: "16px"}} paddingLeft={4} borderRadius={4}>
 			<Stack 
 				divider={<Divider orientation="vertical" flexItem />}
 				spacing={2}
