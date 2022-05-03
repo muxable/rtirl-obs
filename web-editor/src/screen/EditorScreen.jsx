@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Stack from '@mui/material/Stack';
 import { Settings } from '../component/Settings';
 import { mapboxMapStyleJsonCache, RightPanel } from '../component/RightPanel';
+import { PreviewSnackBar } from '../component/PreviewSnackBar';
 
 export const EditorScreen = () => {
 
@@ -12,6 +13,8 @@ export const EditorScreen = () => {
 	const [pullKey, setPullKey] = useState("");
 	const [zoom, setZoom] = useState(5);
 	const [lang, setLang] = useState("EN");
+
+  const [openPreviewSnackBar, setOpenPreviewSnackBar] = useState(false);
 
   useEffect(() => {
     fetch("https://api.mapbox.com/styles/v1/mapbox/streets-v11?access_token=pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2oyMDFlMGpsMDN3bTJ4bjR1MzRrbDFleCJ9.7XEB3HHBGr-N6ataUZh_6g")
@@ -23,6 +26,15 @@ export const EditorScreen = () => {
   }, [])
 
 	const onStyleIDSubmit = (styleID) => {
+    console.log("on submit styleID: " + styleID);
+    if (styleID === undefined || styleID === null || styleID === "") {
+      setOpenPreviewSnackBar(true);
+			return
+		}
+		if (!styleID.includes("/")) {
+      setOpenPreviewSnackBar(true);
+			return
+		}
 		setStyleID(styleID);
 	}
 
@@ -60,6 +72,10 @@ export const EditorScreen = () => {
       </> :
       <div>Loading...</div>
       }
+      <PreviewSnackBar 
+				open={openPreviewSnackBar}
+				setOpen={setOpenPreviewSnackBar}
+			/>
     </Stack>
 	)
 }

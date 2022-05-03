@@ -1,8 +1,9 @@
-import * as React from 'react';
+import { useState, useRef } from 'react';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
+import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import ControlPanel from './ControlPanel';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
@@ -12,7 +13,8 @@ import { StyleIDHelperDialog } from './StyleIDHelperDialog';
 
 export const Settings = ({onStyleIDSubmit, apiKey, setAPIKey, styleID, setStyleID, pullKey, setPullKey, zoom, setZoom, lang, setLang, mapStyle, setMapStyle}) => {
 
-	const [openStyleIDDialog, setOpenStyleIDDialog] = React.useState(false);
+	const [openStyleIDDialog, setOpenStyleIDDialog] = useState(false);
+	const [inputStyleID, setInputStyleID] = useState("");
 	
 	return (
 		
@@ -50,6 +52,7 @@ export const Settings = ({onStyleIDSubmit, apiKey, setAPIKey, styleID, setStyleI
 					noValidate
 					autoComplete="off"
 					style={{position: "relative"}}
+					onSubmit={(e) => { e.preventDefault(); }}
 				>
 					<IconButton
 						onClick={() => setOpenStyleIDDialog(true)}
@@ -59,17 +62,26 @@ export const Settings = ({onStyleIDSubmit, apiKey, setAPIKey, styleID, setStyleI
 					</IconButton>
 
 					<TextField
+					 	// ref={inputStyleIDRef}
 						id="tf-style-id"
 						label="Style ID"
 						variant="standard"
-						defaultValue="mapbox/streets-v11"
-						helperText="mapbox/streets-v11"
-						value={styleID}
-						onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
-						onSubmit={() => onStyleIDSubmit(styleID)}
-						onInput={(e) => setStyleID(e.target.value)}
-						// onChange={(e) => setStyleID(e.target.value)}
+						helperText={
+							<>				
+								format: account/styleId <br />
+								exampel: mapbox/streets-v11 <br />
+							</>
+						}
+						onSubmit={(e) => { e.preventDefault(); }}
+						onChange={(e) => { setInputStyleID(e.target.value); }}
         	/>
+					<Button
+						variant="contained"
+						color="primary"
+						onClick={(e) => { onStyleIDSubmit(inputStyleID); }}
+					>
+						Preview
+					</Button>
 				</Box>
 
 				{/* Pull key from rtirl.com */}

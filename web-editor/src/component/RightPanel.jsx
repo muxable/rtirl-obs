@@ -1,16 +1,15 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 // import { ExportPanel } from './ExportPanel';
 import { ConsolePanel } from './ConsolePanel';
 import { MapboxMapContainer } from './MapboxMapContainer';
-import { useEffect } from 'react';
 
 export const mapboxMapStyleJsonCache = {};
 
-export const RightPanel = ({lang, pullKey, apiKey, styleID, mapStyle, setMapStyle}) => {
+export const RightPanel = ({lang, pullKey, apiKey, styleID, mapStyle, setMapStyle }) => {
 
-	const [viewState, setViewState] = React.useState({
+	const [viewState, setViewState] = useState({
     longitude: -100,
     latitude: 40,
     zoom: 3,
@@ -18,10 +17,9 @@ export const RightPanel = ({lang, pullKey, apiKey, styleID, mapStyle, setMapStyl
 
 
 	useEffect(() => {
-		console.log("new map style");
 		const mapboxMapStyleJson = mapboxMapStyleJsonCache[styleID];
 		if (mapboxMapStyleJson !== undefined && mapboxMapStyleJson !== null && mapboxMapStyleJson !== "") { 
-			setMapStyle(mapboxMapStyleJsonCache[styleID || "mapbox/streets-v11"]);
+			setMapStyle(mapboxMapStyleJsonCache[styleID]);
 		} else {
 			fetch(`https://api.mapbox.com/styles/v1/${styleID}?access_token=pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2oyMDFlMGpsMDN3bTJ4bjR1MzRrbDFleCJ9.7XEB3HHBGr-N6ataUZh_6g`)
       .then(res => res.json())
