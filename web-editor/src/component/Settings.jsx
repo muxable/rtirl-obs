@@ -65,6 +65,7 @@ export const Settings = ({onStyleIDSubmit, apiKey, setAPIKey, styleID, setStyleI
 						defaultValue="mapbox/streets-v11"
 						helperText="mapbox/streets-v11"
 						value={styleID}
+						onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
 						onSubmit={() => onStyleIDSubmit(styleID)}
 						onInput={(e) => setStyleID(e.target.value)}
 						// onChange={(e) => setStyleID(e.target.value)}
