@@ -128,6 +128,7 @@ function getApp() {
         databaseURL: "https://rtirl-a1d7f-default-rtdb.firebaseio.com",
         projectId: "rtirl-a1d7f",
         appId: "1:684852107701:web:d77a8ed0ee5095279a61fc",
+        measurementId: "G-TR97D81LT3",
       },
       "rtirl-api"
     );
