@@ -69,7 +69,7 @@ export const Settings = ({onStyleIDSubmit, apiKey, setAPIKey, styleID, setStyleI
 						helperText={
 							<>				
 								format: account/styleId <br />
-								exampel: mapbox/streets-v11 <br />
+								example: mapbox/streets-v11 <br />
 							</>
 						}
 						onSubmit={(e) => { e.preventDefault(); }}
