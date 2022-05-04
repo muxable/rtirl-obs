@@ -1,3 +1,4 @@
+import { getAnalytics, logEvent } from "firebase/analytics";
 import { FirebaseApp, initializeApp } from "firebase/app";
 import { child, getDatabase, onValue, ref } from "firebase/database";
 
@@ -45,31 +46,43 @@ export function addSessionIdListener(
 
 /** Creates a listener source for a streamer's private data with a pull key. */
 export function forPullKey(pullKey: string) {
-  const reference = child(ref(getDb(), "pullables"), pullKey);
+  const db = getDatabase(getApp());
+  const analytics = getAnalytics(getApp());
+  const reference = child(ref(db, "pullables"), pullKey);
   return {
     addLocationListener(callback: (location: Location) => void) {
+      logEvent(analytics, "listener", { type: "location", pullKey });
       return onValue(child(reference, "location"), (snapshot) => {
         callback(snapshot.val());
+        logEvent(analytics, "data", { type: "sessionId", pullKey });
       });
     },
     addSpeedListener(callback: (speed: MetersPerSecond) => void) {
+      logEvent(analytics, "listener", { type: "speed", pullKey });
       return onValue(child(reference, "speed"), (snapshot) => {
         callback(snapshot.val());
+        logEvent(analytics, "data", { type: "sessionId", pullKey });
       });
     },
     addHeadingListener(callback: (heading: Degrees) => void) {
+      logEvent(analytics, "listener", { type: "heading", pullKey });
       return onValue(child(reference, "heading"), (snapshot) => {
         callback(snapshot.val());
+        logEvent(analytics, "data", { type: "sessionId", pullKey });
       });
     },
     addAltitudeListener(callback: (altitude: Meters) => void) {
+      logEvent(analytics, "listener", { type: "altitude", pullKey });
       return onValue(child(reference, "altitude"), (snapshot) => {
         callback(snapshot.val());
+        logEvent(analytics, "data", { type: "sessionId", pullKey });
       });
     },
     addHeartRateListener(callback: (altitude: BeatsPerMinute) => void) {
+      logEvent(analytics, "listener", { type: "heart_rate", pullKey });
       return onValue(child(reference, "heart_rate"), (snapshot) => {
         callback(snapshot.val());
+        logEvent(analytics, "data", { type: "sessionId", pullKey });
       });
     },
     /**
@@ -79,8 +92,10 @@ export function forPullKey(pullKey: string) {
      * possible for two sequential non-null sessionIds to be sent.
      */
     addSessionIdListener(callback: (sessionId: UUID | null) => void) {
+      logEvent(analytics, "listener", { type: "sessionId", pullKey });
       return onValue(child(reference, "sessionId"), (snapshot) => {
         callback(snapshot.val());
+        logEvent(analytics, "data", { type: "sessionId", pullKey });
       });
     },
   };
@@ -88,12 +103,16 @@ export function forPullKey(pullKey: string) {
 
 /** Creates a listener source for a streamer's public data. */
 export function forStreamer(provider: "twitch", userId: string) {
-  const reference = child(ref(getDb(), "streamers"), `${provider}:${userId}`);
+  const db = getDatabase(getApp());
+  const analytics = getAnalytics(getApp());
+  const reference = child(ref(db, "streamers"), `${provider}:${userId}`);
   return {
     /** If the public location is hidden (eg streamer is offline), null is passed. */
     addLocationListener(callback: (location: Location | null) => void) {
+      logEvent(analytics, "listener", { type: "location", provider, userId });
       return onValue(child(reference, "location"), (snapshot) => {
         callback(snapshot.val());
+        logEvent(analytics, "data", { type: "location", provider, userId });
       });
     },
   };
@@ -101,7 +120,7 @@ export function forStreamer(provider: "twitch", userId: string) {
 
 let app: FirebaseApp | null = null;
 
-function getDb() {
+function getApp() {
   if (!app) {
     app = initializeApp(
       {
@@ -113,5 +132,5 @@ function getDb() {
       "rtirl-api"
     );
   }
-  return getDatabase(app);
+  return app;
 }
