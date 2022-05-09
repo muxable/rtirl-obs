@@ -11,10 +11,11 @@ import { IconButton } from '@mui/material';
 import { StyleIDHelperDialog } from './StyleIDHelperDialog';
 
 
-export const Settings = ({onStyleIDSubmit, apiKey, setAPIKey, styleID, setStyleID, pullKey, setPullKey, zoom, setZoom, lang, setLang, mapStyle, setMapStyle}) => {
+export const Settings = ({onStyleIDSubmit, pullKey, setPullKey, lang, setLang, mapStyle, setMapStyle}) => {
 
 	const [openStyleIDDialog, setOpenStyleIDDialog] = useState(false);
 	const [inputStyleID, setInputStyleID] = useState("");
+	const [inputAPIKey, setInputAPIKey] = useState("");
 	
 	return (
 		
@@ -40,9 +41,9 @@ export const Settings = ({onStyleIDSubmit, apiKey, setAPIKey, styleID, setStyleI
 						label="API Key"
 						defaultValue="Your API Key"
 						variant="standard"
-						value={apiKey}
+						value={inputAPIKey}
 						onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
-						onChange={(e) => setAPIKey(e.target.value)}
+						onChange={(e) => setInputAPIKey(e.target.value)}
         	/>
 				</Box>
 
@@ -78,7 +79,7 @@ export const Settings = ({onStyleIDSubmit, apiKey, setAPIKey, styleID, setStyleI
 					<Button
 						variant="contained"
 						color="primary"
-						onClick={(e) => { onStyleIDSubmit(inputStyleID); }}
+						onClick={(e) => { onStyleIDSubmit(inputStyleID, inputAPIKey); }}
 					>
 						Preview
 					</Button>

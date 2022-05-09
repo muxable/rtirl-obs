@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 
 export const ConsolePanel = ({zoom, lang, pullKey, apiKey, styleID}) => {
 
-	
+	apiKey = apiKey === "pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2oyMDFlMGpsMDN3bTJ4bjR1MzRrbDFleCJ9.7XEB3HHBGr-N6ataUZh_6g" ? "" : apiKey;
 
 	const hasPullKey = pullKey !== undefined && pullKey !== null && pullKey !== "";
 	const hasStyleID = styleID !== undefined && styleID !== null && styleID !== "";

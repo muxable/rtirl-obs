@@ -11,7 +11,7 @@ export const PreviewSnackBar = ({open, setOpen}) => {
 				onclose={() => {setOpen(false)}}
 				severity="error"
 			>
-				To preview a stylized map, please enter a formatted public styleId.
+				To preview a stylized map, please enter a formatted public styleId and a valid map token.
 			</MuiAlert>
 		</Snackbar>
 	)

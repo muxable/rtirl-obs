@@ -8,8 +8,8 @@ import { PreviewSnackBar } from '../component/PreviewSnackBar';
 export const EditorScreen = () => {
 
   const [mapStyle, setMapStyle] = useState(null);
-	const [apiKey, setAPIKey] = useState("");
-	const [styleID, setStyleID] = useState("");
+	const [apiKey, setAPIKey] = useState("pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2oyMDFlMGpsMDN3bTJ4bjR1MzRrbDFleCJ9.7XEB3HHBGr-N6ataUZh_6g");
+	const [styleID, setStyleID] = useState("mapbox/streets-v11");
 	const [pullKey, setPullKey] = useState("");
 	const [zoom, setZoom] = useState(5);
 	const [lang, setLang] = useState("EN");
@@ -25,8 +25,7 @@ export const EditorScreen = () => {
       });
   }, [])
 
-	const onStyleIDSubmit = (styleID) => {
-    console.log("on submit styleID: " + styleID);
+	const onStyleIDSubmit = (styleID, apiKey) => {
     if (styleID === undefined || styleID === null || styleID === "") {
       setOpenPreviewSnackBar(true);
 			return
@@ -35,7 +34,16 @@ export const EditorScreen = () => {
       setOpenPreviewSnackBar(true);
 			return
 		}
+    if (apiKey === undefined || apiKey === null || apiKey === "") {
+      setOpenPreviewSnackBar(true);
+      return
+    }
+    if (!apiKey.includes("pk.")) {
+      setOpenPreviewSnackBar(true);
+      return
+    }
 		setStyleID(styleID);
+    setAPIKey(apiKey);
 	}
 
 	return (

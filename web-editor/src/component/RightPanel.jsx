@@ -8,30 +8,36 @@ import { MapboxMapContainer } from './MapboxMapContainer';
 export const mapboxMapStyleJsonCache = {};
 
 export const RightPanel = ({lang, pullKey, apiKey, styleID, mapStyle, setMapStyle }) => {
-
+	console.log("right panel render");
 	const [viewState, setViewState] = useState({
     longitude: -100,
     latitude: 40,
     zoom: 3,
   });
 
+	const [canPreview, setCanPreview] = useState(true);
 
 	useEffect(() => {
 		const mapboxMapStyleJson = mapboxMapStyleJsonCache[styleID];
 		if (mapboxMapStyleJson !== undefined && mapboxMapStyleJson !== null && mapboxMapStyleJson !== "") { 
 			setMapStyle(mapboxMapStyleJsonCache[styleID]);
 		} else {
-			fetch(`https://api.mapbox.com/styles/v1/${styleID}?access_token=pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2oyMDFlMGpsMDN3bTJ4bjR1MzRrbDFleCJ9.7XEB3HHBGr-N6ataUZh_6g`)
-      .then(res => res.json())
+			fetch(`https://api.mapbox.com/styles/v1/${styleID}?access_token=${apiKey}`)
+      .then(res => res.status === 200 ? res.json() : null)
       .then(res => {
-				mapboxMapStyleJsonCache[styleID] = res;
-        setMapStyle(res);
+				if (res !== null) {
+					mapboxMapStyleJsonCache[styleID] = res;
+					setMapStyle(res);
+					setCanPreview(true);
+				} else {
+					setCanPreview(false);
+				}
       }).catch(err => {
 				console.log(err);
 				setMapStyle(mapboxMapStyleJsonCache["mapbox/streets-v11"]);
-			})
+			});
 		}
-	}, [styleID, setMapStyle])
+	}, [styleID, apiKey, setMapStyle])
 
 
 	return (
@@ -40,15 +46,18 @@ export const RightPanel = ({lang, pullKey, apiKey, styleID, mapStyle, setMapStyl
 			divider={<Divider orientation="vertical" flexItem />}
 		>
 			<MapboxMapContainer 
+				canPreview={canPreview}
 				viewState={viewState}
 				setViewState={setViewState}
-				mapStyle={mapStyle} 
+				mapStyle={mapStyle}
+				apiKey={apiKey}
 			/>
 			{
 				`Longitude: ${viewState.longitude}, Latitude: ${viewState.latitude}, zoom: ${viewState.zoom}`
 			}
 			{/* <ExportPanel></ExportPanel> */}
-			<ConsolePanel 
+			<ConsolePanel
+				canPreview={canPreview}
 				lang={lang}
 				zoom={viewState.zoom}
 				styleID={styleID}
