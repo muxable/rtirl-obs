@@ -1,5 +1,5 @@
 import React from "react";
-import { MenuItem, Select } from "@mui/material";
+import { MenuItem, Select, SelectChangeEvent } from "@mui/material";
 
 // https://github.com/lipis/flag-icons/issues/510
 const languageToCountry: { [key: string]: string } = {
@@ -144,17 +144,30 @@ function getFlagEmoji(countryCode: string) {
   return String.fromCodePoint(...codePoints);
 }
 
-function CountryPicker({ countries }: { countries: string[] }) {
+function CountryPicker({ countries, lang, setLang, mapboxMapRef }: { countries: string[], lang: string, setLang: any, mapboxMapRef: any }) {
+
+  const handleLanguageChange = (event: SelectChangeEvent) => {
+    const newLang = event.target.value as string;
+    setLang(newLang);
+    // console.log(mapboxMapRef.current);
+    // mapboxMapRef.current
+    // mapboxMapRef.current.setLayoutProperty('country-label', 'text-field', [
+    //   'get',
+    //   `name_${newLang.toLowerCase()}`
+    // ]);
+  };
+
+
   return (
     <Select
-      labelId="demo-simple-select-label"
-      id="demo-simple-select"
-      // value={age}
-      label="Zoom level"
-      // onChange={handleChange}
+      labelId="select-language-label-id"
+      id="select-language-picker"
+      value={lang}
+      label="Language-picker"
+      onChange={handleLanguageChange}
     >
       {countries.map((country) => (
-        <MenuItem>
+        <MenuItem value={country}>
           {getFlagEmoji(languageToCountry[country.toLowerCase()] ?? "")}{" "}
           {country}
         </MenuItem>
