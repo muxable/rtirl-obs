@@ -325,100 +325,17 @@
 
         <h2>StreamElements</h2>
         <p>
-          If you would like to display RealtimeIRL data using StreamElements overlays, you will need to add a Custom widget and then build your snippets, here is an example to add the map:
+          If you would like to display RealtimeIRL data using StreamElements overlays, you will need to add a Custom widget and then add the iFrame to the HTML section. (Settings > Open Editor)
         </p>
-<details>
-  <summary>HTML</summary>
-  <pre><code>&lt;html&gt;
-  &lt;head&gt;
-    &lt;script src=&quot;https://www.gstatic.com/firebasejs/8.10.0/firebase.js&quot;&gt;&lt;/script&gt;
-    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://unpkg.com/leaflet@1.7.1/dist/leaflet.css&quot;
-      integrity=&quot;sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==&quot;
-      crossorigin=&quot;anonymous&quot; /&gt;
-    &lt;script src=&quot;https://unpkg.com/leaflet@1.7.1/dist/leaflet.js&quot;
-      integrity=&quot;sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==&quot;
-      crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
-  &lt;/head&gt;
 
-  &lt;body&gt;
-    &lt;div style=&quot;position: relative&quot;&gt;
-      &lt;div id=&quot;map&quot; style=&quot;width: 300px; height: 250px&quot;&gt;&lt;/div&gt;
-      &lt;div id=&quot;marker&quot; style=&quot;
-            background-color: cyan;
-            height: 12px;
-            width: 12px;
-            position: absolute;
-            border-radius: 50%;
-            top: 119px;
-            left: 144px;
-            box-shadow: 0 0 10px cyan;
-            z-index: 400;
-          &quot;&gt;&lt;/div&gt;
-    &lt;/div&gt;
-  &lt;/body&gt;
-  
-&lt;/html&gt;
-  </code></pre>
-</details>
-        
-<details>
-  <summary>JS</summary>
-  <pre><code>
-const pullKey = "<YOUR_RTIRL_PULL_KEY>";
-const mapboxToken = "<YOUR_MAPBOX_AT>";
-
-var app;
-var map = L.map("map").setView([0, 0], 13);
-L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-  accessToken: mapboxToken,
-  attribution: '&copy; &lt;a href="https://www.openstreetmap.org/copyright"&gt;OpenStreetMap&lt;/a&gt; © &lt;a href="https://www.mapbox.com/"&gt;Mapbox&lt;/a&gt;',
-  id: 'mapbox/streets-v11',
-  tileSize: 512,
-  zoomOffset: -1,
-
-  zoom: 13,
-}).addTo(map);
-
-// Setting this through options does not seem to work
-map.removeControl(map.zoomControl);
-map.dragging.disable();
-
-addEventListener('load', onReady);
-
-function onReady() {
-  firebase.database.INTERNAL.forceWebSockets();
-  app = firebase.initializeApp( {
-  apiKey: "AIzaSyC4L8ICZbJDufxe8bimRdB5cAulPCaYVQQ",
-  databaseURL: "https://rtirl-a1d7f-default-rtdb.firebaseio.com",
-  projectId: "rtirl-a1d7f",
-  appId: "1:684852107701:web:d77a8ed0ee5095279a61fc",
-  },
-  "rtirl-api");
-
-  addLocationListener(function (location) {
-    map.panTo({
-    lng: location.longitude,
-    lat: location.latitude,
-    });
-  });
-  }
-
-function addLocationListener(callback) {
-  return addListener("location", callback);
-}
-
-function addListener(type, callback) {
-  return app
-    .database()
-    .ref()
-    .child("pullables")
-    .child(pullKey)
-    .child(type)
-    .on("value", function (snapshot) {
-      callback(snapshot.val());
-  });
-}</code></pre>
-</details>
+        <code>
+          &ltiframe 
+            height="100%" 
+            width="100%" 
+            frameborder="0" 
+            src="https://overlays.rtirl.com/compat.html?key=<span class="pull-key">&lt;YOUR_PULL_KEY&gt;</span>&access_token=&lt;YOUR_MAPBOX_ACCESS_TOKEN&gt;&style=&lt;MAPBOX_STYLE_ID&gt;"&gt;
+          &lt/iframe&gt
+        </code>
 
       </article>
     </main>
