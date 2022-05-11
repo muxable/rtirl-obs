@@ -1,23 +1,26 @@
-import * as React from 'react';
+import { useState } from 'react';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import Divider from '@mui/material/Divider';
+import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import CountryPicker from './CountryPicker';
+import ControlPanel from './ControlPanel';
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
+import { IconButton } from '@mui/material';
+import { StyleIDHelperDialog } from './StyleIDHelperDialog';
 
 
-export const Settings = (props) => {
+export const Settings = ({onStyleIDSubmit, pullKey, setPullKey, lang, setLang, mapStyle, setMapStyle}) => {
+
+	const [openStyleIDDialog, setOpenStyleIDDialog] = useState(false);
+	const [inputStyleID, setInputStyleID] = useState("");
+	const [inputAPIKey, setInputAPIKey] = useState("");
 	
-	const ZOOM_LEVELS = [...Array(15).keys()].map(i => i + 1);
 	return (
 		
-		<Box style={{width: "256px", height: "490px", backgroundColor: "#d6a1ed", margin: "16px", padding: "16px"}} paddingLeft={4} borderRadius={4}>
-					<Stack 
+		<Box style={{width: "256px", height: "100vh", backgroundColor: "#d6a1ed", margin: "16px", padding: "16px"}} paddingLeft={4} borderRadius={4}>
+			<Stack 
 				divider={<Divider orientation="vertical" flexItem />}
 				spacing={2}
 				textAlign="left"
@@ -38,6 +41,9 @@ export const Settings = (props) => {
 						label="API Key"
 						defaultValue="Your API Key"
 						variant="standard"
+						value={inputAPIKey}
+						onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
+						onChange={(e) => setInputAPIKey(e.target.value)}
         	/>
 				</Box>
 
@@ -46,12 +52,37 @@ export const Settings = (props) => {
 					component="form"
 					noValidate
 					autoComplete="off"
+					style={{position: "relative"}}
+					onSubmit={(e) => { e.preventDefault(); }}
 				>
+					<IconButton
+						onClick={() => setOpenStyleIDDialog(true)}
+						style={{position: "absolute", right: "0px"}}
+					>
+						<QuestionMarkIcon />
+					</IconButton>
+
 					<TextField
+					 	// ref={inputStyleIDRef}
 						id="tf-style-id"
 						label="Style ID"
 						variant="standard"
+						helperText={
+							<>				
+								format: account/styleId <br />
+								example: mapbox/streets-v11 <br />
+							</>
+						}
+						onSubmit={(e) => { e.preventDefault(); }}
+						onChange={(e) => { setInputStyleID(e.target.value); }}
         	/>
+					<Button
+						variant="contained"
+						color="primary"
+						onClick={(e) => { onStyleIDSubmit(inputStyleID, inputAPIKey); }}
+					>
+						Preview
+					</Button>
 				</Box>
 
 				{/* Pull key from rtirl.com */}
@@ -63,41 +94,32 @@ export const Settings = (props) => {
 					<TextField
 						required
 						id="standard-required"
-						label="Required"
-						defaultValue="Pull Key from rtirl.com"
+						label="Pull Key"
+						helperText="Pull Key from rtirl.com"
 						variant="standard"
+						value = {pullKey}
+						onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
+						onChange = {(e) => setPullKey(e.target.value)}
         	/>
 				</Box>
 
-				{/* zoom level selector */}
+				{/* Map style controll */}
 				<Box>
-					<FormControl  style={{width: 128}}>
-						<InputLabel id="select-zoom-level-label">Zoom level</InputLabel>
-						<Select
-							labelId="demo-simple-select-label"
-							id="demo-simple-select"
-							// value={age}
-							label="Zoom level"
-							// onChange={handleChange}
-						>
-							{
-								ZOOM_LEVELS.map(zoomLevel => (
-									 <MenuItem key={zoomLevel} value={zoomLevel}>{zoomLevel}</MenuItem>
-								),)
-							}
-						</Select>
-					</FormControl>
+					<ControlPanel 
+						onChange={setMapStyle} 
+						language={lang} 
+						setLanguage={setLang}
+						mapStyle={mapStyle}
+					>	
+					</ControlPanel>
 				</Box>
-
-				{/* language selector */}
-				<Box>
-					<FormControl  style={{width: 128}}>
-						<InputLabel id="select-language-label"> Language </InputLabel>
-						<CountryPicker countries={["EN", "FR", "JA", "KO", "ZH"]} />
-					</FormControl>
-				</Box>
-
 			</Stack>
+			
+			
+			<StyleIDHelperDialog
+				open={openStyleIDDialog}
+				setOpen={setOpenStyleIDDialog}
+			/>
 		</Box>
 	)
 }

@@ -1,18 +1,15 @@
 import './App.css';
 import { EditorAppbar } from './component/Appbar';
-import { Settings } from './component/Settings';
 import Stack from '@mui/material/Stack';
-import { MapboxMapContainer } from './component/MapboxMapContainer';
+import { EditorScreen } from './screen/EditorScreen';
+
 
 function App() {
   return (
     <div className="App">
       <Stack>
         <EditorAppbar />
-        <Stack direction="row">
-          <Settings></Settings>
-          <MapboxMapContainer></MapboxMapContainer>
-        </Stack>
+        <EditorScreen></EditorScreen>
       </Stack>
       {/* <HomeScreen /> */}
     </div>
