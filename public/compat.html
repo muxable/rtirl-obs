@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+      crossorigin=""
+    ></script>
+  </head>
+
+  <style>
+    .alert {
+      display: none;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      width: 300px;
+      background-color: #f44336;
+      color: white;
+      z-index: 401;
+    }
+  </style>
+
+  <body>
+    <div style="position: relative">
+      <div id="alert-box" class="alert"></div>
+      <div id="map" style="width: 300px; height: 250px"></div>
+      <div
+        id="marker"
+        style="
+          background-color: cyan;
+          height: 12px;
+          width: 12px;
+          position: absolute;
+          border-radius: 50%;
+          top: 119px;
+          left: 144px;
+          box-shadow: 0 0 10px cyan;
+          z-index: 400;
+        "
+      ></div>
+    </div>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js";
+      import {
+        forceWebSockets,
+        getDatabase,
+        ref,
+        onValue,
+        child,
+      } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-database.js";
+
+      var params = new URLSearchParams(window.location.search);
+      const pullKey = params.get("key");
+      const mapboxToken = params.get("access_token");
+
+      var app;
+      var map = L.map("map").setView([0, 0], 13);
+      L.tileLayer(
+        "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
+        {
+          accessToken: mapboxToken,
+          attribution: '© <a href="https://www.mapbox.com/">Mapbox</a>',
+          id: params.get("style"),
+          tileSize: 512,
+          zoomOffset: -1,
+          zoom: 13,
+        }
+      ).addTo(map);
+
+      // Setting this through options does not seem to work
+      map.removeControl(map.zoomControl);
+      map.dragging.disable();
+
+      addEventListener("load", onReady);
+
+      function onReady() {
+        forceWebSockets();
+        app = initializeApp(
+          {
+            apiKey: "AIzaSyC4L8ICZbJDufxe8bimRdB5cAulPCaYVQQ",
+            databaseURL: "https://rtirl-a1d7f-default-rtdb.firebaseio.com",
+            projectId: "rtirl-a1d7f",
+            appId: "1:684852107701:web:d77a8ed0ee5095279a61fc",
+          },
+          "rtirl-api"
+        );
+
+        addLocationListener(function (location) {
+          map.panTo({
+            lng: location.longitude,
+            lat: location.latitude,
+          });
+        });
+      }
+
+      function addLocationListener(callback) {
+        return addListener("location", callback);
+      }
+
+      function addListener(type, callback) {
+        const db = getDatabase(app);
+        const dbRef = ref(db);
+        const pullables = child(dbRef, `pullables/${pullKey}/${type}`);
+        return onValue(pullables, (snapshot) => {
+          callback(snapshot.val());
+        });
+      }
+    </script>
+  </body>
+</html>
