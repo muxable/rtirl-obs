@@ -11,11 +11,13 @@ import { IconButton } from '@mui/material';
 import { StyleIDHelperDialog } from './StyleIDHelperDialog';
 
 
-export const Settings = ({onStyleIDSubmit, pullKey, setPullKey, lang, setLang, mapStyle, setMapStyle}) => {
+export const Settings = ({onStyleIDSubmit, pullKey, setPullKey, lang, setLang, mapStyle, setMapStyle, mapProvider}) => {
 
 	const [openStyleIDDialog, setOpenStyleIDDialog] = useState(false);
 	const [inputStyleID, setInputStyleID] = useState("");
 	const [inputAPIKey, setInputAPIKey] = useState("");
+
+	const [inputStyleJSON, setInputStyleJSON] = useState("");
 	
 	return (
 		
@@ -62,20 +64,38 @@ export const Settings = ({onStyleIDSubmit, pullKey, setPullKey, lang, setLang, m
 						<QuestionMarkIcon />
 					</IconButton>
 
-					<TextField
-					 	// ref={inputStyleIDRef}
-						id="tf-style-id"
-						label="Style ID"
-						variant="standard"
-						helperText={
-							<>				
-								format: account/styleId <br />
-								example: mapbox/streets-v11 <br />
-							</>
-						}
-						onSubmit={(e) => { e.preventDefault(); }}
-						onChange={(e) => { setInputStyleID(e.target.value); }}
-        	/>
+					{
+						mapProvider === "mapbox" ?
+							<TextField
+							// ref={inputStyleIDRef}
+							id="tf-style-id"
+							label="Style ID"
+							variant="standard"
+							helperText={
+								<>				
+									format: account/styleId <br />
+									example: mapbox/streets-v11 <br />
+								</>
+							}
+							onSubmit={(e) => { e.preventDefault(); }}
+							onChange={(e) => { setInputStyleID(e.target.value); }}
+							/> :
+						<TextField
+							id="outlined-multiline-static"
+							label="Style JSON"
+							multiline
+							rows={4}
+							defaultValue=""
+							helperText={
+								<>
+									format: JSON
+								</>
+							}
+							onSubmit={(e) => { e.preventDefault(); }}
+							onChange={(e) => { setInputStyleJSON(e.target.value); }}
+        		/>
+					}
+					
 					<Button
 						variant="contained"
 						color="primary"

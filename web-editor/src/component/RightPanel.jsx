@@ -4,10 +4,11 @@ import Stack from '@mui/material/Stack';
 // import { ExportPanel } from './ExportPanel';
 import { ConsolePanel } from './ConsolePanel';
 import { MapboxMapContainer } from './MapboxMapContainer';
+import { GoogleMapContainer } from './GoogleMapContainer';
 
 export const mapboxMapStyleJsonCache = {};
 
-export const RightPanel = ({lang, pullKey, apiKey, styleID, mapStyle, setMapStyle }) => {
+export const RightPanel = ({lang, pullKey, apiKey, styleID, mapStyle, setMapStyle, mapProvider }) => {
 	console.log("right panel render");
 	const [viewState, setViewState] = useState({
     longitude: -100,
@@ -45,13 +46,19 @@ export const RightPanel = ({lang, pullKey, apiKey, styleID, mapStyle, setMapStyl
 			style={{ margin: "4px" }}
 			divider={<Divider orientation="vertical" flexItem />}
 		>
-			<MapboxMapContainer 
-				canPreview={canPreview}
-				viewState={viewState}
-				setViewState={setViewState}
-				mapStyle={mapStyle}
-				apiKey={apiKey}
-			/>
+
+			{
+				mapProvider === "mapbox" ? 
+					<MapboxMapContainer 
+						canPreview={canPreview}
+						viewState={viewState}
+						setViewState={setViewState}
+						mapStyle={mapStyle}
+						apiKey={apiKey}
+					/> :
+					<GoogleMapContainer />
+			}
+
 			{
 				`Longitude: ${viewState.longitude}, Latitude: ${viewState.latitude}, zoom: ${viewState.zoom}`
 			}

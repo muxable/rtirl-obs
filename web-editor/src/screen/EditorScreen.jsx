@@ -5,7 +5,7 @@ import { Settings } from '../component/Settings';
 import { mapboxMapStyleJsonCache, RightPanel } from '../component/RightPanel';
 import { PreviewSnackBar } from '../component/PreviewSnackBar';
 
-export const EditorScreen = () => {
+export const EditorScreen = ({ mapProvider }) => {
 
   const [mapStyle, setMapStyle] = useState(null);
 	const [apiKey, setAPIKey] = useState("pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2oyMDFlMGpsMDN3bTJ4bjR1MzRrbDFleCJ9.7XEB3HHBGr-N6ataUZh_6g");
@@ -17,12 +17,13 @@ export const EditorScreen = () => {
   const [openPreviewSnackBar, setOpenPreviewSnackBar] = useState(false);
 
   useEffect(() => {
-    fetch("https://api.mapbox.com/styles/v1/mapbox/streets-v11?access_token=pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2oyMDFlMGpsMDN3bTJ4bjR1MzRrbDFleCJ9.7XEB3HHBGr-N6ataUZh_6g")
-      .then(res => res.json())
-      .then(res => {
-        mapboxMapStyleJsonCache["mapbox/streets-v11"] = res;
-        setMapStyle(res);
-      });
+      fetch("https://api.mapbox.com/styles/v1/mapbox/streets-v11?access_token=pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2oyMDFlMGpsMDN3bTJ4bjR1MzRrbDFleCJ9.7XEB3HHBGr-N6ataUZh_6g")
+        .then(res => res.json())
+        .then(res => {
+          mapboxMapStyleJsonCache["mapbox/streets-v11"] = res;
+          setMapStyle(res);
+        });
+    
   }, [])
 
 	const onStyleIDSubmit = (styleID, apiKey) => {
@@ -52,6 +53,7 @@ export const EditorScreen = () => {
         mapStyle ?
         <>
           <Settings 
+          	mapProvider={mapProvider}
             onStyleIDSubmit={onStyleIDSubmit}
             mapStyle={mapStyle}
             setMapStyle={setMapStyle}
@@ -68,6 +70,7 @@ export const EditorScreen = () => {
           >
         </Settings>
         <RightPanel
+          mapProvider={mapProvider}
           setMapStyle={setMapStyle}
           mapStyle={mapStyle}
           zoom={zoom}
