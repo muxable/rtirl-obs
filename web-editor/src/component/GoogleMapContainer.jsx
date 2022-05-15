@@ -23,6 +23,7 @@ export const GoogleMapContainer = () => {
   })
 
   const [map, setMap] = useState(null)
+  console.log(map);
 
   const onLoad = useCallback((map) => {
     const bounds = new window.google.maps.LatLngBounds(center);

@@ -18,7 +18,8 @@ export const Settings = ({onStyleIDSubmit, pullKey, setPullKey, lang, setLang, m
 	const [inputAPIKey, setInputAPIKey] = useState("");
 
 	const [inputStyleJSON, setInputStyleJSON] = useState("");
-	
+	console.log(inputStyleJSON)
+
 	return (
 		
 		<Box style={{width: "256px", height: "100vh", backgroundColor: "#d6a1ed", margin: "16px", padding: "16px"}} paddingLeft={4} borderRadius={4}>
