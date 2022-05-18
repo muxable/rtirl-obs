@@ -11,14 +11,13 @@ import { IconButton } from '@mui/material';
 import { StyleIDHelperDialog } from './StyleIDHelperDialog';
 
 
-export const Settings = ({onStyleIDSubmit, pullKey, setPullKey, lang, setLang, mapStyle, setMapStyle, mapProvider}) => {
+export const Settings = ({onStyleJSONSubmit, onStyleIDSubmit, pullKey, setPullKey, lang, setLang, mapStyle, setMapStyle, mapProvider }) => {
 
 	const [openStyleIDDialog, setOpenStyleIDDialog] = useState(false);
 	const [inputStyleID, setInputStyleID] = useState("");
 	const [inputAPIKey, setInputAPIKey] = useState("");
 
 	const [inputStyleJSON, setInputStyleJSON] = useState("");
-	console.log(inputStyleJSON)
 
 	return (
 		
@@ -100,7 +99,11 @@ export const Settings = ({onStyleIDSubmit, pullKey, setPullKey, lang, setLang, m
 					<Button
 						variant="contained"
 						color="primary"
-						onClick={(e) => { onStyleIDSubmit(inputStyleID, inputAPIKey); }}
+						onClick={(e) => {
+							mapProvider === "mapbox" ? 
+								onStyleIDSubmit(inputStyleID, inputAPIKey) :
+								onStyleJSONSubmit(inputStyleJSON, inputAPIKey)
+						}}
 					>
 						Preview
 					</Button>

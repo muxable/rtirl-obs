@@ -1,7 +1,7 @@
 import * as React from "react";
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
-import { useState, useCallback } from 'react';
-
+import { GoogleMap, useJsApiLoader, } from '@react-google-maps/api';
+import { useState, useCallback, useRef, useEffect } from 'react';
+        
 
 const containerStyle = {
   width: "80vw",
@@ -9,25 +9,29 @@ const containerStyle = {
   marginTop: "16px"
 };
 
-const center = {
-  lat: -3.745,
-  lng: -38.523
-};
 
 
-export const GoogleMapContainer = () => {
+
+export const GoogleMapContainer = ({ mapStyle, apiKey }) => {
   
-  const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
-    googleMapsApiKey: ""
+  mapStyle = JSON.parse(mapStyle) ?? {};
+
+  const center = {
+    lat: 40,
+    lng: -100
+  }
+  
+  
+  const { isLoaded, loadError } = useJsApiLoader({
+    id: `google-map-script`,
+    googleMapsApiKey: apiKey,
   })
 
+  console.log(`google map api loaded: ${isLoaded}`);
+
   const [map, setMap] = useState(null)
-  console.log(map);
 
   const onLoad = useCallback((map) => {
-    const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
     setMap(map)
   }, [])
 
@@ -35,13 +39,41 @@ export const GoogleMapContainer = () => {
     setMap(null)
   }, [])  
 
+  const onZoomChanged = () => {
+    // if (map !== undefined && map !== null) {
+    //   console.log(`zoom changed: ${map['zoom']}`);
+    //   setGoogleMapViewState({ latitude: map['center']['lat'], longitude: map['center']['lng'], zoom: map['zoom']})
+    // }
+  }
+
+  const onCenterChanged = () => {
+    // if (map !== undefined && map !== null) {
+    //   console.log(`center changed: ${map['center']}`);
+    //   setGoogleMapViewState({ latitude: map['center']['lat'], longitude: map['center']['lng'], zoom: map['zoom']})
+    // }
+  }
+
+  const onMapTypeIdChanged = () => {
+    console.log("map type changed");
+  }
+  
+  // if (loadError === undefined) {
+  //   return <div>Map cannot be displayed: {loadError.message}</div>
+  // }
+
   return isLoaded ? (
       <GoogleMap
+        options={{
+          styles: mapStyle,
+        }}
         mapContainerStyle={containerStyle}
         center={center}
-        zoom={8}
+        zoom={3}
         onLoad={onLoad}
         onUnmount={onUnmount}
+        onZoomChanged={onZoomChanged}
+        onCenterChanged={onCenterChanged}
+        onMapTypeIdChanged={onMapTypeIdChanged}
       >
         { /* Child components, such as markers, info windows, etc. */ }
         <></>

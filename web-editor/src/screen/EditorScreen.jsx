@@ -7,12 +7,18 @@ import { PreviewSnackBar } from '../component/PreviewSnackBar';
 
 export const EditorScreen = ({ mapProvider }) => {
 
+  // mapbox states
   const [mapStyle, setMapStyle] = useState(null);
 	const [apiKey, setAPIKey] = useState("pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2oyMDFlMGpsMDN3bTJ4bjR1MzRrbDFleCJ9.7XEB3HHBGr-N6ataUZh_6g");
 	const [styleID, setStyleID] = useState("mapbox/streets-v11");
 	const [pullKey, setPullKey] = useState("");
 	const [zoom, setZoom] = useState(5);
 	const [lang, setLang] = useState("EN");
+
+
+  // google map states
+  const [googleStyleJSON, setGoogleStyleJSON] = useState(null);
+  const [googleApiKey, setGoogleApiKey] = useState("tempInitKey");
 
   const [openPreviewSnackBar, setOpenPreviewSnackBar] = useState(false);
 
@@ -47,6 +53,29 @@ export const EditorScreen = ({ mapProvider }) => {
     setAPIKey(apiKey);
 	}
 
+
+  const onStyleJSONSubmit = (styleJSON, apiKey) => {
+    styleJSON = styleJSON.trim();
+    if (styleJSON === "") {
+      styleJSON = "[]";
+    }
+
+    if (styleJSON === undefined || styleJSON === null) {
+      setOpenPreviewSnackBar(true);
+      return
+    }
+    
+    if (apiKey === undefined || apiKey === null || apiKey === "") {
+      setOpenPreviewSnackBar(true);
+      return
+    }
+
+    apiKey = apiKey.trim()
+    setGoogleStyleJSON(styleJSON);
+    setGoogleApiKey(apiKey);
+  }
+
+
 	return (
     <Stack direction="row">
       {
@@ -55,6 +84,7 @@ export const EditorScreen = ({ mapProvider }) => {
           <Settings 
           	mapProvider={mapProvider}
             onStyleIDSubmit={onStyleIDSubmit}
+            onStyleJSONSubmit={onStyleJSONSubmit}
             mapStyle={mapStyle}
             setMapStyle={setMapStyle}
             apiKey={apiKey} 
@@ -76,8 +106,10 @@ export const EditorScreen = ({ mapProvider }) => {
           zoom={zoom}
           lang={lang}
           pullKey={pullKey}
-          apiKey={apiKey}
+          apiKey={mapProvider === "mapbox" ? apiKey : googleApiKey}
           styleID={styleID}
+
+          googleStyleJSON={googleStyleJSON}
           >
         </RightPanel>
       </> :

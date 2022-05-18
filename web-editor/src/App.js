@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 function App() {
 
-  const [mapProvider, setMapProvider] = useState("mapbox");
+  const [mapProvider, setMapProvider] = useState("google");
 
   return (
     <div className="App">

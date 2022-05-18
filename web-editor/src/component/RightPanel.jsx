@@ -6,15 +6,25 @@ import { ConsolePanel } from './ConsolePanel';
 import { MapboxMapContainer } from './MapboxMapContainer';
 import { GoogleMapContainer } from './GoogleMapContainer';
 
+
 export const mapboxMapStyleJsonCache = {};
 
-export const RightPanel = ({lang, pullKey, apiKey, styleID, mapStyle, setMapStyle, mapProvider }) => {
+export const RightPanel = ({lang, pullKey, apiKey, styleID, mapStyle, setMapStyle, mapProvider, googleStyleJSON }) => {
 	console.log("right panel render");
 	const [viewState, setViewState] = useState({
     longitude: -100,
     latitude: 40,
     zoom: 3,
   });
+
+	const [googleMapViewState, setGoogleMapViewState] = useState({
+		longitude: -100,
+		latitude: 40,
+		zoom: 3,
+	})
+
+	console.log(googleMapViewState);
+
 
 	const [canPreview, setCanPreview] = useState(true);
 
@@ -56,7 +66,10 @@ export const RightPanel = ({lang, pullKey, apiKey, styleID, mapStyle, setMapStyl
 						mapStyle={mapStyle}
 						apiKey={apiKey}
 					/> :
-					<GoogleMapContainer />
+					<GoogleMapContainer 
+						apiKey={apiKey}
+						mapStyle={googleStyleJSON}
+					/>
 			}
 
 			{
