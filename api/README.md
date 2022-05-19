@@ -28,6 +28,8 @@ RealtimeIRL.forPullKey(YOUR_PULL_KEY).addLocationListener(function ({
 ```
 
 ```javascript
+import * as RealtimeIRL from '@rtirl/api';
+
 // muxfd = 158394109
 RealtimeIRL.forStreamer("twitch", "158394109").addLocationListener(function (
   location
