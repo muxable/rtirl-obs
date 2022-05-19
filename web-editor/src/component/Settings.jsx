@@ -16,6 +16,7 @@ export const Settings = ({onStyleJSONSubmit, onStyleIDSubmit, pullKey, setPullKe
 	const [openStyleIDDialog, setOpenStyleIDDialog] = useState(false);
 	const [inputStyleID, setInputStyleID] = useState("");
 	const [inputAPIKey, setInputAPIKey] = useState("");
+	const [inputPullKey, setInputPullKey] = useState("");
 
 	const [inputStyleJSON, setInputStyleJSON] = useState("");
 
@@ -59,7 +60,7 @@ export const Settings = ({onStyleJSONSubmit, onStyleIDSubmit, pullKey, setPullKe
 				>
 					<IconButton
 						onClick={() => setOpenStyleIDDialog(true)}
-						style={{position: "absolute", right: "0px"}}
+						style={{position: "absolute", right: "0px", zIndex: "3"}}
 					>
 						<QuestionMarkIcon />
 					</IconButton>
@@ -88,25 +89,16 @@ export const Settings = ({onStyleJSONSubmit, onStyleIDSubmit, pullKey, setPullKe
 							defaultValue=""
 							helperText={
 								<>
-									format: JSON
+									format: JSON <br />
+									<a href="https://mapstyle.withgoogle.com/" target="_blank"> Style with Google </a> <br />
+									<a href="https://snazzymaps.com/" target="_blank"> Style with Snazzymaps </a>
 								</>
 							}
 							onSubmit={(e) => { e.preventDefault(); }}
 							onChange={(e) => { setInputStyleJSON(e.target.value); }}
         		/>
 					}
-					
-					<Button
-						variant="contained"
-						color="primary"
-						onClick={(e) => {
-							mapProvider === "mapbox" ? 
-								onStyleIDSubmit(inputStyleID, inputAPIKey) :
-								onStyleJSONSubmit(inputStyleJSON, inputAPIKey)
-						}}
-					>
-						Preview
-					</Button>
+				
 				</Box>
 
 				{/* Pull key from rtirl.com */}
@@ -121,22 +113,39 @@ export const Settings = ({onStyleJSONSubmit, onStyleIDSubmit, pullKey, setPullKe
 						label="Pull Key"
 						helperText="Pull Key from rtirl.com"
 						variant="standard"
-						value = {pullKey}
+						value = {inputPullKey}
 						onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
-						onChange = {(e) => setPullKey(e.target.value)}
+						onChange = {(e) => setInputPullKey(e.target.value)}
         	/>
 				</Box>
 
 				{/* Map style controll */}
-				<Box>
-					<ControlPanel 
-						onChange={setMapStyle} 
-						language={lang} 
-						setLanguage={setLang}
-						mapStyle={mapStyle}
-					>	
-					</ControlPanel>
-				</Box>
+				{
+					mapProvider === "mapbox" ?
+						<Box>
+							<ControlPanel 
+								onChange={setMapStyle} 
+								language={lang} 
+								setLanguage={setLang}
+								mapStyle={mapStyle}
+							>	
+							</ControlPanel>
+						</Box> :
+						<></>
+				}
+
+					<Button
+						variant="contained"
+						color="primary"
+						onClick={(e) => {
+							mapProvider === "mapbox" ? 
+								onStyleIDSubmit(inputStyleID, inputAPIKey, inputPullKey) :
+								onStyleJSONSubmit(inputStyleJSON, inputAPIKey, inputPullKey)
+						}}
+					>
+						Preview
+					</Button>
+
 			</Stack>
 			
 			

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
-// import { ExportPanel } from './ExportPanel';
+import { ExportPanel } from './ExportPanel';
 import { ConsolePanel } from './ConsolePanel';
 import { MapboxMapContainer } from './MapboxMapContainer';
 import { GoogleMapContainer } from './GoogleMapContainer';
@@ -16,15 +16,6 @@ export const RightPanel = ({lang, pullKey, apiKey, styleID, mapStyle, setMapStyl
     latitude: 40,
     zoom: 3,
   });
-
-	const [googleMapViewState, setGoogleMapViewState] = useState({
-		longitude: -100,
-		latitude: 40,
-		zoom: 3,
-	})
-
-	console.log(googleMapViewState);
-
 
 	const [canPreview, setCanPreview] = useState(true);
 
@@ -73,10 +64,13 @@ export const RightPanel = ({lang, pullKey, apiKey, styleID, mapStyle, setMapStyl
 			}
 
 			{
-				`Longitude: ${viewState.longitude}, Latitude: ${viewState.latitude}, zoom: ${viewState.zoom}`
+				mapProvider === "mapbox" ?
+				`Longitude: ${viewState.longitude}, Latitude: ${viewState.latitude}, zoom: ${viewState.zoom}`: ""
 			}
 			{/* <ExportPanel></ExportPanel> */}
 			<ConsolePanel
+				mapProvider={mapProvider}
+				googleStyleJSON={googleStyleJSON}
 				canPreview={canPreview}
 				lang={lang}
 				zoom={viewState.zoom}

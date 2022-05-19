@@ -32,7 +32,7 @@ export const EditorScreen = ({ mapProvider }) => {
     
   }, [])
 
-	const onStyleIDSubmit = (styleID, apiKey) => {
+	const onStyleIDSubmit = (styleID, apiKey, pullKey) => {
     if (styleID === undefined || styleID === null || styleID === "") {
       setOpenPreviewSnackBar(true);
 			return
@@ -51,10 +51,11 @@ export const EditorScreen = ({ mapProvider }) => {
     }
 		setStyleID(styleID);
     setAPIKey(apiKey);
+    setPullKey(pullKey);
 	}
 
 
-  const onStyleJSONSubmit = (styleJSON, apiKey) => {
+  const onStyleJSONSubmit = (styleJSON, apiKey, pullKey) => {
     styleJSON = styleJSON.trim();
     if (styleJSON === "") {
       styleJSON = "[]";
@@ -70,9 +71,17 @@ export const EditorScreen = ({ mapProvider }) => {
       return
     }
 
+    const jsonStr = JSON.stringify(styleJSON);
+    try {
+      JSON.parse(jsonStr);
+    } catch (e) {
+      return
+    }
+
     apiKey = apiKey.trim()
     setGoogleStyleJSON(styleJSON);
     setGoogleApiKey(apiKey);
+    setPullKey(pullKey);
   }
 
 
