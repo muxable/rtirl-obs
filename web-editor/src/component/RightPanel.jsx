@@ -9,7 +9,7 @@ import { GoogleMapContainer } from './GoogleMapContainer';
 
 export const mapboxMapStyleJsonCache = {};
 
-export const RightPanel = ({lang, pullKey, apiKey, styleID, mapStyle, setMapStyle, mapProvider, googleStyleJSON }) => {
+export const RightPanel = ({lang, pullKey, apiKey, styleID, mapStyle, setMapStyle, mapProvider, googleStyleJSON, googleApiKey }) => {
 	console.log("right panel render");
 	const [viewState, setViewState] = useState({
     longitude: -100,
@@ -58,7 +58,7 @@ export const RightPanel = ({lang, pullKey, apiKey, styleID, mapStyle, setMapStyl
 						apiKey={apiKey}
 					/> :
 					<GoogleMapContainer 
-						apiKey={apiKey}
+						apiKey={googleApiKey}
 						mapStyle={googleStyleJSON}
 					/>
 			}
@@ -69,6 +69,7 @@ export const RightPanel = ({lang, pullKey, apiKey, styleID, mapStyle, setMapStyl
 			}
 			{/* <ExportPanel></ExportPanel> */}
 			<ConsolePanel
+				googleApiKey={googleApiKey}
 				mapProvider={mapProvider}
 				googleStyleJSON={googleStyleJSON}
 				canPreview={canPreview}

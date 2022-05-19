@@ -4,10 +4,11 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 
 
-export const ConsolePanel = ({zoom, lang, pullKey, apiKey, styleID, mapProvider, googleStyleJSON}) => {
+export const ConsolePanel = ({zoom, lang, pullKey, apiKey, styleID, mapProvider, googleStyleJSON, googleApiKey}) => {
 
 	apiKey = apiKey === "pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2oyMDFlMGpsMDN3bTJ4bjR1MzRrbDFleCJ9.7XEB3HHBGr-N6ataUZh_6g" ? "" : apiKey;
 
+	const hasGoogleApiKey = googleApiKey !== undefined && googleApiKey !== null && googleApiKey !== "";
 	const hasPullKey = pullKey !== undefined && pullKey !== null && pullKey !== "";
 	const hasStyleID = styleID !== undefined && styleID !== null && styleID !== "";
 	const hasAPIKey = apiKey !== undefined && apiKey !== null && apiKey !== "";
@@ -37,7 +38,10 @@ export const ConsolePanel = ({zoom, lang, pullKey, apiKey, styleID, mapProvider,
 
 	if (hasAPIKey) {
 		customizeBaseParams.set('access_token', apiKey);
-		customizeGoogleMapBaseParams.set('api_key', apiKey);
+	}
+
+	if (hasGoogleApiKey) {
+		customizeGoogleMapBaseParams.set('api_key', googleApiKey);
 	}
 	
 	if (hasStyleID) {
@@ -110,7 +114,7 @@ export const ConsolePanel = ({zoom, lang, pullKey, apiKey, styleID, mapProvider,
 					alignSelf="flex-start"
 				>
 					<h2> Your Customized Google Map Overlay </h2>
-					{hasAPIKey && hasPullKey ?
+					{hasGoogleApiKey && hasPullKey ?
 						<p> {googleMapBaseURL + customizeGoogleMapBaseParams.toString() + "&style=" + styleB64}</p> :
 						<p> Pull key and Google API key is requried for a customized overlay URL</p>
 					}

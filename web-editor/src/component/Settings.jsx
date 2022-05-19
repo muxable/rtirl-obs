@@ -9,6 +9,7 @@ import ControlPanel from './ControlPanel';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import { IconButton } from '@mui/material';
 import { StyleIDHelperDialog } from './StyleIDHelperDialog';
+import { useEffect } from 'react';
 
 
 export const Settings = ({onStyleJSONSubmit, onStyleIDSubmit, lang, setLang, mapStyle, setMapStyle, mapProvider }) => {
@@ -19,6 +20,14 @@ export const Settings = ({onStyleJSONSubmit, onStyleIDSubmit, lang, setLang, map
 	const [inputPullKey, setInputPullKey] = useState("");
 
 	const [inputStyleJSON, setInputStyleJSON] = useState("");
+
+	// clear all fields when user switch provider
+	useEffect(() => {
+		setInputStyleID("");
+		setInputAPIKey("");
+		setInputPullKey("");
+		setInputStyleJSON("");
+	}, [mapProvider])
 
 	return (
 		

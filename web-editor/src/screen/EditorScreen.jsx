@@ -115,10 +115,11 @@ export const EditorScreen = ({ mapProvider }) => {
           zoom={zoom}
           lang={lang}
           pullKey={pullKey}
-          apiKey={mapProvider === "mapbox" ? apiKey : googleApiKey}
+          apiKey={apiKey}
           styleID={styleID}
 
           googleStyleJSON={googleStyleJSON}
+          googleApiKey={googleApiKey}
           >
         </RightPanel>
       </> :
