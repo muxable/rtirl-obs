@@ -1,5 +1,5 @@
 import * as React from "react";
-    
+
 
 const containerStyle = {
   width: "80vw",
@@ -17,7 +17,6 @@ export const GoogleMapContainer = ({ mapStyle, apiKey }) => {
   const styleB64 = encodeURIComponent(window.btoa(JSON.stringify(mapStyle)));
   const uri = `https://overlays.rtirl.com/googlemaps.html?key=${pullKey}&api_key=${apiKey}&style=${styleB64}`;
 
-  console.log(styleB64);
   return (
     <>
       <iframe 

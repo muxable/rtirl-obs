@@ -58,13 +58,15 @@ export const Settings = ({onStyleJSONSubmit, onStyleIDSubmit, pullKey, setPullKe
 					style={{position: "relative"}}
 					onSubmit={(e) => { e.preventDefault(); }}
 				>
-					<IconButton
-						onClick={() => setOpenStyleIDDialog(true)}
-						style={{position: "absolute", right: "0px", zIndex: "3"}}
-					>
-						<QuestionMarkIcon />
-					</IconButton>
-
+					{
+						mapProvider === "mapbox" && 
+						<IconButton
+							onClick={() => setOpenStyleIDDialog(true)}
+							style={{position: "absolute", right: "0px", zIndex: "3"}}
+						>
+							<QuestionMarkIcon />
+						</IconButton>
+					}
 					{
 						mapProvider === "mapbox" ?
 							<TextField
