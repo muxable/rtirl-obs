@@ -11,7 +11,7 @@ import { IconButton } from '@mui/material';
 import { StyleIDHelperDialog } from './StyleIDHelperDialog';
 
 
-export const Settings = ({onStyleJSONSubmit, onStyleIDSubmit, pullKey, setPullKey, lang, setLang, mapStyle, setMapStyle, mapProvider }) => {
+export const Settings = ({onStyleJSONSubmit, onStyleIDSubmit, lang, setLang, mapStyle, setMapStyle, mapProvider }) => {
 
 	const [openStyleIDDialog, setOpenStyleIDDialog] = useState(false);
 	const [inputStyleID, setInputStyleID] = useState("");
@@ -92,8 +92,8 @@ export const Settings = ({onStyleJSONSubmit, onStyleIDSubmit, pullKey, setPullKe
 							helperText={
 								<>
 									format: JSON <br />
-									<a href="https://mapstyle.withgoogle.com/" target="_blank"> Style with Google </a> <br />
-									<a href="https://snazzymaps.com/" target="_blank"> Style with Snazzymaps </a>
+									<a href="https://mapstyle.withgoogle.com/"> Style with Google </a> <br />
+									<a href="https://snazzymaps.com/"> Style with Snazzymaps </a>
 								</>
 							}
 							onSubmit={(e) => { e.preventDefault(); }}
