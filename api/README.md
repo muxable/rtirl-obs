@@ -17,6 +17,8 @@ Alternatively, use it in the browser:
 ## Usage
 
 ```javascript
+import * as RealtimeIRL from '@rtirl/api';
+
 RealtimeIRL.forPullKey(YOUR_PULL_KEY).addLocationListener(function ({
   latitude,
   longitude,
