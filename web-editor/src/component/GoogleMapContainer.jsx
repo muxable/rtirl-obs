@@ -15,7 +15,7 @@ export const GoogleMapContainer = ({ mapStyle, apiKey }) => {
   const pullKey = "justANeededHardCodedKey";
   mapStyle = JSON.parse(mapStyle) ?? {};
   const styleB64 = encodeURIComponent(window.btoa(JSON.stringify(mapStyle)));
-  const uri = `https://overlays.rtirl.com/google_preview.html?key=${pullKey}&api_key=${apiKey}&style=${styleB64}`;
+  const uri = `google_preview.html?key=${pullKey}&api_key=${apiKey}&style=${styleB64}`;
 
   return (
     <>
