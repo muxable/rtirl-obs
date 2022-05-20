@@ -1,6 +1,8 @@
 name: Publish API to NPM
 on:
   push:
+    paths:
+      - "api/**"
     branches:
       - main
 
