@@ -2,6 +2,8 @@ import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
+import { TextField, InputAdornment, IconButton } from '@mui/material';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 
 export const ConsolePanel = ({zoom, lang, pullKey, apiKey, styleID, mapProvider, googleStyleJSON, googleApiKey}) => {
@@ -56,11 +58,7 @@ export const ConsolePanel = ({zoom, lang, pullKey, apiKey, styleID, mapProvider,
 	genericBaseParams.set('zoom', zoom);
 	customizeBaseParams.set('zoom', zoom);
 
-
 	const MapboxResult = (
-		<Box
-				style={{width: "80vw", backgroundColor: "#ADD8E6", marginTop: "8px", position: "relative", padding: "8px"}}
-			>
 				<Stack 
 					style={{marginLeft: "16px"}}
 					alignSelf="flex-start"
@@ -68,17 +66,27 @@ export const ConsolePanel = ({zoom, lang, pullKey, apiKey, styleID, mapProvider,
 					<aside>
 						<h2> Generic URL by Muxable </h2>
 						<h4> API Key is supplied by Muxable in the generic URL </h4>
-						{hasPullKey ? 				
+						{hasPullKey ? 
+							<TextField
+								readOnly
+								value={genericBaseURL + genericBaseParams.toString()}
+								fullWidth
+								InputProps={{
+									startAdornment: (
+										<InputAdornment position="start">
+											<IconButton 
+												onClick={() => {navigator.clipboard.writeText(genericBaseURL + genericBaseParams.toString())}}>
+												<ContentCopyIcon />
+											</IconButton>
+										</InputAdornment>
+									),
+								}}
+							>
+							</TextField>				
+ 							: 	
 							<Typography
 								color="inherit"
-								component="div"
-								style={{textOverflow: "ellipsis"}}>
-								{genericBaseURL + genericBaseParams.toString()}
-							</Typography>	 : 	
-							<Typography
-								color="inherit"
-								component="div"
-								style={{textOverflow: "ellipsis"}}>
+							>
 								Pull key is required for a generic overlay URL
 							</Typography>	
 						}
@@ -86,49 +94,72 @@ export const ConsolePanel = ({zoom, lang, pullKey, apiKey, styleID, mapProvider,
 					<aside>
 						<h2> Your Customized Mapbox Style</h2>
 						{hasAPIKey && hasStyleID && hasPullKey ?
+							<TextField
+								readOnly
+								value={customizedBaseURL + customizeBaseParams.toString()}
+								fullWidth
+								InputProps={{
+									startAdornment: (
+										<InputAdornment position="start">
+											<IconButton 
+												onClick={() => {navigator.clipboard.writeText(customizedBaseURL + customizeBaseParams.toString())}}>
+												<ContentCopyIcon />
+											</IconButton>
+										</InputAdornment>
+									),
+								}}
+							>
+							</TextField>
+							:
 							<Typography
 								color="inherit"
-								component="div"
-								style={{textOverflow: "ellipsis"}}>
-								{customizedBaseURL + customizeBaseParams.toString()}
-							</Typography>	:
-							<Typography
-								color="inherit"
-								component="div"
-								style={{textOverflow: "ellipsis"}}>
+							>
 								Pull key and Mapbox token and style ID are required for a customized overlay URL
 							</Typography>	
 						}
 					</aside>
 
 				</Stack>
-			</Box>
 	)
 
 	const GoogleMapResult = (
-			<Box
-				style={{width: "80vw", backgroundColor: "#ADD8E6", marginTop: "8px", position: "relative", padding: "8px"}}
-			>
 				<Stack 
 					style={{marginLeft: "16px"}}
 					alignSelf="flex-start"
 				>
 					<h2> Your Customized Google Map Overlay </h2>
 					{hasGoogleApiKey && hasPullKey ?
-						<p> {googleMapBaseURL + customizeGoogleMapBaseParams.toString() + "&style=" + styleB64}</p> :
+						<TextField
+							readOnly
+							value={googleMapBaseURL + customizeGoogleMapBaseParams.toString() + "&style=" + styleB64}
+							InputProps={{
+							startAdornment: (
+								<InputAdornment position="start">
+									<IconButton 
+										onClick={() => {navigator.clipboard.writeText(googleMapBaseURL + customizeGoogleMapBaseParams.toString() + "&style=" + styleB64)}}>
+										<ContentCopyIcon />
+									</IconButton>
+								</InputAdornment>
+          		),
+							}}
+						>
+						</TextField>
+					:
 						<p> Pull key and Google API key is requried for a customized overlay URL</p>
 					}
 				</Stack>
-			</Box>
 	)
 
 
 	return (
-		<>
+		<Box
+			borderRadius={4}
+			style={{width: "80vw", backgroundColor: "#ADD8E6", marginTop: "8px", position: "relative", padding: "8px"}}
+		>
 			{
 				mapProvider === "mapbox" ? MapboxResult : GoogleMapResult
 			}
-		</>
+		</Box>
 	)
 
 }
