@@ -12,10 +12,9 @@ export const GoogleMapContainer = ({ mapStyle, apiKey }) => {
 
   console.log("google map container render");
   
-  const pullKey = "justANeededHardCodedKey";
   mapStyle = JSON.parse(mapStyle) ?? {};
   const styleB64 = encodeURIComponent(window.btoa(JSON.stringify(mapStyle)));
-  const uri = `google_preview.html?key=${pullKey}&api_key=${apiKey}&style=${styleB64}`;
+  const uri = `google_preview.html?api_key=${apiKey}&style=${styleB64}`;
 
   return (
     <>
