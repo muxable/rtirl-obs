@@ -1,30 +1,35 @@
 import * as React from "react";
 import MapGL from "react-map-gl";
-import 'mapbox-gl/dist/mapbox-gl.css';
+import "mapbox-gl/dist/mapbox-gl.css";
 
-
-
-export const MapboxMapContainer = ({mapStyle, viewState, setViewState, apiKey, canPreview}) => {
-  
+export const MapboxMapContainer = ({
+  mapStyle,
+  viewState,
+  setViewState,
+  apiKey,
+  canPreview,
+}) => {
   return (
-		<div
-      style={{height: "524px", width: "80vw", marginTop: "16px"}}
-    > 
-      {canPreview ?  
+    <div style={{ height: "524px", width: "80vw", marginTop: "16px" }}>
+      {canPreview ? (
         <MapGL
           {...viewState}
           mapStyle={mapStyle}
           styleDiffing
           width="100%"
           height="100%"
-          onMove={evt => setViewState(evt.viewState)}
+          onMove={(evt) => setViewState(evt.viewState)}
           mapboxAccessToken={apiKey}
         />
-      : 
+      ) : (
         <div>
-          <h1> Unable to preview, please enter a valid styleId and a valid map token. </h1>
+          <h1>
+            {" "}
+            Unable to preview, please enter a valid styleId and a valid map
+            token.{" "}
+          </h1>
         </div>
-      } 
-		</div>
+      )}
+    </div>
   );
-}
+};
