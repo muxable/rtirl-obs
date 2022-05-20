@@ -9,14 +9,26 @@ import ControlPanel from './ControlPanel';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import { IconButton } from '@mui/material';
 import { StyleIDHelperDialog } from './StyleIDHelperDialog';
+import { useEffect } from 'react';
 
 
-export const Settings = ({onStyleIDSubmit, pullKey, setPullKey, lang, setLang, mapStyle, setMapStyle}) => {
+export const Settings = ({onStyleJSONSubmit, onStyleIDSubmit, lang, setLang, mapStyle, setMapStyle, mapProvider }) => {
 
 	const [openStyleIDDialog, setOpenStyleIDDialog] = useState(false);
 	const [inputStyleID, setInputStyleID] = useState("");
 	const [inputAPIKey, setInputAPIKey] = useState("");
-	
+	const [inputPullKey, setInputPullKey] = useState("");
+
+	const [inputStyleJSON, setInputStyleJSON] = useState("");
+
+	// clear all fields when user switch provider
+	useEffect(() => {
+		setInputStyleID("");
+		setInputAPIKey("");
+		setInputPullKey("");
+		setInputStyleJSON("");
+	}, [mapProvider])
+
 	return (
 		
 		<Box style={{width: "256px", height: "100vh", backgroundColor: "#d6a1ed", margin: "16px", padding: "16px"}} paddingLeft={4} borderRadius={4}>
@@ -55,34 +67,49 @@ export const Settings = ({onStyleIDSubmit, pullKey, setPullKey, lang, setLang, m
 					style={{position: "relative"}}
 					onSubmit={(e) => { e.preventDefault(); }}
 				>
-					<IconButton
-						onClick={() => setOpenStyleIDDialog(true)}
-						style={{position: "absolute", right: "0px"}}
-					>
-						<QuestionMarkIcon />
-					</IconButton>
-
-					<TextField
-					 	// ref={inputStyleIDRef}
-						id="tf-style-id"
-						label="Style ID"
-						variant="standard"
-						helperText={
-							<>				
-								format: account/styleId <br />
-								example: mapbox/streets-v11 <br />
-							</>
-						}
-						onSubmit={(e) => { e.preventDefault(); }}
-						onChange={(e) => { setInputStyleID(e.target.value); }}
-        	/>
-					<Button
-						variant="contained"
-						color="primary"
-						onClick={(e) => { onStyleIDSubmit(inputStyleID, inputAPIKey); }}
-					>
-						Preview
-					</Button>
+					{
+						mapProvider === "mapbox" && 
+						<IconButton
+							onClick={() => setOpenStyleIDDialog(true)}
+							style={{position: "absolute", right: "0px", zIndex: "3"}}
+						>
+							<QuestionMarkIcon />
+						</IconButton>
+					}
+					{
+						mapProvider === "mapbox" ?
+							<TextField
+							// ref={inputStyleIDRef}
+							id="tf-style-id"
+							label="Style ID"
+							variant="standard"
+							helperText={
+								<>				
+									format: account/styleId <br />
+									example: mapbox/streets-v11 <br />
+								</>
+							}
+							onSubmit={(e) => { e.preventDefault(); }}
+							onChange={(e) => { setInputStyleID(e.target.value); }}
+							/> :
+						<TextField
+							id="outlined-multiline-static"
+							label="Style JSON"
+							multiline
+							rows={4}
+							defaultValue=""
+							helperText={
+								<>
+									format: JSON <br />
+									<a href="https://mapstyle.withgoogle.com/"> Style with Google </a> <br />
+									<a href="https://snazzymaps.com/"> Style with Snazzymaps </a>
+								</>
+							}
+							onSubmit={(e) => { e.preventDefault(); }}
+							onChange={(e) => { setInputStyleJSON(e.target.value); }}
+        		/>
+					}
+				
 				</Box>
 
 				{/* Pull key from rtirl.com */}
@@ -97,22 +124,39 @@ export const Settings = ({onStyleIDSubmit, pullKey, setPullKey, lang, setLang, m
 						label="Pull Key"
 						helperText="Pull Key from rtirl.com"
 						variant="standard"
-						value = {pullKey}
+						value = {inputPullKey}
 						onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
-						onChange = {(e) => setPullKey(e.target.value)}
+						onChange = {(e) => setInputPullKey(e.target.value)}
         	/>
 				</Box>
 
 				{/* Map style controll */}
-				<Box>
-					<ControlPanel 
-						onChange={setMapStyle} 
-						language={lang} 
-						setLanguage={setLang}
-						mapStyle={mapStyle}
-					>	
-					</ControlPanel>
-				</Box>
+				{
+					mapProvider === "mapbox" ?
+						<Box>
+							<ControlPanel 
+								onChange={setMapStyle} 
+								language={lang} 
+								setLanguage={setLang}
+								mapStyle={mapStyle}
+							>	
+							</ControlPanel>
+						</Box> :
+						<></>
+				}
+
+					<Button
+						variant="contained"
+						color="primary"
+						onClick={(e) => {
+							mapProvider === "mapbox" ? 
+								onStyleIDSubmit(inputStyleID, inputAPIKey, inputPullKey) :
+								onStyleJSONSubmit(inputStyleJSON, inputAPIKey, inputPullKey)
+						}}
+					>
+						Preview
+					</Button>
+
 			</Stack>
 			
 			

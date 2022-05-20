@@ -4,15 +4,23 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 
 
-export const ConsolePanel = ({zoom, lang, pullKey, apiKey, styleID}) => {
+export const ConsolePanel = ({zoom, lang, pullKey, apiKey, styleID, mapProvider, googleStyleJSON, googleApiKey}) => {
 
 	apiKey = apiKey === "pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2oyMDFlMGpsMDN3bTJ4bjR1MzRrbDFleCJ9.7XEB3HHBGr-N6ataUZh_6g" ? "" : apiKey;
 
+	const hasGoogleApiKey = googleApiKey !== undefined && googleApiKey !== null && googleApiKey !== "";
 	const hasPullKey = pullKey !== undefined && pullKey !== null && pullKey !== "";
 	const hasStyleID = styleID !== undefined && styleID !== null && styleID !== "";
 	const hasAPIKey = apiKey !== undefined && apiKey !== null && apiKey !== "";
 	const hasLang = lang !== undefined && lang !== null && lang !== "";
 
+	 
+  googleStyleJSON = JSON.parse(googleStyleJSON) ?? {};
+  const styleB64 = encodeURIComponent(window.btoa(JSON.stringify(googleStyleJSON)));
+	console.log(styleB64);
+	const googleMapBaseURL = "https://overlays.rtirl.com/googlemaps.html?"
+	const googleMapBaseParamsString= "key=<YOUR_PULL_KEY>&api_key=<YOUR_GOOGLE_MAPS_API_KEY>";
+	const customizeGoogleMapBaseParams = new URLSearchParams(googleMapBaseParamsString);
 	
 	const genericBaseURL = "https://overlays.rtirl.com/generic.html?";
 	const genericBaseParamsString = "key=YOUR_PULL_KEY&zoom=YOUR_ZOOM_LEVEL&lang=YOUR_LANGUAGE";
@@ -21,18 +29,25 @@ export const ConsolePanel = ({zoom, lang, pullKey, apiKey, styleID}) => {
 	const customizedBaseURL = "https://overlays.rtirl.com/mapbox.html?";
 	const customizeBaseParamsString = "key=YOUR_PULL_KEY&access_token=YOUR_MAPBOX_ACCESS_TOKEN&style=MAPBOX_STYLE_ID&zoom=YOUR_ZOOM_LEVEL&lang=YOUR_LANGUAGE";
 	const customizeBaseParams = new URLSearchParams(customizeBaseParamsString);
-	
+
 	if (hasPullKey) {
 		genericBaseParams.set('key', pullKey);
 		customizeBaseParams.set('key', pullKey);
+		customizeGoogleMapBaseParams.set('key', pullKey);
 	}
 
 	if (hasAPIKey) {
 		customizeBaseParams.set('access_token', apiKey);
 	}
+
+	if (hasGoogleApiKey) {
+		customizeGoogleMapBaseParams.set('api_key', googleApiKey);
+	}
+	
 	if (hasStyleID) {
 		customizeBaseParams.set('style', styleID);
 	}
+
 	if (hasLang) {
 		genericBaseParams.set('lang', lang.toLowerCase());
 		customizeBaseParams.set('lang', lang.toLowerCase());
@@ -41,9 +56,10 @@ export const ConsolePanel = ({zoom, lang, pullKey, apiKey, styleID}) => {
 	genericBaseParams.set('zoom', zoom);
 	customizeBaseParams.set('zoom', zoom);
 
-	return (
-			<Box
-				style={{width: "80vw", backgroundColor: "#ADD8E6", marginTop: "8px"}}
+
+	const MapboxResult = (
+		<Box
+				style={{width: "80vw", backgroundColor: "#ADD8E6", marginTop: "8px", position: "relative", padding: "8px"}}
 			>
 				<Stack 
 					style={{marginLeft: "16px"}}
@@ -87,7 +103,32 @@ export const ConsolePanel = ({zoom, lang, pullKey, apiKey, styleID}) => {
 
 				</Stack>
 			</Box>
-	
+	)
+
+	const GoogleMapResult = (
+			<Box
+				style={{width: "80vw", backgroundColor: "#ADD8E6", marginTop: "8px", position: "relative", padding: "8px"}}
+			>
+				<Stack 
+					style={{marginLeft: "16px"}}
+					alignSelf="flex-start"
+				>
+					<h2> Your Customized Google Map Overlay </h2>
+					{hasGoogleApiKey && hasPullKey ?
+						<p> {googleMapBaseURL + customizeGoogleMapBaseParams.toString() + "&style=" + styleB64}</p> :
+						<p> Pull key and Google API key is requried for a customized overlay URL</p>
+					}
+				</Stack>
+			</Box>
+	)
+
+
+	return (
+		<>
+			{
+				mapProvider === "mapbox" ? MapboxResult : GoogleMapResult
+			}
+		</>
 	)
 
 }
