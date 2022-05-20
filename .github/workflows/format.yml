@@ -28,6 +28,8 @@ jobs:
 
       - name: Install Node.js dependencies
         run: npm ci
+        working-directory: web-editor
 
       - name: Run prettier
         run: npx prettier --check src
+        working-directory: web-editor
