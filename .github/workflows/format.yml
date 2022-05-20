@@ -1,0 +1,35 @@
+name: Format
+
+on:
+  push:
+    paths:
+      - "web-editor/**"
+    branches:
+      - main
+  pull_request:
+    paths:
+      - "web-editor/**"
+    branches:
+      - main
+
+jobs:
+  lint:
+    name: Validate format
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+
+      - name: Install Node.js dependencies
+        run: npm ci
+        working-directory: web-editor
+
+      - name: Run prettier
+        run: npx prettier --check src
+        working-directory: web-editor

@@ -1,9 +1,9 @@
-import * as React from 'react';
+import * as React from "react";
 // import { useState, useEffect } from 'react';
 // import { fromJS } from 'immutable';
 // import MAP_STYLE from '../map-style-basic-v8.json';
-import { FormControl, InputLabel } from '@mui/material';
-import CountryPicker from './CountryPicker';
+import { FormControl, InputLabel } from "@mui/material";
+import CountryPicker from "./CountryPicker";
 
 // const defaultMapStyle = fromJS(MAP_STYLE);
 // const defaultLayers = defaultMapStyle.get('layers');
@@ -28,7 +28,6 @@ import CountryPicker from './CountryPicker';
 // 	symbol: 'text-color'
 // };
 
-
 // function getMapStyle({ visibility, color, language, mapStyle }) {
 // 	mapStyle = fromJS(mapStyle);
 // 	const layers = mapStyle.get('layers')
@@ -50,7 +49,7 @@ import CountryPicker from './CountryPicker';
 // 			const layout = layer.get('layout');
 // 			const type = layer.get('type')
 // 			// if (id.indexOf('-label') > 0 && layout) {
-// 			// 	return layer.setIn(['layout', 'text-field'], 
+// 			// 	return layer.setIn(['layout', 'text-field'],
 // 			// 		[
 // 			// 			"coalesce",
 // 			// 			["get","name_en"],
@@ -58,8 +57,8 @@ import CountryPicker from './CountryPicker';
 //       //     ]
 // 			// 	);
 // 			// }
-// 			if (type && type === 'symbol') { 
-// 				layer.setIn(['layout', 'text-field'], 
+// 			if (type && type === 'symbol') {
+// 				layer.setIn(['layout', 'text-field'],
 // 					[
 // 						"coalesce",
 // 						["get","name"],
@@ -71,7 +70,6 @@ import CountryPicker from './CountryPicker';
 // 			}
 // 			return layer;
 // 		})
-
 
 // 		// .map((layer) => {
 // 		// 	const type = layer.get('type');
@@ -85,48 +83,49 @@ import CountryPicker from './CountryPicker';
 // 	return mapStyle.set('layers', layers);
 // }
 
-function StyleControls({onChange, language, setLanguage, mapStyle}) {
-	console.log(`mapStyle: ${mapStyle}`);
-	// const [visibility, setVisibility] = useState({
-	// 	water: true,
-	// 	parks: true,
-	// 	buildings: true,
-	// 	roads: true,
-	// 	labels: true,
-	// 	background: true
-	// });
+function StyleControls({ onChange, language, setLanguage, mapStyle }) {
+  console.log(`mapStyle: ${mapStyle}`);
+  // const [visibility, setVisibility] = useState({
+  // 	water: true,
+  // 	parks: true,
+  // 	buildings: true,
+  // 	roads: true,
+  // 	labels: true,
+  // 	background: true
+  // });
 
-	// const [color, setColor] = useState({
-	// 	water: '#DBE2E6',
-	// 	parks: '#E6EAE9',
-	// 	buildings: '#c0c0c8',
-	// 	roads: '#ffffff',
-	// 	labels: '#78888a',
-	// 	background: '#EBF0F0'
-	// });
+  // const [color, setColor] = useState({
+  // 	water: '#DBE2E6',
+  // 	parks: '#E6EAE9',
+  // 	buildings: '#c0c0c8',
+  // 	roads: '#ffffff',
+  // 	labels: '#78888a',
+  // 	background: '#EBF0F0'
+  // });
 
-	// useEffect(() => {
-	// 	onChange(getMapStyle({ visibility, color, language, mapStyle }));
-	// }, [visibility, color, language, onChange]);
+  // useEffect(() => {
+  // 	onChange(getMapStyle({ visibility, color, language, mapStyle }));
+  // }, [visibility, color, language, onChange]);
 
-	// const onColorChange = (name, value) => {
-	// 	setColor({ ...color, [name]: value });
-	// };
+  // const onColorChange = (name, value) => {
+  // 	setColor({ ...color, [name]: value });
+  // };
 
-	// const onVisibilityChange = (name, value) => {
-	// 	setVisibility({ ...visibility, [name]: value });
-	// };
+  // const onVisibilityChange = (name, value) => {
+  // 	setVisibility({ ...visibility, [name]: value });
+  // };
 
-	return (
-		<div className="control-panel">
-			<FormControl  style={{width: 128}}>
-				<InputLabel id="select-language-label"> Language </InputLabel>
-					<CountryPicker 
-						lang={language}
-						setLang={setLanguage}
-						countries={["EN", "FR", "JA", "KO", "ZH", "DE", "ES", "PT", "RU"]} />
-			</FormControl>
-			{/* {categories.map(name => (
+  return (
+    <div className="control-panel">
+      <FormControl style={{ width: 128 }}>
+        <InputLabel id="select-language-label"> Language </InputLabel>
+        <CountryPicker
+          lang={language}
+          setLang={setLanguage}
+          countries={["EN", "FR", "JA", "KO", "ZH", "DE", "ES", "PT", "RU"]}
+        />
+      </FormControl>
+      {/* {categories.map(name => (
 				<div key={name} className="input">
 					<label>{name}</label>
 					<input
@@ -142,8 +141,8 @@ function StyleControls({onChange, language, setLanguage, mapStyle}) {
 					/>
 				</div>
 			))}			 */}
-		</div>
-	);
+    </div>
+  );
 }
 
 export default React.memo(StyleControls);
