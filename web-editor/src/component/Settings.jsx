@@ -7,10 +7,12 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import ControlPanel from './ControlPanel';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
-import { IconButton } from '@mui/material';
+import { IconButton, InputAdornment } from '@mui/material';
 import { StyleIDHelperDialog } from './StyleIDHelperDialog';
 import { useEffect } from 'react';
-
+import KeyIcon from '@mui/icons-material/Key';
+import StyleIcon from '@mui/icons-material/Style';
+import CodeIcon from '@mui/icons-material/Code';
 
 export const Settings = ({onStyleJSONSubmit, onStyleIDSubmit, lang, setLang, mapStyle, setMapStyle, mapProvider }) => {
 
@@ -31,7 +33,7 @@ export const Settings = ({onStyleJSONSubmit, onStyleIDSubmit, lang, setLang, map
 
 	return (
 		
-		<Box style={{width: "256px", height: "100vh", backgroundColor: "#d6a1ed", margin: "16px", padding: "16px"}} paddingLeft={4} borderRadius={4}>
+		<Box style={{width: "256px", height: "100vh", backgroundColor: "#8eb4f5", margin: "16px", padding: "16px"}} paddingLeft={4} borderRadius={4}>
 			<Stack 
 				divider={<Divider orientation="vertical" flexItem />}
 				spacing={2}
@@ -56,6 +58,13 @@ export const Settings = ({onStyleJSONSubmit, onStyleIDSubmit, lang, setLang, map
 						value={inputAPIKey}
 						onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
 						onChange={(e) => setInputAPIKey(e.target.value)}
+						InputProps={{
+							startAdornment: (
+								<InputAdornment position="start">
+									<KeyIcon />
+								</InputAdornment>
+          		),
+						}}
         	/>
 				</Box>
 
@@ -91,6 +100,13 @@ export const Settings = ({onStyleJSONSubmit, onStyleIDSubmit, lang, setLang, map
 							}
 							onSubmit={(e) => { e.preventDefault(); }}
 							onChange={(e) => { setInputStyleID(e.target.value); }}
+							InputProps={{
+							startAdornment: (
+								<InputAdornment position="start">
+									<StyleIcon />
+								</InputAdornment>
+          		),
+							}}
 							/> :
 						<TextField
 							id="outlined-multiline-static"
@@ -107,6 +123,13 @@ export const Settings = ({onStyleJSONSubmit, onStyleIDSubmit, lang, setLang, map
 							}
 							onSubmit={(e) => { e.preventDefault(); }}
 							onChange={(e) => { setInputStyleJSON(e.target.value); }}
+							InputProps={{
+							startAdornment: (
+								<InputAdornment position="start">
+									<CodeIcon />
+								</InputAdornment>
+          		),
+							}}
         		/>
 					}
 				
@@ -127,6 +150,13 @@ export const Settings = ({onStyleJSONSubmit, onStyleIDSubmit, lang, setLang, map
 						value = {inputPullKey}
 						onKeyPress={e => e.key === 'Enter' && e.preventDefault()}
 						onChange = {(e) => setInputPullKey(e.target.value)}
+						InputProps={{
+							startAdornment: (
+								<InputAdornment position="start">
+									<KeyIcon />
+								</InputAdornment>
+          		),
+						}}
         	/>
 				</Box>
 
