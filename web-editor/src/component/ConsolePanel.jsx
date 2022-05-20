@@ -68,8 +68,6 @@ export const ConsolePanel = ({zoom, lang, pullKey, apiKey, styleID, mapProvider,
 						<h4> API Key is supplied by Muxable in the generic URL </h4>
 						{hasPullKey ? 
 							<TextField
-								multiline
-								rows={2}
 								readOnly
 								value={genericBaseURL + genericBaseParams.toString()}
 								fullWidth
@@ -97,8 +95,6 @@ export const ConsolePanel = ({zoom, lang, pullKey, apiKey, styleID, mapProvider,
 						<h2> Your Customized Mapbox Style</h2>
 						{hasAPIKey && hasStyleID && hasPullKey ?
 							<TextField
-								multiline
-								rows={2}
 								readOnly
 								value={customizedBaseURL + customizeBaseParams.toString()}
 								fullWidth
@@ -134,8 +130,6 @@ export const ConsolePanel = ({zoom, lang, pullKey, apiKey, styleID, mapProvider,
 					<h2> Your Customized Google Map Overlay </h2>
 					{hasGoogleApiKey && hasPullKey ?
 						<TextField
-							multiline
-							rows={2}
 							readOnly
 							value={googleMapBaseURL + customizeGoogleMapBaseParams.toString() + "&style=" + styleB64}
 							InputProps={{
