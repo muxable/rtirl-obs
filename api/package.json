@@ -11,22 +11,20 @@
   "files": [
     "lib/**/*"
   ],
-  "exports": {
-    "./": "./lib/"
-  },
+  "exports": "./lib/",
   "author": "muxfdz@gmail.com",
   "license": "MIT",
   "dependencies": {
-    "firebase": "^9.0.2"
+    "firebase": "^9.8.1"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^20.0.0",
-    "@rollup/plugin-node-resolve": "^13.0.4",
-    "@rollup/plugin-typescript": "^8.2.5",
-    "prettier": "^2.4.0",
-    "rollup": "^2.56.3",
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@rollup/plugin-typescript": "^8.3.2",
+    "prettier": "^2.6.2",
+    "rollup": "^2.74.1",
     "rollup-plugin-terser": "^7.0.2",
-    "typescript": "4.3.5"
+    "typescript": "4.6.4"
   },
   "description": "Client API library for rtirl.com"
 }
