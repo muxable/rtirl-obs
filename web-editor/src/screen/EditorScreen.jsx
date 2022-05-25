@@ -114,7 +114,7 @@ export const EditorScreen = ({ mapProvider }) => {
       setOpenPreviewSnackBar({
         ...openPreviewSnackBar,
         open: true,
-        errorMessage: "Style JSON is invalid, check for JSON format",
+        errorMessage: "The style JSON is invalid, check that it's copied correctly.",
       });
       return;
     }
