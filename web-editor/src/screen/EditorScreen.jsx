@@ -67,7 +67,7 @@ export const EditorScreen = ({ mapProvider }) => {
         ...openPreviewSnackBar,
         open: true,
         errorMessage:
-          "Style ID is invalid, missing '/', check for mapbox styldID format",
+          "That style ID  is invalid, check that it is copied correctly.",
       });
       return;
     }
