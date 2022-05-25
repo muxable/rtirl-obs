@@ -58,7 +58,7 @@ export const EditorScreen = ({ mapProvider }) => {
       setOpenPreviewSnackBar({
         ...openPreviewSnackBar,
         open: true,
-        errorMessage: "Style ID is required",
+        errorMessage: "A style ID is required.",
       });
       return;
     }
