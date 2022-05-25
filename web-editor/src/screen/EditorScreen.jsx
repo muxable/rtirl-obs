@@ -122,7 +122,7 @@ export const EditorScreen = ({ mapProvider }) => {
       setOpenPreviewSnackBar({
         ...openPreviewSnackBar,
         open: true,
-        errorMessage: "Pull Key is required",
+        errorMessage: "A pull key is required.",
       });
       return;
     }
