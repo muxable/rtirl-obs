@@ -20,7 +20,10 @@ export const EditorScreen = ({ mapProvider }) => {
   const [googleStyleJSON, setGoogleStyleJSON] = useState(null);
   const [googleApiKey, setGoogleApiKey] = useState("tempInitKey");
 
-  const [openPreviewSnackBar, setOpenPreviewSnackBar] = useState(false);
+  const [openPreviewSnackBar, setOpenPreviewSnackBar] = useState({
+    open: false,
+    errorMessage: "",
+  });
 
   useEffect(() => {
     fetch(
@@ -34,21 +37,25 @@ export const EditorScreen = ({ mapProvider }) => {
   }, []);
 
   const onStyleIDSubmit = (styleID, apiKey, pullKey) => {
-    if (styleID === undefined || styleID === null || styleID === "") {
-      setOpenPreviewSnackBar(true);
-      return;
-    }
-    if (!styleID.includes("/")) {
-      setOpenPreviewSnackBar(true);
-      return;
-    }
     if (apiKey === undefined || apiKey === null || apiKey === "") {
-      setOpenPreviewSnackBar(true);
+      setOpenPreviewSnackBar({...openPreviewSnackBar, open: true, errorMessage: "API Key is required"});
       return;
     }
     if (!apiKey.includes("pk.")) {
-      setOpenPreviewSnackBar(true);
+      setOpenPreviewSnackBar({...openPreviewSnackBar, open: true, errorMessage: "API Key is invalid, should be prefix with 'pk.', check for mapbox API Key format"});
       return;
+    }
+    if (styleID === undefined || styleID === null || styleID === "") {
+      setOpenPreviewSnackBar({...openPreviewSnackBar, open: true, errorMessage: "Style ID is required"});
+      return;
+    }
+    if (!styleID.includes("/")) {
+      setOpenPreviewSnackBar({...openPreviewSnackBar, open: true, errorMessage: "Style ID is invalid, missing '/', check for mapbox styldID format"});
+      return;
+    }
+    if (pullKey === undefined || pullKey === null || pullKey === "") {
+      setOpenPreviewSnackBar({...openPreviewSnackBar, open: true, errorMessage: "Pull Key is required"});
+      return
     }
     setStyleID(styleID);
     setAPIKey(apiKey);
@@ -62,20 +69,24 @@ export const EditorScreen = ({ mapProvider }) => {
     }
 
     if (styleJSON === undefined || styleJSON === null) {
-      setOpenPreviewSnackBar(true);
+      setOpenPreviewSnackBar({...openPreviewSnackBar, open: true, errorMessage: "Style JSON is required"});
       return;
     }
 
     if (apiKey === undefined || apiKey === null || apiKey === "") {
-      setOpenPreviewSnackBar(true);
+      setOpenPreviewSnackBar({...openPreviewSnackBar, open: true, errorMessage: "API Key is required"});
       return;
     }
 
-    const jsonStr = JSON.stringify(styleJSON);
     try {
-      JSON.parse(jsonStr);
+      JSON.parse(styleJSON);
     } catch (e) {
+      setOpenPreviewSnackBar({...openPreviewSnackBar, open: true, errorMessage: "Style JSON is invalid, check for JSON format"});
       return;
+    }
+    if (pullKey === undefined || pullKey === null || pullKey === "") {
+      setOpenPreviewSnackBar({...openPreviewSnackBar, open: true, errorMessage: "Pull Key is required"});
+      return
     }
 
     apiKey = apiKey.trim();
@@ -122,8 +133,9 @@ export const EditorScreen = ({ mapProvider }) => {
         <div>Loading...</div>
       )}
       <PreviewSnackBar
-        open={openPreviewSnackBar}
+        open={openPreviewSnackBar.open}
         setOpen={setOpenPreviewSnackBar}
+        errorMessage={openPreviewSnackBar.errorMessage}
       />
     </Stack>
   );
