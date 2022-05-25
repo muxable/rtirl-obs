@@ -50,7 +50,7 @@ export const EditorScreen = ({ mapProvider }) => {
         ...openPreviewSnackBar,
         open: true,
         errorMessage:
-          "API Key is invalid, should be prefix with 'pk.', check for mapbox API Key format",
+          "That API Key is invalid, it should be prefixed with 'pk.'.",
       });
       return;
     }
