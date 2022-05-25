@@ -94,7 +94,7 @@ export const EditorScreen = ({ mapProvider }) => {
       setOpenPreviewSnackBar({
         ...openPreviewSnackBar,
         open: true,
-        errorMessage: "Style JSON is required",
+        errorMessage: "A style JSON from Google Maps or Snazzy Maps is required.",
       });
       return;
     }
