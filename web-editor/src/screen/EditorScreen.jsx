@@ -103,7 +103,7 @@ export const EditorScreen = ({ mapProvider }) => {
       setOpenPreviewSnackBar({
         ...openPreviewSnackBar,
         open: true,
-        errorMessage: "API Key is required",
+        errorMessage: "An API Key is required.",
       });
       return;
     }
