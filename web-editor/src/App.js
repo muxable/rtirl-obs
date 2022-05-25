@@ -1,7 +1,7 @@
 import "./App.css";
 import { EditorAppbar } from "./component/Appbar";
 import Stack from "@mui/material/Stack";
-import { EditorScreen } from "./screen/EditorScreen";
+import { Home } from "./screen/Home";
 import { useState } from "react";
 
 function App() {
@@ -9,13 +9,7 @@ function App() {
 
   return (
     <div className="App">
-      <Stack>
-        <EditorAppbar
-          mapProvider={mapProvider}
-          setMapProvider={setMapProvider}
-        />
-        <EditorScreen mapProvider={mapProvider}></EditorScreen>
-      </Stack>
+      <Home />
       {/* <HomeScreen /> */}
     </div>
   );
