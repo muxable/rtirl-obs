@@ -94,7 +94,8 @@ export const EditorScreen = ({ mapProvider }) => {
       setOpenPreviewSnackBar({
         ...openPreviewSnackBar,
         open: true,
-        errorMessage: "A style JSON from Google Maps or Snazzy Maps is required.",
+        errorMessage:
+          "A style JSON from Google Maps or Snazzy Maps is required.",
       });
       return;
     }
@@ -114,7 +115,8 @@ export const EditorScreen = ({ mapProvider }) => {
       setOpenPreviewSnackBar({
         ...openPreviewSnackBar,
         open: true,
-        errorMessage: "The style JSON is invalid, check that it's copied correctly.",
+        errorMessage:
+          "The style JSON is invalid, check that it's copied correctly.",
       });
       return;
     }
