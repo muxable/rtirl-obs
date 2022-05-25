@@ -2,25 +2,24 @@ import * as React from "react";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
-export const PreviewSnackBar = ({ open, setOpen }) => {
+export const PreviewSnackBar = ({ open, setOpen, errorMessage }) => {
   return (
     <Snackbar
       open={open}
       autoHideDuration={2500}
       onClose={() => {
-        setOpen(false);
+        setOpen({ ...open, open: false });
       }}
     >
       <MuiAlert
         variant="filled"
         elevation={6}
         onClose={() => {
-          setOpen(false);
+          setOpen({ ...open, open: false });
         }}
         severity="error"
       >
-        To preview a stylized map, please enter a formatted public styleId and a
-        valid map token.
+        {errorMessage}
       </MuiAlert>
     </Snackbar>
   );
