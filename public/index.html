@@ -20,9 +20,8 @@
           Email <a href="mailto:muxfdz@gmail.com">muxfdz@gmail.com</a>.
         </p>
         <p>
-          <strong>Need Prism Live support?</strong> Use the
-          Leaflet overlay. The Google Maps and Mapbox overlays seem to have
-          compatibility issues.
+          <strong>Need Prism Live support?</strong> Use the Leaflet overlay. The
+          Google Maps and Mapbox overlays seem to have compatibility issues.
         </p>
         <aside>
           <p>
@@ -118,9 +117,9 @@
         <p>
           If you would like to use
           <a href="https://leafletjs.com/">Leaflet</a> to render your maps, try
-          this overlay. Leaflet is more compatible with tools such as
-          Prism Live. This overlay currently requires a Mapbox
-          API key and Mapbox style id.
+          this overlay. Leaflet is more compatible with tools such as Prism
+          Live. This overlay currently requires a Mapbox API key and Mapbox
+          style id.
         </p>
         <code
           >https://overlays.rtirl.com/leaflet.html?key=<span class="pull-key"
@@ -157,6 +156,23 @@
               >the coverage table</a
             >
             for acceptable values.
+          </li>
+          <li>
+            <code
+              >&format=%24%7Bdata.neighborhood%20%3F%20data.neighborhood.text%20%2B%20%27%2C%20%27%20%3A%20%27%27%7D%24%7Bdata.place%3F.text%7D</code
+            >
+            to configure the format string. The format string is a url-encoded
+            Javascript template literal with variables under <code>data</code>.
+            See
+            <a href="https://docs.mapbox.com/api/search/geocoding/#data-types"
+              >the Mapbox</a
+            >
+            documentation for various objects. For examples, try:
+            <ul>
+              <li>
+                <code>&format=Country%3A%20%24%7Bdata.country.text%7D</code>
+              </li>
+            </ul>
           </li>
         </ul>
         <h2>Clock</h2>
@@ -325,18 +341,18 @@
 
         <h2>StreamElements</h2>
         <p>
-          If you would like to display RealtimeIRL data using StreamElements overlays, you will need to add a Custom widget and then add the iFrame to the HTML section. (Settings > Open Editor)
+          If you would like to display RealtimeIRL data using StreamElements
+          overlays, you will need to add a Custom widget and then add the iFrame
+          to the HTML section. (Settings > Open Editor)
         </p>
 
         <code>
-          &ltiframe 
-            height="100%" 
-            width="100%" 
-            frameborder="0" 
-            src="https://overlays.rtirl.com/compat.html?key=<span class="pull-key">&lt;YOUR_PULL_KEY&gt;</span>&access_token=&lt;YOUR_MAPBOX_ACCESS_TOKEN&gt;&style=&lt;MAPBOX_STYLE_ID&gt;"&gt;
+          &ltiframe height="100%" width="100%" frameborder="0"
+          src="https://overlays.rtirl.com/compat.html?key=<span class="pull-key"
+            >&lt;YOUR_PULL_KEY&gt;</span
+          >&access_token=&lt;YOUR_MAPBOX_ACCESS_TOKEN&gt;&style=&lt;MAPBOX_STYLE_ID&gt;"&gt;
           &lt/iframe&gt
         </code>
-
       </article>
     </main>
     <script type="text/javascript">
