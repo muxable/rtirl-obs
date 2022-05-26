@@ -8,7 +8,8 @@
     <script>
       const pullKey = new URLSearchParams(window.location.search).get("key");
       RealtimeIRL.forPullKey(pullKey).addSpeedListener(function (speed) {
-        document.getElementById("speed").innerText = (speed * 3.6) | 0;
+        const speedInKph = (speed * 3.6) | 0;
+        document.getElementById("speed").innerText = speedInKph > 0 ? speedInKph : 0;
       });
     </script>
   </body>
