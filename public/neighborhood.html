@@ -12,6 +12,13 @@
   <body>
     <div id="text"></div>
     <script>
+      function wrappedEval(textExpression, contextData) {
+        let fn = Function(
+          `"use strict"; var data = this;return (${textExpression})`
+        );
+        return fn.bind(contextData)();
+      }
+
       var mapboxClient = mapboxSdk({
         accessToken:
           "pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2oyMDFlMGpsMDN3bTJ4bjR1MzRrbDFleCJ9.7XEB3HHBGr-N6ataUZh_6g",
@@ -20,7 +27,10 @@
       var i = 0;
 
       var params = new URLSearchParams(window.location.search);
-      const pullKey = new URLSearchParams(window.location.search).get("key");
+      var pullKey = new URLSearchParams(window.location.search).get("key");
+      var format =
+        new URLSearchParams(window.location.search).get("format") ||
+        "${data.neighborhood ? data.neighborhood.text + ', ' : ''}${data.place?.text}";
       RealtimeIRL.forPullKey(pullKey).addLocationListener(function (location) {
         if (i++ % 50 == 0) {
           mapboxClient.geocoding
@@ -30,25 +40,29 @@
             })
             .send()
             .then((response) => {
-              var neighborhoodMatch = response.body.features.find((feature) =>
-                feature.place_type.includes("neighborhood")
-              );
-              var cityMatch = response.body.features.find((feature) =>
-                feature.place_type.includes("place")
-              );
-
-              if (neighborhoodMatch && cityMatch) {
-                document.getElementById("text").innerText =
-                  neighborhoodMatch.text + ", " + cityMatch.text;
-              } else if (cityMatch) {
-                document.getElementById("text").innerText = cityMatch.text;
-              } else {
-                document.getElementById("text").innerText = "";
+              var context = {};
+              for (var param of [
+                "country",
+                "region",
+                "postcode",
+                "district",
+                "place",
+                "locality",
+                "neighborhood",
+                "address",
+                "poi",
+              ]) {
+                context[param] = response.body.features.find((feature) =>
+                  feature.place_type.includes(param)
+                );
               }
+              document.getElementById("text").innerText = wrappedEval(
+                "`" + format + "`",
+                context
+              );
             });
         }
       });
-        
     </script>
   </body>
 </html>
