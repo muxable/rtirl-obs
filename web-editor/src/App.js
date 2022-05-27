@@ -1,7 +1,7 @@
 import "./App.css";
 import { EditorAppbar } from "./component/Appbar";
 import Stack from "@mui/material/Stack";
-import { EditorScreen } from "./screen/EditorScreen";
+// import { EditorScreen } from "./screen/EditorScreen";
 import { useState } from "react";
 import { SimpleTextEditScreen } from "./screen/SimpleTextEditorScreen";
 
