@@ -26,7 +26,6 @@ import FormatSizeIcon from "@mui/icons-material/FormatSize";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
-
   const css = [
     `color: ${textDivCSS.textColor}`,
     `font-size: ${textDivCSS.fontSize}px`,
@@ -40,8 +39,8 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
     `align-text: ${textDivCSS.textAlign}`,
     `border-radius: ${textDivCSS["border_top_left_radius"]}% ${textDivCSS["border_top_right_radius"]}% ${textDivCSS["border_bottom_right_radius"]}% ${textDivCSS["border_bottom_left_radius"]}%`,
     `padding: ${textDivCSS.padding}px`,
-  ].join(';\n')
-  
+  ].join(";\n");
+
   return (
     <Box
       style={{
@@ -336,7 +335,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
                 <InputAdornment position="start">
                   <IconButton
                     onClick={() => {
-                      navigator.clipboard.writeText();
+                      navigator.clipboard.writeText(css);
                     }}
                   >
                     <ContentCopyIcon />
