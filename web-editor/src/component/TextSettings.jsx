@@ -212,6 +212,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
           <Stack direction={"row"} spacing={2}>
             <OpacitySharpIcon />
             <Slider
+              size="small"
               defaultValue={100}
               value={textDivCSS.opacity}
               valueLabelDisplay="auto"
@@ -226,6 +227,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
           <Stack direction={"row"} spacing={2}>
             <PaddingIcon />
             <Slider
+              size="small"
               defaultValue={100}
               value={textDivCSS.padding}
               valueLabelDisplay="auto"
@@ -276,6 +278,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
 
           <Stack direction={"row"} spacing={2}>
             <Slider
+              size="small"
               defaultValue={100}
               value={textDivCSS.border_top_left_radius}
               valueLabelDisplay="auto"
@@ -287,6 +290,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
               }}
             />
             <Slider
+              size="small"
               defaultValue={100}
               value={textDivCSS.border_top_right_radius}
               valueLabelDisplay="auto"
@@ -300,6 +304,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
           </Stack>
           <Stack direction={"row"} spacing={2}>
             <Slider
+              size="small"
               defaultValue={100}
               value={textDivCSS.border_bottom_left_radius}
               valueLabelDisplay="auto"
@@ -311,6 +316,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
               }}
             />
             <Slider
+              size="small"
               defaultValue={100}
               value={textDivCSS.border_bottom_right_radius}
               valueLabelDisplay="auto"
