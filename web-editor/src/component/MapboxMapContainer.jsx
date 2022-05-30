@@ -10,7 +10,7 @@ export const MapboxMapContainer = ({
   canPreview,
 }) => {
   return (
-    <div style={{ height: "70vh", width: "85vw"}}>
+    <div style={{ height: "70vh", width: "85vw" }}>
       {canPreview ? (
         <MapGL
           {...viewState}
