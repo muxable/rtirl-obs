@@ -7,6 +7,7 @@ import {
   InputAdornment,
   Divider,
   TextField,
+  Tooltip,
 } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
@@ -33,6 +34,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
     `font-weight: ${textDivCSS.isBold ? "bold" : "normal"}`,
     `font-style: ${textDivCSS.isItalic ? "italic" : "normal"}`,
     `transform: rotate(${textDivCSS.rotation}deg)`,
+    `background-color: ${textDivCSS.backgroundColor}`,
     `opacity: ${textDivCSS.opacity / 100}`,
     `border-color: ${textDivCSS.borderColor}`,
     `border: ${textDivCSS.borderWidth}px solid`,
@@ -75,8 +77,9 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
               endAdornment={<InputAdornment position="end">px</InputAdornment>}
               startAdornment={
                 <InputAdornment position="start">
-                  {" "}
-                  <FormatSizeIcon />{" "}
+                  <Tooltip title="Font Size">
+                    <FormatSizeIcon />
+                  </Tooltip>
                 </InputAdornment>
               }
             />
@@ -94,7 +97,9 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
               }}
               startAdornment={
                 <InputAdornment position="start">
-                  <FormatColorFillIcon />
+                  <Tooltip title="Text Color">
+                    <FormatColorFillIcon />
+                  </Tooltip>
                 </InputAdornment>
               }
             />
@@ -115,6 +120,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
 
           <Stack direction="row">
             <IconButton
+              color={textDivCSS.isBold ? "secondary" : "default"}
               onClick={() => {
                 setTextDivCSS({
                   ...textDivCSS,
@@ -122,9 +128,12 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
                 });
               }}
             >
-              <FormatBoldIcon />
+              <Tooltip title="Bold">
+                <FormatBoldIcon />
+              </Tooltip>
             </IconButton>
             <IconButton
+              color={textDivCSS.isItalic ? "secondary" : "default"}
               onClick={() => {
                 setTextDivCSS({
                   ...textDivCSS,
@@ -132,9 +141,12 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
                 });
               }}
             >
-              <FormatItalicIcon />
+              <Tooltip title="Italic">
+                <FormatItalicIcon />
+              </Tooltip>
             </IconButton>
             <IconButton
+              color={textDivCSS.textAlign === "left" ? "secondary" : "default"}
               onClick={() => {
                 setTextDivCSS({
                   ...textDivCSS,
@@ -142,9 +154,14 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
                 });
               }}
             >
-              <FormatAlignLeftIcon />
+              <Tooltip title="Align Left">
+                <FormatAlignLeftIcon />
+              </Tooltip>
             </IconButton>
             <IconButton
+              color={
+                textDivCSS.textAlign === "center" ? "secondary" : "default"
+              }
               onClick={() => {
                 setTextDivCSS({
                   ...textDivCSS,
@@ -152,9 +169,12 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
                 });
               }}
             >
-              <FormatAlignCenterIcon />
+              <Tooltip title="Align Center">
+                <FormatAlignCenterIcon />
+              </Tooltip>
             </IconButton>
             <IconButton
+              color={textDivCSS.textAlign === "right" ? "secondary" : "default"}
               onClick={() => {
                 setTextDivCSS({
                   ...textDivCSS,
@@ -162,7 +182,9 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
                 });
               }}
             >
-              <FormatAlignRightIcon />
+              <Tooltip title="Align Right">
+                <FormatAlignRightIcon />
+              </Tooltip>
             </IconButton>
           </Stack>
         </Stack>
@@ -184,8 +206,9 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
               endAdornment={<InputAdornment position="end">deg</InputAdornment>}
               startAdornment={
                 <InputAdornment position="start">
-                  {" "}
-                  <RotateLeftIcon />{" "}
+                  <Tooltip title="Rotation">
+                    <RotateLeftIcon />
+                  </Tooltip>
                 </InputAdornment>
               }
             />
@@ -203,14 +226,18 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
               }}
               startAdornment={
                 <InputAdornment position="start">
-                  <FormatColorFillIcon />
+                  <Tooltip title="Background Color">
+                    <FormatColorFillIcon />
+                  </Tooltip>
                 </InputAdornment>
               }
             />
           </Stack>
 
           <Stack direction={"row"} spacing={2}>
-            <OpacitySharpIcon />
+            <Tooltip title="Opacity">
+              <OpacitySharpIcon />
+            </Tooltip>
             <Slider
               size="small"
               defaultValue={100}
@@ -225,7 +252,9 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
             />
           </Stack>
           <Stack direction={"row"} spacing={2}>
-            <PaddingIcon />
+            <Tooltip title="Padding">
+              <PaddingIcon />
+            </Tooltip>
             <Slider
               size="small"
               defaultValue={100}
@@ -270,63 +299,73 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
               }}
               startAdornment={
                 <InputAdornment position="start">
-                  <BorderColorIcon />
+                  <Tooltip title="Border Color">
+                    <BorderColorIcon />
+                  </Tooltip>
                 </InputAdornment>
               }
             />
           </Stack>
 
           <Stack direction={"row"} spacing={2}>
-            <Slider
-              size="small"
-              defaultValue={100}
-              value={textDivCSS.border_top_left_radius}
-              valueLabelDisplay="auto"
-              onChange={(e, value) => {
-                setTextDivCSS({
-                  ...textDivCSS,
-                  border_top_left_radius: value,
-                });
-              }}
-            />
-            <Slider
-              size="small"
-              defaultValue={100}
-              value={textDivCSS.border_top_right_radius}
-              valueLabelDisplay="auto"
-              onChange={(e, value) => {
-                setTextDivCSS({
-                  ...textDivCSS,
-                  border_top_right_radius: value,
-                });
-              }}
-            />
+            <Tooltip title="Border Radius Top Left">
+              <Slider
+                size="small"
+                defaultValue={100}
+                value={textDivCSS.border_top_left_radius}
+                valueLabelDisplay="auto"
+                onChange={(e, value) => {
+                  setTextDivCSS({
+                    ...textDivCSS,
+                    border_top_left_radius: value,
+                  });
+                }}
+              />
+            </Tooltip>
+            <Tooltip title="Border Radius Top Right">
+              <Slider
+                size="small"
+                defaultValue={100}
+                value={textDivCSS.border_top_right_radius}
+                valueLabelDisplay="auto"
+                onChange={(e, value) => {
+                  setTextDivCSS({
+                    ...textDivCSS,
+                    border_top_right_radius: value,
+                  });
+                }}
+              />
+            </Tooltip>
           </Stack>
           <Stack direction={"row"} spacing={2}>
-            <Slider
-              size="small"
-              defaultValue={100}
-              value={textDivCSS.border_bottom_left_radius}
-              valueLabelDisplay="auto"
-              onChange={(e, value) => {
-                setTextDivCSS({
-                  ...textDivCSS,
-                  border_bottom_left_radius: value,
-                });
-              }}
-            />
-            <Slider
-              size="small"
-              defaultValue={100}
-              value={textDivCSS.border_bottom_right_radius}
-              valueLabelDisplay="auto"
-              onChange={(e, value) => {
-                setTextDivCSS({
-                  ...textDivCSS,
-                  border_bottom_right_radius: value,
-                });
-              }}
-            />
+            <Tooltip title="Border Radius Bottom Left">
+              <Slider
+                size="small"
+                defaultValue={100}
+                value={textDivCSS.border_bottom_left_radius}
+                valueLabelDisplay="auto"
+                onChange={(e, value) => {
+                  setTextDivCSS({
+                    ...textDivCSS,
+                    border_bottom_left_radius: value,
+                  });
+                }}
+              />
+            </Tooltip>
+            <Tooltip title="Border Radius Bottom Right">
+              <Slider
+                size="small"
+                defaultValue={100}
+                value={textDivCSS.border_bottom_right_radius}
+                valueLabelDisplay="auto"
+                onChange={(e, value) => {
+                  setTextDivCSS({
+                    ...textDivCSS,
+                    border_bottom_right_radius: value,
+                  });
+                }}
+              />
+            </Tooltip>
           </Stack>
         </Stack>
         <Stack>
