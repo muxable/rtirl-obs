@@ -4,7 +4,7 @@ import hotdog from "../images/muxlabs-hotdog.png";
 
 const Hotdog = styled("img")({
   position: "absolute",
-  width: "10%",
+  width: "8%",
   right: "10%",
   top: "10%",
   transform: "rotate(-20.11deg)",
@@ -15,7 +15,7 @@ const Hotdog1 = styled("img")({
   position: "absolute",
   width: "6%",
   left: "2%",
-  top: "173.49px",
+  top: "25%",
   transform: "rotate(92.07deg)",
   zIndex: -1,
 });
@@ -38,6 +38,42 @@ const Hotdog3 = styled("img")({
   zIndex: -1,
 });
 
+const Hotdog4 = styled("img")({
+  position: "absolute",
+  width: "2%",
+  left: "45%",
+  bottom: "2%",
+  transform: "rotate(5.71deg)",
+  zIndex: -1,
+});
+
+const Hotdog5 = styled("img")({
+  position: "absolute",
+  width: "5%",
+  right: "3%",
+  bottom: "10%",
+  transform: "rotate(-84.07deg)",
+  zIndex: -1,
+});
+
+const Hotdog6 = styled("img")({
+  position: "absolute",
+  width: "5%",
+  left: "-3%",
+  bottom: "10%",
+  transform: "rotate(26.97deg)",
+  zIndex: -1,
+});
+
+const Hotdog7 = styled("img")({
+  position: "absolute",
+  width: "5%",
+  left: "-3%",
+  bottom: "10%",
+  transform: "rotate(26.97deg)",
+  zIndex: -1,
+});
+
 export const HomeBackground = () => {
   return (
     <>
@@ -45,6 +81,9 @@ export const HomeBackground = () => {
       <Hotdog1 src={hotdog} />
       <Hotdog2 src={hotdog} />
       <Hotdog3 src={hotdog} />
+      <Hotdog4 src={hotdog} />
+      <Hotdog5 src={hotdog} />
+      <Hotdog6 src={hotdog} />
     </>
   );
 };
