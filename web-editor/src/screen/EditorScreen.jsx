@@ -20,7 +20,10 @@ export const EditorScreen = ({ mapProvider }) => {
   const [googleStyleJSON, setGoogleStyleJSON] = useState(null);
   const [googleApiKey, setGoogleApiKey] = useState("tempInitKey");
 
-  const [openPreviewSnackBar, setOpenPreviewSnackBar] = useState(false);
+  const [openPreviewSnackBar, setOpenPreviewSnackBar] = useState({
+    open: false,
+    errorMessage: "",
+  });
 
   useEffect(() => {
     fetch(
@@ -34,20 +37,46 @@ export const EditorScreen = ({ mapProvider }) => {
   }, []);
 
   const onStyleIDSubmit = (styleID, apiKey, pullKey) => {
-    if (styleID === undefined || styleID === null || styleID === "") {
-      setOpenPreviewSnackBar(true);
-      return;
-    }
-    if (!styleID.includes("/")) {
-      setOpenPreviewSnackBar(true);
-      return;
-    }
     if (apiKey === undefined || apiKey === null || apiKey === "") {
-      setOpenPreviewSnackBar(true);
+      setOpenPreviewSnackBar({
+        ...openPreviewSnackBar,
+        open: true,
+        errorMessage: "An API Key is required.",
+      });
       return;
     }
     if (!apiKey.includes("pk.")) {
-      setOpenPreviewSnackBar(true);
+      setOpenPreviewSnackBar({
+        ...openPreviewSnackBar,
+        open: true,
+        errorMessage:
+          "That API Key is invalid, it should be prefixed with 'pk.'.",
+      });
+      return;
+    }
+    if (styleID === undefined || styleID === null || styleID === "") {
+      setOpenPreviewSnackBar({
+        ...openPreviewSnackBar,
+        open: true,
+        errorMessage: "A style ID is required.",
+      });
+      return;
+    }
+    if (!styleID.includes("/")) {
+      setOpenPreviewSnackBar({
+        ...openPreviewSnackBar,
+        open: true,
+        errorMessage:
+          "That style ID  is invalid, check that it is copied correctly.",
+      });
+      return;
+    }
+    if (pullKey === undefined || pullKey === null || pullKey === "") {
+      setOpenPreviewSnackBar({
+        ...openPreviewSnackBar,
+        open: true,
+        errorMessage: "A pull key is required.",
+      });
       return;
     }
     setStyleID(styleID);
@@ -62,19 +91,41 @@ export const EditorScreen = ({ mapProvider }) => {
     }
 
     if (styleJSON === undefined || styleJSON === null) {
-      setOpenPreviewSnackBar(true);
+      setOpenPreviewSnackBar({
+        ...openPreviewSnackBar,
+        open: true,
+        errorMessage:
+          "A style JSON from Google Maps or Snazzy Maps is required.",
+      });
       return;
     }
 
     if (apiKey === undefined || apiKey === null || apiKey === "") {
-      setOpenPreviewSnackBar(true);
+      setOpenPreviewSnackBar({
+        ...openPreviewSnackBar,
+        open: true,
+        errorMessage: "An API Key is required.",
+      });
       return;
     }
 
-    const jsonStr = JSON.stringify(styleJSON);
     try {
-      JSON.parse(jsonStr);
+      JSON.parse(styleJSON);
     } catch (e) {
+      setOpenPreviewSnackBar({
+        ...openPreviewSnackBar,
+        open: true,
+        errorMessage:
+          "The style JSON is invalid, check that it's copied correctly.",
+      });
+      return;
+    }
+    if (pullKey === undefined || pullKey === null || pullKey === "") {
+      setOpenPreviewSnackBar({
+        ...openPreviewSnackBar,
+        open: true,
+        errorMessage: "A pull key is required.",
+      });
       return;
     }
 
@@ -122,8 +173,9 @@ export const EditorScreen = ({ mapProvider }) => {
         <div>Loading...</div>
       )}
       <PreviewSnackBar
-        open={openPreviewSnackBar}
+        open={openPreviewSnackBar.open}
         setOpen={setOpenPreviewSnackBar}
+        errorMessage={openPreviewSnackBar.errorMessage}
       />
     </Stack>
   );
