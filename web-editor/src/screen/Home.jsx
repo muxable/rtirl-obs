@@ -6,11 +6,11 @@ import { OverlayPreview } from "../component/OverlayPreview";
 import homeTheme from "../theme/homeTheme";
 import mapboxImage from "../images/mapbox.jpg";
 import googleMapsImage from "../images/google_maps.jpg";
-import neighborhoodImage from "../images/neighborhood.jpg";
-import speedImage from "../images/mph.jpg";
-import clockImage from "../images/clock.jpg";
-import temperatureImage from "../images/temperature.jpg";
-import headingImage from "../images/heading.jpg";
+import neighborhoodImage from "../images/neighborhood.svg";
+import speedImage from "../images/mph.svg";
+import clockImage from "../images/clock.svg";
+import temperatureImage from "../images/temperature.svg";
+import headingImage from "../images/heading.svg";
 
 const pages = [
   {
