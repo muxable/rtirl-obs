@@ -6,8 +6,12 @@ import { OverlayPreview } from "../component/OverlayPreview";
 import homeTheme from "../theme/homeTheme";
 import mapboxImage from "../images/mapbox.jpg";
 import googleMapsImage from "../images/google_maps.jpg";
+import neighborhoodImage from "../images/neighborhood.jpg";
+import speedImage from "../images/mph.jpg";
+import clockImage from "../images/clock.jpg";
+import temperatureImage from "../images/temperature.jpg";
+import headingImage from "../images/heading.jpg";
 
-//"https://assets.website-files.com/5d3ef00c73102c436bc83996/5d3ef00c73102c893bc83a28_logo-regular.png"
 const pages = [
   {
     name: "Mapbox",
@@ -22,27 +26,27 @@ const pages = [
   {
     name: "Neighborhood",
     route: "/neighborhood",
-    image: "https://source.unsplash.com/random/256x256",
+    image: neighborhoodImage,
   },
   {
     name: "Speed",
     route: "/speed",
-    image: "https://source.unsplash.com/random/256x256",
+    image: speedImage,
   },
   {
     name: "Clock",
     route: "/clock",
-    image: "https://source.unsplash.com/random/256x256",
+    image: clockImage,
   },
   {
     name: "Temperature",
     route: "/temperature",
-    image: "https://source.unsplash.com/random/256x256",
+    image: temperatureImage,
   },
   {
     name: "Heading",
     route: "/heading",
-    image: "https://source.unsplash.com/random/256x256",
+    image: headingImage,
   },
 ];
 
