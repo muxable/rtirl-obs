@@ -42,7 +42,6 @@ export const Settings = ({
     <Box
       style={{
         width: "15vw",
-        height: "100vh",
         padding: "16px",
       }}
       paddingLeft={4}
@@ -62,6 +61,7 @@ export const Settings = ({
         {/* API key form */}
         <Box component="form" noValidate autoComplete="off">
           <TextField
+            fullWidth
             required
             color="secondary"
             id="standard-required"
@@ -101,7 +101,7 @@ export const Settings = ({
           )}
           {mapProvider === "mapbox" ? (
             <TextField
-              // ref={inputStyleIDRef}
+              fullWidth
               id="tf-style-id"
               label="Style ID"
               variant="standard"
@@ -127,6 +127,7 @@ export const Settings = ({
             />
           ) : (
             <TextField
+              fullWidth
               id="outlined-multiline-static"
               label="Style JSON"
               multiline
@@ -163,6 +164,7 @@ export const Settings = ({
         {/* Pull key from rtirl.com */}
         <Box component="form" noValidate autoComplete="off">
           <TextField
+            fullWidth
             required
             id="standard-required"
             label="Pull Key"
