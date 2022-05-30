@@ -41,21 +41,21 @@ export const Settings = ({
   return (
     <Box
       style={{
-        width: "256px",
+        width: "15vw",
         height: "100vh",
-        backgroundColor: "#8eb4f5",
-        margin: "16px",
         padding: "16px",
       }}
       paddingLeft={4}
-      borderRadius={4}
+      borderRight={1}
+      borderColor="#545454"
+      backgroundColor="secondary.main"
     >
       <Stack
         divider={<Divider orientation="vertical" flexItem />}
         spacing={2}
         textAlign="left"
       >
-        <Typography variant="h6" color="inherit" component="div">
+        <Typography variant="h6" component="div">
           Settings
         </Typography>
 
@@ -63,6 +63,7 @@ export const Settings = ({
         <Box component="form" noValidate autoComplete="off">
           <TextField
             required
+            color="secondary"
             id="standard-required"
             label="API Key"
             defaultValue="Your API Key"
@@ -196,7 +197,6 @@ export const Settings = ({
 
         <Button
           variant="contained"
-          color="primary"
           onClick={(e) => {
             mapProvider === "mapbox"
               ? onStyleIDSubmit(inputStyleID, inputAPIKey, inputPullKey)

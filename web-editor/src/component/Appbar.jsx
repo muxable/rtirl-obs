@@ -13,12 +13,14 @@ export const EditorAppbar = ({ setOpenDrawer }) => {
     return <></>;
   }
   return (
-    <AppBar position="static">
+    <AppBar
+      position="static"
+      sx={{ borderBottom: "1px solid", borderColor: "#545454" }}
+    >
       <Toolbar variant="dense">
         <IconButton
           size="large"
           edge="start"
-          color="inherit"
           aria-label="menu"
           onClick={() => {
             setOpenDrawer(true);
@@ -27,7 +29,7 @@ export const EditorAppbar = ({ setOpenDrawer }) => {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" color="inherit" component="div">
-          Overlay Editor
+          RealtimeIRL Overlay Editor
         </Typography>
       </Toolbar>
     </AppBar>
