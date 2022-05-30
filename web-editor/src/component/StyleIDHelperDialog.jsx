@@ -3,6 +3,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Link,
 } from "@mui/material";
 import * as React from "react";
 
@@ -39,16 +40,13 @@ export const StyleIDHelperDialog = ({ open, setOpen }) => {
           <br />
           <br />
           Please review the <br />
-          <a href="https://docs.mapbox.com/help/getting-started/attribution/#static--print">
-            {" "}
+          <Link href="https://docs.mapbox.com/help/getting-started/attribution/#static--print">
             Mapbox attribution requirements
-          </a>
+          </Link>
           .
         </DialogContent>
 
-        <DialogActions>
-          {/* <Button onClick={() => setOpen(false)} color="primary" /> */}
-        </DialogActions>
+        <DialogActions></DialogActions>
       </Dialog>
     </div>
   );
