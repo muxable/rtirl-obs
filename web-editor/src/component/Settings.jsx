@@ -63,7 +63,7 @@ export const Settings = ({
           <TextField
             fullWidth
             required
-            color="secondary"
+            color="text"
             id="standard-required"
             label="API Key"
             defaultValue="Your API Key"
@@ -102,6 +102,7 @@ export const Settings = ({
           {mapProvider === "mapbox" ? (
             <TextField
               fullWidth
+              color="text"
               id="tf-style-id"
               label="Style ID"
               variant="standard"
@@ -128,6 +129,7 @@ export const Settings = ({
           ) : (
             <TextField
               fullWidth
+              color="text"
               id="outlined-multiline-static"
               label="Style JSON"
               multiline
@@ -165,6 +167,7 @@ export const Settings = ({
         <Box component="form" noValidate autoComplete="off">
           <TextField
             fullWidth
+            color="text"
             required
             id="standard-required"
             label="Pull Key"

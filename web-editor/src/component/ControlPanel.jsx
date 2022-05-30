@@ -117,7 +117,7 @@ function StyleControls({ onChange, language, setLanguage, mapStyle }) {
 
   return (
     <div className="control-panel">
-      <FormControl style={{ width: "100%" }}>
+      <FormControl style={{ width: "100%" }} color="text">
         <InputLabel id="select-language-label"> Language </InputLabel>
         <CountryPicker
           lang={language}
