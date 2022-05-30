@@ -5,7 +5,7 @@ import "./App.css";
 import { EditorAppbar } from "./component/Appbar";
 import { NavigationDrawer } from "./component/NavigationDrawer";
 import { Home } from "./screen/Home";
-import { MapEditor } from "./screen/MapEditor";
+import { EditorScreen } from "./screen/EditorScreen";
 import { SimpleTextEditScreen } from "./screen/SimpleTextEditorScreen";
 
 function App() {
@@ -21,12 +21,12 @@ function App() {
             <Route
               exact
               path="/mapbox"
-              element={<MapEditor mapProvider={"mapbox"} />}
+              element={<EditorScreen mapProvider={"mapbox"} />}
             />
             <Route
               exact
               path="/googlemap"
-              element={<MapEditor mapProvider={"google"} />}
+              element={<EditorScreen mapProvider={"google"} />}
             />
             <Route
               exact

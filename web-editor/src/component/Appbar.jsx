@@ -1,11 +1,17 @@
-import * as React from "react";
+import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
+import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
+import * as React from "react";
+import { useLocation } from "react-router-dom";
 
 export const EditorAppbar = ({ setOpenDrawer }) => {
+  const location = useLocation();
+  // Do not render the app bar on the home screen
+  if (location.pathname === "/") {
+    return <></>;
+  }
   return (
     <AppBar position="static">
       <Toolbar variant="dense">
