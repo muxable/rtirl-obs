@@ -79,6 +79,17 @@ export const EditorScreen = ({ mapProvider }) => {
       });
       return;
     }
+
+    if (!validatePullkey(pullKey)) {
+      setOpenPreviewSnackBar({
+        ...openPreviewSnackBar,
+        open: true,
+        errorMessage:
+          "The pull key is invalid. Make sure you copy it correctly.",
+      });
+      return;
+    }
+
     setStyleID(styleID);
     setAPIKey(apiKey);
     setPullKey(pullKey);
@@ -125,6 +136,16 @@ export const EditorScreen = ({ mapProvider }) => {
         ...openPreviewSnackBar,
         open: true,
         errorMessage: "A pull key is required.",
+      });
+      return;
+    }
+
+    if (!validatePullkey(pullKey)) {
+      setOpenPreviewSnackBar({
+        ...openPreviewSnackBar,
+        open: true,
+        errorMessage:
+          "The pull key is invalid. Make sure you copy it correctly.",
       });
       return;
     }
@@ -180,3 +201,22 @@ export const EditorScreen = ({ mapProvider }) => {
     </Stack>
   );
 };
+
+const PULL_KEY_CHARSET = "abcdefghijklmnopqrstuvwxyz0123456789";
+
+export function validatePullkey(key) {
+  key = key.trim();
+  if (key.length !== 16) {
+    return false;
+  }
+  let checksum = 13;
+  for (let i = 0; i < 15; i++) {
+    const index = PULL_KEY_CHARSET.indexOf(key[i]);
+    checksum += index;
+  }
+  const checksumKey = PULL_KEY_CHARSET.charAt(
+    checksum % PULL_KEY_CHARSET.length
+  );
+  const lastChar = key[key.length - 1];
+  return checksumKey === lastChar;
+}
