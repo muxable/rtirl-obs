@@ -2,7 +2,7 @@ import CodeIcon from "@mui/icons-material/Code";
 import KeyIcon from "@mui/icons-material/Key";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import StyleIcon from "@mui/icons-material/Style";
-import { IconButton, InputAdornment } from "@mui/material";
+import { IconButton, InputAdornment, Link } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
@@ -134,12 +134,13 @@ export const Settings = ({
               helperText={
                 <>
                   format: JSON <br />
-                  <a href="https://mapstyle.withgoogle.com/">
-                    {" "}
-                    Style with Google{" "}
-                  </a>{" "}
+                  <Link href="https://mapstyle.withgoogle.com/">
+                    Style with Google
+                  </Link>
                   <br />
-                  <a href="https://snazzymaps.com/"> Style with Snazzymaps </a>
+                  <Link href="https://snazzymaps.com/">
+                    Style with Snazzymaps
+                  </Link>
                 </>
               }
               onSubmit={(e) => {

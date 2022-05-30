@@ -77,6 +77,16 @@ const editorTheme = createTheme({
         },
       },
     },
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          color: "rgba(246, 243, 237, 0.8)",
+        },
+        underlineAlways: {
+          textDecoration: "underline",
+        },
+      },
+    },
   },
 });
 
