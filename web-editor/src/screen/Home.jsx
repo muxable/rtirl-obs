@@ -4,18 +4,20 @@ import * as React from "react";
 import { HomeBackground } from "../component/HomeBackground";
 import { OverlayPreview } from "../component/OverlayPreview";
 import homeTheme from "../theme/homeTheme";
+import mapboxImage from "../images/mapbox.jpg";
+import googleMapsImage from "../images/google_maps.jpg";
 
 //"https://assets.website-files.com/5d3ef00c73102c436bc83996/5d3ef00c73102c893bc83a28_logo-regular.png"
 const pages = [
   {
     name: "Mapbox",
     route: "/mapbox",
-    image: "https://source.unsplash.com/random/256x256",
+    image: mapboxImage,
   },
   {
     name: "Google Maps",
     route: "/googlemap",
-    image: "https://source.unsplash.com/random/256x256",
+    image: googleMapsImage,
   },
   {
     name: "Neighborhood",

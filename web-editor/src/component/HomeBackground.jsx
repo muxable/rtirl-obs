@@ -1,6 +1,6 @@
 import { styled } from "@mui/material/styles";
 import * as React from "react";
-import hotdog from "../muxlabs-hotdog.png";
+import hotdog from "../images/muxlabs-hotdog.png";
 
 const Hotdog = styled("img")({
   position: "absolute",
