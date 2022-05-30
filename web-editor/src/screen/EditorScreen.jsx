@@ -84,7 +84,8 @@ export const EditorScreen = ({ mapProvider }) => {
       setOpenPreviewSnackBar({
         ...openPreviewSnackBar,
         open: true,
-        errorMessage: "The pull key is invalid. Make sure you copy it correctly.",
+        errorMessage:
+          "The pull key is invalid. Make sure you copy it correctly.",
       });
       return;
     }
@@ -143,7 +144,8 @@ export const EditorScreen = ({ mapProvider }) => {
       setOpenPreviewSnackBar({
         ...openPreviewSnackBar,
         open: true,
-        errorMessage: "The pull key is invalid. Make sure you copy it correctly.",
+        errorMessage:
+          "The pull key is invalid. Make sure you copy it correctly.",
       });
       return;
     }
@@ -200,7 +202,6 @@ export const EditorScreen = ({ mapProvider }) => {
   );
 };
 
-
 const PULL_KEY_CHARSET = "abcdefghijklmnopqrstuvwxyz0123456789";
 
 export function validatePullkey(key) {
@@ -213,8 +214,9 @@ export function validatePullkey(key) {
     const index = PULL_KEY_CHARSET.indexOf(key[i]);
     checksum += index;
   }
-  const checksumKey = PULL_KEY_CHARSET.charAt(checksum % PULL_KEY_CHARSET.length);
+  const checksumKey = PULL_KEY_CHARSET.charAt(
+    checksum % PULL_KEY_CHARSET.length
+  );
   const lastChar = key[key.length - 1];
   return checksumKey === lastChar;
 }
-
