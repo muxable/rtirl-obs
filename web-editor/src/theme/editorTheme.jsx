@@ -23,7 +23,7 @@ const editorTheme = createTheme({
       main: "rgba(255, 68, 68, 0.4)",
     },
     text: {
-      primary: "rgba(246, 243, 237, 1)",
+      main: "rgba(246, 243, 237, 1)",
     },
   },
   typography: {

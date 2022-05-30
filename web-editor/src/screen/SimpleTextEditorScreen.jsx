@@ -21,7 +21,6 @@ export const SimpleTextEditScreen = () => {
     border_bottom_right_radius: 0,
     textAlign: "left",
   });
-  // const [color, setColor] = React.useState("#94fe32");
 
   return (
     <Stack direction={"row"} spacing={2}>

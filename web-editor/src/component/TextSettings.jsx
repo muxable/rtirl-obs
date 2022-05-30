@@ -242,6 +242,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
               defaultValue={100}
               value={textDivCSS.opacity}
               valueLabelDisplay="auto"
+              color="text"
               onChange={(e, value) => {
                 setTextDivCSS({
                   ...textDivCSS,
@@ -259,6 +260,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
               defaultValue={100}
               value={textDivCSS.padding}
               valueLabelDisplay="auto"
+              color="text"
               onChange={(e, value) => {
                 setTextDivCSS({
                   ...textDivCSS,
@@ -313,6 +315,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
                 defaultValue={100}
                 value={textDivCSS.border_top_left_radius}
                 valueLabelDisplay="auto"
+                color="text"
                 onChange={(e, value) => {
                   setTextDivCSS({
                     ...textDivCSS,
@@ -327,6 +330,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
                 defaultValue={100}
                 value={textDivCSS.border_top_right_radius}
                 valueLabelDisplay="auto"
+                color="text"
                 onChange={(e, value) => {
                   setTextDivCSS({
                     ...textDivCSS,
@@ -343,6 +347,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
                 defaultValue={100}
                 value={textDivCSS.border_bottom_left_radius}
                 valueLabelDisplay="auto"
+                color="text"
                 onChange={(e, value) => {
                   setTextDivCSS({
                     ...textDivCSS,
@@ -357,6 +362,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
                 defaultValue={100}
                 value={textDivCSS.border_bottom_right_radius}
                 valueLabelDisplay="auto"
+                color="text"
                 onChange={(e, value) => {
                   setTextDivCSS({
                     ...textDivCSS,
