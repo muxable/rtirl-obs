@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
-// import { ExportPanel } from './ExportPanel';
+import { useEffect, useState } from "react";
 import { ConsolePanel } from "./ConsolePanel";
-import { MapboxMapContainer } from "./MapboxMapContainer";
 import { GoogleMapContainer } from "./GoogleMapContainer";
+import { MapboxMapContainer } from "./MapboxMapContainer";
 
 export const mapboxMapStyleJsonCache = {};
 
@@ -19,7 +18,6 @@ export const RightPanel = ({
   googleStyleJSON,
   googleApiKey,
 }) => {
-  console.log("right panel render");
   const [viewState, setViewState] = useState({
     longitude: -100,
     latitude: 40,

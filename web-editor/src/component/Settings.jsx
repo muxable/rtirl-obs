@@ -1,18 +1,17 @@
-import { useState } from "react";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import ControlPanel from "./ControlPanel";
-import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
-import { IconButton, InputAdornment } from "@mui/material";
-import { StyleIDHelperDialog } from "./StyleIDHelperDialog";
-import { useEffect } from "react";
-import KeyIcon from "@mui/icons-material/Key";
-import StyleIcon from "@mui/icons-material/Style";
 import CodeIcon from "@mui/icons-material/Code";
+import KeyIcon from "@mui/icons-material/Key";
+import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
+import StyleIcon from "@mui/icons-material/Style";
+import { IconButton, InputAdornment, Link } from "@mui/material";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Divider from "@mui/material/Divider";
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import { useEffect, useState } from "react";
+import ControlPanel from "./ControlPanel";
+import { StyleIDHelperDialog } from "./StyleIDHelperDialog";
 
 export const Settings = ({
   onStyleJSONSubmit,
@@ -41,27 +40,27 @@ export const Settings = ({
   return (
     <Box
       style={{
-        width: "256px",
-        height: "100vh",
-        backgroundColor: "#8eb4f5",
-        margin: "16px",
+        width: "15vw",
         padding: "16px",
       }}
       paddingLeft={4}
-      borderRadius={4}
+      borderRight={1}
+      borderColor="primary.border"
+      backgroundColor="primary.main"
     >
       <Stack
         divider={<Divider orientation="vertical" flexItem />}
         spacing={2}
         textAlign="left"
       >
-        <Typography variant="h6" color="inherit" component="div">
+        <Typography variant="h6" component="div">
           Settings
         </Typography>
 
         {/* API key form */}
         <Box component="form" noValidate autoComplete="off">
           <TextField
+            fullWidth
             required
             id="standard-required"
             label="API Key"
@@ -100,7 +99,7 @@ export const Settings = ({
           )}
           {mapProvider === "mapbox" ? (
             <TextField
-              // ref={inputStyleIDRef}
+              fullWidth
               id="tf-style-id"
               label="Style ID"
               variant="standard"
@@ -126,6 +125,7 @@ export const Settings = ({
             />
           ) : (
             <TextField
+              fullWidth
               id="outlined-multiline-static"
               label="Style JSON"
               multiline
@@ -134,12 +134,13 @@ export const Settings = ({
               helperText={
                 <>
                   format: JSON <br />
-                  <a href="https://mapstyle.withgoogle.com/">
-                    {" "}
-                    Style with Google{" "}
-                  </a>{" "}
+                  <Link href="https://mapstyle.withgoogle.com/">
+                    Style with Google
+                  </Link>
                   <br />
-                  <a href="https://snazzymaps.com/"> Style with Snazzymaps </a>
+                  <Link href="https://snazzymaps.com/">
+                    Style with Snazzymaps
+                  </Link>
                 </>
               }
               onSubmit={(e) => {
@@ -162,6 +163,7 @@ export const Settings = ({
         {/* Pull key from rtirl.com */}
         <Box component="form" noValidate autoComplete="off">
           <TextField
+            fullWidth
             required
             id="standard-required"
             label="Pull Key"

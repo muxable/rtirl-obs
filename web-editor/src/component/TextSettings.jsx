@@ -46,19 +46,17 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
   return (
     <Box
       style={{
-        width: "300px",
-        height: "100vh",
-        backgroundColor: "#8eb4f5",
-        margin: "16px",
+        width: "15vw",
         padding: "16px",
       }}
       paddingLeft={4}
-      borderRadius={4}
+      borderRight={1}
+      borderColor="primary.border"
+      backgroundColor="primary.main"
     >
       <Stack
         spacing={1}
         divider={<Divider orientation="horizontal" flexItem />}
-        ivider
       >
         {/* fonts */}
         <Stack spacing={1}>
@@ -243,6 +241,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
               defaultValue={100}
               value={textDivCSS.opacity}
               valueLabelDisplay="auto"
+              color="text"
               onChange={(e, value) => {
                 setTextDivCSS({
                   ...textDivCSS,
@@ -260,6 +259,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
               defaultValue={100}
               value={textDivCSS.padding}
               valueLabelDisplay="auto"
+              color="text"
               onChange={(e, value) => {
                 setTextDivCSS({
                   ...textDivCSS,
@@ -314,6 +314,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
                 defaultValue={100}
                 value={textDivCSS.border_top_left_radius}
                 valueLabelDisplay="auto"
+                color="text"
                 onChange={(e, value) => {
                   setTextDivCSS({
                     ...textDivCSS,
@@ -328,6 +329,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
                 defaultValue={100}
                 value={textDivCSS.border_top_right_radius}
                 valueLabelDisplay="auto"
+                color="text"
                 onChange={(e, value) => {
                   setTextDivCSS({
                     ...textDivCSS,
@@ -344,6 +346,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
                 defaultValue={100}
                 value={textDivCSS.border_bottom_left_radius}
                 valueLabelDisplay="auto"
+                color="text"
                 onChange={(e, value) => {
                   setTextDivCSS({
                     ...textDivCSS,
@@ -358,6 +361,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
                 defaultValue={100}
                 value={textDivCSS.border_bottom_right_radius}
                 valueLabelDisplay="auto"
+                color="text"
                 onChange={(e, value) => {
                   setTextDivCSS({
                     ...textDivCSS,
