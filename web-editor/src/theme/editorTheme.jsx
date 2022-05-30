@@ -70,6 +70,13 @@ const editorTheme = createTheme({
         },
       },
     },
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          borderBottom: "1px solid #545454",
+        },
+      },
+    },
   },
 });
 

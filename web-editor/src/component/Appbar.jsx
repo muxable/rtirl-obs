@@ -13,10 +13,7 @@ export const EditorAppbar = ({ setOpenDrawer }) => {
     return <></>;
   }
   return (
-    <AppBar
-      position="static"
-      sx={{ borderBottom: "1px solid", borderColor: "#545454" }}
-    >
+    <AppBar position="static">
       <Toolbar variant="dense">
         <IconButton
           size="large"
