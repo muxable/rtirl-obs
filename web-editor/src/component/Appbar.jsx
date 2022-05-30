@@ -2,29 +2,27 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
 
-export const EditorAppbar = ({ mapProvider, setMapProvider }) => {
-  const handleChange = (event, value) => {
-    setMapProvider(value);
-  };
-
+export const EditorAppbar = ({ setOpenDrawer }) => {
   return (
     <AppBar position="static">
       <Toolbar variant="dense">
+        <IconButton
+          size="large"
+          edge="start"
+          color="inherit"
+          aria-label="menu"
+          onClick={() => {
+            setOpenDrawer(true);
+          }}
+        >
+          <MenuIcon />
+        </IconButton>
         <Typography variant="h6" color="inherit" component="div">
           Overlay Editor
         </Typography>
-        <Tabs
-          value={mapProvider}
-          onChange={handleChange}
-          textColor="secondary"
-          indicatorColor="secondary"
-        >
-          <Tab value="mapbox" label="Mapbox" />
-          <Tab value="google" label="Google Map" />
-        </Tabs>
       </Toolbar>
     </AppBar>
   );

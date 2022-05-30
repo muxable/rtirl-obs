@@ -21,6 +21,7 @@
     "react-dom": "^18.0.0",
     "react-leaflet": "^4.0.0",
     "react-map-gl": "^7.0.10",
+    "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "typescript": "^4.6.3",
     "web-vitals": "^2.1.4"
