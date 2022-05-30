@@ -1,12 +1,12 @@
+import Stack from "@mui/material/Stack";
+import { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { EditorAppbar } from "./component/Appbar";
-import Stack from "@mui/material/Stack";
-// import { EditorScreen } from "./screen/EditorScreen";
-import { useState } from "react";
-import { SimpleTextEditScreen } from "./screen/SimpleTextEditorScreen";
 import { NavigationDrawer } from "./component/NavigationDrawer";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Home } from "./screen/Home";
 import { EditorScreen } from "./screen/EditorScreen";
+import { SimpleTextEditScreen } from "./screen/SimpleTextEditorScreen";
 
 function App() {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -17,7 +17,7 @@ function App() {
         <Stack>
           <EditorAppbar setOpenDrawer={setOpenDrawer} />
           <Routes>
-            {/* <Route exact path="/home" element={<HomeScreen />} /> */}
+            <Route exact path="/" element={<Home />} />
             <Route
               exact
               path="/mapbox"
