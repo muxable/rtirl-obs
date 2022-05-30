@@ -46,19 +46,18 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
   return (
     <Box
       style={{
-        width: "300px",
+        width: "15vw",
         height: "100vh",
         padding: "16px",
       }}
       paddingLeft={4}
       borderRight={1}
-      borderColor="#545454"
-      backgroundColor="secondary.main"
+      borderColor="primary.border"
+      backgroundColor="primary.main"
     >
       <Stack
         spacing={1}
         divider={<Divider orientation="horizontal" flexItem />}
-        ivider
       >
         {/* fonts */}
         <Stack spacing={1}>

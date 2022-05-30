@@ -7,10 +7,11 @@ const editorTheme = createTheme({
     mode: "dark",
     primary: {
       main: "#262626",
+      border: "#545454",
       contrastText: "white",
     },
     secondary: {
-      main: "#262626",
+      main: "#000000",
       text: "white",
       contrastText: "white",
     },

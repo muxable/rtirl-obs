@@ -47,8 +47,8 @@ export const Settings = ({
       }}
       paddingLeft={4}
       borderRight={1}
-      borderColor="#545454"
-      backgroundColor="secondary.main"
+      borderColor="primary.border"
+      backgroundColor="primary.main"
     >
       <Stack
         divider={<Divider orientation="vertical" flexItem />}
@@ -197,6 +197,7 @@ export const Settings = ({
 
         <Button
           variant="contained"
+          color="primary"
           onClick={(e) => {
             mapProvider === "mapbox"
               ? onStyleIDSubmit(inputStyleID, inputAPIKey, inputPullKey)

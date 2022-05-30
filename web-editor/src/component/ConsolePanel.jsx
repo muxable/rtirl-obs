@@ -185,14 +185,14 @@ export const ConsolePanel = ({
 
   return (
     <Box
-      borderRadius={4}
       style={{
-        width: "80vw",
-        backgroundColor: "#ADD8E6",
+        width: "85vw",
         marginTop: "8px",
-        position: "relative",
         padding: "8px",
       }}
+      border={1}
+      borderColor="primary.border"
+      backgroundColor="primary.main"
     >
       {mapProvider === "mapbox" ? MapboxResult : GoogleMapResult}
     </Box>
