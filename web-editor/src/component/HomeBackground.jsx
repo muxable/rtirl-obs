@@ -67,10 +67,10 @@ const Hotdog6 = styled("img")({
 
 const Hotdog7 = styled("img")({
   position: "absolute",
-  width: "5%",
-  left: "-3%",
-  bottom: "10%",
-  transform: "rotate(26.97deg)",
+  width: "2%",
+  left: "45%",
+  bottom: "43%",
+  transform: "rotate(87.28deg)",
   zIndex: -1,
 });
 
@@ -84,6 +84,7 @@ export const HomeBackground = () => {
       <Hotdog4 src={hotdog} />
       <Hotdog5 src={hotdog} />
       <Hotdog6 src={hotdog} />
+      <Hotdog7 src={hotdog} />
     </>
   );
 };
