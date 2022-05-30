@@ -70,11 +70,6 @@ const editorTheme = createTheme({
         },
       },
     },
-    MuiOutlinedInput: {
-      notchedOutline: {
-        borderColor: "rgba(246, 243, 237, 0.8)",
-      },
-    },
   },
 });
 
