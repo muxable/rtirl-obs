@@ -58,7 +58,7 @@ export const NavigationDrawer = ({ open, setOpen }) => {
               <ListItemIcon>
                 <MapIcon />
               </ListItemIcon>
-              <ListItemText primary="Google Map" />
+              <ListItemText primary="Google Maps" />
             </ListItem>
           </Link>
         </List>
