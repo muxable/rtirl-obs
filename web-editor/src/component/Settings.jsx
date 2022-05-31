@@ -1,8 +1,15 @@
 import CodeIcon from "@mui/icons-material/Code";
 import KeyIcon from "@mui/icons-material/Key";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
+import SearchIcon from "@mui/icons-material/Search";
 import StyleIcon from "@mui/icons-material/Style";
-import { IconButton, InputAdornment, Link } from "@mui/material";
+import {
+  IconButton,
+  InputAdornment,
+  Link,
+  Slider,
+  Tooltip,
+} from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
@@ -12,6 +19,7 @@ import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import ControlPanel from "./ControlPanel";
 import { StyleIDHelperDialog } from "./StyleIDHelperDialog";
+import { ZoomSlider } from "./ZoomSlider";
 
 export const Settings = ({
   onStyleJSONSubmit,
@@ -21,6 +29,8 @@ export const Settings = ({
   mapStyle,
   setMapStyle,
   mapProvider,
+  zoom,
+  setZoom,
 }) => {
   const [openStyleIDDialog, setOpenStyleIDDialog] = useState(false);
   const [inputStyleID, setInputStyleID] = useState("");
@@ -184,14 +194,23 @@ export const Settings = ({
 
         {/* Map style controll */}
         {mapProvider === "mapbox" ? (
-          <Box>
-            <ControlPanel
-              onChange={setMapStyle}
-              language={lang}
-              setLanguage={setLang}
-              mapStyle={mapStyle}
-            ></ControlPanel>
-          </Box>
+          <>
+            <Box>
+              <ControlPanel
+                onChange={setMapStyle}
+                language={lang}
+                setLanguage={setLang}
+                mapStyle={mapStyle}
+              ></ControlPanel>
+            </Box>
+
+            <ZoomSlider
+              zoomValue={zoom}
+              minZoomLevel={0}
+              maxZoomLevel={23}
+              onZoomChange={setZoom}
+            />
+          </>
         ) : (
           <></>
         )}

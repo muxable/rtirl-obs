@@ -17,11 +17,12 @@ export const RightPanel = ({
   mapProvider,
   googleStyleJSON,
   googleApiKey,
+  zoom,
+  setZoom
 }) => {
   const [viewState, setViewState] = useState({
     longitude: -100,
     latitude: 40,
-    zoom: 3,
   });
 
   const [canPreview, setCanPreview] = useState(true);
@@ -64,6 +65,8 @@ export const RightPanel = ({
         <MapboxMapContainer
           canPreview={canPreview}
           viewState={viewState}
+          zoom={zoom}
+          setZoom={setZoom}
           setViewState={setViewState}
           mapStyle={mapStyle}
           apiKey={apiKey}
@@ -73,7 +76,7 @@ export const RightPanel = ({
       )}
 
       {mapProvider === "mapbox"
-        ? `Longitude: ${viewState.longitude}, Latitude: ${viewState.latitude}, zoom: ${viewState.zoom}`
+        ? `Longitude: ${viewState.longitude}, Latitude: ${viewState.latitude}, zoom: ${zoom}`
         : ""}
       {/* <ExportPanel></ExportPanel> */}
       <ConsolePanel
@@ -82,7 +85,7 @@ export const RightPanel = ({
         googleStyleJSON={googleStyleJSON}
         canPreview={canPreview}
         lang={lang}
-        zoom={viewState.zoom}
+        zoom={zoom}
         styleID={styleID}
         pullKey={pullKey}
         apiKey={apiKey}
