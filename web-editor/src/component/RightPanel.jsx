@@ -18,7 +18,7 @@ export const RightPanel = ({
   googleStyleJSON,
   googleApiKey,
   zoom,
-  setZoom
+  setZoom,
 }) => {
   const [viewState, setViewState] = useState({
     longitude: -100,
