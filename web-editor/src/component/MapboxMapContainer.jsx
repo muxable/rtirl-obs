@@ -22,7 +22,7 @@ export const MapboxMapContainer = ({
           styleDiffing
           width="100%"
           height="100%"
-          onDrag={(evt) =>
+          onMove={(evt) =>
             setViewState({
               latitude: evt.viewState.latitude,
               longitude: evt.viewState.longitude,
