@@ -1,14 +1,11 @@
 import CodeIcon from "@mui/icons-material/Code";
 import KeyIcon from "@mui/icons-material/Key";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
-import SearchIcon from "@mui/icons-material/Search";
 import StyleIcon from "@mui/icons-material/Style";
 import {
   IconButton,
   InputAdornment,
-  Link,
-  Slider,
-  Tooltip,
+  Link
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
