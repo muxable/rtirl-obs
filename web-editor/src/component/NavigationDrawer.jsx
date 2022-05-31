@@ -66,7 +66,11 @@ export const NavigationDrawer = ({ open, setOpen }) => {
 
         <List>
           {actions.map((action, index) => (
-            <Link to={`/${action.name}`} style={{ textDecoration: "none" }}>
+            <Link
+              to={`/${action.name}`}
+              style={{ textDecoration: "none" }}
+              key={index}
+            >
               <ListItem button key={index}>
                 <ListItemIcon>{action.icon}</ListItemIcon>
                 <ListItemText primary={action.name} />
