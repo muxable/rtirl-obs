@@ -26,8 +26,9 @@ export const StyleIDHelperDialog = ({ open, setOpen }) => {
           <code>mapbox/dark-v10</code> <br />
           <code>adoucett/cjf5k84bp0p7t2rmiwvwikhyn</code> <br />
           <br />
-          We can only preview styleID that are public. <br />
-          supply your own styleID in the format of: <br />
+          We can only preview styleID's that are either public or accesible with
+          your Mapbox API access token. <br />
+          Supply your own styleID in the format of: <br />
           <code>account/styleID </code>
           <br />
           <br />
