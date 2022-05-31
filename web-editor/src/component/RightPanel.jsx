@@ -1,5 +1,4 @@
-import Divider from "@mui/material/Divider";
-import Stack from "@mui/material/Stack";
+import { Stack, Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { ConsolePanel } from "./ConsolePanel";
 import { GoogleMapContainer } from "./GoogleMapContainer";
@@ -57,39 +56,36 @@ export const RightPanel = ({
   }, [styleID, apiKey, setMapStyle]);
 
   return (
-    <Stack
-      style={{ margin: "4px" }}
-      divider={<Divider orientation="vertical" flexItem />}
-    >
-      {mapProvider === "mapbox" ? (
-        <MapboxMapContainer
+    <Box>
+      <Stack height="95vh" direction="column">
+        {mapProvider === "mapbox" ? (
+          <MapboxMapContainer
+            canPreview={canPreview}
+            viewState={viewState}
+            zoom={zoom}
+            setZoom={setZoom}
+            setViewState={setViewState}
+            mapStyle={mapStyle}
+            apiKey={apiKey}
+          />
+        ) : (
+          <GoogleMapContainer
+            apiKey={googleApiKey}
+            mapStyle={googleStyleJSON}
+          />
+        )}
+        <ConsolePanel
+          googleApiKey={googleApiKey}
+          mapProvider={mapProvider}
+          googleStyleJSON={googleStyleJSON}
           canPreview={canPreview}
-          viewState={viewState}
+          lang={lang}
           zoom={zoom}
-          setZoom={setZoom}
-          setViewState={setViewState}
-          mapStyle={mapStyle}
+          styleID={styleID}
+          pullKey={pullKey}
           apiKey={apiKey}
-        />
-      ) : (
-        <GoogleMapContainer apiKey={googleApiKey} mapStyle={googleStyleJSON} />
-      )}
-
-      {mapProvider === "mapbox"
-        ? `Longitude: ${viewState.longitude}, Latitude: ${viewState.latitude}, zoom: ${zoom}`
-        : ""}
-      {/* <ExportPanel></ExportPanel> */}
-      <ConsolePanel
-        googleApiKey={googleApiKey}
-        mapProvider={mapProvider}
-        googleStyleJSON={googleStyleJSON}
-        canPreview={canPreview}
-        lang={lang}
-        zoom={zoom}
-        styleID={styleID}
-        pullKey={pullKey}
-        apiKey={apiKey}
-      ></ConsolePanel>
-    </Stack>
+        ></ConsolePanel>
+      </Stack>
+    </Box>
   );
 };
