@@ -89,14 +89,6 @@ export const Settings = ({
             e.preventDefault();
           }}
         >
-          {mapProvider === "mapbox" && (
-            <IconButton
-              onClick={() => setOpenStyleIDDialog(true)}
-              style={{ position: "absolute", right: "0px", zIndex: "3" }}
-            >
-              <QuestionMarkIcon />
-            </IconButton>
-          )}
           {mapProvider === "mapbox" ? (
             <TextField
               fullWidth
@@ -119,6 +111,13 @@ export const Settings = ({
                 startAdornment: (
                   <InputAdornment position="start">
                     <StyleIcon />
+                  </InputAdornment>
+                ),
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={() => setOpenStyleIDDialog(true)}>
+                      <QuestionMarkIcon />
+                    </IconButton>
                   </InputAdornment>
                 ),
               }}
