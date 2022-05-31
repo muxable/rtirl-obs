@@ -241,6 +241,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
               defaultValue={100}
               value={textDivCSS.opacity}
               valueLabelDisplay="auto"
+              valueLabelFormat={(x) => `${x}%`}
               color="text"
               onChange={(e, value) => {
                 setTextDivCSS({
@@ -259,6 +260,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
               defaultValue={100}
               value={textDivCSS.padding}
               valueLabelDisplay="auto"
+              valueLabelFormat={(x) => `${x} px`}
               color="text"
               onChange={(e, value) => {
                 setTextDivCSS({
