@@ -12,6 +12,7 @@ import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import ControlPanel from "./ControlPanel";
 import { StyleIDHelperDialog } from "./StyleIDHelperDialog";
+import { ZoomSlider } from "./ZoomSlider";
 
 export const Settings = ({
   onStyleJSONSubmit,
@@ -21,6 +22,8 @@ export const Settings = ({
   mapStyle,
   setMapStyle,
   mapProvider,
+  zoom,
+  setZoom,
 }) => {
   const [openStyleIDDialog, setOpenStyleIDDialog] = useState(false);
   const [inputStyleID, setInputStyleID] = useState("");
@@ -183,14 +186,23 @@ export const Settings = ({
 
         {/* Map style controll */}
         {mapProvider === "mapbox" ? (
-          <Box>
-            <ControlPanel
-              onChange={setMapStyle}
-              language={lang}
-              setLanguage={setLang}
-              mapStyle={mapStyle}
-            ></ControlPanel>
-          </Box>
+          <>
+            <Box>
+              <ControlPanel
+                onChange={setMapStyle}
+                language={lang}
+                setLanguage={setLang}
+                mapStyle={mapStyle}
+              ></ControlPanel>
+            </Box>
+
+            <ZoomSlider
+              zoomValue={zoom}
+              minZoomLevel={0}
+              maxZoomLevel={23}
+              onZoomChange={setZoom}
+            />
+          </>
         ) : (
           <></>
         )}

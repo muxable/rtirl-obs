@@ -182,6 +182,7 @@ export const EditorScreen = ({ mapProvider }) => {
             setMapStyle={setMapStyle}
             mapStyle={mapStyle}
             zoom={zoom}
+            setZoom={setZoom}
             lang={lang}
             pullKey={pullKey}
             apiKey={apiKey}
