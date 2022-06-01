@@ -14,8 +14,8 @@ import { useState } from "react";
 import PullKeyInput from "../component/PullKeyInput";
 import TextOverlayPreview from "../component/TextOverlayPreview";
 import { TextSettings } from "../component/TextSettings";
+import { DateTime } from 'luxon'
 
-const { DateTime } = require("luxon");
 
 function ClockEditor(props) {
   const [pullKey, setPullKey] = useState({ value: "", valid: false });
