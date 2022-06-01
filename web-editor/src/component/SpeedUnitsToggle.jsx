@@ -11,7 +11,11 @@ function SpeedUnitsToggle({ units, onUnitsChange }) {
         value={units}
         exclusive
         fullWidth
-        onChange={(_, selectedUnits) => onUnitsChange(selectedUnits)}
+        onChange={(_, selectedUnits) => {
+          if (selectedUnits) {
+            onUnitsChange(selectedUnits);
+          }
+        }}
       >
         <ToggleButton value="mph">MPH</ToggleButton>
         <ToggleButton value="kph">KPH</ToggleButton>
