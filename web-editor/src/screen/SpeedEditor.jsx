@@ -1,12 +1,10 @@
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import {
-  Box,
-  Grid,
+  Box, Grid,
   IconButton,
   InputAdornment,
-  TextField,
+  TextField
 } from "@mui/material";
-import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { useState } from "react";
@@ -123,17 +121,12 @@ function SpeedEditor(props) {
           backgroundColor="primary.main"
           textAlign="left"
         >
-          <List>
-            <Typography variant="h6" component="div">
-              Settings
-            </Typography>
-            <PullKeyInput pullKey={pullKey} onKeyChange={setPullKey} />
-            <SpeedUnitsToggle units={units} onUnitsChange={setUnits} />
-            <TextSettings
-              textDivCSS={textDivCSS}
-              setTextDivCSS={setTextDivCSS}
-            />
-          </List>
+          <Typography variant="h6" component="div">
+            Settings
+          </Typography>
+          <PullKeyInput pullKey={pullKey} onKeyChange={setPullKey} />
+          <SpeedUnitsToggle units={units} onUnitsChange={setUnits} />
+          <TextSettings textDivCSS={textDivCSS} setTextDivCSS={setTextDivCSS} />
         </Box>
       </Grid>
       <Grid item xs={1} md={9.5} lg={12}>
