@@ -79,7 +79,7 @@ export const ConsolePanel = ({
   customizeBaseParams.set("zoom", zoom);
 
   const MapboxResult = (
-    <Stack style={{ marginLeft: "16px" }} alignSelf="flex-start">
+    <Stack>
       <aside>
         <h2> Generic URL by Muxable </h2>
         <h4> API Key is supplied by Muxable in the generic URL </h4>
@@ -186,7 +186,6 @@ export const ConsolePanel = ({
   return (
     <Box
       style={{
-        width: "85vw",
         marginTop: "8px",
         padding: "8px",
       }}

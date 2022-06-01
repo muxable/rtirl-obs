@@ -12,7 +12,7 @@ export const MapboxMapContainer = ({
   setZoom,
 }) => {
   return (
-    <div style={{ height: "70vh", width: "85vw" }}>
+    <div style={{ height: "100%", width: "100%" }}>
       {canPreview ? (
         <MapGL
           zoom={zoom}
@@ -20,8 +20,6 @@ export const MapboxMapContainer = ({
           {...viewState}
           mapStyle={mapStyle}
           styleDiffing
-          width="100%"
-          height="100%"
           onMove={(evt) =>
             setViewState({
               latitude: evt.viewState.latitude,

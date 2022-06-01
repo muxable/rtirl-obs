@@ -34,6 +34,7 @@
         document.body.setAttribute('style', 'margin: 0; padding: 0; width: 100%; height: 100%;');
         document.getElementById('wrapper').setAttribute('style', 'height: 100%; width: 100%;');
       }
+      var zoom = params.get("zoom");
       var script = document.createElement("script");
       script.src =
         "https://maps.googleapis.com/maps/api/js?key=" +
@@ -45,7 +46,7 @@
       window.initMap = function () {
         map = new google.maps.Map(document.getElementById("map"), {
           center: { lat: -34.397, lng: 150.644 },
-          zoom: 13,
+          zoom: zoom ? Number(zoom) : 13,
           disableDefaultUI: true,
           styles: styles ? JSON.parse(atob(decodeURIComponent(styles))) : [],
         });
