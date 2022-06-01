@@ -27,7 +27,7 @@ import FormatSizeIcon from "@mui/icons-material/FormatSize";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
-  const css = [
+  const properties = [
     `color: ${textDivCSS.textColor}`,
     `font-size: ${textDivCSS.fontSize}px`,
     `font-family: ${textDivCSS.fontFamily}`,
@@ -39,9 +39,11 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
     `border-color: ${textDivCSS.borderColor}`,
     `border: ${textDivCSS.borderWidth}px solid`,
     `align-text: ${textDivCSS.textAlign}`,
-    `border-radius: ${textDivCSS["border_top_left_radius"]}% ${textDivCSS["border_top_right_radius"]}% ${textDivCSS["border_bottom_right_radius"]}% ${textDivCSS["border_bottom_left_radius"]}%`,
+    `border-radius: ${textDivCSS.border_top_left_radius}% ${textDivCSS.border_top_right_radius}% ${textDivCSS.border_bottom_right_radius}% ${textDivCSS.border_bottom_left_radius}%`,
     `padding: ${textDivCSS.padding}px`,
   ].join(";\n");
+
+  const css = `body {\n${properties}\n}`;
 
   return (
     <Box
@@ -379,7 +381,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
             label="CSS"
             multiline
             rows={3}
-            defaultValue={css}
+            value={css}
             disabled
             InputProps={{
               startAdornment: (
