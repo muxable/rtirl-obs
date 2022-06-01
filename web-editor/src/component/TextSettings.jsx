@@ -27,41 +27,40 @@ import FormatSizeIcon from "@mui/icons-material/FormatSize";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { ClockSetting } from "./ClockSetting";
 
-export const TextSettings = React.memo(
-  ({
-    textDivCSS,
-    setTextDivCSS,
-    type,
-    clockSetting,
-    setClockSetting,
-    setText,
-  }) => {
-    const css = [
-      `color: ${textDivCSS.textColor}`,
-      `font-size: ${textDivCSS.fontSize}px`,
-      `font-family: ${textDivCSS.fontFamily}`,
-      `font-weight: ${textDivCSS.isBold ? "bold" : "normal"}`,
-      `font-style: ${textDivCSS.isItalic ? "italic" : "normal"}`,
-      `transform: rotate(${textDivCSS.rotation}deg)`,
-      `background-color: ${textDivCSS.backgroundColor}`,
-      `opacity: ${textDivCSS.opacity / 100}`,
-      `border-color: ${textDivCSS.borderColor}`,
-      `border: ${textDivCSS.borderWidth}px solid`,
-      `align-text: ${textDivCSS.textAlign}`,
-      `border-radius: ${textDivCSS["border_top_left_radius"]}% ${textDivCSS["border_top_right_radius"]}% ${textDivCSS["border_bottom_right_radius"]}% ${textDivCSS["border_bottom_left_radius"]}%`,
-      `padding: ${textDivCSS.padding}px`,
-    ].join(";\n");
 
-    return (
-      <Box
-        style={{
-          width: "15vw",
-          padding: "16px",
-        }}
-        paddingLeft={4}
-        borderRight={1}
-        borderColor="primary.border"
-        backgroundColor="primary.main"
+export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
+  const properties = [
+    `color: ${textDivCSS.textColor}`,
+    `font-size: ${textDivCSS.fontSize}px`,
+    `font-family: ${textDivCSS.fontFamily}`,
+    `font-weight: ${textDivCSS.isBold ? "bold" : "normal"}`,
+    `font-style: ${textDivCSS.isItalic ? "italic" : "normal"}`,
+    `transform: rotate(${textDivCSS.rotation}deg)`,
+    `background-color: ${textDivCSS.backgroundColor}`,
+    `opacity: ${textDivCSS.opacity / 100}`,
+    `border-color: ${textDivCSS.borderColor}`,
+    `border: ${textDivCSS.borderWidth}px solid`,
+    `align-text: ${textDivCSS.textAlign}`,
+    `border-radius: ${textDivCSS.border_top_left_radius}% ${textDivCSS.border_top_right_radius}% ${textDivCSS.border_bottom_right_radius}% ${textDivCSS.border_bottom_left_radius}%`,
+    `padding: ${textDivCSS.padding}px`,
+  ].join(";\n");
+
+  const css = `body {\n${properties}\n}`;
+
+  return (
+    <Box
+      style={{
+        width: "15vw",
+        padding: "16px",
+      }}
+      paddingLeft={4}
+      borderRight={1}
+      borderColor="primary.border"
+      backgroundColor="primary.main"
+    >
+      <Stack
+        spacing={1}
+        divider={<Divider orientation="horizontal" flexItem />}
       >
         <Stack
           spacing={1}
@@ -398,7 +397,7 @@ export const TextSettings = React.memo(
               label="CSS"
               multiline
               rows={3}
-              defaultValue={css}
+              value={css}
               disabled
               InputProps={{
                 startAdornment: (
