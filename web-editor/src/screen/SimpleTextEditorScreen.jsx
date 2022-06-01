@@ -1,8 +1,9 @@
 import * as React from "react";
 import Stack from "@mui/material/Stack";
 import { TextSettings } from "../component/TextSettings";
+import { useEffect } from "react";
 
-export const SimpleTextEditScreen = () => {
+export const SimpleTextEditScreen = ({ type }) => {
   const [textDivCSS, setTextDivCSS] = React.useState({
     textColor: "#94fe32",
     fontFamily: "sans-serif",
@@ -22,11 +23,44 @@ export const SimpleTextEditScreen = () => {
     textAlign: "left",
   });
 
+  const [text, setText] = React.useState("Smaple Text");
+
+  const [clockSetting, setClockSetting] = React.useState({
+    format: "tt",
+    lang: "en",
+  });
+
+  useEffect(() => {
+    switch (type) {
+      case "neighborhood":
+        setText("Neighborhood");
+        break;
+      case "clock":
+        setText("Clock");
+        break;
+      case "temperature":
+        setText("Temperature");
+        break;
+      case "speed":
+        setText("Speed");
+        break;
+      case "heading":
+        setText("Heading");
+        break;
+      default:
+        setText("Sample Text");
+    }
+  }, [setText, type]);
+
   return (
     <Stack direction={"row"} spacing={2}>
       <TextSettings
         textDivCSS={textDivCSS}
         setTextDivCSS={setTextDivCSS}
+        type={type}
+        setText={setText}
+        clockSetting={clockSetting}
+        setClockSetting={setClockSetting}
       ></TextSettings>
       <div
         style={{
@@ -53,8 +87,7 @@ export const SimpleTextEditScreen = () => {
             justifyContent: textDivCSS.justifyContent,
           }}
         >
-          {" "}
-          Sample Text{" "}
+          {text}
         </div>
       </div>
     </Stack>

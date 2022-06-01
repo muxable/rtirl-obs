@@ -36,17 +36,28 @@ function App() {
               <Route
                 exact
                 path="/neighborhood"
-                element={<SimpleTextEditScreen />}
+                element={<SimpleTextEditScreen type={"neighborhood"} />}
               />
-              <Route exact path="/speed" element={<SimpleTextEditScreen />} />
-              <Route exact path="/clock" element={<SimpleTextEditScreen />} />
+              <Route
+                exact
+                path="/speed"
+                element={<SimpleTextEditScreen type={"speed"} />}
+              />
+              <Route
+                exact
+                path="/clock"
+                element={<SimpleTextEditScreen type={"clock"} />}
+              />
               <Route
                 exact
                 path="/temperature"
-                element={<SimpleTextEditScreen />}
+                element={<SimpleTextEditScreen type={"temperature"} />}
               />
-              <Route exact path="/speed" element={<SimpleTextEditScreen />} />
-              <Route exact path="/heading" element={<SimpleTextEditScreen />} />
+              <Route
+                exact
+                path="/heading"
+                element={<SimpleTextEditScreen type={"heading"} />}
+              />
             </Routes>
           </Stack>
           <NavigationDrawer open={openDrawer} setOpen={setOpenDrawer} />
