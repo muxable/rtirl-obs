@@ -31,7 +31,9 @@ function PullKeyInput({ pullKey, onKeyChange }) {
         error={!validatePullkey(pullKey.value)}
         id="standard-required"
         label="Pull Key"
-        helperText="Pull Key from rtirl.com"
+        helperText={
+          validatePullkey(pullKey.value) ? "" : "The pull key is invalid"
+        }
         variant="standard"
         value={pullKey.value}
         onKeyPress={(e) => e.key === "Enter" && e.preventDefault()}
