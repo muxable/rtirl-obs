@@ -148,7 +148,6 @@ function CountryPicker({
   countries,
   lang,
   setLang,
-  mapboxMapRef,
 }: {
   countries: string[];
   lang: string;
@@ -158,12 +157,6 @@ function CountryPicker({
   const handleLanguageChange = (event: SelectChangeEvent) => {
     const newLang = event.target.value as string;
     setLang(newLang);
-    // console.log(mapboxMapRef.current);
-    // mapboxMapRef.current
-    // mapboxMapRef.current.setLayoutProperty('country-label', 'text-field', [
-    //   'get',
-    //   `name_${newLang.toLowerCase()}`
-    // ]);
   };
 
   return (
@@ -175,7 +168,7 @@ function CountryPicker({
       onChange={handleLanguageChange}
     >
       {countries.map((country) => (
-        <MenuItem value={country}>
+        <MenuItem value={country} key={country}>
           {getFlagEmoji(languageToCountry[country.toLowerCase()] ?? "")}{" "}
           {country}
         </MenuItem>
