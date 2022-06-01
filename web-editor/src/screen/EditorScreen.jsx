@@ -1,9 +1,9 @@
+import { Box, Grid } from "@mui/material";
 import * as React from "react";
-import { useState, useEffect } from "react";
-import Stack from "@mui/material/Stack";
-import { Settings } from "../component/Settings";
-import { mapboxMapStyleJsonCache, RightPanel } from "../component/RightPanel";
+import { useEffect, useState } from "react";
 import { PreviewSnackBar } from "../component/PreviewSnackBar";
+import { mapboxMapStyleJsonCache, RightPanel } from "../component/RightPanel";
+import { Settings } from "../component/Settings";
 
 export const EditorScreen = ({ mapProvider }) => {
   // mapbox states
@@ -157,26 +157,28 @@ export const EditorScreen = ({ mapProvider }) => {
   };
 
   return (
-    <Stack direction="row">
-      {mapStyle ? (
-        <>
-          <Settings
-            mapProvider={mapProvider}
-            onStyleIDSubmit={onStyleIDSubmit}
-            onStyleJSONSubmit={onStyleJSONSubmit}
-            mapStyle={mapStyle}
-            setMapStyle={setMapStyle}
-            apiKey={apiKey}
-            setAPIKey={setAPIKey}
-            styleID={styleID}
-            setStyleID={setStyleID}
-            pullKey={pullKey}
-            setPullKey={setPullKey}
-            zoom={zoom}
-            setZoom={setZoom}
-            lang={lang}
-            setLang={setLang}
-          ></Settings>
+    <Grid container columns={{ xs: 1, md: 12 }} direction="row">
+      <Grid item xs={1} md={2.5}>
+        <Settings
+          mapProvider={mapProvider}
+          onStyleIDSubmit={onStyleIDSubmit}
+          onStyleJSONSubmit={onStyleJSONSubmit}
+          mapStyle={mapStyle}
+          setMapStyle={setMapStyle}
+          apiKey={apiKey}
+          setAPIKey={setAPIKey}
+          styleID={styleID}
+          setStyleID={setStyleID}
+          pullKey={pullKey}
+          setPullKey={setPullKey}
+          zoom={zoom}
+          setZoom={setZoom}
+          lang={lang}
+          setLang={setLang}
+        ></Settings>
+      </Grid>
+      <Grid item xs={1} md={9.5} lg={12}>
+        <Box padding={1} paddingBottom={0}>
           <RightPanel
             mapProvider={mapProvider}
             setMapStyle={setMapStyle}
@@ -190,16 +192,14 @@ export const EditorScreen = ({ mapProvider }) => {
             googleStyleJSON={googleStyleJSON}
             googleApiKey={googleApiKey}
           ></RightPanel>
-        </>
-      ) : (
-        <div>Loading...</div>
-      )}
-      <PreviewSnackBar
-        open={openPreviewSnackBar.open}
-        setOpen={setOpenPreviewSnackBar}
-        errorMessage={openPreviewSnackBar.errorMessage}
-      />
-    </Stack>
+          <PreviewSnackBar
+            open={openPreviewSnackBar.open}
+            setOpen={setOpenPreviewSnackBar}
+            errorMessage={openPreviewSnackBar.errorMessage}
+          />
+        </Box>
+      </Grid>
+    </Grid>
   );
 };
 

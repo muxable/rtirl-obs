@@ -1,8 +1,8 @@
 import * as React from "react";
 
 const containerStyle = {
-  width: "85vw",
-  height: "70vh",
+  width: "100%",
+  height: "100%",
 };
 
 export const GoogleMapContainer = ({ mapStyle, apiKey }) => {
@@ -11,14 +11,11 @@ export const GoogleMapContainer = ({ mapStyle, apiKey }) => {
   const uri = `google_preview.html?api_key=${apiKey}&style=${styleB64}`;
 
   return (
-    <>
-      <iframe
-        style={containerStyle}
-        title="gmaps"
-        frameBorder={0}
-        src={uri}
-      ></iframe>
-      `
-    </>
+    <iframe
+      style={containerStyle}
+      title="gmaps"
+      frameBorder={0}
+      src={uri}
+    ></iframe>
   );
 };
