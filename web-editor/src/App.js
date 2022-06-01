@@ -3,13 +3,14 @@ import Stack from "@mui/material/Stack";
 import { ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import editorTheme from "./theme/editorTheme";
 import "./App.css";
 import { EditorAppbar } from "./component/Appbar";
 import { NavigationDrawer } from "./component/NavigationDrawer";
 import { EditorScreen } from "./screen/EditorScreen";
 import { Home } from "./screen/Home";
 import { SimpleTextEditScreen } from "./screen/SimpleTextEditorScreen";
+import SpeedEditor from "./screen/SpeedEditor";
+import editorTheme from "./theme/editorTheme";
 
 function App() {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -38,14 +39,13 @@ function App() {
                 path="/neighborhood"
                 element={<SimpleTextEditScreen />}
               />
-              <Route exact path="/speed" element={<SimpleTextEditScreen />} />
               <Route exact path="/clock" element={<SimpleTextEditScreen />} />
               <Route
                 exact
                 path="/temperature"
                 element={<SimpleTextEditScreen />}
               />
-              <Route exact path="/speed" element={<SimpleTextEditScreen />} />
+              <Route exact path="/speed" element={<SpeedEditor />} />
               <Route exact path="/heading" element={<SimpleTextEditScreen />} />
             </Routes>
           </Stack>
