@@ -5,8 +5,8 @@ import {
   IconButton,
   InputAdornment,
   TextField,
-	Select,
-	MenuItem,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
@@ -37,15 +37,15 @@ function ClockEditor(props) {
     border_bottom_right_radius: 0,
     textAlign: "left",
   });
-	
-	const [clockSetting, setClockSetting] = useState({
-		format: "tt",
-		lang: "en",
-	});
+
+  const [clockSetting, setClockSetting] = useState({
+    format: "tt",
+    lang: "en",
+  });
 
   const url = `https://overlays.rtirl.com/datetime/luxon.html?key=${pullKey.value}&lang=${clockSetting.lang}&format=${clockSetting.format}`;
 
-	const standadloneToken = [
+  const standadloneToken = [
     "S",
     "SSS",
     "u",
@@ -115,7 +115,7 @@ function ClockEditor(props) {
     "x",
   ];
 
-	const time = DateTime.now().setLocale(clockSetting.lang);
+  const time = DateTime.now().setLocale(clockSetting.lang);
 
   const exportModule = (
     <Box
@@ -174,22 +174,22 @@ function ClockEditor(props) {
             Settings
           </Typography>
           <PullKeyInput pullKey={pullKey} onKeyChange={setPullKey} />
-					      <Select
-								fullWidth
-        label="Format"
-        value={time.toFormat(clockSetting.format)}
-      >
-        {standadloneToken.map((token, index) => (
-          <MenuItem
-            value={time.toFormat(token)}
-						onClick={() => {
-							setClockSetting({ ...clockSetting, format: token });
-						}}
+          <Select
+            fullWidth
+            label="Format"
+            value={time.toFormat(clockSetting.format)}
           >
-            {time.toFormat(token)}
-          </MenuItem>
-        ))}
-      </Select>
+            {standadloneToken.map((token, index) => (
+              <MenuItem
+                value={time.toFormat(token)}
+                onClick={() => {
+                  setClockSetting({ ...clockSetting, format: token });
+                }}
+              >
+                {time.toFormat(token)}
+              </MenuItem>
+            ))}
+          </Select>
           <TextSettings textDivCSS={textDivCSS} setTextDivCSS={setTextDivCSS} />
         </Box>
       </Grid>
