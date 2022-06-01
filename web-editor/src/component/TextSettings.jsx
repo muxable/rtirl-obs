@@ -48,13 +48,8 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
   return (
     <Box
       style={{
-        width: "15vw",
-        padding: "16px",
+        height: "100%",
       }}
-      paddingLeft={4}
-      borderRight={1}
-      borderColor="primary.border"
-      backgroundColor="primary.main"
     >
       <Stack
         spacing={1}
