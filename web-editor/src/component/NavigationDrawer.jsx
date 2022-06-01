@@ -69,7 +69,7 @@ export const NavigationDrawer = ({ open, setOpen }) => {
             <Link
               to={`/${action.name}`}
               style={{ textDecoration: "none" }}
-              key={index}
+              key={action.name}
             >
               <ListItem button key={index}>
                 <ListItemIcon>{action.icon}</ListItemIcon>

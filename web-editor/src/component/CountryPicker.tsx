@@ -167,8 +167,8 @@ function CountryPicker({
       label="Language-picker"
       onChange={handleLanguageChange}
     >
-      {countries.map((country, index) => (
-        <MenuItem value={country} key={index}>
+      {countries.map((country) => (
+        <MenuItem value={country} key={country}>
           {getFlagEmoji(languageToCountry[country.toLowerCase()] ?? "")}{" "}
           {country}
         </MenuItem>
