@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { EditorAppbar } from "./component/Appbar";
 import { NavigationDrawer } from "./component/NavigationDrawer";
+import ClockEditor from "./screen/ClockEditor";
 import { EditorScreen } from "./screen/EditorScreen";
 import { Home } from "./screen/Home";
 import { SimpleTextEditScreen } from "./screen/SimpleTextEditorScreen";
@@ -39,7 +40,7 @@ function App() {
                 path="/neighborhood"
                 element={<SimpleTextEditScreen />}
               />
-              <Route exact path="/clock" element={<SimpleTextEditScreen />} />
+              <Route exact path="/clock" element={<ClockEditor />} />
               <Route
                 exact
                 path="/temperature"
