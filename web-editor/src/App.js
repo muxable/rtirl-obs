@@ -10,6 +10,7 @@ import { EditorScreen } from "./screen/EditorScreen";
 import { Home } from "./screen/Home";
 import { SimpleTextEditScreen } from "./screen/SimpleTextEditorScreen";
 import SpeedEditor from "./screen/SpeedEditor";
+import TemperatureEditor from "./screen/TemperatureEditor";
 import editorTheme from "./theme/editorTheme";
 
 function App() {
@@ -43,7 +44,7 @@ function App() {
               <Route
                 exact
                 path="/temperature"
-                element={<SimpleTextEditScreen />}
+                element={<TemperatureEditor />}
               />
               <Route exact path="/speed" element={<SpeedEditor />} />
               <Route exact path="/heading" element={<SimpleTextEditScreen />} />
