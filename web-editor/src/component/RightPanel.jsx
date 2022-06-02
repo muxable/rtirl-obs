@@ -73,6 +73,7 @@ export const RightPanel = ({
         ) : (
           <GoogleMapContainer
             apiKey={googleApiKey}
+            zoom={zoom}
             mapStyle={googleStyleJSON}
           />
         )}

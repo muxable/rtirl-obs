@@ -5,10 +5,10 @@ const containerStyle = {
   height: "100%",
 };
 
-export const GoogleMapContainer = ({ mapStyle, apiKey }) => {
+export const GoogleMapContainer = ({ mapStyle, apiKey, zoom }) => {
   mapStyle = JSON.parse(mapStyle) ?? {};
   const styleB64 = encodeURIComponent(window.btoa(JSON.stringify(mapStyle)));
-  const uri = `google_preview.html?api_key=${apiKey}&style=${styleB64}`;
+  const uri = `google_preview.html?api_key=${apiKey}&style=${styleB64}&zoom=${zoom}`;
 
   return (
     <iframe

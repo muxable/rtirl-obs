@@ -35,7 +35,6 @@ export const ConsolePanel = ({
   const styleB64 = encodeURIComponent(
     window.btoa(JSON.stringify(googleStyleJSON))
   );
-  console.log(styleB64);
   const googleMapBaseURL = "https://overlays.rtirl.com/googlemaps.html?";
   const googleMapBaseParamsString =
     "key=<YOUR_PULL_KEY>&api_key=<YOUR_GOOGLE_MAPS_API_KEY>";
@@ -83,6 +82,7 @@ export const ConsolePanel = ({
 
   genericBaseParams.set("zoom", zoom);
   customizeBaseParams.set("zoom", zoom);
+  customizeGoogleMapBaseParams.set("zoom", zoom);
 
   const MapboxResult = (
     <Stack>

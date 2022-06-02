@@ -76,7 +76,6 @@ export const Settings = ({
             required
             id="standard-required"
             label="API Key"
-            defaultValue="Your API Key"
             variant="standard"
             value={inputAPIKey}
             onKeyPress={(e) => e.key === "Enter" && e.preventDefault()}
@@ -204,17 +203,19 @@ export const Settings = ({
                 mapStyle={mapStyle}
               ></ControlPanel>
             </Box>
-
-            <ZoomSlider
-              zoomValue={zoom}
-              minZoomLevel={0}
-              maxZoomLevel={23}
-              onZoomChange={setZoom}
-            />
           </>
         ) : (
           <></>
         )}
+
+        <Box>
+          <ZoomSlider
+            zoomValue={zoom}
+            minZoomLevel={0}
+            maxZoomLevel={23}
+            onZoomChange={setZoom}
+          />
+        </Box>
 
         <Box>
           <FormControlLabel
