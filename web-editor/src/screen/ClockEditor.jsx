@@ -8,7 +8,7 @@ import PullKeyInput from "../component/PullKeyInput";
 import TextOverlayExportPanel from "../component/TextOverlayExportPanel";
 import TextOverlayPreview from "../component/TextOverlayPreview";
 import { TextSettings } from "../component/TextSettings";
-import { useStyle } from "../hooks/useStyle";
+import useStyle from "../hooks/useStyle";
 
 function ClockEditor(props) {
   const [pullKey, setPullKey] = useState({ value: "", valid: false });
