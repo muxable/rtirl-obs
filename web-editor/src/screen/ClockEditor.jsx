@@ -14,6 +14,7 @@ import { useState } from "react";
 import PullKeyInput from "../component/PullKeyInput";
 import TextOverlayPreview from "../component/TextOverlayPreview";
 import { TextSettings } from "../component/TextSettings";
+import CountryPicker from "../component/CountryPicker";
 import { DateTime } from "luxon";
 
 function ClockEditor(props) {
@@ -37,12 +38,10 @@ function ClockEditor(props) {
     textAlign: "left",
   });
 
-  const [clockSetting, setClockSetting] = useState({
-    format: "tt",
-    lang: "en",
-  });
+  const [format, setFormat] = useState("tt");
+  const [lang, setLang] = useState("en");
 
-  const url = `https://overlays.rtirl.com/datetime/luxon.html?key=${pullKey.value}&lang=${clockSetting.lang}&format=${clockSetting.format}`;
+  const url = `https://overlays.rtirl.com/datetime/luxon.html?key=${pullKey.value}&lang=${lang}&format=${format}`;
 
   const standadloneToken = [
     "S",
@@ -114,7 +113,44 @@ function ClockEditor(props) {
     "x",
   ];
 
-  const time = DateTime.now().setLocale(clockSetting.lang);
+  const luxonCountries = [
+    "en",
+    "es",
+    "fr",
+    "it",
+    "de",
+    "nl",
+    "pt",
+    "ru",
+    "ja",
+    "zh",
+    "ko",
+    "el",
+    "tr",
+    "ar",
+    "he",
+    "id",
+    "th",
+    "vi",
+    "pl",
+    "sv",
+    "hu",
+    "fi",
+    "da",
+    "no",
+    "is",
+    "cs",
+    "sk",
+    "sl",
+    "hr",
+    "bg",
+    "ro",
+    "lt",
+    "lv",
+    "et",
+  ];
+
+  const time = DateTime.now().setLocale(lang);
 
   const exportModule = (
     <Box
@@ -173,29 +209,30 @@ function ClockEditor(props) {
             Settings
           </Typography>
           <PullKeyInput pullKey={pullKey} onKeyChange={setPullKey} />
-          <Select
-            fullWidth
-            label="Format"
-            value={time.toFormat(clockSetting.format)}
-          >
+          <Select fullWidth label="Format" value={time.toFormat(format)}>
             {standadloneToken.map((token, index) => (
               <MenuItem
                 value={time.toFormat(token)}
                 onClick={() => {
-                  setClockSetting({ ...clockSetting, format: token });
+                  setFormat(token);
                 }}
               >
                 {time.toFormat(token)}
               </MenuItem>
             ))}
           </Select>
+          <CountryPicker
+            lang={lang}
+            setLang={setLang}
+            countries={luxonCountries}
+          />
           <TextSettings textDivCSS={textDivCSS} setTextDivCSS={setTextDivCSS} />
         </Box>
       </Grid>
       <Grid item xs={1} md={9.5} lg={12}>
         <Box padding={1} paddingBottom={0}>
           <TextOverlayPreview
-            text={time.toFormat(clockSetting.format)}
+            text={time.toFormat(format)}
             textDivCSS={textDivCSS}
           />
           {exportModule}
