@@ -57,7 +57,7 @@ function HeadingEditor(props) {
       backgroundColor="primary.main"
     >
       <aside>
-        <h2> Speed Overlay URL </h2>
+        <h2> Heading Overlay URL </h2>
         {pullKey.valid ? (
           <TextField
             readOnly
