@@ -55,7 +55,7 @@ function SpeedEditor(props) {
           />
           <TextOverlayExportPanel
             overlayDescription="Speed Overlay URL"
-            hasValidPullKey={pullKey.valid}
+            isExportable={pullKey.valid}
             url={url}
           />
         </Box>

@@ -67,7 +67,7 @@ function WeatherEditor(props) {
           />
           <TextOverlayExportPanel
             overlayDescription="Weather Overlay URL"
-            hasValidPullKey={pullKey.valid}
+            isExportable={pullKey.valid}
             url={url}
           />
         </Box>

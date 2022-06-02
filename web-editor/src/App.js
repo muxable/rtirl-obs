@@ -10,6 +10,7 @@ import ClockEditor from "./screen/ClockEditor";
 import { EditorScreen } from "./screen/EditorScreen";
 import HeadingEditor from "./screen/HeadingEditor";
 import { Home } from "./screen/Home";
+import MapboxEditor from "./screen/MapboxEditor";
 import { SimpleTextEditScreen } from "./screen/SimpleTextEditorScreen";
 import SpeedEditor from "./screen/SpeedEditor";
 import WeatherEditor from "./screen/WeatherEditor";
@@ -17,6 +18,7 @@ import editorTheme from "./theme/editorTheme";
 
 function App() {
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [pullKey, setPullKey] = useState({ value: "", valid: false });
 
   return (
     <div className="App">
@@ -30,7 +32,12 @@ function App() {
               <Route
                 exact
                 path="/mapbox"
-                element={<EditorScreen mapProvider={"mapbox"} />}
+                element={
+                  <MapboxEditor
+                    pullKey={pullKey}
+                    onPullKeyChange={setPullKey}
+                  />
+                }
               />
               <Route
                 exact
