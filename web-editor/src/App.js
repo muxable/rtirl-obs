@@ -8,6 +8,7 @@ import { EditorAppbar } from "./component/Appbar";
 import { NavigationDrawer } from "./component/NavigationDrawer";
 import ClockEditor from "./screen/ClockEditor";
 import { EditorScreen } from "./screen/EditorScreen";
+import HeadingEditor from "./screen/HeadingEditor";
 import { Home } from "./screen/Home";
 import { SimpleTextEditScreen } from "./screen/SimpleTextEditorScreen";
 import SpeedEditor from "./screen/SpeedEditor";
@@ -48,7 +49,7 @@ function App() {
                 element={<TemperatureEditor />}
               />
               <Route exact path="/speed" element={<SpeedEditor />} />
-              <Route exact path="/heading" element={<SimpleTextEditScreen />} />
+              <Route exact path="/heading" element={<HeadingEditor />} />
             </Routes>
           </Stack>
           <NavigationDrawer open={openDrawer} setOpen={setOpenDrawer} />
