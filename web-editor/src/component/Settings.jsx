@@ -196,17 +196,17 @@ export const Settings = ({
                 mapStyle={mapStyle}
               ></ControlPanel>
             </Box>
-
-            <ZoomSlider
-              zoomValue={zoom}
-              minZoomLevel={0}
-              maxZoomLevel={23}
-              onZoomChange={setZoom}
-            />
           </>
         ) : (
           <></>
         )}
+
+        <ZoomSlider
+          zoomValue={zoom}
+          minZoomLevel={0}
+          maxZoomLevel={23}
+          onZoomChange={setZoom}
+        />
 
         <Button
           variant="contained"

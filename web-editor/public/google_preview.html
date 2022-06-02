@@ -31,20 +31,24 @@
       ></div>
     </div>
     <script>
-      var params = new URLSearchParams(window.location.search);
-      var script = document.createElement("script");
+      const params = new URLSearchParams(window.location.search);
+      const zoom = params.get("zoom");
+      const script = document.createElement("script");
       script.src =
         "https://maps.googleapis.com/maps/api/js?key=" +
         params.get("api_key") +
         "&callback=initMap";
-      var styles = params.get("style");
+      const styles = params.get("style");
       script.async = true;
       var map;
       window.initMap = function () {
         map = new google.maps.Map(document.getElementById("map"), {
           center: { lat: -34.397, lng: 150.644 },
-          zoom: 13,
+          zoom: zoom ? Number(zoom) : 13,
           disableDefaultUI: true,
+          zoomControl: false, 
+          scrollwheel: false, 
+          disableDoubleClickZoom: true,
           styles: styles ? JSON.parse(atob(decodeURIComponent(styles))) : [],
         });
       };
