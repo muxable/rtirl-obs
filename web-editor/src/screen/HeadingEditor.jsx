@@ -42,7 +42,7 @@ function HeadingEditor(props) {
     border_bottom_right_radius: 0,
     textAlign: "left",
   });
-  const url = `https://overlays.rtirl.com/heading/${units}.html?key=${pullKey.value}`;
+  const url = `https://overlays.rtirl.com/heading/${units}.html?key=${pullKey.value}&lang=${lang}`;
 
   const headingCountries = ["en", "es", "sv", "tr"];
 
