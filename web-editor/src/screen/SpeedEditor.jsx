@@ -7,6 +7,7 @@ import PullKeyInput from "../component/PullKeyInput";
 import TextOverlayExportPanel from "../component/TextOverlayExportPanel";
 import TextOverlayPreview from "../component/TextOverlayPreview";
 import { TextSettings } from "../component/TextSettings";
+import { useStyle } from "../hooks/useStyle";
 
 const speedOptions = [
   { name: "MPH", value: "mph" },
@@ -16,24 +17,7 @@ const speedOptions = [
 function SpeedEditor(props) {
   const [pullKey, setPullKey] = useState({ value: "", valid: false });
   const [units, setUnits] = useState("mph");
-  const [textDivCSS, setTextDivCSS] = useState({
-    textColor: "#94fe32",
-    fontFamily: "sans-serif",
-    rotation: 0,
-    fontSize: 30,
-    isBold: false,
-    isItalic: false,
-    opacity: 100,
-    backgroundColor: "#000000",
-    borderColor: "#ffffff",
-    borderWidth: 0,
-    padding: 0,
-    border_top_left_radius: 0,
-    border_top_right_radius: 0,
-    border_bottom_left_radius: 0,
-    border_bottom_right_radius: 0,
-    textAlign: "left",
-  });
+  const [textDivCSS, setTextDivCSS] = useStyle();
   const url = `https://overlays.rtirl.com/speed/${units}.html?key=${pullKey.value}`;
 
   return (
