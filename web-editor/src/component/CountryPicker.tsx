@@ -167,6 +167,11 @@ function CountryPicker({
       value={lang}
       label="Language-picker"
       onChange={handleLanguageChange}
+      MenuProps={{
+        style: {
+          maxHeight: "65%",
+        },
+      }}
     >
       {countries.map((country) => (
         <MenuItem value={country} key={country}>
