@@ -15,7 +15,6 @@ import PullKeyInput from "../component/PullKeyInput";
 import TextOverlayPreview from "../component/TextOverlayPreview";
 import { TextSettings } from "../component/TextSettings";
 
-
 const headingOptions = [
   { name: "deg\u00B0", value: "deg" },
   { name: "NSEW", value: "nsew" },
@@ -24,7 +23,7 @@ const headingOptions = [
 function HeadingEditor(props) {
   const [pullKey, setPullKey] = useState({ value: "", valid: false });
   const [units, setUnits] = useState("mph");
-	const [lang, setLang] = useState("en");
+  const [lang, setLang] = useState("en");
   const [textDivCSS, setTextDivCSS] = useState({
     textColor: "#94fe32",
     fontFamily: "sans-serif",
@@ -45,12 +44,7 @@ function HeadingEditor(props) {
   });
   const url = `https://overlays.rtirl.com/heading/${units}.html?key=${pullKey.value}`;
 
-	const headingCountries = [
-		"en",
-		"es",
-		"sv",
-		"tr"
-	]
+  const headingCountries = ["en", "es", "sv", "tr"];
 
   const exportModule = (
     <Box
@@ -115,17 +109,19 @@ function HeadingEditor(props) {
             options={headingOptions}
             onOptionChange={setUnits}
           />
-					<Typography >
-						Language
-          </Typography>
-					<CountryPicker lang={lang} setLang={setLang} countries={headingCountries} />
+          <Typography>Language</Typography>
+          <CountryPicker
+            lang={lang}
+            setLang={setLang}
+            countries={headingCountries}
+          />
           <TextSettings textDivCSS={textDivCSS} setTextDivCSS={setTextDivCSS} />
         </Box>
       </Grid>
       <Grid item xs={1} md={9.5} lg={12}>
         <Box padding={1} paddingBottom={0}>
           <TextOverlayPreview
-            text={units === "nsew" ? "NW": `1000\u00B0`}
+            text={units === "nsew" ? "NW" : `1000\u00B0`}
             textDivCSS={textDivCSS}
           />
           {exportModule}
