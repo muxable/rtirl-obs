@@ -12,7 +12,7 @@ import HeadingEditor from "./screen/HeadingEditor";
 import { Home } from "./screen/Home";
 import { SimpleTextEditScreen } from "./screen/SimpleTextEditorScreen";
 import SpeedEditor from "./screen/SpeedEditor";
-import TemperatureEditor from "./screen/TemperatureEditor";
+import WeatherEditor from "./screen/WeatherEditor";
 import editorTheme from "./theme/editorTheme";
 
 function App() {
@@ -43,11 +43,7 @@ function App() {
                 element={<SimpleTextEditScreen />}
               />
               <Route exact path="/clock" element={<ClockEditor />} />
-              <Route
-                exact
-                path="/temperature"
-                element={<TemperatureEditor />}
-              />
+              <Route exact path="/weather" element={<WeatherEditor />} />
               <Route exact path="/speed" element={<SpeedEditor />} />
               <Route exact path="/heading" element={<HeadingEditor />} />
             </Routes>

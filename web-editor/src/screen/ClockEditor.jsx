@@ -1,21 +1,13 @@
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import {
-  Box,
-  Grid,
-  IconButton,
-  InputAdornment,
-  TextField,
-  Select,
-  MenuItem,
-} from "@mui/material";
+import { Box, Grid, MenuItem, Select } from "@mui/material";
 import Typography from "@mui/material/Typography";
+import { DateTime } from "luxon";
 import * as React from "react";
 import { useState } from "react";
+import CountryPicker from "../component/CountryPicker";
 import PullKeyInput from "../component/PullKeyInput";
+import TextOverlayExportPanel from "../component/TextOverlayExportPanel";
 import TextOverlayPreview from "../component/TextOverlayPreview";
 import { TextSettings } from "../component/TextSettings";
-import CountryPicker from "../component/CountryPicker";
-import { DateTime } from "luxon";
 
 function ClockEditor(props) {
   const [pullKey, setPullKey] = useState({ value: "", valid: false });
@@ -152,45 +144,6 @@ function ClockEditor(props) {
 
   const time = DateTime.now().setLocale(lang);
 
-  const exportModule = (
-    <Box
-      style={{
-        marginTop: "8px",
-        padding: "8px",
-      }}
-      border={1}
-      borderColor="primary.border"
-      backgroundColor="primary.main"
-    >
-      <aside>
-        <h2> Clock Overlay URL </h2>
-        {pullKey.valid ? (
-          <TextField
-            readOnly
-            value={url}
-            fullWidth
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <IconButton
-                    onClick={() => {
-                      navigator.clipboard.writeText(url);
-                    }}
-                  >
-                    <ContentCopyIcon />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          ></TextField>
-        ) : (
-          <Typography color="inherit">
-            Your pull key is required to generate the overlay URL.
-          </Typography>
-        )}
-      </aside>
-    </Box>
-  );
   return (
     <Grid container columns={{ xs: 1, md: 12 }} direction="row">
       <Grid item xs={1} md={2.5}>
@@ -247,7 +200,11 @@ function ClockEditor(props) {
             text={time.toFormat(format)}
             textDivCSS={textDivCSS}
           />
-          {exportModule}
+          <TextOverlayExportPanel
+            overlayDescription="Clock Overlay URL"
+            hasValidPullKey={pullKey.valid}
+            url={url}
+          />
         </Box>
       </Grid>
     </Grid>

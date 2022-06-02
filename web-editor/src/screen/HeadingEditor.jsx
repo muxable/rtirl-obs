@@ -1,17 +1,11 @@
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import {
-  Box,
-  Grid,
-  IconButton,
-  InputAdornment,
-  TextField,
-} from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { useState } from "react";
 import CountryPicker from "../component/CountryPicker";
 import ExclusiveToggle from "../component/ExclusiveToggle";
 import PullKeyInput from "../component/PullKeyInput";
+import TextOverlayExportPanel from "../component/TextOverlayExportPanel";
 import TextOverlayPreview from "../component/TextOverlayPreview";
 import { TextSettings } from "../component/TextSettings";
 
@@ -46,45 +40,6 @@ function HeadingEditor(props) {
 
   const headingCountries = ["en", "es", "sv", "tr"];
 
-  const exportModule = (
-    <Box
-      style={{
-        marginTop: "8px",
-        padding: "8px",
-      }}
-      border={1}
-      borderColor="primary.border"
-      backgroundColor="primary.main"
-    >
-      <aside>
-        <h2> Heading Overlay URL </h2>
-        {pullKey.valid ? (
-          <TextField
-            readOnly
-            value={url}
-            fullWidth
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <IconButton
-                    onClick={() => {
-                      navigator.clipboard.writeText(url);
-                    }}
-                  >
-                    <ContentCopyIcon />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          ></TextField>
-        ) : (
-          <Typography color="inherit">
-            Pull key is required for a generic overlay URL
-          </Typography>
-        )}
-      </aside>
-    </Box>
-  );
   return (
     <Grid container columns={{ xs: 1, md: 12 }} direction="row">
       <Grid item xs={1} md={2.5}>
@@ -124,7 +79,11 @@ function HeadingEditor(props) {
             text={units === "nsew" ? "NW" : `1000\u00B0`}
             textDivCSS={textDivCSS}
           />
-          {exportModule}
+          <TextOverlayExportPanel
+            overlayDescription="Heading Overlay URL"
+            hasValidPullKey={pullKey.valid}
+            url={url}
+          />
         </Box>
       </Grid>
     </Grid>
