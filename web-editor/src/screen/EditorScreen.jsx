@@ -14,6 +14,7 @@ export const EditorScreen = ({ mapProvider }) => {
   const [styleID, setStyleID] = useState("mapbox/streets-v11");
   const [pullKey, setPullKey] = useState("");
   const [zoom, setZoom] = useState(5);
+  const [fullscreen, setFullscreen] = useState(false);
   const [lang, setLang] = useState("EN");
 
   // google map states
@@ -173,6 +174,8 @@ export const EditorScreen = ({ mapProvider }) => {
           setPullKey={setPullKey}
           zoom={zoom}
           setZoom={setZoom}
+          fullscreen={fullscreen}
+          setFullscreen={setFullscreen}
           lang={lang}
           setLang={setLang}
         ></Settings>
@@ -185,6 +188,7 @@ export const EditorScreen = ({ mapProvider }) => {
             mapStyle={mapStyle}
             zoom={zoom}
             setZoom={setZoom}
+            fullscreen={fullscreen}
             lang={lang}
             pullKey={pullKey}
             apiKey={apiKey}
