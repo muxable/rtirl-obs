@@ -185,7 +185,7 @@ function ClockEditor(props) {
           ></TextField>
         ) : (
           <Typography color="inherit">
-            Pull key is required for a generic overlay URL
+            Your pull key is required to generate the overlay URL.
           </Typography>
         )}
       </aside>
