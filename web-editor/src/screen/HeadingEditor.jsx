@@ -65,7 +65,7 @@ function HeadingEditor(props) {
           />
           <TextOverlayExportPanel
             overlayDescription="Heading Overlay URL"
-            hasValidPullKey={pullKey.valid}
+            isExportable={pullKey.valid}
             url={url}
           />
         </Box>

@@ -3,7 +3,7 @@ import { Box, IconButton, InputAdornment, TextField } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 
-function TextOverlayExportPanel({ overlayDescription, hasValidPullKey, url }) {
+function TextOverlayExportPanel({ overlayDescription, isExportable, url }) {
   return (
     <Box
       style={{
@@ -16,7 +16,7 @@ function TextOverlayExportPanel({ overlayDescription, hasValidPullKey, url }) {
     >
       <aside>
         <h2> {overlayDescription} </h2>
-        {hasValidPullKey ? (
+        {isExportable ? (
           <TextField
             readOnly
             value={url}
@@ -37,7 +37,7 @@ function TextOverlayExportPanel({ overlayDescription, hasValidPullKey, url }) {
           ></TextField>
         ) : (
           <Typography color="inherit">
-            Your pull key is required to generate the overlay URL.
+            Please correct all the errors in the settings section.
           </Typography>
         )}
       </aside>

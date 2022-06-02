@@ -186,7 +186,7 @@ function ClockEditor(props) {
           />
           <TextOverlayExportPanel
             overlayDescription="Clock Overlay URL"
-            hasValidPullKey={pullKey.valid}
+            isExportable={pullKey.valid}
             url={url}
           />
         </Box>
