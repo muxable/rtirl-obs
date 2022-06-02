@@ -39,8 +39,8 @@ const pages = [
     image: clockImage,
   },
   {
-    name: "Temperature",
-    route: "/temperature",
+    name: "Weather",
+    route: "/weather",
     image: temperatureImage,
   },
   {

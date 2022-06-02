@@ -19,7 +19,7 @@ export const NavigationDrawer = ({ open, setOpen }) => {
   const actions = [
     { icon: <MyLocationIcon />, name: "Neighborhood" },
     { icon: <AccessTimeIcon />, name: "Clock" },
-    { icon: <ThermostatIcon />, name: "Temperature" },
+    { icon: <ThermostatIcon />, name: "Weather" },
     { icon: <SpeedIcon />, name: "Speed" },
     { icon: <ExploreIcon />, name: "Heading" },
   ];
