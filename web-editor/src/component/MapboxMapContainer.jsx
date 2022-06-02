@@ -10,11 +10,33 @@ export const MapboxMapContainer = ({
   canPreview,
   zoom,
   setZoom,
+  fullscreen,
 }) => {
+  const mapRef = React.useRef();
+
+  React.useEffect(() => {
+    if (mapRef.current) {
+      mapRef.current.resize();
+    }
+  }, [fullscreen]);
+
   return (
-    <div style={{ height: "100%", width: "100%" }}>
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       {canPreview ? (
         <MapGL
+          style={{
+            height: fullscreen ? "100%" : "300px",
+            width: fullscreen ? "100%" : "300px",
+          }}
+          ref={mapRef}
           zoom={zoom}
           onZoom={(evt) => setZoom(evt.viewState.zoom)}
           {...viewState}

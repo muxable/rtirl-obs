@@ -18,6 +18,7 @@ export const RightPanel = ({
   googleApiKey,
   zoom,
   setZoom,
+  fullscreen,
 }) => {
   const [viewState, setViewState] = useState({
     longitude: -100,
@@ -63,6 +64,7 @@ export const RightPanel = ({
             canPreview={canPreview}
             viewState={viewState}
             zoom={zoom}
+            fullscreen={fullscreen}
             setZoom={setZoom}
             setViewState={setViewState}
             mapStyle={mapStyle}
@@ -84,6 +86,7 @@ export const RightPanel = ({
           styleID={styleID}
           pullKey={pullKey}
           apiKey={apiKey}
+          fullscreen={fullscreen}
         ></ConsolePanel>
       </Stack>
     </Box>
