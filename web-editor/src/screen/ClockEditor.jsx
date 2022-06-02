@@ -209,6 +209,7 @@ function ClockEditor(props) {
             Settings
           </Typography>
           <PullKeyInput pullKey={pullKey} onKeyChange={setPullKey} />
+          <Typography>format</Typography>
           <Select fullWidth label="Format" value={time.toFormat(format)}>
             {standadloneToken.map((token, index) => (
               <MenuItem
@@ -221,6 +222,7 @@ function ClockEditor(props) {
               </MenuItem>
             ))}
           </Select>
+          <Typography>Language</Typography>
           <CountryPicker
             lang={lang}
             setLang={setLang}
