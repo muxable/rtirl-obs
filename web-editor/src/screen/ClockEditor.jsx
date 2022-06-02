@@ -209,10 +209,20 @@ function ClockEditor(props) {
             Settings
           </Typography>
           <PullKeyInput pullKey={pullKey} onKeyChange={setPullKey} />
-          <Typography>format</Typography>
-          <Select fullWidth label="Format" value={time.toFormat(format)}>
-            {standadloneToken.map((token, index) => (
+          <Typography>Format</Typography>
+          <Select
+            fullWidth
+            label="Format"
+            value={time.toFormat(format)}
+            MenuProps={{
+              style: {
+                maxHeight: "65%",
+              },
+            }}
+          >
+            {standadloneToken.map((token) => (
               <MenuItem
+                key={token}
                 value={time.toFormat(token)}
                 onClick={() => {
                   setFormat(token);
