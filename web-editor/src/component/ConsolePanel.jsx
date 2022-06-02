@@ -14,6 +14,7 @@ export const ConsolePanel = ({
   mapProvider,
   googleStyleJSON,
   googleApiKey,
+  fullscreen,
 }) => {
   apiKey =
     apiKey ===
@@ -73,6 +74,11 @@ export const ConsolePanel = ({
   if (hasLang) {
     genericBaseParams.set("lang", lang.toLowerCase());
     customizeBaseParams.set("lang", lang.toLowerCase());
+  }
+
+  if (fullscreen) {
+    genericBaseParams.set("fullscreen", "1");
+    customizeBaseParams.set("fullscreen", "1");
   }
 
   genericBaseParams.set("zoom", zoom);

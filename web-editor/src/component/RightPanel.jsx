@@ -86,6 +86,7 @@ export const RightPanel = ({
           styleID={styleID}
           pullKey={pullKey}
           apiKey={apiKey}
+          fullscreen={fullscreen}
         ></ConsolePanel>
       </Stack>
     </Box>
