@@ -2,7 +2,13 @@ import CodeIcon from "@mui/icons-material/Code";
 import KeyIcon from "@mui/icons-material/Key";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import StyleIcon from "@mui/icons-material/Style";
-import { IconButton, InputAdornment, Link } from "@mui/material";
+import {
+  Checkbox,
+  FormControlLabel,
+  IconButton,
+  InputAdornment,
+  Link,
+} from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
@@ -24,6 +30,8 @@ export const Settings = ({
   mapProvider,
   zoom,
   setZoom,
+  fullscreen,
+  setFullscreen,
 }) => {
   const [openStyleIDDialog, setOpenStyleIDDialog] = useState(false);
   const [inputStyleID, setInputStyleID] = useState("");
@@ -207,6 +215,19 @@ export const Settings = ({
         ) : (
           <></>
         )}
+
+        <Box>
+          <FormControlLabel
+            control={
+              <Checkbox
+                defaultChecked
+                value={fullscreen}
+                onChange={(event) => setFullscreen(event.target.checked)}
+              />
+            }
+            label="Fullscreen"
+          />
+        </Box>
 
         <Button
           variant="contained"
