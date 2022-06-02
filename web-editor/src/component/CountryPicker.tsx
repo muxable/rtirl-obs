@@ -161,6 +161,7 @@ function CountryPicker({
 
   return (
     <Select
+      fullWidth
       labelId="select-language-label-id"
       id="select-language-picker"
       value={lang}

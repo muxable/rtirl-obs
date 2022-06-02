@@ -17,6 +17,7 @@
     "@types/react-dom": "^18.0.2",
     "immutable": "^4.0.0",
     "leaflet": "^1.8.0",
+    "luxon": "^2.4.0",
     "mapbox-gl": "^2.8.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
