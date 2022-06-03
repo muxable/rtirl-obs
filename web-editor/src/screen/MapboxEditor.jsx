@@ -3,8 +3,9 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import MapboxContainer from "../component/mapbox/MapboxContainer";
 import MapboxSettings from "../component/mapbox/MapboxSettings";
-import { mapboxMapStyleJsonCache } from "../component/RightPanel";
-import TextOverlayExportPanel from "../component/TextOverlayExportPanel";
+import OverlayExportPanel from "../component/OverlayExportPanel";
+
+const mapboxMapStyleJsonCache = [];
 
 export default function MapboxEditor({ pullKey, onPullKeyChange }) {
   const [mapStyle, setMapStyle] = useState(null);
@@ -66,7 +67,7 @@ export default function MapboxEditor({ pullKey, onPullKeyChange }) {
                 mapStyle={mapStyle}
                 apiKey={apiKey}
               />
-              <TextOverlayExportPanel
+              <OverlayExportPanel
                 overlayDescription="Mapbox Overlay URL"
                 isExportable={pullKey.valid && apiKey && styleId && validStyle}
                 url={url}

@@ -5,7 +5,7 @@ import { useState } from "react";
 import CountryPicker from "../component/CountryPicker";
 import ExclusiveToggle from "../component/ExclusiveToggle";
 import PullKeyInput from "../component/PullKeyInput";
-import TextOverlayExportPanel from "../component/TextOverlayExportPanel";
+import OverlayExportPanel from "../component/OverlayExportPanel";
 import TextOverlayPreview from "../component/TextOverlayPreview";
 import { TextSettings } from "../component/TextSettings";
 import useStyle from "../hooks/useStyle";
@@ -63,7 +63,7 @@ function HeadingEditor(props) {
             text={units === "nsew" ? "NW" : `1000\u00B0`}
             textDivCSS={textDivCSS}
           />
-          <TextOverlayExportPanel
+          <OverlayExportPanel
             overlayDescription="Heading Overlay URL"
             isExportable={pullKey.valid}
             url={url}

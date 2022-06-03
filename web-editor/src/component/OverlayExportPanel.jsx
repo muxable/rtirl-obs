@@ -3,7 +3,7 @@ import { Box, IconButton, InputAdornment, TextField } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 
-function TextOverlayExportPanel({ overlayDescription, isExportable, url }) {
+function OverlayExportPanel({ overlayDescription, isExportable, url }) {
   return (
     <Box
       style={{
@@ -45,4 +45,4 @@ function TextOverlayExportPanel({ overlayDescription, isExportable, url }) {
   );
 }
 
-export default TextOverlayExportPanel;
+export default OverlayExportPanel;
