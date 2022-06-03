@@ -4,7 +4,7 @@ import * as React from "react";
 import { useState } from "react";
 import ExclusiveToggle from "../component/ExclusiveToggle";
 import PullKeyInput from "../component/PullKeyInput";
-import TextOverlayExportPanel from "../component/TextOverlayExportPanel";
+import OverlayExportPanel from "../component/OverlayExportPanel";
 import TextOverlayPreview from "../component/TextOverlayPreview";
 import { TextSettings } from "../component/TextSettings";
 import useStyle from "../hooks/useStyle";
@@ -65,7 +65,7 @@ function WeatherEditor(props) {
             text={`55 \u02DA${units.toUpperCase()}`}
             textDivCSS={textDivCSS}
           />
-          <TextOverlayExportPanel
+          <OverlayExportPanel
             overlayDescription="Weather Overlay URL"
             isExportable={pullKey.valid}
             url={url}

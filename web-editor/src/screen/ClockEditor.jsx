@@ -5,7 +5,7 @@ import * as React from "react";
 import { useState } from "react";
 import CountryPicker from "../component/CountryPicker";
 import PullKeyInput from "../component/PullKeyInput";
-import TextOverlayExportPanel from "../component/TextOverlayExportPanel";
+import OverlayExportPanel from "../component/OverlayExportPanel";
 import TextOverlayPreview from "../component/TextOverlayPreview";
 import { TextSettings } from "../component/TextSettings";
 import useStyle from "../hooks/useStyle";
@@ -184,7 +184,7 @@ function ClockEditor(props) {
             text={time.toFormat(format)}
             textDivCSS={textDivCSS}
           />
-          <TextOverlayExportPanel
+          <OverlayExportPanel
             overlayDescription="Clock Overlay URL"
             isExportable={pullKey.valid}
             url={url}

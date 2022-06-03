@@ -7,7 +7,7 @@ import "./App.css";
 import { EditorAppbar } from "./component/Appbar";
 import { NavigationDrawer } from "./component/NavigationDrawer";
 import ClockEditor from "./screen/ClockEditor";
-import { EditorScreen } from "./screen/EditorScreen";
+import GoogleMapsEditor from "./screen/GoogleMapsEditor";
 import HeadingEditor from "./screen/HeadingEditor";
 import { Home } from "./screen/Home";
 import MapboxEditor from "./screen/MapboxEditor";
@@ -42,7 +42,12 @@ function App() {
               <Route
                 exact
                 path="/googlemap"
-                element={<EditorScreen mapProvider={"google"} />}
+                element={
+                  <GoogleMapsEditor
+                    pullKey={pullKey}
+                    onPullKeyChange={setPullKey}
+                  />
+                }
               />
               <Route
                 exact

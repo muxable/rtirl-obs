@@ -4,7 +4,7 @@ import * as React from "react";
 import { useState } from "react";
 import ExclusiveToggle from "../component/ExclusiveToggle";
 import PullKeyInput from "../component/PullKeyInput";
-import TextOverlayExportPanel from "../component/TextOverlayExportPanel";
+import OverlayExportPanel from "../component/OverlayExportPanel";
 import TextOverlayPreview from "../component/TextOverlayPreview";
 import { TextSettings } from "../component/TextSettings";
 import useStyle from "../hooks/useStyle";
@@ -53,7 +53,7 @@ function SpeedEditor(props) {
             text={`1000 ${units.toUpperCase()}`}
             textDivCSS={textDivCSS}
           />
-          <TextOverlayExportPanel
+          <OverlayExportPanel
             overlayDescription="Speed Overlay URL"
             isExportable={pullKey.valid}
             url={url}
