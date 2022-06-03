@@ -17,9 +17,6 @@ const colors = {
     default: "black",
     contrastText: "white",
   },
-  error: {
-    main: "rgba(255, 68, 68, 0.4)",
-  },
   text: {
     main: "rgba(246, 243, 237, 0.8)",
     title: "rgba(246, 243, 237, 1)",
