@@ -89,6 +89,16 @@ const editorTheme = createTheme({
         },
       },
     },
+    MuiCheckbox: {
+      styleOverrides: {
+        colorPrimary: {
+          color: colors.text.main,
+          "&.Mui-checked": {
+            color: colors.text.main,
+          },
+        },
+      },
+    },
   },
 });
 
