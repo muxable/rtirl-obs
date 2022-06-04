@@ -22,6 +22,8 @@ export default function MapboxEditor({ pullKey, onPullKeyChange }) {
   }&access_token=${apiKey}&style=${styleId}&zoom=${zoom}&lang=${lang}${
     fullscreen ? "&fullscreen=1" : ""
   }`;
+  const iFrameTag = `<iframe height="100%" width="100%" frameborder="0" 
+  src="https://overlays.rtirl.com/compat.html?key=${pullKey.value}&access_token=${apiKey}&style=${styleId}"> </iframe>`;
 
   useEffect(() => {
     fetch(`https://api.mapbox.com/styles/v1/${styleId}?access_token=${apiKey}`)
@@ -71,6 +73,8 @@ export default function MapboxEditor({ pullKey, onPullKeyChange }) {
                 overlayDescription="Mapbox Overlay URL"
                 isExportable={pullKey.valid && apiKey && styleId && validStyle}
                 url={url}
+                streamElementExportable={true}
+                iFrameTag={iFrameTag}
               />
             </Stack>
           </Box>
