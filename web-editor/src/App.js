@@ -6,6 +6,7 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import { EditorAppbar } from "./component/Appbar";
 import { NavigationDrawer } from "./component/NavigationDrawer";
+import usePullKey from "./hooks/usePullKey";
 import AltitudeEditor from "./screen/AltitudeEditor";
 import ClockEditor from "./screen/ClockEditor";
 import DistanceEditor from "./screen/DistanceEditor";
@@ -27,10 +28,7 @@ function useQuery() {
 function App() {
   const [openDrawer, setOpenDrawer] = useState(false);
   const query = useQuery();
-  const [pullKey, setPullKey] = useState({
-    value: query.get("pullKey") ?? "",
-    valid: false,
-  });
+  const [pullKey, setPullKey] = usePullKey(query.get("pullKey") ?? "");
 
   return (
     <div className="App">
