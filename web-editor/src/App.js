@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { EditorAppbar } from "./component/Appbar";
 import { NavigationDrawer } from "./component/NavigationDrawer";
+import AltitudeEditor from "./screen/AltitudeEditor";
 import ClockEditor from "./screen/ClockEditor";
 import GoogleMapsEditor from "./screen/GoogleMapsEditor";
 import HeadingEditor from "./screen/HeadingEditor";
@@ -83,6 +84,16 @@ function App() {
                 path="/heading"
                 element={
                   <HeadingEditor
+                    pullKey={pullKey}
+                    onPullKeyChange={setPullKey}
+                  />
+                }
+              />
+              <Route
+                exact
+                path="/altitude"
+                element={
+                  <AltitudeEditor
                     pullKey={pullKey}
                     onPullKeyChange={setPullKey}
                   />

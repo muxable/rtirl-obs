@@ -1,18 +1,19 @@
-import * as React from "react";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import ExploreIcon from "@mui/icons-material/Explore";
+import HeightIcon from "@mui/icons-material/Height";
+import HomeIcon from "@mui/icons-material/Home";
+import MapIcon from "@mui/icons-material/Map";
+import MyLocationIcon from "@mui/icons-material/MyLocation";
+import SpeedIcon from "@mui/icons-material/Speed";
+import ThermostatIcon from "@mui/icons-material/Thermostat";
 import Box from "@mui/material/Box";
-import SwipeableDrawer from "@mui/material/SwipeableDrawer";
-import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
+import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import ExploreIcon from "@mui/icons-material/Explore";
-import ThermostatIcon from "@mui/icons-material/Thermostat";
-import MyLocationIcon from "@mui/icons-material/MyLocation";
-import SpeedIcon from "@mui/icons-material/Speed";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import MapIcon from "@mui/icons-material/Map";
-import HomeIcon from "@mui/icons-material/Home";
+import SwipeableDrawer from "@mui/material/SwipeableDrawer";
+import * as React from "react";
 import { Link } from "react-router-dom";
 
 export const NavigationDrawer = ({ open, setOpen }) => {
@@ -22,6 +23,7 @@ export const NavigationDrawer = ({ open, setOpen }) => {
     { icon: <ThermostatIcon />, name: "Weather" },
     { icon: <SpeedIcon />, name: "Speed" },
     { icon: <ExploreIcon />, name: "Heading" },
+    { icon: <HeightIcon />, name: "Altitude" },
   ];
 
   return (
