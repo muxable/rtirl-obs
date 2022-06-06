@@ -48,26 +48,28 @@ function OverlayExportPanel({
                 ),
               }}
             ></TextField>
-            <h2> StreamElements iframe </h2>
             {streamElementExportable && (
-              <TextField
-                readOnly
-                value={iFrameTag}
-                fullWidth
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <IconButton
-                        onClick={() => {
-                          navigator.clipboard.writeText(iFrameTag);
-                        }}
-                      >
-                        <ContentCopyIcon />
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              ></TextField>
+              <>
+                <h2> StreamElements iframe </h2>
+                <TextField
+                  readOnly
+                  value={iFrameTag}
+                  fullWidth
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <IconButton
+                          onClick={() => {
+                            navigator.clipboard.writeText(iFrameTag);
+                          }}
+                        >
+                          <ContentCopyIcon />
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                ></TextField>
+              </>
             )}
           </Stack>
         ) : (

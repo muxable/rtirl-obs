@@ -3,6 +3,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import * as React from "react";
 import { HomeBackground } from "../component/HomeBackground";
 import { OverlayPreview } from "../component/OverlayPreview";
+import altitudeImage from "../images/altitude.svg";
 import clockImage from "../images/clock.svg";
 import distanceImage from "../images/distance.svg";
 import googleMapsImage from "../images/google_maps.jpg";
@@ -53,6 +54,11 @@ const pages = [
     name: "Total Distance",
     route: "/distance",
     image: distanceImage,
+  },
+  {
+    name: "Altitude",
+    route: "/altitude",
+    image: altitudeImage,
   },
 ];
 

@@ -1,5 +1,6 @@
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import ExploreIcon from "@mui/icons-material/Explore";
+import HeightIcon from "@mui/icons-material/Height";
 import HomeIcon from "@mui/icons-material/Home";
 import MapIcon from "@mui/icons-material/Map";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
@@ -24,6 +25,7 @@ export const NavigationDrawer = ({ open, setOpen }) => {
     { icon: <SpeedIcon />, name: "Speed" },
     { icon: <ExploreIcon />, name: "Heading" },
     { icon: <StraightenIcon />, name: "Distance" },
+    { icon: <HeightIcon />, name: "Altitude" },
   ];
 
   return (
