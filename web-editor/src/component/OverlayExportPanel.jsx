@@ -1,9 +1,21 @@
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import { Box, IconButton, InputAdornment, TextField } from "@mui/material";
+import {
+  Box,
+  IconButton,
+  InputAdornment,
+  TextField,
+  Stack,
+} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 
-function OverlayExportPanel({ overlayDescription, isExportable, url }) {
+function OverlayExportPanel({
+  overlayDescription,
+  isExportable,
+  url,
+  streamElementExportable,
+  iFrameTag,
+}) {
   return (
     <Box
       style={{
@@ -17,24 +29,47 @@ function OverlayExportPanel({ overlayDescription, isExportable, url }) {
       <aside>
         <h2> {overlayDescription} </h2>
         {isExportable ? (
-          <TextField
-            readOnly
-            value={url}
-            fullWidth
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <IconButton
-                    onClick={() => {
-                      navigator.clipboard.writeText(url);
-                    }}
-                  >
-                    <ContentCopyIcon />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          ></TextField>
+          <Stack spacing={2}>
+            <TextField
+              readOnly
+              value={url}
+              fullWidth
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <IconButton
+                      onClick={() => {
+                        navigator.clipboard.writeText(url);
+                      }}
+                    >
+                      <ContentCopyIcon />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            ></TextField>
+            <h2> StreamElements iframe </h2>
+            {streamElementExportable && (
+              <TextField
+                readOnly
+                value={iFrameTag}
+                fullWidth
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <IconButton
+                        onClick={() => {
+                          navigator.clipboard.writeText(iFrameTag);
+                        }}
+                      >
+                        <ContentCopyIcon />
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              ></TextField>
+            )}
+          </Stack>
         ) : (
           <Typography color="inherit">
             Please correct all the errors in the settings section.
