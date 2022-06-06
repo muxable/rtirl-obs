@@ -37,12 +37,12 @@ export const EditorAppbar = ({ setOpenDrawer }) => {
             RealtimeIRL Overlay Editor
           </Typography>
         </Box>
-        <IconButton>
-          <GitHubIcon
-            onClick={() =>
-              window.open("https://github.com/muxable/rtirl-obs", "_blank")
-            }
-          />
+        <IconButton
+          onClick={() =>
+            window.open("https://github.com/muxable/rtirl-obs", "_blank")
+          }
+        >
+          <GitHubIcon />
         </IconButton>
       </Toolbar>
     </AppBar>
