@@ -4,14 +4,13 @@ import { DateTime } from "luxon";
 import * as React from "react";
 import { useState } from "react";
 import CountryPicker from "../component/CountryPicker";
-import PullKeyInput from "../component/PullKeyInput";
 import OverlayExportPanel from "../component/OverlayExportPanel";
+import PullKeyInput from "../component/PullKeyInput";
 import TextOverlayPreview from "../component/TextOverlayPreview";
 import { TextSettings } from "../component/TextSettings";
 import useStyle from "../hooks/useStyle";
 
-function ClockEditor(props) {
-  const [pullKey, setPullKey] = useState({ value: "", valid: false });
+function ClockEditor({ pullKey, onPullKeyChange }) {
   const [textDivCSS, setTextDivCSS] = useStyle();
 
   const [format, setFormat] = useState("tt");
@@ -145,7 +144,7 @@ function ClockEditor(props) {
           <Typography variant="h6" component="div">
             Settings
           </Typography>
-          <PullKeyInput pullKey={pullKey} onKeyChange={setPullKey} />
+          <PullKeyInput pullKey={pullKey} onKeyChange={onPullKeyChange} />
           <Typography>Format</Typography>
           <Select
             fullWidth
