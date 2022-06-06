@@ -54,10 +54,40 @@ function App() {
                 path="/neighborhood"
                 element={<SimpleTextEditScreen />}
               />
-              <Route exact path="/clock" element={<ClockEditor />} />
-              <Route exact path="/weather" element={<WeatherEditor />} />
-              <Route exact path="/speed" element={<SpeedEditor />} />
-              <Route exact path="/heading" element={<HeadingEditor />} />
+              <Route
+                exact
+                path="/clock"
+                element={
+                  <ClockEditor pullKey={pullKey} onPullKeyChange={setPullKey} />
+                }
+              />
+              <Route
+                exact
+                path="/weather"
+                element={
+                  <WeatherEditor
+                    pullKey={pullKey}
+                    onPullKeyChange={setPullKey}
+                  />
+                }
+              />
+              <Route
+                exact
+                path="/speed"
+                element={
+                  <SpeedEditor pullKey={pullKey} onPullKeyChange={setPullKey} />
+                }
+              />
+              <Route
+                exact
+                path="/heading"
+                element={
+                  <HeadingEditor
+                    pullKey={pullKey}
+                    onPullKeyChange={setPullKey}
+                  />
+                }
+              />
             </Routes>
           </Stack>
           <NavigationDrawer open={openDrawer} setOpen={setOpenDrawer} />

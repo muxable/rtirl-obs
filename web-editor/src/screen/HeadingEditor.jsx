@@ -4,8 +4,8 @@ import * as React from "react";
 import { useState } from "react";
 import CountryPicker from "../component/CountryPicker";
 import ExclusiveToggle from "../component/ExclusiveToggle";
-import PullKeyInput from "../component/PullKeyInput";
 import OverlayExportPanel from "../component/OverlayExportPanel";
+import PullKeyInput from "../component/PullKeyInput";
 import TextOverlayPreview from "../component/TextOverlayPreview";
 import { TextSettings } from "../component/TextSettings";
 import useStyle from "../hooks/useStyle";
@@ -15,8 +15,7 @@ const headingOptions = [
   { name: "NSEW", value: "nsew" },
 ];
 
-function HeadingEditor(props) {
-  const [pullKey, setPullKey] = useState({ value: "", valid: false });
+function HeadingEditor({ pullKey, onPullKeyChange }) {
   const [units, setUnits] = useState("mph");
   const [lang, setLang] = useState("en");
   const [textDivCSS, setTextDivCSS] = useStyle();
@@ -41,7 +40,7 @@ function HeadingEditor(props) {
           <Typography variant="h6" component="div">
             Settings
           </Typography>
-          <PullKeyInput pullKey={pullKey} onKeyChange={setPullKey} />
+          <PullKeyInput pullKey={pullKey} onKeyChange={onPullKeyChange} />
           <ExclusiveToggle
             name="Format"
             selectedOption={units}

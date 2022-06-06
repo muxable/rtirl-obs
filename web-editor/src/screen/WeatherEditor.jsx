@@ -3,8 +3,8 @@ import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { useState } from "react";
 import ExclusiveToggle from "../component/ExclusiveToggle";
-import PullKeyInput from "../component/PullKeyInput";
 import OverlayExportPanel from "../component/OverlayExportPanel";
+import PullKeyInput from "../component/PullKeyInput";
 import TextOverlayPreview from "../component/TextOverlayPreview";
 import { TextSettings } from "../component/TextSettings";
 import useStyle from "../hooks/useStyle";
@@ -19,8 +19,7 @@ const modeOptions = [
   { name: "Feels Like", value: "feels_like" },
 ];
 
-function WeatherEditor(props) {
-  const [pullKey, setPullKey] = useState({ value: "", valid: false });
+function WeatherEditor({ pullKey, onPullKeyChange }) {
   const [units, setUnits] = useState("C");
   const [mode, setMode] = useState("temperature");
   const [textDivCSS, setTextDivCSS] = useStyle();
@@ -43,7 +42,7 @@ function WeatherEditor(props) {
           <Typography variant="h6" component="div">
             Settings
           </Typography>
-          <PullKeyInput pullKey={pullKey} onKeyChange={setPullKey} />
+          <PullKeyInput pullKey={pullKey} onKeyChange={onPullKeyChange} />
           <ExclusiveToggle
             name="Units"
             selectedOption={units}
