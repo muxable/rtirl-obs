@@ -10,7 +10,7 @@ const mapboxMapStyleJsonCache = [];
 export default function MapboxEditor({ pullKey, onPullKeyChange }) {
   const [mapStyle, setMapStyle] = useState(null);
   const [apiKey, setAPIKey] = useState(
-    "pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2oyMDFlMGpsMDN3bTJ4bjR1MzRrbDFleCJ9.7XEB3HHBGr-N6ataUZh_6g"
+    "pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2w0MW1qaTh3MG80dzNjcXRndmJ0a2JieiJ9.Y_xABmAqvD-qZeed8MabxQ"
   );
   const [styleId, setStyleID] = useState("mapbox/streets-v11");
   const [zoom, setZoom] = useState(5);
