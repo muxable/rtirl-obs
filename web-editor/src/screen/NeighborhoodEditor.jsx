@@ -16,7 +16,7 @@ function NeighborhoodEditor({ pullKey, onPullKeyChange }) {
   const [selected, setSelected] = useState(["place", "postcode", "address"]);
   const [lang, setLang] = useState("en");
 
-  const coordinates = [-73.990593, 40.740121];
+  // const coordinates = [-73.990593, 40.740121];
 
   useEffect(() => {}, [selected, lang]);
 
