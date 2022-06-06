@@ -48,7 +48,7 @@ function OverlayExportPanel({
                 ),
               }}
             ></TextField>
-            <h2> StreamElement iframe </h2>
+            <h2> StreamElements iframe </h2>
             {streamElementExportable && (
               <TextField
                 readOnly
