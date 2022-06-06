@@ -13,6 +13,7 @@ import GoogleMapsEditor from "./screen/GoogleMapsEditor";
 import HeadingEditor from "./screen/HeadingEditor";
 import { Home } from "./screen/Home";
 import MapboxEditor from "./screen/MapboxEditor";
+import NeighborhoodEditor from "./screen/NeighborhoodEditor";
 import { SimpleTextEditScreen } from "./screen/SimpleTextEditorScreen";
 import SpeedEditor from "./screen/SpeedEditor";
 import WeatherEditor from "./screen/WeatherEditor";
@@ -54,7 +55,12 @@ function App() {
               <Route
                 exact
                 path="/neighborhood"
-                element={<SimpleTextEditScreen />}
+                element={
+                  <NeighborhoodEditor
+                    pullKey={pullKey}
+                    onPullKeyChange={setPullKey}
+                  />
+                }
               />
               <Route
                 exact
