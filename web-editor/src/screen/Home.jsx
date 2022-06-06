@@ -5,6 +5,7 @@ import { HomeBackground } from "../component/HomeBackground";
 import { OverlayPreview } from "../component/OverlayPreview";
 import altitudeImage from "../images/altitude.svg";
 import clockImage from "../images/clock.svg";
+import distanceImage from "../images/distance.svg";
 import googleMapsImage from "../images/google_maps.jpg";
 import headingImage from "../images/heading.svg";
 import mapboxImage from "../images/mapbox.jpg";
@@ -48,6 +49,11 @@ const pages = [
     name: "Heading",
     route: "/heading",
     image: headingImage,
+  },
+  {
+    name: "Total Distance",
+    route: "/distance",
+    image: distanceImage,
   },
   {
     name: "Altitude",

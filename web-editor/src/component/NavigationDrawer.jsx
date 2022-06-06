@@ -5,6 +5,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import MapIcon from "@mui/icons-material/Map";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
 import SpeedIcon from "@mui/icons-material/Speed";
+import StraightenIcon from "@mui/icons-material/Straighten";
 import ThermostatIcon from "@mui/icons-material/Thermostat";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
@@ -23,6 +24,7 @@ export const NavigationDrawer = ({ open, setOpen }) => {
     { icon: <ThermostatIcon />, name: "Weather" },
     { icon: <SpeedIcon />, name: "Speed" },
     { icon: <ExploreIcon />, name: "Heading" },
+    { icon: <StraightenIcon />, name: "Distance" },
     { icon: <HeightIcon />, name: "Altitude" },
   ];
 

@@ -8,6 +8,7 @@ import { EditorAppbar } from "./component/Appbar";
 import { NavigationDrawer } from "./component/NavigationDrawer";
 import AltitudeEditor from "./screen/AltitudeEditor";
 import ClockEditor from "./screen/ClockEditor";
+import DistanceEditor from "./screen/DistanceEditor";
 import GoogleMapsEditor from "./screen/GoogleMapsEditor";
 import HeadingEditor from "./screen/HeadingEditor";
 import { Home } from "./screen/Home";
@@ -94,6 +95,16 @@ function App() {
                 path="/altitude"
                 element={
                   <AltitudeEditor
+                    pullKey={pullKey}
+                    onPullKeyChange={setPullKey}
+                  />
+                }
+              />
+              <Route
+                exact
+                path="/distance"
+                element={
+                  <DistanceEditor
                     pullKey={pullKey}
                     onPullKeyChange={setPullKey}
                   />
