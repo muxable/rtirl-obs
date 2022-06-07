@@ -15,7 +15,7 @@ export default function MapboxEditor({ pullKey, onPullKeyChange }) {
   const [styleId, setStyleID] = useState("mapbox/streets-v11");
   const [zoom, setZoom] = useState(5);
   const [fullscreen, setFullscreen] = useState(false);
-  const [lang, setLang] = useState("EN");
+  const [lang, setLang] = useState("en");
   const [validStyle, setValidStyle] = useState(true);
   const url = `https://overlays.rtirl.com/mapbox.html?key=${
     pullKey.value
