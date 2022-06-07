@@ -3,12 +3,12 @@ import {
   FormHelperText,
   InputLabel,
   MenuItem,
-  Select,
+  Select
 } from "@mui/material";
 import {
   FontManager,
   FONT_FAMILY_DEFAULT,
-  OPTIONS_DEFAULTS,
+  OPTIONS_DEFAULTS
 } from "@samuelmeuli/font-manager";
 import React from "react";
 
@@ -130,13 +130,11 @@ export default class FontPicker extends React.PureComponent {
   };
 
   render = () => {
-    const { activeFontFamily, sort } = this.props;
+    const { activeFontFamily } = this.props;
     const { loadingStatus } = this.state;
 
     const fonts = Array.from(this.fontManager.getFonts().values());
-    // if (sort === "alphabet") {
     fonts.sort((font1, font2) => font1.family.localeCompare(font2.family));
-    // }
 
     return (
       <FormControl color="text">
