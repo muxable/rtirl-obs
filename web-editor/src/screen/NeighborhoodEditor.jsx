@@ -21,6 +21,7 @@ function NeighborhoodEditor({ pullKey, onPullKeyChange }) {
   const formatURL = () => {
     var base = `https://overlays.rtirl.com/neighborhood.html?key=${pullKey.value}&format=`;
     var formatStr = "";
+    /* eslint-disable */
     const mp = {
       neighborhood: "${data.neighborhood ? data.neighborhood.text + ' ' : ''}",
       region: "${data.region ? data.region.text + ' ' : ''}",
@@ -32,6 +33,7 @@ function NeighborhoodEditor({ pullKey, onPullKeyChange }) {
       poi: "${data.poi ? data.poi.text + ' ' : ''}",
       address: "${data.address ? data.address.text + ' ' : ''}",
     };
+    /* eslint-enable */
     for (var param of selected) {
       formatStr += encodeURIComponent(mp[param]);
     }
@@ -60,19 +62,18 @@ function NeighborhoodEditor({ pullKey, onPullKeyChange }) {
           "address",
           "poi",
         ]) {
+          const str = param;
           context[param] = res.features.find((feature) =>
-            feature.place_type.includes(param)
+            feature.place_type.includes(str)
           );
         }
         const ret = [];
-        for (var param of selected) {
-          if (context[param]) {
-            if (param === "country") {
-              ret.push(
-                context[param]["properties"]["short_code"].toUpperCase()
-              );
+        for (var p of selected) {
+          if (context[p]) {
+            if (p === "country") {
+              ret.push(context[p]["properties"]["short_code"].toUpperCase());
             } else {
-              ret.push(context[param]["text"]);
+              ret.push(context[p]["text"]);
             }
           }
         }
