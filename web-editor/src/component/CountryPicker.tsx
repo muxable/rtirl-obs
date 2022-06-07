@@ -21,6 +21,8 @@ const languageToCountry: { [key: string]: string } = {
   my: "mm",
   ca: "ad",
   zh: "cn",
+  "zh-hans": "cn",
+  "zh-hant": "cn",
   hr: "hr",
   cs: "cz",
   da: "dk",
@@ -176,7 +178,7 @@ function CountryPicker({
       {countries.map((country) => (
         <MenuItem value={country} key={country}>
           {getFlagEmoji(languageToCountry[country.toLowerCase()] ?? "")}{" "}
-          {country}
+          {country.toUpperCase()}
         </MenuItem>
       ))}
     </Select>

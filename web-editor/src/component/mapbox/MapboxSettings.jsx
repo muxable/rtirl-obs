@@ -6,6 +6,7 @@ import {
   FormControlLabel,
   IconButton,
   InputAdornment,
+  InputLabel
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
@@ -13,7 +14,7 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
-import ControlPanel from "../ControlPanel";
+import CountryPicker from "../CountryPicker";
 import PullKeyInput from "../PullKeyInput";
 import { StyleIDHelperDialog } from "../StyleIDHelperDialog";
 import { ZoomSlider } from "../ZoomSlider";
@@ -124,12 +125,27 @@ export default function MapboxSettings({
         </Box>
 
         <Box>
-          <ControlPanel
-            onChange={setMapStyle}
-            language={lang}
-            setLanguage={setLang}
-            mapStyle={mapStyle}
-          ></ControlPanel>
+          <InputLabel id="select-language-label"> Language </InputLabel>
+          <CountryPicker
+            lang={lang}
+            setLang={setLang}
+            countries={[
+              "ar",
+              "de",
+              "en",
+              "es",
+              "fr",
+              "it",
+              "ja",
+              "ko",
+              "mul",
+              "pt",
+              "ru",
+              "vi",
+              "zh-Hans",
+              "zh-Hant",
+            ]}
+          />
         </Box>
 
         <Box>
