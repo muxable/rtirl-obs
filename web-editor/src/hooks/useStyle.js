@@ -3,7 +3,7 @@ import * as React from "react";
 export default function useStyle() {
   const [textDivCSS, setTextDivCSS] = React.useState({
     textColor: "#94fe32",
-    fontFamily: "sans-serif",
+    fontFamily: "Open Sans",
     rotation: 0,
     fontSize: 30,
     isBold: false,
