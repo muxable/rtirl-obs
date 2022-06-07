@@ -13,10 +13,7 @@ import useStyle from "../hooks/useStyle";
 
 function NeighborhoodEditor({ pullKey, onPullKeyChange }) {
   const [textDivCSS, setTextDivCSS] = useStyle();
-  const [selected, setSelected] = useState([
-    "neighborhood",
-    "place",
-  ]);
+  const [selected, setSelected] = useState(["neighborhood", "place"]);
   const [lang, setLang] = useState("en");
 
   const [text, setText] = useState("Williamsburg, Brooklyn, NY");
@@ -71,7 +68,9 @@ function NeighborhoodEditor({ pullKey, onPullKeyChange }) {
         for (var param of selected) {
           if (context[param]) {
             if (param === "country") {
-              ret.push((context[param]["properties"]["short_code"]).toUpperCase())
+              ret.push(
+                context[param]["properties"]["short_code"].toUpperCase()
+              );
             } else {
               ret.push(context[param]["text"]);
             }
