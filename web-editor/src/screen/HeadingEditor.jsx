@@ -16,7 +16,7 @@ const headingOptions = [
 ];
 
 function HeadingEditor({ pullKey, onPullKeyChange }) {
-  const [units, setUnits] = useState("mph");
+  const [units, setUnits] = useState("deg");
   const [lang, setLang] = useState("en");
   const [textDivCSS, setTextDivCSS] = useStyle();
   const url = `https://overlays.rtirl.com/heading/${units}.html?key=${pullKey.value}&lang=${lang}`;
