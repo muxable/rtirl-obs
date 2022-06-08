@@ -28,6 +28,10 @@ function OverlayExportPanel({
             {streamElementExportable && (
               <>
                 <h2> StreamElements iframe </h2>
+                <Typography color={"warning.main"}>
+                  Warning! If you want to use the StreamElements iFrame, you
+                  have to provide your own Mapbox API Key.
+                </Typography>
                 <CopyIconTextField
                   value={iFrameTag}
                   multiline={false}
