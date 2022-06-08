@@ -1,5 +1,4 @@
 import BorderColorIcon from "@mui/icons-material/BorderColor";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
 import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
 import FormatAlignRightIcon from "@mui/icons-material/FormatAlignRight";
@@ -15,13 +14,13 @@ import {
   IconButton,
   Input,
   InputAdornment,
-  TextField,
   Tooltip,
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import Stack from "@mui/material/Stack";
 import React from "react";
+import { CopyIconTextField } from "./CopyIconTextField";
 import FontPicker from "./FontPicker";
 
 export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
@@ -368,26 +367,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
           </Stack>
         </Stack>
         <Stack>
-          <TextField
-            label="CSS"
-            multiline
-            rows={3}
-            value={css}
-            disabled
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <IconButton
-                    onClick={() => {
-                      navigator.clipboard.writeText(css);
-                    }}
-                  >
-                    <ContentCopyIcon />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          ></TextField>
+          <CopyIconTextField label="CSS" value={css} multiline={true} row={3} />
         </Stack>
       </Stack>
     </Box>

@@ -24,11 +24,15 @@ function OverlayExportPanel({
         <h2> {overlayDescription} </h2>
         {isExportable ? (
           <Stack spacing={2}>
-            <CopyIconTextField value={url} />
+            <CopyIconTextField value={url} multiline={false} row={1} />
             {streamElementExportable && (
               <>
                 <h2> StreamElements iframe </h2>
-                <CopyIconTextField value={iFrameTag} />
+                <CopyIconTextField
+                  value={iFrameTag}
+                  multiline={false}
+                  row={1}
+                />
               </>
             )}
           </Stack>
