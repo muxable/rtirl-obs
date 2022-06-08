@@ -12,11 +12,7 @@ import * as React from "react";
 export const GoogleMapsStyleDialog = ({ open, setOpen }) => {
   return (
     <div>
-      <Dialog
-        style={{ width: "800px" }}
-        open={open}
-        onClose={() => setOpen(false)}
-      >
+      <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogTitle onClose={() => setOpen(false)}>
           About Google Maps Styles
         </DialogTitle>
