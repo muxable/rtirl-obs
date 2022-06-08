@@ -5,7 +5,7 @@ import {
   Checkbox,
   FormControlLabel,
   IconButton,
-  InputAdornment
+  InputAdornment,
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
