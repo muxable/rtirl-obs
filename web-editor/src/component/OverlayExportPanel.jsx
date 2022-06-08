@@ -1,13 +1,7 @@
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import {
-  Box,
-  IconButton,
-  InputAdornment,
-  TextField,
-  Stack,
-} from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
+import { CopyIconTextField } from "./CopyIconTextField";
 
 function OverlayExportPanel({
   overlayDescription,
@@ -30,45 +24,11 @@ function OverlayExportPanel({
         <h2> {overlayDescription} </h2>
         {isExportable ? (
           <Stack spacing={2}>
-            <TextField
-              readOnly
-              value={url}
-              fullWidth
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <IconButton
-                      onClick={() => {
-                        navigator.clipboard.writeText(url);
-                      }}
-                    >
-                      <ContentCopyIcon />
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            ></TextField>
+            <CopyIconTextField value={url} />
             {streamElementExportable && (
               <>
                 <h2> StreamElements iframe </h2>
-                <TextField
-                  readOnly
-                  value={iFrameTag}
-                  fullWidth
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <IconButton
-                          onClick={() => {
-                            navigator.clipboard.writeText(iFrameTag);
-                          }}
-                        >
-                          <ContentCopyIcon />
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                ></TextField>
+                <CopyIconTextField value={iFrameTag} />
               </>
             )}
           </Stack>
