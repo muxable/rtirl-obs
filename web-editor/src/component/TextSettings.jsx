@@ -1,30 +1,28 @@
-import React from "react";
-import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
+import BorderColorIcon from "@mui/icons-material/BorderColor";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
+import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
+import FormatAlignRightIcon from "@mui/icons-material/FormatAlignRight";
+import FormatBoldIcon from "@mui/icons-material/FormatBold";
+import FormatColorFillIcon from "@mui/icons-material/FormatColorFill";
+import FormatItalicIcon from "@mui/icons-material/FormatItalic";
+import FormatSizeIcon from "@mui/icons-material/FormatSize";
+import OpacitySharpIcon from "@mui/icons-material/OpacitySharp";
+import PaddingIcon from "@mui/icons-material/Padding";
+import RotateLeftIcon from "@mui/icons-material/RotateLeft";
 import {
+  Divider,
   IconButton,
   Input,
   InputAdornment,
-  Divider,
   TextField,
   Tooltip,
 } from "@mui/material";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
+import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
-
-import FormatBoldIcon from "@mui/icons-material/FormatBold";
-import FormatItalicIcon from "@mui/icons-material/FormatItalic";
-import FormatColorFillIcon from "@mui/icons-material/FormatColorFill";
-import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
-import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
-import FormatAlignRightIcon from "@mui/icons-material/FormatAlignRight";
-import BorderColorIcon from "@mui/icons-material/BorderColor";
-import RotateLeftIcon from "@mui/icons-material/RotateLeft";
-import OpacitySharpIcon from "@mui/icons-material/OpacitySharp";
-import PaddingIcon from "@mui/icons-material/Padding";
-import FormatSizeIcon from "@mui/icons-material/FormatSize";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import Stack from "@mui/material/Stack";
+import React from "react";
+import FontPicker from "./FontPicker";
 
 export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
   const properties = [
@@ -43,7 +41,8 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
     `padding: ${textDivCSS.padding}px`,
   ].join(";\n");
 
-  const css = `body {\n${properties}\n}`;
+  const css = `@import url('https://fonts.googleapis.com/css2?family=${textDivCSS.fontFamily}&display=swap');
+  body {\n${properties}\n}`;
 
   return (
     <Box
@@ -99,19 +98,16 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
               }
             />
           </Stack>
-          <Select
-            label="Font Family"
-            defaultValue={"serif"}
-            onChange={(e) =>
+          <FontPicker
+            apiKey="AIzaSyCNxjzD_cGkwlE-6OgL3JsAJuCcnh6SWG8"
+            activeFontFamily={textDivCSS.fontFamily}
+            onChange={(nextFont) =>
               setTextDivCSS({
                 ...textDivCSS,
-                fontFamily: e.target.value,
+                fontFamily: nextFont.family,
               })
             }
-          >
-            <MenuItem value="serif">serif</MenuItem>
-            <MenuItem value="sans-serif">sans-serif</MenuItem>
-          </Select>
+          />
 
           <Stack direction="row">
             <IconButton
