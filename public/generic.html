@@ -5,13 +5,19 @@
     <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
     <script src="https://mapbox.github.io/mapbox-gl-language/index.js"></script>
     <script src="https://unpkg.com/@rtirl/api@latest/lib/index.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.10.1/firebase.js"
+      integrity="sha512-xOm7T+n5pRgOd5Da97/0Tuvgwumw9fca80qIlLDJ7+qCvoJNYTpoNESwL3iJR9m8Klrf2W9ocgcTSP60ZUKJvA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
     <link
       href="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css"
       rel="stylesheet"
     />
   </head>
   <body>
-    <div style="position: relative; width: 100%; height: 100%;">
+    <div style="position: relative; width: 100%; height: 100%">
       <div id="map" style="width: 300px; height: 250px"></div>
       <div
         id="marker"
@@ -29,15 +35,23 @@
     </div>
     <script>
       var params = new URLSearchParams(window.location.search);
-      if(params.get("fullscreen")) {
-        document.documentElement.setAttribute('style', 'margin: 0; padding: 0; width: 100%; height: 100%;');
-        document.body.setAttribute('style', 'margin: 0; padding: 0; width: 100%; height: 100%;');
-        document.getElementById('map').setAttribute('style', 'height: 100%; width: 100%;');
-        document.getElementById('marker').style.top = 'calc(50% - 6px)';
-        document.getElementById('marker').style.left = 'calc(50% - 6px)';
+      if (params.get("fullscreen")) {
+        document.documentElement.setAttribute(
+          "style",
+          "margin: 0; padding: 0; width: 100%; height: 100%;"
+        );
+        document.body.setAttribute(
+          "style",
+          "margin: 0; padding: 0; width: 100%; height: 100%;"
+        );
+        document
+          .getElementById("map")
+          .setAttribute("style", "height: 100%; width: 100%;");
+        document.getElementById("marker").style.top = "calc(50% - 6px)";
+        document.getElementById("marker").style.left = "calc(50% - 6px)";
       }
       mapboxgl.accessToken =
-        "pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2w0MW1qaTh3MG80dzNjcXRndmJ0a2JieiJ9.Y_xABmAqvD-qZeed8MabxQ";
+        "pk.eyJ1IjoiampqampqampqampqampqampqaiIsImEiOiJja290MThwMzIwNjNkMndwaHR5djlhYThqIn0.zULjRWtxmVmaWe-FDobI-A";
       var zoom = params.get("zoom");
       var map = new mapboxgl.Map({
         container: "map",
@@ -50,15 +64,17 @@
         new MapboxLanguage({ defaultLanguage: params.get("lang") || "en" })
       );
 
+      if (firebase) {
+        firebase.database.INTERNAL.forceWebSockets();
+      }
+
       const pullKey = new URLSearchParams(window.location.search).get("key");
-      RealtimeIRL.forPullKey(pullKey).addLocationListener(
-        function (location) {
-          map.panTo([location.longitude, location.latitude], {
-            duration: 1500,
-            easing: (x) => x,
-          });
-        }
-      );
+      RealtimeIRL.forPullKey(pullKey).addLocationListener(function (location) {
+        map.panTo([location.longitude, location.latitude], {
+          duration: 1500,
+          easing: (x) => x,
+        });
+      });
     </script>
   </body>
 </html>

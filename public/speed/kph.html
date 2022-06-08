@@ -2,14 +2,24 @@
 <html>
   <head>
     <script src="https://unpkg.com/@rtirl/api@latest/lib/index.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.10.1/firebase.js"
+      integrity="sha512-xOm7T+n5pRgOd5Da97/0Tuvgwumw9fca80qIlLDJ7+qCvoJNYTpoNESwL3iJR9m8Klrf2W9ocgcTSP60ZUKJvA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
   </head>
   <body>
     <div id="text"><span id="speed">0</span> km/h</div>
     <script>
+      if (firebase) {
+        firebase.database.INTERNAL.forceWebSockets();
+      }
       const pullKey = new URLSearchParams(window.location.search).get("key");
       RealtimeIRL.forPullKey(pullKey).addSpeedListener(function (speed) {
         const speedInKph = (speed * 3.6) | 0;
-        document.getElementById("speed").innerText = speedInKph > 0 ? speedInKph : 0;
+        document.getElementById("speed").innerText =
+          speedInKph > 0 ? speedInKph : 0;
       });
     </script>
   </body>
