@@ -33,7 +33,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
     `background-color: ${textDivCSS.backgroundColor}`,
     `border-color: ${textDivCSS.borderColor}`,
     `border: ${textDivCSS.borderWidth}px solid`,
-    `align-text: ${textDivCSS.textAlign}`,
+    `text-align: ${textDivCSS.textAlign}`,
     `border-radius: ${textDivCSS.border_top_left_radius}% ${textDivCSS.border_top_right_radius}% ${textDivCSS.border_bottom_right_radius}% ${textDivCSS.border_bottom_left_radius}%`,
     `padding: ${textDivCSS.padding}px`,
   ].join(";\n");
