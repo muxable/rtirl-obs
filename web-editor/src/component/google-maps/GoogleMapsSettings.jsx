@@ -1,11 +1,19 @@
 import KeyIcon from "@mui/icons-material/Key";
+import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import CodeIcon from "@mui/icons-material/Style";
-import { Checkbox, FormControlLabel, InputAdornment } from "@mui/material";
+import {
+  Checkbox,
+  FormControlLabel,
+  IconButton,
+  InputAdornment
+} from "@mui/material";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import React from "react";
+import { GoogleMapsStyleDialog } from "../GoogleMapsStyleDialog";
 import PullKeyInput from "../PullKeyInput";
 import { ZoomSlider } from "../ZoomSlider";
 
@@ -33,6 +41,8 @@ export const GoogleMapsSettings = ({
   fullscreen,
   setFullscreen,
 }) => {
+  const [showStyleDialog, setShowStyleDialog] = React.useState(false);
+
   return (
     <Box
       style={{
@@ -115,6 +125,13 @@ export const GoogleMapsSettings = ({
                   <CodeIcon />
                 </InputAdornment>
               ),
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={() => setShowStyleDialog(true)}>
+                    <QuestionMarkIcon />
+                  </IconButton>
+                </InputAdornment>
+              ),
             }}
           />
         </Box>
@@ -141,6 +158,10 @@ export const GoogleMapsSettings = ({
           />
         </Box>
       </Stack>
+      <GoogleMapsStyleDialog
+        open={showStyleDialog}
+        setOpen={setShowStyleDialog}
+      />
     </Box>
   );
 };
