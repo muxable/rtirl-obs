@@ -1,26 +1,37 @@
 import { TextField, InputAdornment, IconButton, Tooltip } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import CheckIcon from "@mui/icons-material/Check";
 
-export const CopyIconTextField = ({ value }) => {
+export const CopyIconTextField = ({ value, multiline, row, label }) => {
   const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    if (copied) {
+      setTimeout(() => setCopied(false), 1500);
+    }
+  }, [copied]);
 
   return (
     <TextField
+      disabled
+      label={label}
       readOnly
+      multiline={multiline}
+      rows={row}
       value={value}
       fullWidth
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">
-            <Tooltip title={copied ? "Copied" : "Copy URL"}>
+            <Tooltip title={copied ? "Copied" : "Copy URL"} placement={"top"}>
               <IconButton
                 onClick={() => {
                   navigator.clipboard.writeText(value);
                   setCopied(true);
                 }}
               >
-                <ContentCopyIcon />
+                {copied ? <CheckIcon /> : <ContentCopyIcon />}
               </IconButton>
             </Tooltip>
           </InputAdornment>
