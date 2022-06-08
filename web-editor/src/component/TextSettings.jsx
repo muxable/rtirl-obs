@@ -1,4 +1,3 @@
-import BorderColorIcon from "@mui/icons-material/BorderColor";
 import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
 import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
 import FormatAlignRightIcon from "@mui/icons-material/FormatAlignRight";
@@ -6,7 +5,6 @@ import FormatBoldIcon from "@mui/icons-material/FormatBold";
 import FormatColorFillIcon from "@mui/icons-material/FormatColorFill";
 import FormatItalicIcon from "@mui/icons-material/FormatItalic";
 import FormatSizeIcon from "@mui/icons-material/FormatSize";
-import OpacitySharpIcon from "@mui/icons-material/OpacitySharp";
 import PaddingIcon from "@mui/icons-material/Padding";
 import RotateLeftIcon from "@mui/icons-material/RotateLeft";
 import {
@@ -20,6 +18,7 @@ import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import Stack from "@mui/material/Stack";
 import React from "react";
+import ColorPickerToggle from "./ColorPickerToggle";
 import { CopyIconTextField } from "./CopyIconTextField";
 import FontPicker from "./FontPicker";
 
@@ -32,7 +31,6 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
     `font-style: ${textDivCSS.isItalic ? "italic" : "normal"}`,
     `transform: rotate(${textDivCSS.rotation}deg)`,
     `background-color: ${textDivCSS.backgroundColor}`,
-    `opacity: ${textDivCSS.opacity / 100}`,
     `border-color: ${textDivCSS.borderColor}`,
     `border: ${textDivCSS.borderWidth}px solid`,
     `align-text: ${textDivCSS.textAlign}`,
@@ -77,25 +75,26 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
               }
             />
 
-            <Input
-              style={{ marginTop: "6px", width: "94px" }}
-              type="color"
-              disableUnderline
-              value={textDivCSS.textColor}
-              onChange={(e) => {
-                setTextDivCSS({
-                  ...textDivCSS,
-                  textColor: e.target.value,
-                });
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
               }}
-              startAdornment={
-                <InputAdornment position="start">
-                  <Tooltip title="Text Color">
-                    <FormatColorFillIcon />
-                  </Tooltip>
-                </InputAdornment>
-              }
-            />
+            >
+              <Tooltip title="Text Color">
+                <FormatColorFillIcon />
+              </Tooltip>
+              <ColorPickerToggle
+                color={textDivCSS.textColor}
+                setColor={(color) => {
+                  setTextDivCSS({
+                    ...textDivCSS,
+                    textColor: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`,
+                  });
+                }}
+              />
+            </Box>
           </Stack>
           <FontPicker
             apiKey="AIzaSyCNxjzD_cGkwlE-6OgL3JsAJuCcnh6SWG8"
@@ -203,46 +202,22 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
               }
             />
 
-            <Input
-              style={{ marginTop: "6px", width: "94px" }}
-              type="color"
-              disableUnderline
-              value={textDivCSS.backgroundColor}
-              onChange={(e) => {
-                setTextDivCSS({
-                  ...textDivCSS,
-                  backgroundColor: e.target.value,
-                });
-              }}
-              startAdornment={
-                <InputAdornment position="start">
-                  <Tooltip title="Background Color">
-                    <FormatColorFillIcon />
-                  </Tooltip>
-                </InputAdornment>
-              }
-            />
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <Tooltip title="Background Color">
+                <FormatColorFillIcon />
+              </Tooltip>
+              <ColorPickerToggle
+                color={textDivCSS.backgroundColor}
+                setColor={(color) => {
+                  setTextDivCSS({
+                    ...textDivCSS,
+                    backgroundColor: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`,
+                  });
+                }}
+              />
+            </Box>
           </Stack>
 
-          <Stack direction={"row"} spacing={2}>
-            <Tooltip title="Opacity">
-              <OpacitySharpIcon />
-            </Tooltip>
-            <Slider
-              size="small"
-              defaultValue={100}
-              value={textDivCSS.opacity}
-              valueLabelDisplay="auto"
-              valueLabelFormat={(x) => `${x}%`}
-              color="text"
-              onChange={(e, value) => {
-                setTextDivCSS({
-                  ...textDivCSS,
-                  opacity: value,
-                });
-              }}
-            />
-          </Stack>
           <Stack direction={"row"} spacing={2}>
             <Tooltip title="Padding">
               <PaddingIcon />
@@ -280,25 +255,21 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
               }}
               endAdornment={<InputAdornment position="end">px</InputAdornment>}
             />
-            <Input
-              style={{ marginTop: "6px", width: "94px" }}
-              type="color"
-              disableUnderline
-              value={textDivCSS.borderColor}
-              onChange={(e) => {
-                setTextDivCSS({
-                  ...textDivCSS,
-                  borderColor: e.target.value,
-                });
-              }}
-              startAdornment={
-                <InputAdornment position="start">
-                  <Tooltip title="Border Color">
-                    <BorderColorIcon />
-                  </Tooltip>
-                </InputAdornment>
-              }
-            />
+
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <Tooltip title="Background Color">
+                <FormatColorFillIcon />
+              </Tooltip>
+              <ColorPickerToggle
+                color={textDivCSS.borderColor}
+                setColor={(color) => {
+                  setTextDivCSS({
+                    ...textDivCSS,
+                    borderColor: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`,
+                  });
+                }}
+              />
+            </Box>
           </Stack>
 
           <Stack direction={"row"} spacing={2}>
