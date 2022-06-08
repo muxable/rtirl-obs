@@ -14,7 +14,7 @@ import GoogleMapsEditor from "./screen/GoogleMapsEditor";
 import HeadingEditor from "./screen/HeadingEditor";
 import { Home } from "./screen/Home";
 import MapboxEditor from "./screen/MapboxEditor";
-import { SimpleTextEditScreen } from "./screen/SimpleTextEditorScreen";
+import NeighborhoodEditor from "./screen/NeighborhoodEditor";
 import SpeedEditor from "./screen/SpeedEditor";
 import WeatherEditor from "./screen/WeatherEditor";
 import editorTheme from "./theme/editorTheme";
@@ -58,7 +58,12 @@ function App() {
             <Route
               exact
               path="/neighborhood"
-              element={<SimpleTextEditScreen />}
+              element={
+                <NeighborhoodEditor
+                  pullKey={pullKey}
+                  onPullKeyChange={setPullKey}
+                />
+              }
             />
             <Route
               exact
