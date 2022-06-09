@@ -24,7 +24,7 @@ function TextOverlayPreview({ textDivCSS, text }) {
             fontStyle: textDivCSS.isItalic ? "italic" : "normal",
             transform: `rotate(${textDivCSS.rotation}deg)`,
             borderColor: textDivCSS.borderColor,
-            border: `${textDivCSS.borderWidth}px solid`,
+            borderWidth: `${textDivCSS.borderWidth}px`,
             justifyContent: textDivCSS.justifyContent,
           }}
         >
