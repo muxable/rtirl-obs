@@ -102,7 +102,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
             </Box>
           </Stack>
           <FontPicker
-            apiKey="AIzaSyD2LLAAifY_CrNiQonhmI9d3o3wlQH9sis"
+            apiKey="AIzaSyCNxjzD_cGkwlE-6OgL3JsAJuCcnh6SWG8"
             activeFontFamily={fontFamily}
             onChange={(nextFont) => setFontFamily(nextFont.family)}
           />
