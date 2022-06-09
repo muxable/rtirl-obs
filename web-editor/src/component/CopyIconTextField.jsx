@@ -24,7 +24,7 @@ export const CopyIconTextField = ({ value, multiline, row, label }) => {
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">
-            <Tooltip title={copied ? "Copied" : "Copy URL"} placement={"top"}>
+            <Tooltip title={copied ? "Copied" : "Copy"} placement={"top"}>
               <IconButton
                 onClick={() => {
                   navigator.clipboard.writeText(value);
