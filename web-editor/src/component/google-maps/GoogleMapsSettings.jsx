@@ -1,41 +1,47 @@
 import KeyIcon from "@mui/icons-material/Key";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
-import StyleIcon from "@mui/icons-material/Style";
+import CodeIcon from "@mui/icons-material/Style";
 import {
   Checkbox,
   FormControlLabel,
   IconButton,
   InputAdornment,
-  InputLabel,
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import { useState } from "react";
-import CountryPicker from "../CountryPicker";
+import React from "react";
+import { GoogleMapsStyleDialog } from "../GoogleMapsStyleDialog";
 import PullKeyInput from "../PullKeyInput";
-import { StyleIDHelperDialog } from "../StyleIDHelperDialog";
 import { ZoomSlider } from "../ZoomSlider";
 
-export default function MapboxSettings({
+function isValidJSON(string) {
+  if (!string) {
+    return false;
+  }
+  try {
+    JSON.parse(string);
+  } catch (e) {
+    return false;
+  }
+  return true;
+}
+
+export const GoogleMapsSettings = ({
   pullKey,
   onPullKeyChange,
-  styleId,
-  onStyleChange,
   apiKey,
   onApiKeyChange,
-  lang,
-  setLang,
   mapStyle,
   setMapStyle,
   zoom,
   setZoom,
   fullscreen,
   setFullscreen,
-}) {
-  const [openStyleIDDialog, setOpenStyleIDDialog] = useState(false);
+}) => {
+  const [showStyleDialog, setShowStyleDialog] = React.useState(false);
 
   return (
     <Box
@@ -65,7 +71,7 @@ export default function MapboxSettings({
             fullWidth
             required
             id="standard-required"
-            label="API Key"
+            label="Google Maps API Key"
             variant="standard"
             value={apiKey}
             error={!apiKey}
@@ -95,56 +101,38 @@ export default function MapboxSettings({
           <TextField
             fullWidth
             id="tf-style-id"
-            label="Style ID"
-            variant="standard"
-            value={styleId}
-            placeholder="Format: account/styleId"
-            error={!styleId}
-            helperText={styleId ? "" : "The style id is required"}
+            label="Syle JSON String"
+            value={mapStyle.value}
+            placeholder="Valid JSON string"
+            multiline
+            rows={4}
+            error={!isValidJSON(mapStyle.value)}
+            helperText={
+              isValidJSON(mapStyle.value) ? "" : "The style string is required"
+            }
             onSubmit={(e) => {
               e.preventDefault();
             }}
             onChange={(e) => {
-              onStyleChange(e.target.value);
+              setMapStyle({
+                value: e.target.value,
+                valid: isValidJSON(e.target.value),
+              });
             }}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <StyleIcon />
+                  <CodeIcon />
                 </InputAdornment>
               ),
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton onClick={() => setOpenStyleIDDialog(true)}>
+                  <IconButton onClick={() => setShowStyleDialog(true)}>
                     <QuestionMarkIcon />
                   </IconButton>
                 </InputAdornment>
               ),
             }}
-          />
-        </Box>
-
-        <Box>
-          <InputLabel id="select-language-label"> Language </InputLabel>
-          <CountryPicker
-            lang={lang}
-            setLang={setLang}
-            countries={[
-              "ar",
-              "de",
-              "en",
-              "es",
-              "fr",
-              "it",
-              "ja",
-              "ko",
-              "mul",
-              "pt",
-              "ru",
-              "vi",
-              "zh-Hans",
-              "zh-Hant",
-            ]}
           />
         </Box>
 
@@ -170,11 +158,10 @@ export default function MapboxSettings({
           />
         </Box>
       </Stack>
-
-      <StyleIDHelperDialog
-        open={openStyleIDDialog}
-        setOpen={setOpenStyleIDDialog}
+      <GoogleMapsStyleDialog
+        open={showStyleDialog}
+        setOpen={setShowStyleDialog}
       />
     </Box>
   );
-}
+};

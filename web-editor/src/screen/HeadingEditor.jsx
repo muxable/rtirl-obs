@@ -4,8 +4,8 @@ import * as React from "react";
 import { useState } from "react";
 import CountryPicker from "../component/CountryPicker";
 import ExclusiveToggle from "../component/ExclusiveToggle";
+import OverlayExportPanel from "../component/OverlayExportPanel";
 import PullKeyInput from "../component/PullKeyInput";
-import TextOverlayExportPanel from "../component/TextOverlayExportPanel";
 import TextOverlayPreview from "../component/TextOverlayPreview";
 import { TextSettings } from "../component/TextSettings";
 import useStyle from "../hooks/useStyle";
@@ -15,9 +15,8 @@ const headingOptions = [
   { name: "NSEW", value: "nsew" },
 ];
 
-function HeadingEditor(props) {
-  const [pullKey, setPullKey] = useState({ value: "", valid: false });
-  const [units, setUnits] = useState("mph");
+function HeadingEditor({ pullKey, onPullKeyChange }) {
+  const [units, setUnits] = useState("deg");
   const [lang, setLang] = useState("en");
   const [textDivCSS, setTextDivCSS] = useStyle();
   const url = `https://overlays.rtirl.com/heading/${units}.html?key=${pullKey.value}&lang=${lang}`;
@@ -41,7 +40,7 @@ function HeadingEditor(props) {
           <Typography variant="h6" component="div">
             Settings
           </Typography>
-          <PullKeyInput pullKey={pullKey} onKeyChange={setPullKey} />
+          <PullKeyInput pullKey={pullKey} onKeyChange={onPullKeyChange} />
           <ExclusiveToggle
             name="Format"
             selectedOption={units}
@@ -63,7 +62,7 @@ function HeadingEditor(props) {
             text={units === "nsew" ? "NW" : `1000\u00B0`}
             textDivCSS={textDivCSS}
           />
-          <TextOverlayExportPanel
+          <OverlayExportPanel
             overlayDescription="Heading Overlay URL"
             isExportable={pullKey.valid}
             url={url}

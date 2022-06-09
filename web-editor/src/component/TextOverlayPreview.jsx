@@ -23,7 +23,6 @@ function TextOverlayPreview({ textDivCSS, text }) {
             fontWeight: textDivCSS.isBold ? "bold" : "normal",
             fontStyle: textDivCSS.isItalic ? "italic" : "normal",
             transform: `rotate(${textDivCSS.rotation}deg)`,
-            opacity: textDivCSS.opacity / 100,
             borderColor: textDivCSS.borderColor,
             border: `${textDivCSS.borderWidth}px solid`,
             justifyContent: textDivCSS.justifyContent,

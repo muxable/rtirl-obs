@@ -3,14 +3,16 @@ import { ThemeProvider } from "@mui/material/styles";
 import * as React from "react";
 import { HomeBackground } from "../component/HomeBackground";
 import { OverlayPreview } from "../component/OverlayPreview";
-import homeTheme from "../theme/homeTheme";
-import mapboxImage from "../images/mapbox.jpg";
-import googleMapsImage from "../images/google_maps.jpg";
-import neighborhoodImage from "../images/neighborhood.svg";
-import speedImage from "../images/mph.svg";
+import altitudeImage from "../images/altitude.svg";
 import clockImage from "../images/clock.svg";
-import temperatureImage from "../images/temperature.svg";
+import distanceImage from "../images/distance.svg";
+import googleMapsImage from "../images/google_maps.jpg";
 import headingImage from "../images/heading.svg";
+import mapboxImage from "../images/mapbox.jpg";
+import speedImage from "../images/mph.svg";
+import neighborhoodImage from "../images/neighborhood.svg";
+import temperatureImage from "../images/temperature.svg";
+import homeTheme from "../theme/homeTheme";
 
 const pages = [
   {
@@ -47,6 +49,16 @@ const pages = [
     name: "Heading",
     route: "/heading",
     image: headingImage,
+  },
+  {
+    name: "Total Distance",
+    route: "/distance",
+    image: distanceImage,
+  },
+  {
+    name: "Altitude",
+    route: "/altitude",
+    image: altitudeImage,
   },
 ];
 

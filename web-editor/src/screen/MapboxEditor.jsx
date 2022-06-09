@@ -3,24 +3,27 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import MapboxContainer from "../component/mapbox/MapboxContainer";
 import MapboxSettings from "../component/mapbox/MapboxSettings";
-import { mapboxMapStyleJsonCache } from "../component/RightPanel";
-import TextOverlayExportPanel from "../component/TextOverlayExportPanel";
+import OverlayExportPanel from "../component/OverlayExportPanel";
+
+const mapboxMapStyleJsonCache = [];
 
 export default function MapboxEditor({ pullKey, onPullKeyChange }) {
   const [mapStyle, setMapStyle] = useState(null);
   const [apiKey, setAPIKey] = useState(
-    "pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2oyMDFlMGpsMDN3bTJ4bjR1MzRrbDFleCJ9.7XEB3HHBGr-N6ataUZh_6g"
+    "pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2w0MW1qaTh3MG80dzNjcXRndmJ0a2JieiJ9.Y_xABmAqvD-qZeed8MabxQ"
   );
   const [styleId, setStyleID] = useState("mapbox/streets-v11");
   const [zoom, setZoom] = useState(5);
   const [fullscreen, setFullscreen] = useState(false);
-  const [lang, setLang] = useState("EN");
+  const [lang, setLang] = useState("en");
   const [validStyle, setValidStyle] = useState(true);
   const url = `https://overlays.rtirl.com/mapbox.html?key=${
     pullKey.value
   }&access_token=${apiKey}&style=${styleId}&zoom=${zoom}&lang=${lang}${
     fullscreen ? "&fullscreen=1" : ""
   }`;
+  const iFrameTag = `<iframe height="100%" width="100%" frameborder="0" 
+  src="https://overlays.rtirl.com/compat.html?key=${pullKey.value}&access_token=${apiKey}&style=${styleId}"> </iframe>`;
 
   useEffect(() => {
     fetch(`https://api.mapbox.com/styles/v1/${styleId}?access_token=${apiKey}`)
@@ -66,10 +69,12 @@ export default function MapboxEditor({ pullKey, onPullKeyChange }) {
                 mapStyle={mapStyle}
                 apiKey={apiKey}
               />
-              <TextOverlayExportPanel
+              <OverlayExportPanel
                 overlayDescription="Mapbox Overlay URL"
                 isExportable={pullKey.valid && apiKey && styleId && validStyle}
                 url={url}
+                streamElementExportable={true}
+                iFrameTag={iFrameTag}
               />
             </Stack>
           </Box>

@@ -10,20 +10,14 @@ import { TextSettings } from "../component/TextSettings";
 import useStyle from "../hooks/useStyle";
 
 const unitOptions = [
-  { name: "Celsius", value: "C" },
-  { name: "Fahrenheit", value: "F" },
+  { name: "Feet", value: "feet" },
+  { name: "Meters", value: "meters" },
 ];
 
-const modeOptions = [
-  { name: "Temperature", value: "temperature" },
-  { name: "Feels Like", value: "feels_like" },
-];
-
-function WeatherEditor({ pullKey, onPullKeyChange }) {
-  const [units, setUnits] = useState("C");
-  const [mode, setMode] = useState("temperature");
+function AltitudeEditor({ pullKey, onPullKeyChange }) {
+  const [units, setUnits] = useState("feet");
   const [textDivCSS, setTextDivCSS] = useStyle();
-  const url = `https://overlays.rtirl.com/weather/${mode}/${units}.html?key=${pullKey.value}`;
+  const url = `https://overlays.rtirl.com/altitude/${units}.html?key=${pullKey.value}`;
 
   return (
     <Grid container columns={{ xs: 1, md: 12 }} direction="row">
@@ -49,24 +43,16 @@ function WeatherEditor({ pullKey, onPullKeyChange }) {
             options={unitOptions}
             onOptionChange={setUnits}
           />
-          <ExclusiveToggle
-            name="Mode"
-            selectedOption={mode}
-            options={modeOptions}
-            onOptionChange={setMode}
-          />
           <TextSettings textDivCSS={textDivCSS} setTextDivCSS={setTextDivCSS} />
         </Box>
       </Grid>
       <Grid item xs={1} md={9.5} lg={12}>
         <Box padding={1} paddingBottom={0}>
-          <TextOverlayPreview
-            text={`55 \u02DA${units.toUpperCase()}`}
-            textDivCSS={textDivCSS}
-          />
+          <TextOverlayPreview text={`8849 ${units}`} textDivCSS={textDivCSS} />
           <OverlayExportPanel
-            overlayDescription="Weather Overlay URL"
+            overlayDescription="Altitude Overlay URL"
             isExportable={pullKey.valid}
+            streamElementExportable={false}
             url={url}
           />
         </Box>
@@ -75,4 +61,4 @@ function WeatherEditor({ pullKey, onPullKeyChange }) {
   );
 }
 
-export default WeatherEditor;
+export default AltitudeEditor;

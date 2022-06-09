@@ -10,12 +10,10 @@ import * as React from "react";
 export const StyleIDHelperDialog = ({ open, setOpen }) => {
   return (
     <div>
-      <Dialog
-        style={{ width: "800px" }}
-        open={open}
-        onClose={() => setOpen(false)}
-      >
-        <DialogTitle onClose={() => setOpen(false)}>StyleID Dialog</DialogTitle>
+      <Dialog open={open} onClose={() => setOpen(false)}>
+        <DialogTitle onClose={() => setOpen(false)}>
+          About Mapbox Style ID
+        </DialogTitle>
         <DialogContent>
           In order to preview the map, you need to provide a styleID. <br />
           The default for our preview is <code> mapbox/streets-v11 </code>
