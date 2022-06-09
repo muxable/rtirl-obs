@@ -11,6 +11,7 @@ export default function useStyle() {
     backgroundColor: "rgba(0, 0, 0, 1)",
     borderColor: "rgba(255, 255, 255, 1)",
     borderWidth: 0,
+    borderStyle: "solid",
     padding: 0,
     border_top_left_radius: 0,
     border_top_right_radius: 0,

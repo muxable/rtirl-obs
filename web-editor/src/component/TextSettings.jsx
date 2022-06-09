@@ -12,7 +12,7 @@ import {
   IconButton,
   Input,
   InputAdornment,
-  Tooltip,
+  Tooltip
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
@@ -32,7 +32,8 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
     `transform: rotate(${textDivCSS.rotation}deg)`,
     `background-color: ${textDivCSS.backgroundColor}`,
     `border-color: ${textDivCSS.borderColor}`,
-    `border: ${textDivCSS.borderWidth}px solid`,
+    `border-width: ${textDivCSS.borderWidth}px`,
+    "border-style: solid",
     `text-align: ${textDivCSS.textAlign}`,
     `border-radius: ${textDivCSS.border_top_left_radius}% ${textDivCSS.border_top_right_radius}% ${textDivCSS.border_bottom_right_radius}% ${textDivCSS.border_bottom_left_radius}%`,
     `padding: ${textDivCSS.padding}px`,
