@@ -74,7 +74,7 @@ export const Home = (props) => {
         minHeight="100vh"
       >
         <Container>
-          <Typography variant="h2" component="h2">
+          <Typography variant="h2" component="h2" paddingTop={6}>
             REALTIMEIRL OVERLAY EDITOR
           </Typography>
           <Typography variant="h4" component="h4">
