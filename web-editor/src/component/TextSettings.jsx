@@ -45,7 +45,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
   useEffect(() => {
     setTextDivCSS({ ...textDivCSS, fontFamily });
   }, [fontFamily]);
-   /* eslint-enable */
+  /* eslint-enable */
 
   const css = `@import url('https://fonts.googleapis.com/css2?family=${textDivCSS.fontFamily}&display=swap');
   body {\n${properties}\n}`;
