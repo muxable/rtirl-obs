@@ -40,9 +40,12 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
   ].join(";\n");
   const [fontFamily, setFontFamily] = React.useState(textDivCSS.fontFamily);
 
+  // prevent rerendering
+  /* eslint-disable */
   useEffect(() => {
     setTextDivCSS({ ...textDivCSS, fontFamily });
-  }, [fontFamily, textDivCSS, setTextDivCSS]);
+  }, [fontFamily]);
+   /* eslint-enable */
 
   const css = `@import url('https://fonts.googleapis.com/css2?family=${textDivCSS.fontFamily}&display=swap');
   body {\n${properties}\n}`;
