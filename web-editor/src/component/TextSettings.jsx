@@ -12,12 +12,12 @@ import {
   IconButton,
   Input,
   InputAdornment,
-  Tooltip,
+  Tooltip
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import Stack from "@mui/material/Stack";
-import React, { useEffect } from "react";
+import React from "react";
 import ColorPickerToggle from "./ColorPickerToggle";
 import { CopyIconTextField } from "./CopyIconTextField";
 import FontPicker from "./FontPicker";
@@ -38,11 +38,6 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
     `border-radius: ${textDivCSS.border_top_left_radius}% ${textDivCSS.border_top_right_radius}% ${textDivCSS.border_bottom_right_radius}% ${textDivCSS.border_bottom_left_radius}%`,
     `padding: ${textDivCSS.padding}px`,
   ].join(";\n");
-  const [fontFamily, setFontFamily] = React.useState(textDivCSS.fontFamily);
-
-  useEffect(() => {
-    setTextDivCSS({ ...textDivCSS, fontFamily });
-  }, [fontFamily, textDivCSS, setTextDivCSS]);
 
   const css = `@import url('https://fonts.googleapis.com/css2?family=${textDivCSS.fontFamily}&display=swap');
   body {\n${properties}\n}`;
@@ -104,8 +99,13 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
           </Stack>
           <FontPicker
             apiKey="AIzaSyCNxjzD_cGkwlE-6OgL3JsAJuCcnh6SWG8"
-            activeFontFamily={fontFamily}
-            onChange={(nextFont) => setFontFamily(nextFont.family)}
+            activeFontFamily={textDivCSS.fontFamily}
+            onChange={(nextFont) => {
+              setTextDivCSS({
+                ...textDivCSS,
+                fontFamily: nextFont.family,
+              });
+            }}
           />
 
           <Stack direction="row">

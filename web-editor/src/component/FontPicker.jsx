@@ -3,12 +3,12 @@ import {
   FormHelperText,
   InputLabel,
   MenuItem,
-  Select,
+  Select
 } from "@mui/material";
 import {
   FontManager,
   FONT_FAMILY_DEFAULT,
-  OPTIONS_DEFAULTS,
+  OPTIONS_DEFAULTS
 } from "@samuelmeuli/font-manager";
 import React from "react";
 
@@ -90,6 +90,18 @@ export default class FontPicker extends React.PureComponent {
       });
   };
 
+  componentDidUpdate = (prevProps) => {
+    const { activeFontFamily, onChange } = this.props;
+
+    if (activeFontFamily !== prevProps.activeFontFamily) {
+      this.setActiveFontFamily(activeFontFamily);
+    }
+
+    if (onChange !== prevProps.onChange) {
+      this.fontManager.setOnChange(onChange);
+    }
+  };
+
   onSelection = (e) => {
     const target = e.target;
     const activeFontFamily = target.value;
@@ -103,7 +115,7 @@ export default class FontPicker extends React.PureComponent {
     this.fontManager.setActiveFont(activeFontFamily);
   };
 
-  generateFontList1 = (fonts) => {
+  generateFontList = (fonts) => {
     const { activeFontFamily } = this.props;
     const { loadingStatus } = this.state;
 
@@ -150,7 +162,7 @@ export default class FontPicker extends React.PureComponent {
             },
           }}
         >
-          {loadingStatus === "finished" && this.generateFontList1(fonts)}
+          {loadingStatus === "finished" && this.generateFontList(fonts)}
         </Select>
         {loadingStatus === "error" && (
           <FormHelperText>An error ocurred loading the fonts.</FormHelperText>
