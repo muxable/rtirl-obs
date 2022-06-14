@@ -3,12 +3,12 @@ import {
   FormHelperText,
   InputLabel,
   MenuItem,
-  Select
+  Select,
 } from "@mui/material";
 import {
   FontManager,
   FONT_FAMILY_DEFAULT,
-  OPTIONS_DEFAULTS
+  OPTIONS_DEFAULTS,
 } from "@samuelmeuli/font-manager";
 import React from "react";
 
