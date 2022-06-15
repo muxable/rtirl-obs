@@ -7,6 +7,7 @@ import "./App.css";
 import { EditorAppbar } from "./component/Appbar";
 import { NavigationDrawer } from "./component/NavigationDrawer";
 import usePullKey from "./hooks/usePullKey";
+import useStyle from "./hooks/useStyle";
 import AltitudeEditor from "./screen/AltitudeEditor";
 import ClockEditor from "./screen/ClockEditor";
 import DistanceEditor from "./screen/DistanceEditor";
@@ -29,6 +30,7 @@ function App() {
   const [openDrawer, setOpenDrawer] = useState(false);
   const query = useQuery();
   const [pullKey, setPullKey] = usePullKey(query.get("pullKey") ?? "");
+  const [textStyle, setTextStyle] = useStyle();
 
   return (
     <div className="App">
@@ -62,6 +64,8 @@ function App() {
                 <NeighborhoodEditor
                   pullKey={pullKey}
                   onPullKeyChange={setPullKey}
+                  textStyle={textStyle}
+                  onTextStyleChange={setTextStyle}
                 />
               }
             />
@@ -69,28 +73,48 @@ function App() {
               exact
               path="/clock"
               element={
-                <ClockEditor pullKey={pullKey} onPullKeyChange={setPullKey} />
+                <ClockEditor
+                  pullKey={pullKey}
+                  onPullKeyChange={setPullKey}
+                  textStyle={textStyle}
+                  onTextStyleChange={setTextStyle}
+                />
               }
             />
             <Route
               exact
               path="/weather"
               element={
-                <WeatherEditor pullKey={pullKey} onPullKeyChange={setPullKey} />
+                <WeatherEditor
+                  pullKey={pullKey}
+                  onPullKeyChange={setPullKey}
+                  textStyle={textStyle}
+                  onTextStyleChange={setTextStyle}
+                />
               }
             />
             <Route
               exact
               path="/speed"
               element={
-                <SpeedEditor pullKey={pullKey} onPullKeyChange={setPullKey} />
+                <SpeedEditor
+                  pullKey={pullKey}
+                  onPullKeyChange={setPullKey}
+                  textStyle={textStyle}
+                  onTextStyleChange={setTextStyle}
+                />
               }
             />
             <Route
               exact
               path="/heading"
               element={
-                <HeadingEditor pullKey={pullKey} onPullKeyChange={setPullKey} />
+                <HeadingEditor
+                  pullKey={pullKey}
+                  onPullKeyChange={setPullKey}
+                  textStyle={textStyle}
+                  onTextStyleChange={setTextStyle}
+                />
               }
             />
             <Route
@@ -100,6 +124,8 @@ function App() {
                 <AltitudeEditor
                   pullKey={pullKey}
                   onPullKeyChange={setPullKey}
+                  textStyle={textStyle}
+                  onTextStyleChange={setTextStyle}
                 />
               }
             />
@@ -110,6 +136,8 @@ function App() {
                 <DistanceEditor
                   pullKey={pullKey}
                   onPullKeyChange={setPullKey}
+                  textStyle={textStyle}
+                  onTextStyleChange={setTextStyle}
                 />
               }
             />

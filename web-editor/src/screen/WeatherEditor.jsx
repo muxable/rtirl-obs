@@ -1,13 +1,11 @@
 import { Box, Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import * as React from "react";
 import { useState } from "react";
 import ExclusiveToggle from "../component/ExclusiveToggle";
 import OverlayExportPanel from "../component/OverlayExportPanel";
 import PullKeyInput from "../component/PullKeyInput";
 import TextOverlayPreview from "../component/TextOverlayPreview";
 import { TextSettings } from "../component/TextSettings";
-import useStyle from "../hooks/useStyle";
 
 const unitOptions = [
   { name: "Celsius", value: "C" },
@@ -19,10 +17,14 @@ const modeOptions = [
   { name: "Feels Like", value: "feels_like" },
 ];
 
-function WeatherEditor({ pullKey, onPullKeyChange }) {
+function WeatherEditor({
+  pullKey,
+  onPullKeyChange,
+  textStyle,
+  onTextStyleChange,
+}) {
   const [units, setUnits] = useState("C");
   const [mode, setMode] = useState("temperature");
-  const [textDivCSS, setTextDivCSS] = useStyle();
   const url = `https://overlays.rtirl.com/weather/${mode}/${units}.html?key=${pullKey.value}`;
 
   return (
@@ -55,14 +57,17 @@ function WeatherEditor({ pullKey, onPullKeyChange }) {
             options={modeOptions}
             onOptionChange={setMode}
           />
-          <TextSettings textDivCSS={textDivCSS} setTextDivCSS={setTextDivCSS} />
+          <TextSettings
+            textDivCSS={textStyle}
+            setTextDivCSS={onTextStyleChange}
+          />
         </Box>
       </Grid>
       <Grid item xs={1} md={9.5} lg={12}>
         <Box padding={1} paddingBottom={0}>
           <TextOverlayPreview
             text={`55 \u02DA${units.toUpperCase()}`}
-            textDivCSS={textDivCSS}
+            textDivCSS={textStyle}
           />
           <OverlayExportPanel
             overlayDescription="Weather Overlay URL"

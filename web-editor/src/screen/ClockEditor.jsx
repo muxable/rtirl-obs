@@ -1,18 +1,19 @@
 import { Box, Grid, MenuItem, Select } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { DateTime } from "luxon";
-import * as React from "react";
 import { useState } from "react";
 import CountryPicker from "../component/CountryPicker";
 import OverlayExportPanel from "../component/OverlayExportPanel";
 import PullKeyInput from "../component/PullKeyInput";
 import TextOverlayPreview from "../component/TextOverlayPreview";
 import { TextSettings } from "../component/TextSettings";
-import useStyle from "../hooks/useStyle";
 
-function ClockEditor({ pullKey, onPullKeyChange }) {
-  const [textDivCSS, setTextDivCSS] = useStyle();
-
+function ClockEditor({
+  pullKey,
+  onPullKeyChange,
+  textStyle,
+  onTextStyleChange,
+}) {
   const [format, setFormat] = useState("tt");
   const [lang, setLang] = useState("en");
 
@@ -174,14 +175,17 @@ function ClockEditor({ pullKey, onPullKeyChange }) {
             setLang={setLang}
             countries={luxonCountries}
           />
-          <TextSettings textDivCSS={textDivCSS} setTextDivCSS={setTextDivCSS} />
+          <TextSettings
+            textDivCSS={textStyle}
+            setTextDivCSS={onTextStyleChange}
+          />
         </Box>
       </Grid>
       <Grid item xs={1} md={9.5} lg={12}>
         <Box padding={1} paddingBottom={0}>
           <TextOverlayPreview
             text={time.toFormat(format)}
-            textDivCSS={textDivCSS}
+            textDivCSS={textStyle}
           />
           <OverlayExportPanel
             overlayDescription="Clock Overlay URL"
