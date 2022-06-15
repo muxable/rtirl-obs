@@ -1,9 +1,12 @@
-import { TextField, InputAdornment, IconButton, Tooltip } from "@mui/material";
-import { useState, useEffect } from "react";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import CheckIcon from "@mui/icons-material/Check";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import { IconButton, InputAdornment, TextField, Tooltip } from "@mui/material";
+import { getAnalytics, logEvent } from "firebase/analytics";
+import { useEffect, useState } from "react";
+import { firebaseApp } from "../firebase";
 
-export const CopyIconTextField = ({ value, multiline, row, label }) => {
+export const CopyIconTextField = ({ value, multiline, row, label, type }) => {
+  const analytics = getAnalytics(firebaseApp);
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
@@ -29,6 +32,11 @@ export const CopyIconTextField = ({ value, multiline, row, label }) => {
                 onClick={() => {
                   navigator.clipboard.writeText(value);
                   setCopied(true);
+                  if (type) {
+                    logEvent(analytics, "export_string", {
+                      type: type,
+                    });
+                  }
                 }}
               >
                 {copied ? <CheckIcon /> : <ContentCopyIcon />}

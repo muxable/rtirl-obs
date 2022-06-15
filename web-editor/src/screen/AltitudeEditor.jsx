@@ -54,6 +54,7 @@ function AltitudeEditor({ pullKey, onPullKeyChange }) {
             isExportable={pullKey.valid}
             streamElementExportable={false}
             url={url}
+            type="altitude_overlay"
           />
         </Box>
       </Grid>

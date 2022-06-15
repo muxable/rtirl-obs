@@ -172,6 +172,7 @@ function NeighborhoodEditor({ pullKey, onPullKeyChange }) {
             isExportable={pullKey.valid}
             streamElementExportable={false}
             url={formatURL()}
+            type="neighborhood_overlay"
           />
         </Box>
       </Grid>
