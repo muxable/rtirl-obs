@@ -9,7 +9,25 @@ function OverlayExportPanel({
   url,
   streamElementExportable,
   iFrameTag,
+  textDivCSS,
 }) {
+  const properties = [
+    `color: ${textDivCSS.textColor}`,
+    `font-size: ${textDivCSS.fontSize}px`,
+    `font-family: ${textDivCSS.fontFamily}`,
+    `font-weight: ${textDivCSS.isBold ? "bold" : "normal"}`,
+    `font-style: ${textDivCSS.isItalic ? "italic" : "normal"}`,
+    `transform: rotate(${textDivCSS.rotation}deg)`,
+    `background-color: ${textDivCSS.backgroundColor}`,
+    `border-color: ${textDivCSS.borderColor}`,
+    `border-width: ${textDivCSS.borderWidth}px`,
+    "border-style: solid",
+    `text-align: ${textDivCSS.textAlign}`,
+    `border-radius: ${textDivCSS.border_top_left_radius}% ${textDivCSS.border_top_right_radius}% ${textDivCSS.border_bottom_right_radius}% ${textDivCSS.border_bottom_left_radius}%`,
+    `padding: ${textDivCSS.padding}px`,
+  ].join(";\n");
+  const css = `@import url('https://fonts.googleapis.com/css2?family=${textDivCSS.fontFamily}&display=swap');
+  body {\n${properties}\n}`;
   return (
     <Box
       style={{
@@ -39,6 +57,12 @@ function OverlayExportPanel({
                 />
               </>
             )}
+            <CopyIconTextField
+              label="CSS"
+              value={css}
+              multiline={true}
+              row={3}
+            />
           </Stack>
         ) : (
           <Typography color="inherit">
