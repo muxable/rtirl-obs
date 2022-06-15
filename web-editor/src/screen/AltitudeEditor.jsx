@@ -59,7 +59,7 @@ function AltitudeEditor({
             isExportable={pullKey.valid}
             streamElementExportable={false}
             url={url}
-            textDivCSS={textDivCSS}
+            textDivCSS={textStyle}
             type="altitude_overlay"
           />
         </Box>

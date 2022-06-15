@@ -176,7 +176,7 @@ function NeighborhoodEditor({
             isExportable={pullKey.valid}
             streamElementExportable={false}
             url={formatURL()}
-            textDivCSS={textDivCSS}
+            textDivCSS={textStyle}
             type="neighborhood_overlay"
           />
         </Box>

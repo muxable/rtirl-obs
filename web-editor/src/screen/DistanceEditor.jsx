@@ -59,7 +59,7 @@ function DistanceEditor({
             isExportable={pullKey.valid}
             streamElementExportable={false}
             url={url}
-            textDivCSS={textDivCSS}
+            textDivCSS={textStyle}
             type="distance_overlay"
           />
         </Box>

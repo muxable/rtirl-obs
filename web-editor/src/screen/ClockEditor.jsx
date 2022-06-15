@@ -191,7 +191,7 @@ function ClockEditor({
             overlayDescription="Clock Overlay URL"
             isExportable={pullKey.valid}
             url={url}
-            textDivCSS={textDivCSS}
+            textDivCSS={textStyle}
             type="clock_overlay"
           />
         </Box>

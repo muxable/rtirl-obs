@@ -71,7 +71,7 @@ function HeadingEditor({
             overlayDescription="Heading Overlay URL"
             isExportable={pullKey.valid}
             url={url}
-            textDivCSS={textDivCSS}
+            textDivCSS={textStyle}
             type="heading_overlay"
           />
         </Box>

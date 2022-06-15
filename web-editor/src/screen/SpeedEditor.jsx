@@ -61,7 +61,7 @@ function SpeedEditor({
             overlayDescription="Speed Overlay URL"
             isExportable={pullKey.valid}
             url={url}
-            textDivCSS={textDivCSS}
+            textDivCSS={textStyle}
             type="speed_overlay"
           />
         </Box>
