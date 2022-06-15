@@ -68,6 +68,7 @@ function WeatherEditor({ pullKey, onPullKeyChange }) {
             overlayDescription="Weather Overlay URL"
             isExportable={pullKey.valid}
             url={url}
+            textDivCSS={textDivCSS}
             type="weather_overlay"
           />
         </Box>
