@@ -69,6 +69,7 @@ function WeatherEditor({ pullKey, onPullKeyChange }) {
             isExportable={pullKey.valid}
             url={url}
             textDivCSS={textDivCSS}
+            type="weather_overlay"
           />
         </Box>
       </Grid>

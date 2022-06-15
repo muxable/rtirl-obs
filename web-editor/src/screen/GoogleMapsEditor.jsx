@@ -52,6 +52,7 @@ export default function GoogleMapsEditor({ pullKey, onPullKeyChange }) {
                 overlayDescription="Goole Maps Overlay URL"
                 isExportable={pullKey.valid && apiKey && mapStyle.valid}
                 url={url}
+                type="google_maps_overlay"
               />
             </Stack>
           </Box>

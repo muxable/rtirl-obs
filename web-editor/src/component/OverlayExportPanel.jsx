@@ -10,6 +10,7 @@ function OverlayExportPanel({
   streamElementExportable,
   iFrameTag,
   textDivCSS,
+  type,
 }) {
   const properties = [
     `color: ${textDivCSS.textColor}`,
@@ -42,7 +43,12 @@ function OverlayExportPanel({
         <h2> {overlayDescription} </h2>
         {isExportable ? (
           <Stack spacing={2}>
-            <CopyIconTextField value={url} multiline={false} row={1} />
+            <CopyIconTextField
+              type={type}
+              value={url}
+              multiline={false}
+              row={1}
+            />
             {streamElementExportable && (
               <>
                 <h2> StreamElements iframe </h2>
@@ -51,6 +57,7 @@ function OverlayExportPanel({
                   have to provide your own Mapbox API Key.
                 </Typography>
                 <CopyIconTextField
+                  type={`${type}_iframe`}
                   value={iFrameTag}
                   multiline={false}
                   row={1}

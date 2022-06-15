@@ -75,6 +75,7 @@ export default function MapboxEditor({ pullKey, onPullKeyChange }) {
                 url={url}
                 streamElementExportable={true}
                 iFrameTag={iFrameTag}
+                type="mapbox_overlay"
               />
             </Stack>
           </Box>

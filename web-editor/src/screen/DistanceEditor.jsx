@@ -55,6 +55,7 @@ function DistanceEditor({ pullKey, onPullKeyChange }) {
             streamElementExportable={false}
             url={url}
             textDivCSS={textDivCSS}
+            type="distance_overlay"
           />
         </Box>
       </Grid>

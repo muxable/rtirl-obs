@@ -188,6 +188,7 @@ function ClockEditor({ pullKey, onPullKeyChange }) {
             isExportable={pullKey.valid}
             url={url}
             textDivCSS={textDivCSS}
+            type="clock_overlay"
           />
         </Box>
       </Grid>

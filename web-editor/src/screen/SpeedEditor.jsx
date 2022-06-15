@@ -57,6 +57,7 @@ function SpeedEditor({ pullKey, onPullKeyChange }) {
             isExportable={pullKey.valid}
             url={url}
             textDivCSS={textDivCSS}
+            type="speed_overlay"
           />
         </Box>
       </Grid>

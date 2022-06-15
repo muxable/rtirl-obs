@@ -173,6 +173,7 @@ function NeighborhoodEditor({ pullKey, onPullKeyChange }) {
             streamElementExportable={false}
             url={formatURL()}
             textDivCSS={textDivCSS}
+            type="neighborhood_overlay"
           />
         </Box>
       </Grid>

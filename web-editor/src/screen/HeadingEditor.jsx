@@ -67,6 +67,7 @@ function HeadingEditor({ pullKey, onPullKeyChange }) {
             isExportable={pullKey.valid}
             url={url}
             textDivCSS={textDivCSS}
+            type="heading_overlay"
           />
         </Box>
       </Grid>
