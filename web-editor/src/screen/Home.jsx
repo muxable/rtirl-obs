@@ -13,6 +13,7 @@ import speedImage from "../images/mph.svg";
 import neighborhoodImage from "../images/neighborhood.svg";
 import temperatureImage from "../images/temperature.svg";
 import homeTheme from "../theme/homeTheme";
+import cortexImage from "../images/cortex.png";
 
 const pages = [
   {
@@ -85,7 +86,7 @@ export const Home = (props) => {
             alignItems="center"
             justifyContent="center"
             spacing={{ xs: 1, sm: 1, md: 3 }}
-            sx={{ paddingTop: "2%" }}
+            sx={{ paddingTop: "2%", paddingBottom: "2%" }}
           >
             {pages.map((page, index) => (
               <Grid item xs={10} sm={5} md={3} key={index}>
@@ -96,6 +97,24 @@ export const Home = (props) => {
                 />
               </Grid>
             ))}
+          </Grid>
+          <Typography variant="h3" component="h4">
+            Community Overlays
+          </Typography>
+          <Grid
+            container
+            alignItems="center"
+            justifyContent="center"
+            spacing={{ xs: 1, sm: 1, md: 3 }}
+            sx={{ paddingTop: "2%", paddingBottom: "2%" }}
+          >
+            <Grid item xs={10} sm={5} md={3}>
+              <OverlayPreview
+                name={"Cortex's React-based Overlay System"}
+                href={"https://github.com/scallensc/react-realtimeirl"}
+                image={cortexImage}
+              />
+            </Grid>
           </Grid>
         </Container>
       </Box>
