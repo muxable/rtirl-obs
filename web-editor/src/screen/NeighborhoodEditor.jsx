@@ -1,18 +1,19 @@
 import { Box, Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import * as React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CountryPicker from "../component/CountryPicker";
 import MultipleSelect from "../component/MultipleSelect";
 import OverlayExportPanel from "../component/OverlayExportPanel";
 import PullKeyInput from "../component/PullKeyInput";
 import TextOverlayPreview from "../component/TextOverlayPreview";
 import { TextSettings } from "../component/TextSettings";
-import useStyle from "../hooks/useStyle";
 
-function NeighborhoodEditor({ pullKey, onPullKeyChange }) {
-  const [textDivCSS, setTextDivCSS] = useStyle();
+function NeighborhoodEditor({
+  pullKey,
+  onPullKeyChange,
+  textStyle,
+  onTextStyleChange,
+}) {
   const [selected, setSelected] = useState(["neighborhood", "place"]);
   const [lang, setLang] = useState("en");
 
@@ -161,18 +162,21 @@ function NeighborhoodEditor({ pullKey, onPullKeyChange }) {
           {/* Select Language */}
           <Typography>Language</Typography>
           <CountryPicker countries={countries} lang={lang} setLang={setLang} />
-          <TextSettings textDivCSS={textDivCSS} setTextDivCSS={setTextDivCSS} />
+          <TextSettings
+            textDivCSS={textStyle}
+            setTextDivCSS={onTextStyleChange}
+          />
         </Box>
       </Grid>
       <Grid item xs={1} md={9.5} lg={12}>
         <Box padding={1} paddingBottom={0}>
-          <TextOverlayPreview text={text} textDivCSS={textDivCSS} />
+          <TextOverlayPreview text={text} textDivCSS={textStyle} />
           <OverlayExportPanel
             overlayDescription="Neighborhood Overlay URL"
             isExportable={pullKey.valid}
             streamElementExportable={false}
             url={formatURL()}
-            textDivCSS={textDivCSS}
+            textDivCSS={textStyle}
             type="neighborhood_overlay"
           />
         </Box>

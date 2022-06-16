@@ -1,22 +1,24 @@
 import { Box, Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import * as React from "react";
 import { useState } from "react";
 import ExclusiveToggle from "../component/ExclusiveToggle";
 import OverlayExportPanel from "../component/OverlayExportPanel";
 import PullKeyInput from "../component/PullKeyInput";
 import TextOverlayPreview from "../component/TextOverlayPreview";
 import { TextSettings } from "../component/TextSettings";
-import useStyle from "../hooks/useStyle";
 
 const unitOptions = [
   { name: "Miles", value: "miles" },
   { name: "Kilometers", value: "km" },
 ];
 
-function DistanceEditor({ pullKey, onPullKeyChange }) {
+function DistanceEditor({
+  pullKey,
+  onPullKeyChange,
+  textStyle,
+  onTextStyleChange,
+}) {
   const [units, setUnits] = useState("miles");
-  const [textDivCSS, setTextDivCSS] = useStyle();
   const url = `https://overlays.rtirl.com/distance/${units}.html?key=${pullKey.value}`;
 
   return (
@@ -43,18 +45,21 @@ function DistanceEditor({ pullKey, onPullKeyChange }) {
             options={unitOptions}
             onOptionChange={setUnits}
           />
-          <TextSettings textDivCSS={textDivCSS} setTextDivCSS={setTextDivCSS} />
+          <TextSettings
+            textDivCSS={textStyle}
+            setTextDivCSS={onTextStyleChange}
+          />
         </Box>
       </Grid>
       <Grid item xs={1} md={9.5} lg={12}>
         <Box padding={1} paddingBottom={0}>
-          <TextOverlayPreview text={`32 ${units}`} textDivCSS={textDivCSS} />
+          <TextOverlayPreview text={`32 ${units}`} textDivCSS={textStyle} />
           <OverlayExportPanel
             overlayDescription="Distance Overlay URL"
             isExportable={pullKey.valid}
             streamElementExportable={false}
             url={url}
-            textDivCSS={textDivCSS}
+            textDivCSS={textStyle}
             type="distance_overlay"
           />
         </Box>

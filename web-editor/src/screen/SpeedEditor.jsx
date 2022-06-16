@@ -1,22 +1,24 @@
 import { Box, Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import * as React from "react";
 import { useState } from "react";
 import ExclusiveToggle from "../component/ExclusiveToggle";
 import OverlayExportPanel from "../component/OverlayExportPanel";
 import PullKeyInput from "../component/PullKeyInput";
 import TextOverlayPreview from "../component/TextOverlayPreview";
 import { TextSettings } from "../component/TextSettings";
-import useStyle from "../hooks/useStyle";
 
 const speedOptions = [
   { name: "MPH", value: "mph" },
   { name: "KPH", value: "kph" },
 ];
 
-function SpeedEditor({ pullKey, onPullKeyChange }) {
+function SpeedEditor({
+  pullKey,
+  onPullKeyChange,
+  textStyle,
+  onTextStyleChange,
+}) {
   const [units, setUnits] = useState("mph");
-  const [textDivCSS, setTextDivCSS] = useStyle();
   const url = `https://overlays.rtirl.com/speed/${units}.html?key=${pullKey.value}`;
 
   return (
@@ -43,20 +45,23 @@ function SpeedEditor({ pullKey, onPullKeyChange }) {
             options={speedOptions}
             onOptionChange={setUnits}
           />
-          <TextSettings textDivCSS={textDivCSS} setTextDivCSS={setTextDivCSS} />
+          <TextSettings
+            textDivCSS={textStyle}
+            setTextDivCSS={onTextStyleChange}
+          />
         </Box>
       </Grid>
       <Grid item xs={1} md={9.5} lg={12}>
         <Box padding={1} paddingBottom={0}>
           <TextOverlayPreview
             text={`1000 ${units.toUpperCase()}`}
-            textDivCSS={textDivCSS}
+            textDivCSS={textStyle}
           />
           <OverlayExportPanel
             overlayDescription="Speed Overlay URL"
             isExportable={pullKey.valid}
             url={url}
-            textDivCSS={textDivCSS}
+            textDivCSS={textStyle}
             type="speed_overlay"
           />
         </Box>
