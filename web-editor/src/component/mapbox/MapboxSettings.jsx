@@ -1,3 +1,4 @@
+import InfoIcon from "@mui/icons-material/Info";
 import KeyIcon from "@mui/icons-material/Key";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import StyleIcon from "@mui/icons-material/Style";
@@ -7,6 +8,7 @@ import {
   IconButton,
   InputAdornment,
   InputLabel,
+  Tooltip,
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
@@ -15,9 +17,11 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import CountryPicker from "../CountryPicker";
+import ExclusiveToggle from "../ExclusiveToggle";
 import PullKeyInput from "../PullKeyInput";
-import { StyleIDHelperDialog } from "../StyleIDHelperDialog";
 import { ZoomSlider } from "../ZoomSlider";
+import { AttributionDialog } from "./AttributionDialog";
+import { StyleIDHelperDialog } from "./StyleIDHelperDialog";
 
 export default function MapboxSettings({
   pullKey,
@@ -28,14 +32,21 @@ export default function MapboxSettings({
   onApiKeyChange,
   lang,
   setLang,
-  mapStyle,
-  setMapStyle,
   zoom,
   setZoom,
   fullscreen,
   setFullscreen,
+  attribution,
+  onAttributionChange,
+  mapLibrary,
+  onMapLibraryChange,
 }) {
   const [openStyleIDDialog, setOpenStyleIDDialog] = useState(false);
+  const [openAttributionDialog, setOpenAttributionDialog] = useState(false);
+  const libraries = [
+    { name: "Leaflet", value: "leaflet" },
+    { name: "Mapbox GL", value: "mapbox" },
+  ];
 
   return (
     <Box
@@ -169,8 +180,50 @@ export default function MapboxSettings({
             label="Fullscreen"
           />
         </Box>
+
+        <Box>
+          <ExclusiveToggle
+            name="Mapping Library"
+            selectedOption={mapLibrary}
+            options={libraries}
+            onOptionChange={onMapLibraryChange}
+          />
+
+          <Typography sx={{ p: 1 }}>
+            <InfoIcon style={{ verticalAlign: "middle" }} />
+            While both libraries use Mapbox tiles, Leaflet is more compatible
+            with streaming tools such as Prism Live, StreamLabs and
+            StreamElements.
+          </Typography>
+        </Box>
+
+        {mapLibrary === "leaflet" && (
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  defaultChecked
+                  value={attribution}
+                  onChange={(event) =>
+                    onAttributionChange(event.target.checked)
+                  }
+                />
+              }
+              label="Map Attribution"
+            />
+            <Tooltip title="About map attribution">
+              <IconButton onClick={() => setOpenAttributionDialog(true)}>
+                <InfoIcon />
+              </IconButton>
+            </Tooltip>
+          </Box>
+        )}
       </Stack>
 
+      <AttributionDialog
+        open={openAttributionDialog}
+        setOpen={setOpenAttributionDialog}
+      />
       <StyleIDHelperDialog
         open={openStyleIDDialog}
         setOpen={setOpenStyleIDDialog}
