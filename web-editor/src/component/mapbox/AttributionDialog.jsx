@@ -21,7 +21,7 @@ export const AttributionDialog = ({ open, setOpen }) => {
             need to add attribution manually to your stream.
           </Typography>
           <Typography paragraph>
-            {"Please review the "}
+            Please review the{" "}
             <Link href="https://docs.mapbox.com/help/getting-started/attribution/#static--print">
               Mapbox attribution requirements
             </Link>
