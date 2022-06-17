@@ -1,101 +1,119 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+      integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+      integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+      crossorigin=""
+    ></script>
+    <script src="https://unpkg.com/@rtirl/api@latest/lib/index.min.js"></script>
+  </head>
 
-<head>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-    crossorigin="" />
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-    crossorigin=""></script>
-  <script src="https://unpkg.com/@rtirl/api@latest/lib/index.min.js"></script>
-</head>
+  <style>
+    .alert {
+      display: none;
+      position: absolute;
+      top: 0px;
+      left: 8px;
+      width: 300px;
+      background-color: #f44336;
+      color: white;
+      z-index: 401;
+    }
+  </style>
 
-<style>
-.alert {
-  display: none;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  width: 300px;
-  background-color: #f44336;
-  color: white;
-  z-index: 401
-}
-</style>
-
-<body>
-  
-  <div style="position: relative">
+  <body>
     <div id="alert-box" class="alert"></div>
     <div id="map" style="width: 300px; height: 250px"></div>
-    <div id="marker" style="
-          background-color: cyan;
-          height: 12px;
-          width: 12px;
-          position: absolute;
-          border-radius: 50%;
-          top: 119px;
-          left: 144px;
-          box-shadow: 0 0 10px cyan;
-          z-index: 400;
-        "></div>
-  </div>
-  <script>
-    var params = new URLSearchParams(window.location.search);
-    if(params.get("fullscreen")) {
-        document.documentElement.setAttribute('style', 'margin: 0; padding: 0; width: 100%; height: 100%;');
-        document.body.setAttribute('style', 'margin: 0; padding: 0; width: 100%; height: 100%;');
-        document.getElementById('map').setAttribute('style', 'height: 100%; width: 100%;');
-        document.getElementById('marker').style.top = 'calc(50% - 6px)';
-        document.getElementById('marker').style.left = 'calc(50% - 6px)';
-    }
-    var zoom = params.get("zoom");
-    var map = L.map("map").setView([0, 0], zoom ? Number(zoom) : 13);
-    var layer = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-      accessToken: params.get("access_token"),
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> © <a href="https://www.mapbox.com/">Mapbox</a>',
-      id: params.get("style"),
-      tileSize: 512,
-      zoomOffset: -1,
-      zoom: zoom ? Number(zoom) : 13,
-    });
-    layer.addTo(map);
+    <div
+      id="marker"
+      style="
+        background-color: cyan;
+        height: 12px;
+        width: 12px;
+        position: absolute;
+        border-radius: 50%;
+        top: 119px;
+        left: 144px;
+        box-shadow: 0 0 10px cyan;
+        z-index: 400;
+      "
+    ></div>
+    <script>
+      var params = new URLSearchParams(window.location.search);
+      if (params.get("fullscreen")) {
+        document.documentElement.setAttribute(
+          "style",
+          "margin: 0; padding: 0; width: 100%; height: 100%;"
+        );
+        document.body.setAttribute(
+          "style",
+          "margin: 0; padding: 0; width: 100%; height: 100%;"
+        );
+        document
+          .getElementById("map")
+          .setAttribute("style", "height: 100%; width: 100%;");
+        document.getElementById("marker").style.top = "calc(50% - 6px)";
+        document.getElementById("marker").style.left = "calc(50% - 6px)";
+      }
 
-    layer.on('tileerror', handleTileError);
+      var zoom = params.get("zoom");
+      var map = L.map("map", {
+        attributionControl: false,
+        zoomControl: false,
+        dragging: false,
+      }).setView([0, 0], zoom ? Number(zoom) : 13);
+      const layer = L.tileLayer(
+        "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
+        {
+          accessToken: params.get("access_token"),
+          attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> © <a href="https://www.mapbox.com/">Mapbox</a>',
+          id: params.get("style"),
+          tileSize: 512,
+          zoomOffset: -1,
+          zoom: zoom ? Number(zoom) : 13,
+        }
+      );
+      layer.on("tileerror", handleTileError);
+      layer.addTo(map);
 
-    // Setting this through options does not seem to work
-    map.removeControl(map.zoomControl);
-    map.dragging.disable();
+      // Add attribution control unless user decides to hide it
+      if (params.get("attribution") !== "0") {
+        L.control.attribution({}).addTo(map);
+      }
 
-    const pullKey = new URLSearchParams(window.location.search).get("key");
-    RealtimeIRL.forPullKey(pullKey).addLocationListener(
-      function (location) {
+      const pullKey = new URLSearchParams(window.location.search).get("key");
+      RealtimeIRL.forPullKey(pullKey).addLocationListener(function (location) {
         map.panTo([location.latitude, location.longitude], {
           duration: 1.5,
         });
+      });
+
+      function handleTileError(error, tile) {
+        displayError(
+          "Error loading tile: Check your access token and map style."
+        );
+        console.log(error);
       }
-    );
 
-    function handleTileError(error, tile) {
-      displayError("Error loading tile: Check your access token and map style.");
-      console.log(error);
-    }
+      function displayError(errorMessage) {
+        var x = document.getElementById("alert-box");
+        x.style.display = "block";
+        x.innerText = errorMessage;
+        setTimeout(hideError, 30000);
+      }
 
-    function displayError(errorMessage) {
-      var x = document.getElementById("alert-box");
-      x.style.display = "block";
-      x.innerText = errorMessage;
-      setTimeout(hideError, 30000);
-    }
-
-    function hideError() {
-      var x = document.getElementById("alert-box");
-      x.style.display = "none";
-    }
-  </script>
-</body>
-
+      function hideError() {
+        var x = document.getElementById("alert-box");
+        x.style.display = "none";
+      }
+    </script>
+  </body>
 </html>
