@@ -3,13 +3,13 @@
   <head>
     <link
       rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+      integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
       crossorigin=""
     />
     <script
-      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+      src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+      integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
       crossorigin=""
     ></script>
   </head>
@@ -19,9 +19,7 @@
       display: none;
       position: absolute;
       top: 0px;
-      left: 0px;
-      padding-top: 5px;
-      padding-bottom: 5px;
+      left: 8px;
       width: 300px;
       background-color: #f44336;
       color: white;
@@ -30,58 +28,65 @@
   </style>
 
   <body>
-    <div style="position: relative">
-      <div id="alert-box" class="alert"></div>
-      <div id="map" style="width: 300px; height: 250px"></div>
-      <div
-        id="marker"
-        style="
-          background-color: cyan;
-          height: 12px;
-          width: 12px;
-          position: absolute;
-          border-radius: 50%;
-          top: 119px;
-          left: 144px;
-          box-shadow: 0 0 10px cyan;
-          z-index: 400;
-        "
-      ></div>
-    </div>
+    <div id="alert-box" class="alert"></div>
+    <div id="map" style="width: 300px; height: 250px"></div>
+    <div
+      id="marker"
+      style="
+        background-color: cyan;
+        height: 12px;
+        width: 12px;
+        position: absolute;
+        border-radius: 50%;
+        top: 119px;
+        left: 144px;
+        box-shadow: 0 0 10px cyan;
+        z-index: 400;
+      "
+    ></div>
     <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js";
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js";
       import {
         forceWebSockets,
         getDatabase,
         ref,
         onValue,
         child,
-      } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-database.js";
+      } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-database.js";
 
       var params = new URLSearchParams(window.location.search);
       const pullKey = params.get("key");
       const mapboxToken = params.get("access_token");
 
       var app;
-      var map = L.map("map").setView([0, 0], 13);
-      L.tileLayer(
+      var map = L.map("map", {
+        attributionControl: false,
+        zoomControl: false,
+        dragging: false,
+      }).setView([0, 0], 13);
+      const layer = L.tileLayer(
         "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
         {
           accessToken: mapboxToken,
-          attribution: '© <a href="https://www.mapbox.com/">Mapbox</a>',
+          attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> © <a href="https://www.mapbox.com/">Mapbox</a>',
           id: params.get("style"),
           tileSize: 512,
           zoomOffset: -1,
           zoom: 13,
         }
-      ).addTo(map);
+      );
+      layer.on("tileerror", handleTileError);
+      layer.addTo(map);
 
-      // Setting this through options does not seem to work
-      map.removeControl(map.zoomControl);
-      map.dragging.disable();
+      // Add attribution control unless user decides to hide it
+      if (params.get("attribution") !== "0") {
+        L.control.attribution({}).addTo(map);
+      }
 
       addEventListener("load", onReady);
 
+      // RTIRL pull mechanism
       function onReady() {
         forceWebSockets();
         app = initializeApp(
@@ -113,6 +118,26 @@
         return onValue(pullables, (snapshot) => {
           callback(snapshot.val());
         });
+      }
+
+      // Handle tile errors
+      function handleTileError(error, tile) {
+        displayError(
+          "Error loading tile: Check your access token and map style."
+        );
+        console.log(error);
+      }
+
+      function displayError(errorMessage) {
+        var x = document.getElementById("alert-box");
+        x.style.display = "block";
+        x.innerText = errorMessage;
+        setTimeout(hideError, 30000);
+      }
+
+      function hideError() {
+        var x = document.getElementById("alert-box");
+        x.style.display = "none";
       }
     </script>
   </body>
