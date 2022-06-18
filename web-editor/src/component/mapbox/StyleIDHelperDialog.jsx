@@ -34,8 +34,8 @@ export const StyleIDHelperDialog = ({ open, setOpen }) => {
           with OBS, however most mapping providers require displaying
           attribution, even when used in non-interactive video. Verify you are
           meeting the relevant attribution requirements for your mapping
-          provider. RealtimeIRL does not provide legal support if you are
-          contacted regarding an attribution violation.
+          provider. Muxable does not provide legal support if you are contacted
+          regarding an attribution violation.
           <br />
           <br />
           Please review the <br />

@@ -12,18 +12,24 @@ export default function MapboxEditor({ pullKey, onPullKeyChange }) {
   const [apiKey, setAPIKey] = useState(
     "pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2w0MW1qaTh3MG80dzNjcXRndmJ0a2JieiJ9.Y_xABmAqvD-qZeed8MabxQ"
   );
+  const [mapLibrary, setMapLibrary] = useState("leaflet");
   const [styleId, setStyleID] = useState("mapbox/streets-v11");
   const [zoom, setZoom] = useState(5);
   const [fullscreen, setFullscreen] = useState(false);
+  const [attribution, setAttribution] = useState(false);
   const [lang, setLang] = useState("en");
   const [validStyle, setValidStyle] = useState(true);
-  const url = `https://overlays.rtirl.com/mapbox.html?key=${
+  const url = `https://overlays.rtirl.com/${mapLibrary}.html?key=${
     pullKey.value
   }&access_token=${apiKey}&style=${styleId}&zoom=${zoom}&lang=${lang}${
     fullscreen ? "&fullscreen=1" : ""
-  }`;
+  }&attribution=${attribution ? "1" : "0"}`;
   const iFrameTag = `<iframe height="100%" width="100%" frameborder="0" 
-  src="https://overlays.rtirl.com/compat.html?key=${pullKey.value}&access_token=${apiKey}&style=${styleId}"> </iframe>`;
+  src="https://overlays.rtirl.com/compat.html?key=${
+    pullKey.value
+  }&access_token=${apiKey}&style=${styleId}&attribution=${
+    attribution ? "1" : "0"
+  }"> </iframe>`;
 
   useEffect(() => {
     fetch(`https://api.mapbox.com/styles/v1/${styleId}?access_token=${apiKey}`)
@@ -49,12 +55,14 @@ export default function MapboxEditor({ pullKey, onPullKeyChange }) {
           onApiKeyChange={setAPIKey}
           lang={lang}
           setLang={setLang}
-          mapStyle={mapStyle}
-          setMapStyle={setMapStyle}
           zoom={zoom}
           setZoom={setZoom}
           fullscreen={fullscreen}
           setFullscreen={setFullscreen}
+          mapLibrary={mapLibrary}
+          onMapLibraryChange={setMapLibrary}
+          attribution={attribution}
+          onAttributionChange={setAttribution}
         />
       </Grid>
       <Grid item xs={1} md={9.5} lg={12}>
