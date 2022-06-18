@@ -161,7 +161,6 @@ export default function MapboxSettings({
           <FormControlLabel
             control={
               <Checkbox
-                defaultChecked
                 value={fullscreen}
                 onChange={(event) => setFullscreen(event.target.checked)}
               />

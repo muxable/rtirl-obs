@@ -149,7 +149,6 @@ export const GoogleMapsSettings = ({
           <FormControlLabel
             control={
               <Checkbox
-                defaultChecked
                 value={fullscreen}
                 onChange={(event) => setFullscreen(event.target.checked)}
               />
