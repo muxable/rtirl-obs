@@ -24,19 +24,25 @@ function NeighborhoodEditor({
     var formatStr = "";
     /* eslint-disable */
     const mp = {
-      neighborhood: "${data.neighborhood ? data.neighborhood.text + ' ' : ''}",
-      region: "${data.region ? data.region.text + ' ' : ''}",
-      country: "${data.country ? data.country.text + ' ' : ''}",
-      place: "${data.place ? data.place.text + ' ' : ''}",
-      postcode: "${data.postcode ? data.postcode.text + ' ' : ''}",
-      district: "${data.district ? data.district.text + ' ' : ''}",
-      locality: "${data.locality ? data.locality.text + ' ' : ''}",
-      poi: "${data.poi ? data.poi.text + ' ' : ''}",
-      address: "${data.address ? data.address.text + ' ' : ''}",
+      neighborhood: "${data.neighborhood ? data.neighborhood.text + ', ' : ''}",
+      region: "${data.region ? data.region.text + ', ' : ''}",
+      country: "${data.country ? data.country.text + ', ' : ''}",
+      place: "${data.place ? data.place.text + ', ' : ''}",
+      postcode: "${data.postcode ? data.postcode.text + ', ' : ''}",
+      district: "${data.district ? data.district.text + ', ' : ''}",
+      locality: "${data.locality ? data.locality.text + ', ' : ''}",
+      poi: "${data.poi ? data.poi.text + ', ' : ''}",
+      address: "${data.address ? data.address.text + ', ' : ''}",
     };
     /* eslint-enable */
-    for (var param of selected) {
-      formatStr += encodeURIComponent(mp[param]);
+    for (let i = 0; i < selected.length; i++) {
+      var param = selected[i];
+      if (i !== selected.length - 1) {
+        formatStr += encodeURIComponent(mp[param]);
+      } else {
+        var last = `\${data.${param} ? data.${param}.text : ''}`;
+        formatStr += encodeURIComponent(last);
+      }
     }
     return base + formatStr;
   };
