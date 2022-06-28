@@ -7,6 +7,8 @@ import FormatItalicIcon from "@mui/icons-material/FormatItalic";
 import FormatSizeIcon from "@mui/icons-material/FormatSize";
 import PaddingIcon from "@mui/icons-material/Padding";
 import RotateLeftIcon from "@mui/icons-material/RotateLeft";
+import ColorLensIcon from "@mui/icons-material/ColorLens";
+import BorderOuterIcon from "@mui/icons-material/BorderOuter";
 import {
   Divider,
   IconButton,
@@ -18,6 +20,7 @@ import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import Stack from "@mui/material/Stack";
 import React from "react";
+import BorderRadiusPicker from "./BorderRadiusPicker";
 import ColorPickerToggle from "./ColorPickerToggle";
 import FontPicker from "./FontPicker";
 
@@ -223,9 +226,9 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
         {/* border */}
         <Stack spacing={1}>
           <label> Border </label>
-          <Stack direction={"row"} spacing={1}>
+          <Stack direction={"row"} spacing={3}>
             <Input
-              style={{ marginLeft: "4px", width: "84px" }}
+              disableUnderline
               type="number"
               value={textDivCSS.borderWidth}
               onChange={(e) => {
@@ -234,12 +237,18 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
                   borderWidth: e.target.value,
                 });
               }}
+              startAdornment={
+                <InputAdornment position="start">
+                  <Tooltip title="Border Width">
+                    <BorderOuterIcon />
+                  </Tooltip>
+                </InputAdornment>
+              }
               endAdornment={<InputAdornment position="end">px</InputAdornment>}
             />
-
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
-              <Tooltip title="Background Color">
-                <FormatColorFillIcon />
+            <Box sx={{ display: "flex" }}>
+              <Tooltip title="Border Color">
+                <ColorLensIcon />
               </Tooltip>
               <ColorPickerToggle
                 color={textDivCSS.borderColor}
@@ -252,71 +261,10 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
               />
             </Box>
           </Stack>
-
-          <Stack direction={"row"} spacing={2}>
-            <Tooltip title="Border Radius Top Left">
-              <Slider
-                size="small"
-                defaultValue={100}
-                value={textDivCSS.border_top_left_radius}
-                valueLabelDisplay="auto"
-                color="text"
-                onChange={(e, value) => {
-                  setTextDivCSS({
-                    ...textDivCSS,
-                    border_top_left_radius: value,
-                  });
-                }}
-              />
-            </Tooltip>
-            <Tooltip title="Border Radius Top Right">
-              <Slider
-                size="small"
-                defaultValue={100}
-                value={textDivCSS.border_top_right_radius}
-                valueLabelDisplay="auto"
-                color="text"
-                onChange={(e, value) => {
-                  setTextDivCSS({
-                    ...textDivCSS,
-                    border_top_right_radius: value,
-                  });
-                }}
-              />
-            </Tooltip>
-          </Stack>
-          <Stack direction={"row"} spacing={2}>
-            <Tooltip title="Border Radius Bottom Left">
-              <Slider
-                size="small"
-                defaultValue={100}
-                value={textDivCSS.border_bottom_left_radius}
-                valueLabelDisplay="auto"
-                color="text"
-                onChange={(e, value) => {
-                  setTextDivCSS({
-                    ...textDivCSS,
-                    border_bottom_left_radius: value,
-                  });
-                }}
-              />
-            </Tooltip>
-            <Tooltip title="Border Radius Bottom Right">
-              <Slider
-                size="small"
-                defaultValue={100}
-                value={textDivCSS.border_bottom_right_radius}
-                valueLabelDisplay="auto"
-                color="text"
-                onChange={(e, value) => {
-                  setTextDivCSS({
-                    ...textDivCSS,
-                    border_bottom_right_radius: value,
-                  });
-                }}
-              />
-            </Tooltip>
-          </Stack>
+          <BorderRadiusPicker
+            textDivCSS={textDivCSS}
+            setTextDivCSS={setTextDivCSS}
+          />
         </Stack>
         <Stack></Stack>
       </Stack>
