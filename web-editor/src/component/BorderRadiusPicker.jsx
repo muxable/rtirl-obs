@@ -2,6 +2,8 @@ import { Stack, Tooltip, Input, InputAdornment } from "@mui/material";
 import React from "react";
 import BorderStyleIcon from "@mui/icons-material/BorderStyle";
 
+const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
+
 function BorderRadiusPicker({ textDivCSS, setTextDivCSS }) {
   return (
     <>
@@ -13,7 +15,7 @@ function BorderRadiusPicker({ textDivCSS, setTextDivCSS }) {
           onChange={(e) => {
             setTextDivCSS({
               ...textDivCSS,
-              border_top_left_radius: e.target.value,
+              border_top_left_radius: clamp(e.target.value, 0, 100),
             });
           }}
           endAdornment={<InputAdornment position="end">%</InputAdornment>}
@@ -32,7 +34,7 @@ function BorderRadiusPicker({ textDivCSS, setTextDivCSS }) {
           onChange={(e) => {
             setTextDivCSS({
               ...textDivCSS,
-              border_top_right_radius: e.target.value,
+              border_top_right_radius: clamp(e.target.value, 0, 100),
             });
           }}
           endAdornment={<InputAdornment position="end">%</InputAdornment>}
@@ -48,13 +50,19 @@ function BorderRadiusPicker({ textDivCSS, setTextDivCSS }) {
 
       <Stack direction={"row"} spacing={3}>
         <Input
+          InputProps={{
+            inputProps: {
+              max: 100,
+              min: 0,
+            },
+          }}
           disableUnderline
           type="number"
           value={textDivCSS.border_bottom_left_radius}
           onChange={(e) => {
             setTextDivCSS({
               ...textDivCSS,
-              border_bottom_left_radius: e.target.value,
+              border_bottom_left_radius: clamp(e.target.value, 0, 100),
             });
           }}
           endAdornment={<InputAdornment position="end">%</InputAdornment>}
@@ -73,7 +81,7 @@ function BorderRadiusPicker({ textDivCSS, setTextDivCSS }) {
           onChange={(e) => {
             setTextDivCSS({
               ...textDivCSS,
-              border_bottom_right_radius: e.target.value,
+              border_bottom_right_radius: clamp(e.target.value, 0, 100),
             });
           }}
           endAdornment={<InputAdornment position="end">%</InputAdornment>}
