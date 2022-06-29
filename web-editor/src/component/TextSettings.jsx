@@ -2,7 +2,6 @@ import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
 import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
 import FormatAlignRightIcon from "@mui/icons-material/FormatAlignRight";
 import FormatBoldIcon from "@mui/icons-material/FormatBold";
-import FormatColorFillIcon from "@mui/icons-material/FormatColorFill";
 import FormatItalicIcon from "@mui/icons-material/FormatItalic";
 import FormatSizeIcon from "@mui/icons-material/FormatSize";
 import PaddingIcon from "@mui/icons-material/Padding";
@@ -17,7 +16,6 @@ import {
   Tooltip,
 } from "@mui/material";
 import Box from "@mui/material/Box";
-import Slider from "@mui/material/Slider";
 import Stack from "@mui/material/Stack";
 import React from "react";
 import BorderRadiusPicker from "./BorderRadiusPicker";
@@ -38,48 +36,46 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
         {/* fonts */}
         <Stack spacing={1}>
           <label> Font </label>
-          <Stack direction={"row"} spacing={2}>
-            <Input
-              style={{ marginLeft: "4px", width: "84px" }}
-              type="number"
-              value={textDivCSS.fontSize}
-              onChange={(e) => {
+          <Input
+            style={{ width: "110px" }}
+            disableUnderline
+            type="number"
+            value={textDivCSS.fontSize}
+            onChange={(e) => {
+              setTextDivCSS({
+                ...textDivCSS,
+                fontSize: e.target.value,
+              });
+            }}
+            endAdornment={<InputAdornment position="end">px</InputAdornment>}
+            startAdornment={
+              <InputAdornment position="start">
+                <Tooltip title="Font Size">
+                  <FormatSizeIcon />
+                </Tooltip>
+              </InputAdornment>
+            }
+          />
+
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
+            <Tooltip title="Text Color">
+              <ColorLensIcon />
+            </Tooltip>
+            <ColorPickerToggle
+              color={textDivCSS.textColor}
+              setColor={(color) => {
                 setTextDivCSS({
                   ...textDivCSS,
-                  fontSize: e.target.value,
+                  textColor: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`,
                 });
               }}
-              endAdornment={<InputAdornment position="end">px</InputAdornment>}
-              startAdornment={
-                <InputAdornment position="start">
-                  <Tooltip title="Font Size">
-                    <FormatSizeIcon />
-                  </Tooltip>
-                </InputAdornment>
-              }
             />
-
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-              }}
-            >
-              <Tooltip title="Text Color">
-                <FormatColorFillIcon />
-              </Tooltip>
-              <ColorPickerToggle
-                color={textDivCSS.textColor}
-                setColor={(color) => {
-                  setTextDivCSS({
-                    ...textDivCSS,
-                    textColor: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`,
-                  });
-                }}
-              />
-            </Box>
-          </Stack>
+          </Box>
           <FontPicker
             apiKey="AIzaSyCNxjzD_cGkwlE-6OgL3JsAJuCcnh6SWG8"
             activeFontFamily={textDivCSS.fontFamily}
@@ -92,6 +88,17 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
           />
 
           <Stack direction="row">
+            {/* <ToggleButtonGroup>
+              <ToggleButton value="laptop">
+                <LaptopIcon />
+              </ToggleButton>
+              <ToggleButton value="tv">
+                <TvIcon />
+              </ToggleButton>
+              <ToggleButton value="phone">
+                <PhoneAndroidIcon />
+              </ToggleButton>
+            </ToggleButtonGroup> */}
             <IconButton
               color={textDivCSS.isBold ? "secondary" : "default"}
               onClick={() => {
@@ -165,62 +172,62 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
         {/* background */}
         <Stack spacing={1}>
           <label> Background </label>
-          <Stack direction={"row"} spacing={2}>
-            <Input
-              style={{ marginLeft: "4px", width: "100px" }}
-              type="number"
-              value={textDivCSS.rotation}
-              onChange={(e) => {
-                setTextDivCSS({
-                  ...textDivCSS,
-                  rotation: e.target.value % 360,
-                });
-              }}
-              endAdornment={<InputAdornment position="end">deg</InputAdornment>}
-              startAdornment={
-                <InputAdornment position="start">
-                  <Tooltip title="Rotation">
-                    <RotateLeftIcon />
-                  </Tooltip>
-                </InputAdornment>
-              }
-            />
+          <Input
+            disableUnderline
+            style={{ width: "110px" }}
+            type="number"
+            value={textDivCSS.rotation}
+            onChange={(e) => {
+              setTextDivCSS({
+                ...textDivCSS,
+                rotation: e.target.value % 360,
+              });
+            }}
+            endAdornment={<InputAdornment position="end">deg</InputAdornment>}
+            startAdornment={
+              <InputAdornment position="start">
+                <Tooltip title="Rotation">
+                  <RotateLeftIcon />
+                </Tooltip>
+              </InputAdornment>
+            }
+          />
 
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
-              <Tooltip title="Background Color">
-                <FormatColorFillIcon />
-              </Tooltip>
-              <ColorPickerToggle
-                color={textDivCSS.backgroundColor}
-                setColor={(color) => {
-                  setTextDivCSS({
-                    ...textDivCSS,
-                    backgroundColor: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`,
-                  });
-                }}
-              />
-            </Box>
-          </Stack>
+          <Input
+            disableUnderline
+            style={{ width: "110px" }}
+            type="number"
+            value={textDivCSS.padding}
+            onChange={(e) => {
+              setTextDivCSS({
+                ...textDivCSS,
+                padding: parseInt(e.target.value),
+              });
+            }}
+            endAdornment={<InputAdornment position="end"> px </InputAdornment>}
+            startAdornment={
+              <InputAdornment position="start">
+                <Tooltip title="Padding">
+                  <PaddingIcon />
+                </Tooltip>
+              </InputAdornment>
+            }
+          />
 
-          <Stack direction={"row"} spacing={2}>
-            <Tooltip title="Padding">
-              <PaddingIcon />
+          <Box sx={{ display: "flex" }}>
+            <Tooltip title="Background Color">
+              <ColorLensIcon />
             </Tooltip>
-            <Slider
-              size="small"
-              defaultValue={100}
-              value={textDivCSS.padding}
-              valueLabelDisplay="auto"
-              valueLabelFormat={(x) => `${x} px`}
-              color="text"
-              onChange={(e, value) => {
+            <ColorPickerToggle
+              color={textDivCSS.backgroundColor}
+              setColor={(color) => {
                 setTextDivCSS({
                   ...textDivCSS,
-                  padding: value,
+                  backgroundColor: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`,
                 });
               }}
             />
-          </Stack>
+          </Box>
         </Stack>
 
         {/* border */}
