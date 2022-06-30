@@ -3,18 +3,13 @@ import HansonBold from "../fonts/Hanson-Bold.ttf";
 import OskariBook from "../fonts/OskariG2-Book.ttf";
 
 let homeTheme = createTheme({
-  palette: {
-    background: {
-      default: "rgba(223, 251, 38, 0.6)",
-    },
-  },
   typography: {
     fontFamily: "Oskari G2, Arial",
     h2: {
       fontFamily: "Hanson, Arial",
     },
     allVariants: {
-      color: "black",
+      color: "white",
     },
   },
   components: {
