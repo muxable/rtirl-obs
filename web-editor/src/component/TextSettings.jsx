@@ -88,17 +88,6 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
           />
 
           <Stack direction="row">
-            {/* <ToggleButtonGroup>
-              <ToggleButton value="laptop">
-                <LaptopIcon />
-              </ToggleButton>
-              <ToggleButton value="tv">
-                <TvIcon />
-              </ToggleButton>
-              <ToggleButton value="phone">
-                <PhoneAndroidIcon />
-              </ToggleButton>
-            </ToggleButtonGroup> */}
             <IconButton
               color={textDivCSS.isBold ? "secondary" : "default"}
               onClick={() => {
