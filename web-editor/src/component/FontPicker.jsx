@@ -149,9 +149,10 @@ export default class FontPicker extends React.PureComponent {
     fonts.sort((font1, font2) => font1.family.localeCompare(font2.family));
 
     return (
-      <FormControl color="text">
+      <FormControl color="text" variant="standard">
         <InputLabel id="select-language-label"> Font Family </InputLabel>
         <Select
+          disableUnderline
           label="Font Family"
           value={loadingStatus === "finished" ? activeFontFamily : ""}
           onChange={(e) => this.onSelection(e)}
