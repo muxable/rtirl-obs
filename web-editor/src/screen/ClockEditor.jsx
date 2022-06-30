@@ -149,6 +149,8 @@ function ClockEditor({
           <Typography>Format</Typography>
           <Select
             fullWidth
+            disableUnderline
+            variant="standard"
             label="Format"
             value={time.toFormat(format)}
             MenuProps={{
