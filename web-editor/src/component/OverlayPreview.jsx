@@ -7,9 +7,7 @@ import { Link } from "react-router-dom";
 
 export const OverlayPreview = ({ name, route, href, image }) => {
   const content = (
-    <Card
-      square={true}
-    >
+    <Card square={true}>
       <CardMedia
         component="img"
         height="270"
