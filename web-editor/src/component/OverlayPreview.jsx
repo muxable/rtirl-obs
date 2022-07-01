@@ -9,11 +9,6 @@ export const OverlayPreview = ({ name, route, href, image }) => {
   const content = (
     <Card
       square={true}
-      sx={{
-        ":hover": {
-          boxShadow: 20,
-        },
-      }}
     >
       <CardMedia
         component="img"
