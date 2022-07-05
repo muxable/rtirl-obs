@@ -1,10 +1,10 @@
 import { Box, Container, CssBaseline, Grid, Typography } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
-import * as React from "react";
-import { HomeBackground } from "../component/HomeBackground";
 import { OverlayPreview } from "../component/OverlayPreview";
 import altitudeImage from "../images/altitude.svg";
+import backgroundImage from "../images/background.png";
 import clockImage from "../images/clock.svg";
+import cortexImage from "../images/cortex.png";
 import distanceImage from "../images/distance.svg";
 import googleMapsImage from "../images/google_maps.jpg";
 import headingImage from "../images/heading.svg";
@@ -13,7 +13,6 @@ import speedImage from "../images/mph.svg";
 import neighborhoodImage from "../images/neighborhood.svg";
 import temperatureImage from "../images/temperature.svg";
 import homeTheme from "../theme/homeTheme";
-import cortexImage from "../images/cortex.png";
 
 const pages = [
   {
@@ -73,6 +72,9 @@ export const Home = (props) => {
         justifyContent="center"
         alignItems="center"
         minHeight="100vh"
+        sx={{
+          backgroundImage: `url(${backgroundImage})`,
+        }}
       >
         <Container>
           <Typography variant="h2" component="h2" paddingTop={6}>
@@ -118,7 +120,6 @@ export const Home = (props) => {
           </Grid>
         </Container>
       </Box>
-      <HomeBackground />
     </ThemeProvider>
   );
 };

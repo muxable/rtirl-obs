@@ -7,14 +7,7 @@ import { Link } from "react-router-dom";
 
 export const OverlayPreview = ({ name, route, href, image }) => {
   const content = (
-    <Card
-      square={true}
-      sx={{
-        ":hover": {
-          boxShadow: 20,
-        },
-      }}
-    >
+    <Card square={true}>
       <CardMedia
         component="img"
         height="270"
@@ -23,8 +16,8 @@ export const OverlayPreview = ({ name, route, href, image }) => {
         alt={name}
         sx={{ backgroundColor: "black" }}
       />
-      <CardActions>
-        <Typography variant="h6" component="div" align="left">
+      <CardActions sx={{ backgroundColor: "#DFFB26" }}>
+        <Typography variant="h6" component="div" align="left" color="black">
           {name}
         </Typography>
       </CardActions>
