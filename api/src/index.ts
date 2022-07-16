@@ -86,6 +86,18 @@ export function forPullKey(pullKey: string) {
       });
     },
     /**
+     * This listener is useful for accessing unstructured data associated with
+     * the pull key. It includes the above fields as well as other fields such
+     * as bluetooth heart rate or telemetry data.
+     */
+    addListener(callback: (data: any) => void) {
+      logEvent(analytics, "listener", { type: "root", pullKey });
+      return onValue(reference, (snapshot) => {
+        callback(snapshot.val());
+        logEvent(analytics, "data", { type: "root", pullKey });
+      });
+    },
+    /**
      * This listener detects changes in the active session id. When a streamer
      * goes online, a new session id is created and this listener is triggered.
      * null sessionId's indicate the streamer is offline. Note that it is
