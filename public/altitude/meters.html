@@ -19,7 +19,6 @@
 
       if (font) {
         const decodedFont = atob(font);
-        console.log("decodedFont:", decodedFont);
         const importFontFamily = document.createElement("link");
         importFontFamily.href = decodedFont;
         importFontFamily.type = "text/css";
@@ -33,7 +32,6 @@
       if (css) {
         document.body.setAttribute("style", css);
         const decodedCSS = atob(css);
-        console.log("decodedCSS", decodedCSS);
         document.getElementsByTagName("body")[0].style = decodedCSS;
       }
 
