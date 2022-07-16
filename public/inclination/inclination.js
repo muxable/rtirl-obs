@@ -23,7 +23,7 @@ RealtimeIRL.forPullKey(key).addListener(
             inclination = 0.0;
         }
 
-        document.getElementById("text").innerText = inclination.toFixed(1) + unit;
+        document.getElementById("text").innerText = inclination.toFixed(1) + "%";
 
         // Shifting new points to old for next update
         gps.old.latitude = gps.new.latitude;
