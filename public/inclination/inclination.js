@@ -23,7 +23,6 @@ RealtimeIRL.forPullKey(key).addListener(
             inclination = 0.0;
         }
 
-        //document.getElementById("text").innerText = JSON.stringify(data);
         document.getElementById("text").innerText = inclination.toFixed(1) + unit;
 
         // Shifting new points to old for next update
