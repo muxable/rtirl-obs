@@ -62,7 +62,7 @@ const pages = [
     image: altitudeImage,
   },
   {
-    name: "Inclination by SpreZZy",
+    name: "Inclination by sprEEEzy",
     route: "/inclination",
     image: inclinationImage,
   },
