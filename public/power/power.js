@@ -6,6 +6,7 @@ var target;
 var gauge;
 var powerLossPercentage = 3; //Not all of the power that you produce when cycling is transferred directly to the wheels. 3% default.
 var gps = { old: { latitude: 0.0, longitude: 0.0, altitude: 0.0, speed: 0.0, time: 0, wattage: 0 }, new: { latitude: 0.0, longitude: 0.0, altitude: 0.0, speed: 0.0, time: 0, wattage: 0 } };
+var timer;
 
 // Get user options
 var params = new URLSearchParams(window.location.search);
@@ -48,6 +49,8 @@ RealtimeIRL.forPullKey(key).addListener(
         gps.new.altitude = data.altitude.EGM96;
         gps.new.speed = data.speed;
         gps.new.time = data.updatedAt;
+
+        clearTimeout(timer);
 
         // We have new gps points. Let's calculate the delta distance using previously saved gps points (IN METERS)
         delta = distanceInKmBetweenEarthCoordinates(gps.new.latitude, gps.new.longitude, gps.old.latitude, gps.old.longitude) * 1000;
@@ -98,6 +101,11 @@ RealtimeIRL.forPullKey(key).addListener(
         gps.old.altitude = gps.new.altitude;
         gps.old.speed = gps.new.speed;
         gps.old.time = gps.new.time;
+
+        timer = setTimeout(() => {
+            document.getElementById("text").innerText = 0 + "W";
+            gauge.set(0);
+        }, 10000);
     }
 );
 
