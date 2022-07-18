@@ -60,6 +60,11 @@ const pages = [
     route: "/altitude",
     image: altitudeImage,
   },
+  {
+    name: "Inclination by SpreZZy",
+    route: "/inclination",
+    image: headingImage,
+  },
 ];
 
 export const Home = (props) => {
