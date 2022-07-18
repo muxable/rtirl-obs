@@ -39,7 +39,7 @@ function InclinationEditor({
       </Grid>
       <Grid item xs={1} md={9.5} lg={12}>
         <Box padding={1} paddingBottom={0}>
-          <TextOverlayPreview text={"15%"} textDivCSS={textStyle} />
+          <TextOverlayPreview text={"12%"} textDivCSS={textStyle} />
           <OverlayExportPanel
             overlayDescription="Inclination Overlay URL"
             isExportable={pullKey.valid}

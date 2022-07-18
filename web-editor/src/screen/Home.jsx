@@ -8,6 +8,7 @@ import cortexImage from "../images/cortex.png";
 import distanceImage from "../images/distance.svg";
 import googleMapsImage from "../images/google_maps.jpg";
 import headingImage from "../images/heading.svg";
+import inclinationImage from "../images/inclination.svg";
 import mapboxImage from "../images/mapbox.jpg";
 import speedImage from "../images/mph.svg";
 import neighborhoodImage from "../images/neighborhood.svg";
@@ -63,7 +64,7 @@ const pages = [
   {
     name: "Inclination by SpreZZy",
     route: "/inclination",
-    image: headingImage,
+    image: inclinationImage,
   },
 ];
 
