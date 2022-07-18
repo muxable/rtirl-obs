@@ -14,6 +14,7 @@ import DistanceEditor from "./screen/DistanceEditor";
 import GoogleMapsEditor from "./screen/GoogleMapsEditor";
 import HeadingEditor from "./screen/HeadingEditor";
 import { Home } from "./screen/Home";
+import InclinationEditor from "./screen/InclinationEditor";
 import MapboxEditor from "./screen/MapboxEditor";
 import NeighborhoodEditor from "./screen/NeighborhoodEditor";
 import SpeedEditor from "./screen/SpeedEditor";
@@ -134,6 +135,18 @@ function App() {
               path="/distance"
               element={
                 <DistanceEditor
+                  pullKey={pullKey}
+                  onPullKeyChange={setPullKey}
+                  textStyle={textStyle}
+                  onTextStyleChange={setTextStyle}
+                />
+              }
+            />
+            <Route
+              exact
+              path="/inclination"
+              element={
+                <InclinationEditor
                   pullKey={pullKey}
                   onPullKeyChange={setPullKey}
                   textStyle={textStyle}
