@@ -7,9 +7,18 @@
     <div id="text"><span id="speed">0</span> mph</div>
     <script>
       const pullKey = new URLSearchParams(window.location.search).get("key");
+      var timer;
       RealtimeIRL.forPullKey(pullKey).addSpeedListener(function (speed) {
+
+        clearTimeout(timer); //don't reset to 0 if moving
+
         const speedInMph = (speed * 2.236936) | 0;
         document.getElementById("speed").innerText = speedInMph > 0 ? speedInMph : 0;
+
+        timer = setTimeout(() => { //reset to 0 if not moving for 30 sec
+          document.getElementById("speed").innerText = 0;
+        }, 30000);
+        
       });
     </script>
   </body>
