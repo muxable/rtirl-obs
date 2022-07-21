@@ -5,6 +5,7 @@ var mRider = 80;
 var mBike = 11;
 var timeDelta = 0.0;
 var gps = { old: { latitude: 0.0, longitude: 0.0, altitude: 0.0, speed: 0.0, time: 0, wattage: 0 }, new: { latitude: 0.0, longitude: 0.0, altitude: 0.0, speed: 0.0, time: 0, wattage: 0 } };
+const unit = "W";
 
 // Get user options
 var params = new URLSearchParams(window.location.search);
