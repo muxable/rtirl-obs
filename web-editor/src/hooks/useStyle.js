@@ -8,7 +8,7 @@ export default function useStyle() {
     fontSize: 30,
     isBold: false,
     isItalic: false,
-    backgroundColor: "rgba(0, 0, 0, 1)",
+    backgroundColor: "rgba(255, 255, 255, 0)",
     borderColor: "rgba(255, 255, 255, 1)",
     borderWidth: 0,
     borderStyle: "solid",
