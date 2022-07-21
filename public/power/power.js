@@ -39,13 +39,6 @@ RealtimeIRL.forPullKey(key).addListener(
 
         gps.old.wattage = gps.new.wattage;
 
-        /* //testing purposes only
-        document.getElementById("text2").innerText = forceOfGravity(inclination, mRider, mBike);
-        document.getElementById("text3").innerText = forceOfRollingResistance(inclination, mRider, mBike);
-        document.getElementById("text4").innerText = forceOfDrag(delta/timeDelta); //gps.new.speed ?
-        document.getElementById("text5").innerText = timeDelta + " sec";
-        document.getElementById("text6").innerText = delta + " meters";
-        */
 
         if (wattage > 0) {
             document.getElementById("text").innerText = wattage.toFixed(0) + unit;
