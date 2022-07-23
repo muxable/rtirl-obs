@@ -2,36 +2,17 @@
 <html>
   <head>
     <script src="https://unpkg.com/@rtirl/api@latest/lib/index.min.js"></script>
+    <script src="/css.js"></script>
   </head>
   <body>
     <div id="text"><span id="speed">0</span> km/h</div>
     <script>
       const pullKey = new URLSearchParams(window.location.search).get("key");
-      const css = new URLSearchParams(window.location.search).get("css");
-      const font = new URLSearchParams(window.location.search).get("font");
       
       RealtimeIRL.forPullKey(pullKey).addSpeedListener(function (speed) {
         const speedInKph = (speed * 3.6) | 0;
         document.getElementById("speed").innerText = speedInKph > 0 ? speedInKph : 0;
       });
-
-      if (font) {
-        const decodedFont = atob(font);
-        const importFontFamily = document.createElement("link");
-        importFontFamily.href = decodedFont;
-        importFontFamily.type = "text/css";
-        importFontFamily.rel = "stylesheet";
-
-        // load google font
-        document.getElementsByTagName("head")[0].appendChild(importFontFamily);
-      } 
-
-      // migration nessessary for old users
-      if (css) {
-        document.body.setAttribute("style", css);
-        const decodedCSS = atob(css);
-        document.getElementsByTagName("body")[0].style = decodedCSS;
-      }
     </script>
   </body>
 </html>
