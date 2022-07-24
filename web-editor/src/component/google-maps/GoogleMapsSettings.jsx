@@ -43,7 +43,8 @@ export const GoogleMapsSettings = ({
   setFullscreen,
 }) => {
   const [showStyleDialog, setShowStyleDialog] = React.useState(false);
-  const [showGoogleAPIKeyDialog, setShowGoogleAPIKeyDialog] = React.useState(false);
+  const [showGoogleAPIKeyDialog, setShowGoogleAPIKeyDialog] =
+    React.useState(false);
 
   return (
     <Box

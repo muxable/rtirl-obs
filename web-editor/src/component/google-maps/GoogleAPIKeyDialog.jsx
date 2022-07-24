@@ -1,18 +1,18 @@
-import * as React from 'react';
+import * as React from "react";
 import {
-	Box,
-	Stepper,
-	Step,
-	StepLabel,
-	Button,
+  Box,
+  Stepper,
+  Step,
+  StepLabel,
+  Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
   Typography,
-	Card,
-	CardMedia,
-	CardContent,
+  Card,
+  CardMedia,
+  CardContent,
 } from "@mui/material";
 
 export const GoogleAPIKeyDialog = ({ open, setOpen }) => {
@@ -20,11 +20,11 @@ export const GoogleAPIKeyDialog = ({ open, setOpen }) => {
     <div>
       <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogTitle onClose={() => setOpen(false)}>
-					About Google Maps API Key
+          About Google Maps API Key
         </DialogTitle>
         <DialogContent>
-					<HorizontalLinearStepper />
-					<SimpleCard />
+          <HorizontalLinearStepper />
+          <SimpleCard />
         </DialogContent>
         <DialogActions></DialogActions>
       </Dialog>
@@ -32,26 +32,25 @@ export const GoogleAPIKeyDialog = ({ open, setOpen }) => {
   );
 };
 
-function SimpleCard({imagePath, description}) {
-
-	description = "This is a simple card. You can use this card to display some information.";
-	return (
-		<>
-			<Card>
-				<CardMedia
-					component="img"
-					image={require("../../images/gcp_key_steps/step1.png")}
-      	/>
-				<CardContent>
-					<Typography gutterBottom variant="h5" component="h2">
-						{description}
-					</Typography>
-				</CardContent>
-			</Card>
-		</>
-	)
+function SimpleCard({ imagePath, description }) {
+  description =
+    "This is a simple card. You can use this card to display some information.";
+  return (
+    <>
+      <Card>
+        <CardMedia
+          component="img"
+          image={require("../../images/gcp_key_steps/step1.png")}
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="h2">
+            {description}
+          </Typography>
+        </CardContent>
+      </Card>
+    </>
+  );
 }
-
 
 // const steps = [
 // 	{
@@ -71,7 +70,12 @@ function SimpleCard({imagePath, description}) {
 // 		description: "qewr",
 // 	}
 // ]
-const steps = ['Create GCP Project', 'Create Credentials', 'Create API Key', 'Enabled Billing'];
+const steps = [
+  "Create GCP Project",
+  "Create Credentials",
+  "Create API Key",
+  "Enabled Billing",
+];
 
 function HorizontalLinearStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -96,13 +100,12 @@ function HorizontalLinearStepper() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-
   const handleReset = () => {
     setActiveStep(0);
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: "100%" }}>
       <Stepper activeStep={activeStep}>
         {steps.map((label, index) => {
           const stepProps = {};
@@ -119,14 +122,14 @@ function HorizontalLinearStepper() {
       </Stepper>
       {activeStep === steps.length ? (
         <React.Fragment>
-          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-            <Box sx={{ flex: '1 1 auto' }} />
+          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+            <Box sx={{ flex: "1 1 auto" }} />
             <Button onClick={handleReset}>Reset</Button>
           </Box>
         </React.Fragment>
       ) : (
         <React.Fragment>
-          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <Button
               color="inherit"
               disabled={activeStep === 0}
@@ -135,11 +138,10 @@ function HorizontalLinearStepper() {
             >
               Back
             </Button>
-            <Box sx={{ flex: '1 1 auto' }} />
-
+            <Box sx={{ flex: "1 1 auto" }} />
 
             <Button onClick={handleNext}>
-              {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+              {activeStep === steps.length - 1 ? "Finish" : "Next"}
             </Button>
           </Box>
         </React.Fragment>
