@@ -1,6 +1,5 @@
 import React from "react";
 import { Tooltip, Input, InputAdornment } from "@mui/material";
-import FormatSizeIcon from "@mui/icons-material/FormatSize";
 
 export const NumberTextField = ({
   value,
