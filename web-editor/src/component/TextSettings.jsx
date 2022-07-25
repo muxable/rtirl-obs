@@ -8,11 +8,7 @@ import PaddingIcon from "@mui/icons-material/Padding";
 import RotateLeftIcon from "@mui/icons-material/RotateLeft";
 import ColorLensIcon from "@mui/icons-material/ColorLens";
 import BorderOuterIcon from "@mui/icons-material/BorderOuter";
-import {
-  Divider,
-  IconButton,
-  Tooltip,
-} from "@mui/material";
+import { Divider, IconButton, Tooltip } from "@mui/material";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import React from "react";
