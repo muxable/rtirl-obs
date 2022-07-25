@@ -55,7 +55,7 @@ export const GoogleAPIKeyDialog = ({ open, setOpen }) => {
         <DialogTitle onClose={() => setOpen(false)}>
           About Google Maps API Key
         </DialogTitle>
-        <DialogContent>
+        <DialogContent sx={{ height: "500px" }}>
           <HorizontalLinearStepper
             steps={steps}
             handleBack={handleBack}
