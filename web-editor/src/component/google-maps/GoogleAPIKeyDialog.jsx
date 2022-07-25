@@ -34,15 +34,18 @@ export const GoogleAPIKeyDialog = ({ open, setOpen }) => {
     },
     {
       title: "Create Credntials",
-      description: "absdfadsf",
+      description:
+        "Search Google maps platform on the search bar and click Create Credentials and select API Key.",
     },
     {
-      title: "Create API Key",
-      description: "qewfewqfewqfeqwfewqfeqwfeqwf",
+      title: "Restrict API Key",
+      description:
+        "Select HTTP referrer option. Click on Add Item and input your map URL.",
     },
     {
       title: "Enable Billing",
-      description: "zxcbvczxvjkwejcvklewqjklcjhcmqq qwereqwrqewr ",
+      description:
+        "Search Billing on the search bar and configure your setting. Billing is required to use the API Key. You can learn more about billing in the Google Cloud Platform Pricing Guide.",
     },
   ];
 
