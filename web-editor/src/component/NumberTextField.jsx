@@ -1,25 +1,27 @@
 import React from "react";
-import { Box, Stack, Tooltip, Input, InputAdornment } from "@mui/material";
+import { Tooltip, Input, InputAdornment } from "@mui/material";
 
-export const NumberTextField = ({ value, setValue }) => {
+export const NumberTextField = ({
+  value,
+  setValue,
+  endAdornmentUnit,
+  prefixIcon,
+  tooltipTitle,
+}) => {
   return (
     <Input
-      style={{ width: "110px" }}
       disableUnderline
       type="number"
-      value={textDivCSS.fontSize}
+      value={value}
       onChange={(e) => {
-        setTextDivCSS({
-          ...textDivCSS,
-          fontSize: e.target.value,
-        });
+        setValue(e.target.value);
       }}
-      endAdornment={<InputAdornment position="end">px</InputAdornment>}
+      endAdornment={
+        <InputAdornment position="end">{endAdornmentUnit}</InputAdornment>
+      }
       startAdornment={
         <InputAdornment position="start">
-          <Tooltip title="Font Size">
-            <FormatSizeIcon />
-          </Tooltip>
+          <Tooltip title={tooltipTitle}>{prefixIcon}</Tooltip>
         </InputAdornment>
       }
     />

@@ -18,6 +18,7 @@ import { GoogleMapsStyleDialog } from "../GoogleMapsStyleDialog";
 import { IndicatorSetting } from "../IndicatorSetting";
 import PullKeyInput from "../PullKeyInput";
 import { ZoomSlider } from "../ZoomSlider";
+import { GoogleAPIKeyDialog } from "./GoogleAPIKeyDialog";
 
 function isValidJSON(string) {
   if (!string) {
@@ -45,6 +46,8 @@ export const GoogleMapsSettings = ({
 }) => {
   const [showStyleDialog, setShowStyleDialog] = React.useState(false);
   const [indicatorStyle, setIndicatorStyle] = useIndicatorStyle();
+  const [showGoogleAPIKeyDialog, setShowGoogleAPIKeyDialog] =
+    React.useState(false);
 
   return (
     <Box
@@ -85,6 +88,13 @@ export const GoogleMapsSettings = ({
               startAdornment: (
                 <InputAdornment position="start">
                   <KeyIcon />
+                </InputAdornment>
+              ),
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={() => setShowGoogleAPIKeyDialog(true)}>
+                    <QuestionMarkIcon />
+                  </IconButton>
                 </InputAdornment>
               ),
             }}
@@ -170,6 +180,10 @@ export const GoogleMapsSettings = ({
       <GoogleMapsStyleDialog
         open={showStyleDialog}
         setOpen={setShowStyleDialog}
+      />
+      <GoogleAPIKeyDialog
+        open={showGoogleAPIKeyDialog}
+        setOpen={setShowGoogleAPIKeyDialog}
       />
     </Box>
   );

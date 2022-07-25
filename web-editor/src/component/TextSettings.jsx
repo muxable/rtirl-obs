@@ -8,19 +8,14 @@ import PaddingIcon from "@mui/icons-material/Padding";
 import RotateLeftIcon from "@mui/icons-material/RotateLeft";
 import ColorLensIcon from "@mui/icons-material/ColorLens";
 import BorderOuterIcon from "@mui/icons-material/BorderOuter";
-import {
-  Divider,
-  IconButton,
-  Input,
-  InputAdornment,
-  Tooltip,
-} from "@mui/material";
+import { Divider, IconButton, Tooltip } from "@mui/material";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import React from "react";
 import BorderRadiusPicker from "./BorderRadiusPicker";
 import ColorPickerToggle from "./ColorPickerToggle";
 import FontPicker from "./FontPicker";
+import { NumberTextField } from "./NumberTextField";
 
 export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
   return (
@@ -36,27 +31,20 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
         {/* fonts */}
         <Stack spacing={1}>
           <label> Font </label>
-          <Input
-            style={{ width: "110px" }}
-            disableUnderline
-            type="number"
-            value={textDivCSS.fontSize}
-            onChange={(e) => {
-              setTextDivCSS({
-                ...textDivCSS,
-                fontSize: e.target.value,
-              });
-            }}
-            endAdornment={<InputAdornment position="end">px</InputAdornment>}
-            startAdornment={
-              <InputAdornment position="start">
-                <Tooltip title="Font Size">
-                  <FormatSizeIcon />
-                </Tooltip>
-              </InputAdornment>
-            }
-          />
-
+          <Box sx={{ width: "110px" }}>
+            <NumberTextField
+              value={textDivCSS.fontSize}
+              setValue={(fontSize) => {
+                setTextDivCSS({
+                  ...textDivCSS,
+                  fontSize,
+                });
+              }}
+              endAdornmentUnit="px"
+              prefixIcon={<FormatSizeIcon />}
+              tooltipTitle="Font size"
+            />
+          </Box>
           <Box
             sx={{
               display: "flex",
@@ -161,48 +149,34 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
         {/* background */}
         <Stack spacing={1}>
           <label> Background </label>
-          <Input
-            disableUnderline
-            style={{ width: "110px" }}
-            type="number"
-            value={textDivCSS.rotation}
-            onChange={(e) => {
-              setTextDivCSS({
-                ...textDivCSS,
-                rotation: e.target.value % 360,
-              });
-            }}
-            endAdornment={<InputAdornment position="end">deg</InputAdornment>}
-            startAdornment={
-              <InputAdornment position="start">
-                <Tooltip title="Rotation">
-                  <RotateLeftIcon />
-                </Tooltip>
-              </InputAdornment>
-            }
-          />
-
-          <Input
-            disableUnderline
-            style={{ width: "110px" }}
-            type="number"
-            value={textDivCSS.padding}
-            onChange={(e) => {
-              setTextDivCSS({
-                ...textDivCSS,
-                padding: parseInt(e.target.value),
-              });
-            }}
-            endAdornment={<InputAdornment position="end"> px </InputAdornment>}
-            startAdornment={
-              <InputAdornment position="start">
-                <Tooltip title="Padding">
-                  <PaddingIcon />
-                </Tooltip>
-              </InputAdornment>
-            }
-          />
-
+          <Box sx={{ width: "110px" }}>
+            <NumberTextField
+              value={textDivCSS.rotation}
+              setValue={(rotation) => {
+                setTextDivCSS({
+                  ...textDivCSS,
+                  rotation,
+                });
+              }}
+              endAdornmentUnit="deg"
+              prefixIcon={<RotateLeftIcon />}
+              tooltipTitle="Rotation"
+            />
+          </Box>
+          <Box sx={{ width: "110px" }}>
+            <NumberTextField
+              value={textDivCSS.padding}
+              setValue={(padding) => {
+                setTextDivCSS({
+                  ...textDivCSS,
+                  padding: parseInt(padding),
+                });
+              }}
+              endAdornmentUnit="px"
+              prefixIcon={<PaddingIcon />}
+              tooltipTitle="Padding"
+            />
+          </Box>
           <Box sx={{ display: "flex" }}>
             <Tooltip title="Background Color">
               <ColorLensIcon />
@@ -223,25 +197,20 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
         <Stack spacing={1}>
           <label> Border </label>
           <Stack direction={"row"} spacing={3}>
-            <Input
-              disableUnderline
-              type="number"
-              value={textDivCSS.borderWidth}
-              onChange={(e) => {
-                setTextDivCSS({
-                  ...textDivCSS,
-                  borderWidth: e.target.value,
-                });
-              }}
-              startAdornment={
-                <InputAdornment position="start">
-                  <Tooltip title="Border Width">
-                    <BorderOuterIcon />
-                  </Tooltip>
-                </InputAdornment>
-              }
-              endAdornment={<InputAdornment position="end">px</InputAdornment>}
-            />
+            <Box sx={{ width: "110px" }}>
+              <NumberTextField
+                value={textDivCSS.borderWidth}
+                setValue={(borderWidth) => {
+                  setTextDivCSS({
+                    ...textDivCSS,
+                    borderWidth,
+                  });
+                }}
+                endAdornmentUnit="px"
+                prefixIcon={<BorderOuterIcon />}
+                tooltipTitle="Border Width"
+              />
+            </Box>
             <Box sx={{ display: "flex" }}>
               <Tooltip title="Border Color">
                 <ColorLensIcon />
