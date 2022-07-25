@@ -33,7 +33,7 @@ export const GoogleAPIKeyDialog = ({ open, setOpen }) => {
         "Create a new project in Google Cloud Platform by clicking the Create Project button. Name your project or leave it as default and click Create.",
     },
     {
-      title: "Create Credntials",
+      title: "Create Credentials",
       description:
         "Search Google maps platform on the search bar and click Create Credentials and select API Key.",
     },
