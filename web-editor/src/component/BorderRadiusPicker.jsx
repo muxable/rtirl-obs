@@ -19,7 +19,7 @@ function BorderRadiusPicker({ textDivCSS, setTextDivCSS }) {
           }}
           endAdornmentUnit="%"
           prefixIcon={<BorderStyleIcon />}
-          tooltipTitle="border_top_left_radius"
+          tooltipTitle="Top Left Border Radius"
         />
         <NumberTextField
           value={textDivCSS.border_top_right_radius}
