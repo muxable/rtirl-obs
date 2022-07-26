@@ -7,6 +7,7 @@
       integrity="sha256-BdqBGuaawDzMtW2Wn9ISUuYKUY/A7d5NVcj6Ix3jwv8="
       crossorigin="anonymous"
     ></script>
+    <script defer src="../css.js"></script>
   </head>
   <body>
     <div id="text"></div>
@@ -16,6 +17,7 @@
         new URLSearchParams(window.location.search).get("lang") || "en";
       var format =
         new URLSearchParams(window.location.search).get("format") || "tt";
+
       var i = 0;
       var j = 0;
       var latestLocation = null;

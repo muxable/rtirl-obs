@@ -12,8 +12,10 @@ import AltitudeEditor from "./screen/AltitudeEditor";
 import ClockEditor from "./screen/ClockEditor";
 import DistanceEditor from "./screen/DistanceEditor";
 import GoogleMapsEditor from "./screen/GoogleMapsEditor";
+import GoogleStreetViewEditor from "./screen/GoogleStreetViewEditor";
 import HeadingEditor from "./screen/HeadingEditor";
 import { Home } from "./screen/Home";
+import InclinationEditor from "./screen/InclinationEditor";
 import MapboxEditor from "./screen/MapboxEditor";
 import NeighborhoodEditor from "./screen/NeighborhoodEditor";
 import SpeedEditor from "./screen/SpeedEditor";
@@ -52,6 +54,16 @@ function App() {
               path="/googlemap"
               element={
                 <GoogleMapsEditor
+                  pullKey={pullKey}
+                  onPullKeyChange={setPullKey}
+                />
+              }
+            />
+            <Route
+              exact
+              path="/googlestreetview"
+              element={
+                <GoogleStreetViewEditor
                   pullKey={pullKey}
                   onPullKeyChange={setPullKey}
                 />
@@ -134,6 +146,18 @@ function App() {
               path="/distance"
               element={
                 <DistanceEditor
+                  pullKey={pullKey}
+                  onPullKeyChange={setPullKey}
+                  textStyle={textStyle}
+                  onTextStyleChange={setTextStyle}
+                />
+              }
+            />
+            <Route
+              exact
+              path="/inclination"
+              element={
+                <InclinationEditor
                   pullKey={pullKey}
                   onPullKeyChange={setPullKey}
                   textStyle={textStyle}

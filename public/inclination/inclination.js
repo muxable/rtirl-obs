@@ -1,3 +1,4 @@
+const unit = '%';
 var key;
 var inclination = 0.0;
 var gps = { old: { latitude: 0.0, longitude: 0.0, altitude: 0.0, inclination: 0.0 }, new: { latitude: 0.0, longitude: 0.0, altitude: 0.0, inclination: 0.0 } };
@@ -28,7 +29,6 @@ RealtimeIRL.forPullKey(key).addListener(
             inclination = 0.0;
         }
 
-        //document.getElementById("text").innerText = JSON.stringify(data);
         document.getElementById("text").innerText = inclination.toFixed(1) + unit;
 
         // Shifting new points to old for next update

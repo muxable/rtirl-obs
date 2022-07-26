@@ -64,7 +64,7 @@ RealtimeIRL.forPullKey(key).addListener(
         if ((inclination > 40) || (inclination < -40)){
             inclination = 0.0;
         }
-        
+
         // Power = Force * distance / time
         gps.new.wattage = (forceOfGravity(inclination, mRider, mBike) + forceOfRollingResistance(inclination, mRider, mBike) + forceOfDrag(delta/timeDelta)) * (delta / timeDelta) / (1 - powerLossPercentage/100); //P=(Fg+Fr+Fa)×v/(1−loss)
 
@@ -72,15 +72,6 @@ RealtimeIRL.forPullKey(key).addListener(
         wattage = (gps.new.wattage + gps.old.wattage) / 2; 
 
         gps.old.wattage = gps.new.wattage;
-
-         //testing purposes only
-        /*
-        document.getElementById("text2").innerText = forceOfGravity(inclination, mRider, mBike);
-        document.getElementById("text3").innerText = forceOfRollingResistance(inclination, mRider, mBike);
-        document.getElementById("text4").innerText = forceOfDrag(delta/timeDelta); //gps.new.speed ?
-        document.getElementById("text5").innerText = timeDelta + " sec";
-        document.getElementById("text6").innerText = delta + " meters";
-        */
 
         if (wattage > 0 && wattage <= maxPower) {
             document.getElementById("text").innerText = wattage.toFixed(0) + "W";
@@ -112,16 +103,16 @@ RealtimeIRL.forPullKey(key).addListener(
 function degreesToRadians(degrees) {
     return degrees * Math.PI / 180;
 }
- 
+
 function distanceInKmBetweenEarthCoordinates(lat1, lon1, lat2, lon2) {
     var earthRadiusKm = 6371;
- 
+
     var dLat = degreesToRadians(lat2 - lat1);
     var dLon = degreesToRadians(lon2 - lon1);
- 
+
     lat1 = degreesToRadians(lat1);
     lat2 = degreesToRadians(lat2);
- 
+
     var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
        Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
