@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import ColorPickerToggle from "./ColorPickerToggle";
 import HorizontalRuleIcon from "@mui/icons-material/HorizontalRule";
+import ColorLensIcon from "@mui/icons-material/ColorLens";
 import { NumberTextField } from "./NumberTextField";
 import BorderOuterIcon from "@mui/icons-material/BorderOuter";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -24,19 +25,20 @@ export const IndicatorSetting = ({ indicatorStyle, setIndicatorStyle }) => {
       </AccordionSummary>
       <AccordionDetails>
         <Stack>
-          <Stack direction={"row"} spacing={3}>
-            <label>Indicator Color</label>
-            <ColorPickerToggle
-              color={indicatorStyle.backgroundColor}
-              setColor={(color) => {
-                setIndicatorStyle({
-                  ...indicatorStyle,
-                  backgroundColor: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`,
-                });
-              }}
-            />
+          <Stack spacing={2}>
+            <Stack direction={"row"} spacing={1}>
+              <ColorLensIcon />
+              <ColorPickerToggle
+                color={indicatorStyle.backgroundColor}
+                setColor={(color) => {
+                  setIndicatorStyle({
+                    ...indicatorStyle,
+                    backgroundColor: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`,
+                  });
+                }}
+              />
 
-            <Box>
+              {/* <Box>
               <div
                 style={{
                   width: `${indicatorStyle.width}px`,
@@ -45,9 +47,8 @@ export const IndicatorSetting = ({ indicatorStyle, setIndicatorStyle }) => {
                   backgroundColor: indicatorStyle.backgroundColor,
                 }}
               />
-            </Box>
-          </Stack>
-          <Stack spacing={3}>
+            </Box> */}
+            </Stack>
             <NumberTextField
               value={indicatorStyle.width}
               setValue={(width) => {
