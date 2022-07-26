@@ -19,7 +19,7 @@ function BorderRadiusPicker({ textDivCSS, setTextDivCSS }) {
           }}
           endAdornmentUnit="%"
           prefixIcon={<BorderStyleIcon />}
-          tooltipTitle="border_top_left_radius"
+          tooltipTitle="Top Left Border Radius"
         />
         <NumberTextField
           value={textDivCSS.border_top_right_radius}
@@ -31,7 +31,7 @@ function BorderRadiusPicker({ textDivCSS, setTextDivCSS }) {
           }}
           endAdornmentUnit="%"
           prefixIcon={<BorderStyleIcon sx={{ transform: "rotate(90deg)" }} />}
-          tooltipTitle="border_top_right_radius"
+          tooltipTitle="Top Right Border Radius"
         />
       </Stack>
 
@@ -50,7 +50,7 @@ function BorderRadiusPicker({ textDivCSS, setTextDivCSS }) {
           }}
           endAdornmentUnit="%"
           prefixIcon={<BorderStyleIcon sx={{ transform: "rotate(270deg)" }} />}
-          tooltipTitle="border_bottom_left_radius"
+          tooltipTitle="Bottom Left Border Radius"
         />
         <NumberTextField
           value={textDivCSS.border_bottom_right_radius}
@@ -66,7 +66,7 @@ function BorderRadiusPicker({ textDivCSS, setTextDivCSS }) {
           }}
           endAdornmentUnit="%"
           prefixIcon={<BorderStyleIcon sx={{ transform: "rotate(180deg)" }} />}
-          tooltipTitle="border_bottom_right_radius"
+          tooltipTitle="Bottom Right Border Radius"
         />
       </Stack>
     </>

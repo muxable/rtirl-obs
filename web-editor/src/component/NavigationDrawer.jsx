@@ -16,8 +16,20 @@ import ListItemText from "@mui/material/ListItemText";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import * as React from "react";
 import { Link } from "react-router-dom";
+import HorizontalRuleIcon from "@mui/icons-material/HorizontalRule";
 
 export const NavigationDrawer = ({ open, setOpen }) => {
+  const mapActions = [
+    { icon: <HomeIcon />, name: "Home", link: "/" },
+    { icon: <MapIcon />, name: "Mapbox", link: "/mapbox" },
+    { icon: <MapIcon />, name: "Google Maps", link: "/googlemap" },
+    {
+      icon: <MapIcon />,
+      name: "Google Street View",
+      link: "/googlestreetview",
+    },
+  ];
+
   const actions = [
     { icon: <MyLocationIcon />, name: "Neighborhood" },
     { icon: <AccessTimeIcon />, name: "Clock" },
@@ -26,6 +38,10 @@ export const NavigationDrawer = ({ open, setOpen }) => {
     { icon: <ExploreIcon />, name: "Heading" },
     { icon: <StraightenIcon />, name: "Distance" },
     { icon: <HeightIcon />, name: "Altitude" },
+    {
+      icon: <HorizontalRuleIcon sx={{ transform: "rotate(-45deg)" }} />,
+      name: "Inclination",
+    },
   ];
 
   return (
@@ -41,31 +57,20 @@ export const NavigationDrawer = ({ open, setOpen }) => {
         }}
       >
         <List>
-          <Link to={"/"} style={{ textDecoration: "none" }}>
-            <ListItem button>
-              <ListItemIcon>
-                <HomeIcon />
-              </ListItemIcon>
-              <ListItemText primary="Home" />
-            </ListItem>
-          </Link>
-          <Link to={"/mapbox"} style={{ textDecoration: "none" }}>
-            <ListItem button>
-              <ListItemIcon>
-                <MapIcon />
-              </ListItemIcon>
-              <ListItemText primary="Mapbox" />
-            </ListItem>
-          </Link>
-          <Link to={"/googlemap"} style={{ textDecoration: "none" }}>
-            <ListItem button>
-              <ListItemIcon>
-                <MapIcon />
-              </ListItemIcon>
-              <ListItemText primary="Google Maps" />
-            </ListItem>
-          </Link>
+          {mapActions.map((action, index) => (
+            <Link
+              to={`${action.link}`}
+              style={{ textDecoration: "none" }}
+              key={action.name}
+            >
+              <ListItem button key={index}>
+                <ListItemIcon>{action.icon}</ListItemIcon>
+                <ListItemText primary={action.name} />
+              </ListItem>
+            </Link>
+          ))}
         </List>
+
         <Divider />
 
         <List>

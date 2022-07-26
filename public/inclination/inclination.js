@@ -1,6 +1,7 @@
+const unit = '%';
 var key;
 var inclination = 0.0;
-var gps = { old: { latitude: 0.0, longitude: 0.0, altitude: 0.0 }, new: { latitude: 0.0, longitude: 0.0, altitude: 0.0 } };
+var gps = { old: { latitude: 0.0, longitude: 0.0, altitude: 0.0, inclination: 0.0 }, new: { latitude: 0.0, longitude: 0.0, altitude: 0.0, inclination: 0.0 } };
 
 // Get user options
 var params = new URLSearchParams(window.location.search);
@@ -16,14 +17,19 @@ RealtimeIRL.forPullKey(key).addListener(
         delta = distanceInKmBetweenEarthCoordinates(gps.new.latitude, gps.new.longitude, gps.old.latitude, gps.old.longitude) * 1000;
 
         // Now calculate the slope percentage, based on altitude change and distance travelled
-        inclination = ((gps.new.altitude - gps.old.altitude) / delta * 100);
+        gps.new.inclination = ((gps.new.altitude - gps.old.altitude) / delta * 100);
+
+        // Ease-in inclination, no sudden jumps
+        inclination = (gps.new.inclination + gps.old.inclination) / 2;
+
+        gps.old.inclination = gps.new.inclination;
 
         // "Fix" errors
         if ((inclination > 40) || (inclination < -40)){
             inclination = 0.0;
         }
 
-        document.getElementById("text").innerText = inclination.toFixed(1) + "%";
+        document.getElementById("text").innerText = inclination.toFixed(1) + unit;
 
         // Shifting new points to old for next update
         gps.old.latitude = gps.new.latitude;
