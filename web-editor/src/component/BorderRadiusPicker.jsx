@@ -50,7 +50,7 @@ function BorderRadiusPicker({ textDivCSS, setTextDivCSS }) {
           }}
           endAdornmentUnit="%"
           prefixIcon={<BorderStyleIcon sx={{ transform: "rotate(270deg)" }} />}
-          tooltipTitle="border_bottom_left_radius"
+          tooltipTitle="Bottom Left Border Radius"
         />
         <NumberTextField
           value={textDivCSS.border_bottom_right_radius}
