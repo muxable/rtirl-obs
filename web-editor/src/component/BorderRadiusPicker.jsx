@@ -31,7 +31,7 @@ function BorderRadiusPicker({ textDivCSS, setTextDivCSS }) {
           }}
           endAdornmentUnit="%"
           prefixIcon={<BorderStyleIcon sx={{ transform: "rotate(90deg)" }} />}
-          tooltipTitle="border_top_right_radius"
+          tooltipTitle="Top Right Border Radius"
         />
       </Stack>
 
