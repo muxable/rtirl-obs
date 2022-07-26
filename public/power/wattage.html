@@ -1,13 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-   <!-- The following script points to rtirl-obs API (https://github.com/muxfd/rtirl-obs) -->
    <script src="https://unpkg.com/@rtirl/api@latest/lib/index.min.js"></script>
+   <script src="https://bernii.github.io/gauge.js/dist/gauge.min.js"></script>
    <script src="power.js"></script>
-   <script defer src="../css.js"></script>
    <title>Cycling Power Meter</title>
+<style>
+   #text {
+      position: absolute;
+      top: 27px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 2em;
+      font-weight: bold;
+      color: black;
+      font-family: 'Amaranth', sans-serif;
+   }   
+   #preview {
+      float: left;
+      width: 380px;
+      height: 320px;
+      position: relative;
+      margin: 0 20px 20px 0;
+      clear: both;
+   }
+   #foo {
+      width: 380px;
+      top: 100px;
+      position: relative;
+   }
+</style>
 </head>
 <body>
-   <div id="text">Init</div>   
+   <div id="preview">
+      <canvas id="foo"></canvas>
+      <div id="text" style="font-size: 84px;" class="reset">Init</div>
+   </div>
 </body>
 </html>
