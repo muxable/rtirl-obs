@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+      integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+      integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+      crossorigin=""
+    ></script>
+  </head>
+
+  <style>
+    .alert {
+      display: none;
+      position: absolute;
+      top: 0px;
+      left: 8px;
+      width: 300px;
+      background-color: #f44336;
+      color: white;
+      z-index: 401;
+    }
+  </style>
+
+  <body>
+    <div id="alert-box" class="alert"></div>
+    <div id="map" style="width: 300px; height: 250px"></div>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.1/firebase-app.js";
+      import {
+        forceWebSockets,
+        getDatabase,
+        ref,
+        onValue,
+        child,
+      } from "https://www.gstatic.com/firebasejs/9.9.1/firebase-database.js";
+      import {
+        collection,
+        query,
+        where,
+        onSnapshot,
+        getFirestore,
+      } from "https://www.gstatic.com/firebasejs/9.9.1/firebase-firestore.js";
+
+      var params = new URLSearchParams(window.location.search);
+      const userId = params.get("userId");
+      const mapboxToken =
+        params.get("access_token") ??
+        "pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2w0MW1qaTh3MG80dzNjcXRndmJ0a2JieiJ9.Y_xABmAqvD-qZeed8MabxQ";
+
+      var app;
+      var map = L.map("map", {
+        attributionControl: false,
+        zoomControl: false,
+        dragging: false,
+      }).setView([0, 0], 13);
+      const layer = L.tileLayer(
+        "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
+        {
+          accessToken: mapboxToken,
+          attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> © <a href="https://www.mapbox.com/">Mapbox</a>',
+          id: "mapbox/streets-v11",
+          tileSize: 512,
+          zoomOffset: -1,
+          zoom: 13,
+        }
+      );
+      layer.on("tileerror", handleTileError);
+      layer.addTo(map);
+
+      // Add attribution control unless user decides to hide it
+      if (params.get("attribution") !== "0") {
+        L.control.attribution({}).addTo(map);
+      }
+
+      addEventListener("load", onReady);
+
+      // Create the streamers marker
+      const greenIcon = new L.Icon({
+        iconUrl:
+          "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png",
+        shadowUrl:
+          "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41],
+      });
+      const streamerMarker = L.marker([50.5, 30.5], { icon: greenIcon });
+      streamerMarker.addTo(map);
+      const group = L.layerGroup();
+      var tags = [];
+
+      // RTIRL pull mechanism
+      function onReady() {
+        forceWebSockets();
+        app = initializeApp(
+          {
+            apiKey: "AIzaSyC4L8ICZbJDufxe8bimRdB5cAulPCaYVQQ",
+            databaseURL: "https://rtirl-a1d7f-default-rtdb.firebaseio.com",
+            projectId: "rtirl-a1d7f",
+            appId: "1:684852107701:web:d77a8ed0ee5095279a61fc",
+          },
+          "rtirl-api"
+        );
+
+        addListener(function (location) {
+          // Update streamers location
+          streamerMarker.setLatLng([location.latitude, location.longitude]);
+          fitBounds();
+        });
+
+        addTagListener();
+      }
+
+      function addListener(callback) {
+        const db = getDatabase(app);
+        const dbRef = ref(db);
+        const pullables = child(dbRef, `streamers/twitch:${userId}/location`);
+        return onValue(pullables, (snapshot) => {
+          callback(snapshot.val());
+        });
+      }
+
+      function addTagListener() {
+        const q = query(
+          collection(getFirestore(app), "tagged-locations"),
+          where("userId", "==", `twitch:${userId}`)
+        );
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+          // Clear everything
+          if (map.hasLayer(group)) {
+            group.clearLayers();
+          }
+          tags = [];
+          querySnapshot.forEach((doc) => {
+            const tagMarker = L.marker([
+              doc.data().latitude,
+              doc.data().longitude,
+            ]);
+            // Add it to the group and to the map
+            tags.push(tagMarker);
+            group.addLayer(tagMarker);
+          });
+          fitBounds();
+        });
+      }
+
+      function fitBounds() {
+        // Add all the tags
+        map.addLayer(group);
+
+        // Create the feature group that we'll use to fit bounds once we fetch tags
+        const featureGroup = L.featureGroup([streamerMarker, ...tags]);
+
+        // Fit bounds using all the points in the group
+        map.fitBounds(featureGroup.getBounds());
+        map.flyToBounds(featureGroup.getBounds());
+      }
+
+      // Handle tile errors
+      function handleTileError(error, tile) {
+        displayError(
+          "Error loading tile: Check your access token and map style."
+        );
+        console.log(error);
+      }
+
+      function displayError(errorMessage) {
+        var x = document.getElementById("alert-box");
+        x.style.display = "block";
+        x.innerText = errorMessage;
+        setTimeout(hideError, 30000);
+      }
+
+      function hideError() {
+        var x = document.getElementById("alert-box");
+        x.style.display = "none";
+      }
+    </script>
+  </body>
+</html>
