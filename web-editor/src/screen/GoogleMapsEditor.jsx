@@ -4,6 +4,7 @@ import { useState } from "react";
 import { GoogleMapsContainer } from "../component/google-maps/GoogleMapsContainer";
 import { GoogleMapsSettings } from "../component/google-maps/GoogleMapsSettings";
 import OverlayExportPanel from "../component/OverlayExportPanel";
+import useIndicatorStyle from "../hooks/useIndicatorStyle";
 
 export default function GoogleMapsEditor({ pullKey, onPullKeyChange }) {
   const [mapStyle, setMapStyle] = useState({ value: "", valid: false });
@@ -20,6 +21,8 @@ export default function GoogleMapsEditor({ pullKey, onPullKeyChange }) {
     fullscreen ? "&fullscreen=1" : ""
   }`;
 
+  const [indicatorStyle, setIndicatorStyle] = useIndicatorStyle();
+
   return (
     <Grid container columns={{ xs: 1, md: 12 }} direction="row">
       <Grid item xs={1} md={2.5}>
@@ -34,6 +37,8 @@ export default function GoogleMapsEditor({ pullKey, onPullKeyChange }) {
           setZoom={setZoom}
           fullscreen={fullscreen}
           setFullscreen={setFullscreen}
+          indicatorStyle={indicatorStyle}
+          setIndicatorStyle={setIndicatorStyle}
         />
       </Grid>
       <Grid item xs={1} md={9.5} lg={12}>
@@ -47,6 +52,7 @@ export default function GoogleMapsEditor({ pullKey, onPullKeyChange }) {
                 setZoom={setZoom}
                 mapStyle={styleB64}
                 apiKey={apiKey}
+                indicatorStyle={indicatorStyle}
               />
               <OverlayExportPanel
                 overlayDescription="Goole Maps Overlay URL"

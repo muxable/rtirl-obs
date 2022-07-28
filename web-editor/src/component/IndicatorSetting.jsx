@@ -37,17 +37,6 @@ export const IndicatorSetting = ({ indicatorStyle, setIndicatorStyle }) => {
                   });
                 }}
               />
-
-              {/* <Box>
-              <div
-                style={{
-                  width: `${indicatorStyle.width}px`,
-                  height: `${indicatorStyle.height}px`,
-                  borderRadius: `${indicatorStyle.borderRadius}%`,
-                  backgroundColor: indicatorStyle.backgroundColor,
-                }}
-              />
-            </Box> */}
             </Stack>
             <NumberTextField
               value={indicatorStyle.width}

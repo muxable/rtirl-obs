@@ -9,6 +9,7 @@ export default function MapboxContainer({
   zoom,
   setZoom,
   fullscreen,
+  indicatorStyle,
 }) {
   const mapRef = React.useRef();
   const [viewState, setViewState] = React.useState({
@@ -57,6 +58,16 @@ export default function MapboxContainer({
           <h1> Unable to preview, please verify the data provided </h1>
         </div>
       )}
+      <div
+        style={{
+          zIndex: "100",
+          position: "absolute",
+          width: `${indicatorStyle.width}px`,
+          height: `${indicatorStyle.height}px`,
+          borderRadius: `${indicatorStyle.borderRadius}%`,
+          backgroundColor: indicatorStyle.backgroundColor,
+        }}
+      />
     </div>
   );
 }

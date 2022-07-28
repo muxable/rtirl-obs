@@ -13,7 +13,6 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import React from "react";
-import useIndicatorStyle from "../../hooks/useIndicatorStyle";
 import { GoogleMapsStyleDialog } from "../GoogleMapsStyleDialog";
 import { IndicatorSetting } from "../IndicatorSetting";
 import PullKeyInput from "../PullKeyInput";
@@ -43,9 +42,10 @@ export const GoogleMapsSettings = ({
   setZoom,
   fullscreen,
   setFullscreen,
+  indicatorStyle,
+  setIndicatorStyle,
 }) => {
   const [showStyleDialog, setShowStyleDialog] = React.useState(false);
-  const [indicatorStyle, setIndicatorStyle] = useIndicatorStyle();
   const [showGoogleAPIKeyDialog, setShowGoogleAPIKeyDialog] =
     React.useState(false);
 

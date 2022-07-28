@@ -12,10 +12,10 @@ export default function useIndicatorStyle() {
   // box-shadow: 0 0 10px cyan;
 
   const [indicatorStyle, setIndicatorStyle] = useState({
-    height: "12px",
-    width: "12px",
-    borderRadius: "50%",
-    backgroundColor: "rgba(253, 45, 15, 1)",
+    height: 12,
+    width: 12,
+    borderRadius: 50,
+    backgroundColor: "cyan",
   });
 
   return [indicatorStyle, setIndicatorStyle];

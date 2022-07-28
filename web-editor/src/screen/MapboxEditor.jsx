@@ -1,9 +1,10 @@
-import { Box, Grid, Stack } from "@mui/material";
+import { Box, Container, Grid, Stack } from "@mui/material";
 import * as React from "react";
 import { useEffect, useState } from "react";
 import MapboxContainer from "../component/mapbox/MapboxContainer";
 import MapboxSettings from "../component/mapbox/MapboxSettings";
 import OverlayExportPanel from "../component/OverlayExportPanel";
+import useIndicatorStyle from "../hooks/useIndicatorStyle";
 
 const mapboxMapStyleJsonCache = [];
 
@@ -30,6 +31,8 @@ export default function MapboxEditor({ pullKey, onPullKeyChange }) {
   }&access_token=${apiKey}&style=${styleId}&attribution=${
     attribution ? "1" : "0"
   }"> </iframe>`;
+
+  const [indicatorStyle, setIndicatorStyle] = useIndicatorStyle();
 
   useEffect(() => {
     fetch(`https://api.mapbox.com/styles/v1/${styleId}?access_token=${apiKey}`)
@@ -63,6 +66,8 @@ export default function MapboxEditor({ pullKey, onPullKeyChange }) {
           onMapLibraryChange={setMapLibrary}
           attribution={attribution}
           onAttributionChange={setAttribution}
+          indicatorStyle={indicatorStyle}
+          setIndicatorStyle={setIndicatorStyle}
         />
       </Grid>
       <Grid item xs={1} md={9.5} lg={12}>
@@ -76,6 +81,7 @@ export default function MapboxEditor({ pullKey, onPullKeyChange }) {
                 setZoom={setZoom}
                 mapStyle={mapStyle}
                 apiKey={apiKey}
+                indicatorStyle={indicatorStyle}
               />
               <OverlayExportPanel
                 overlayDescription="Mapbox Overlay URL"

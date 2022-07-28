@@ -18,6 +18,7 @@ import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import CountryPicker from "../CountryPicker";
 import ExclusiveToggle from "../ExclusiveToggle";
+import { IndicatorSetting } from "../IndicatorSetting";
 import PullKeyInput from "../PullKeyInput";
 import { ZoomSlider } from "../ZoomSlider";
 import { AttributionDialog } from "./AttributionDialog";
@@ -40,6 +41,8 @@ export default function MapboxSettings({
   onAttributionChange,
   mapLibrary,
   onMapLibraryChange,
+  indicatorStyle,
+  setIndicatorStyle,
 }) {
   const [openStyleIDDialog, setOpenStyleIDDialog] = useState(false);
   const [openAttributionDialog, setOpenAttributionDialog] = useState(false);
@@ -177,6 +180,13 @@ export default function MapboxSettings({
               />
             }
             label="Fullscreen"
+          />
+        </Box>
+
+        <Box>
+          <IndicatorSetting
+            indicatorStyle={indicatorStyle}
+            setIndicatorStyle={setIndicatorStyle}
           />
         </Box>
 
