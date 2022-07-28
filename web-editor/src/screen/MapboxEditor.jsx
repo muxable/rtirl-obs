@@ -7,7 +7,12 @@ import OverlayExportPanel from "../component/OverlayExportPanel";
 
 const mapboxMapStyleJsonCache = [];
 
-export default function MapboxEditor({ pullKey, onPullKeyChange, indicatorStyle, setIndicatorStyle }) {
+export default function MapboxEditor({
+  pullKey,
+  onPullKeyChange,
+  indicatorStyle,
+  setIndicatorStyle,
+}) {
   const [mapStyle, setMapStyle] = useState(null);
   const [apiKey, setAPIKey] = useState(
     "pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2w0MW1qaTh3MG80dzNjcXRndmJ0a2JieiJ9.Y_xABmAqvD-qZeed8MabxQ"

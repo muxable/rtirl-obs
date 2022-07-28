@@ -48,11 +48,11 @@ function App() {
               exact
               path="/mapbox"
               element={
-                <MapboxEditor 
-                  pullKey={pullKey} 
-                  onPullKeyChange={setPullKey} 
-                  indicatorStyle={indicatorStyle} 
-                  setIndicatorStyle={setIndicatorStyle} 
+                <MapboxEditor
+                  pullKey={pullKey}
+                  onPullKeyChange={setPullKey}
+                  indicatorStyle={indicatorStyle}
+                  setIndicatorStyle={setIndicatorStyle}
                 />
               }
             />

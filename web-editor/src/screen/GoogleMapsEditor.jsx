@@ -5,8 +5,8 @@ import { GoogleMapsContainer } from "../component/google-maps/GoogleMapsContaine
 import { GoogleMapsSettings } from "../component/google-maps/GoogleMapsSettings";
 import OverlayExportPanel from "../component/OverlayExportPanel";
 
-export default function GoogleMapsEditor({ 
-  pullKey, 
+export default function GoogleMapsEditor({
+  pullKey,
   onPullKeyChange,
   indicatorStyle,
   setIndicatorStyle,
@@ -27,7 +27,6 @@ export default function GoogleMapsEditor({
   }&api_key=${apiKey}&style=${styleB64}&zoom=${zoom}${
     fullscreen ? "&fullscreen=1" : ""
   }&indicatorStyle=${indicatorStyleB64}`;
-
 
   return (
     <Grid container columns={{ xs: 1, md: 12 }} direction="row">
