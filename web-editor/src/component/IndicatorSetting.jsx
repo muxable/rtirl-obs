@@ -1,6 +1,4 @@
-import react from "react";
 import {
-  Box,
   Stack,
   Accordion,
   AccordionSummary,
