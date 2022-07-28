@@ -4,9 +4,13 @@ import { useState } from "react";
 import { GoogleMapsContainer } from "../component/google-maps/GoogleMapsContainer";
 import { GoogleMapsSettings } from "../component/google-maps/GoogleMapsSettings";
 import OverlayExportPanel from "../component/OverlayExportPanel";
-import useIndicatorStyle from "../hooks/useIndicatorStyle";
 
-export default function GoogleMapsEditor({ pullKey, onPullKeyChange }) {
+export default function GoogleMapsEditor({ 
+  pullKey, 
+  onPullKeyChange,
+  indicatorStyle,
+  setIndicatorStyle,
+}) {
   const [mapStyle, setMapStyle] = useState({ value: "", valid: false });
   const [apiKey, setAPIKey] = useState("");
   const [zoom, setZoom] = useState(5);
@@ -15,13 +19,15 @@ export default function GoogleMapsEditor({ pullKey, onPullKeyChange }) {
   const styleB64 = encodeURIComponent(
     window.btoa(JSON.stringify(jsonMapStyle))
   );
+  const indicatorStyleB64 = encodeURIComponent(
+    window.btoa(JSON.stringify(indicatorStyle))
+  );
   const url = `https://overlays.rtirl.com/googlemaps.html?key=${
     pullKey.value
   }&api_key=${apiKey}&style=${styleB64}&zoom=${zoom}${
     fullscreen ? "&fullscreen=1" : ""
-  }`;
+  }&indicatorStyle=${indicatorStyleB64}`;
 
-  const [indicatorStyle, setIndicatorStyle] = useIndicatorStyle();
 
   return (
     <Grid container columns={{ xs: 1, md: 12 }} direction="row">

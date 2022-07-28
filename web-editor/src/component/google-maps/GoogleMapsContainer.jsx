@@ -53,6 +53,7 @@ export const GoogleMapsContainer = ({
           height: `${indicatorStyle.height}px`,
           borderRadius: `${indicatorStyle.borderRadius}%`,
           backgroundColor: indicatorStyle.backgroundColor,
+          boxShadow: `0 0 10px ${indicatorStyle.backgroundColor}`,
         }}
       />
     </div>

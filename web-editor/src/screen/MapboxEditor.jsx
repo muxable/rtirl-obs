@@ -4,11 +4,10 @@ import { useEffect, useState } from "react";
 import MapboxContainer from "../component/mapbox/MapboxContainer";
 import MapboxSettings from "../component/mapbox/MapboxSettings";
 import OverlayExportPanel from "../component/OverlayExportPanel";
-import useIndicatorStyle from "../hooks/useIndicatorStyle";
 
 const mapboxMapStyleJsonCache = [];
 
-export default function MapboxEditor({ pullKey, onPullKeyChange }) {
+export default function MapboxEditor({ pullKey, onPullKeyChange, indicatorStyle, setIndicatorStyle }) {
   const [mapStyle, setMapStyle] = useState(null);
   const [apiKey, setAPIKey] = useState(
     "pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2w0MW1qaTh3MG80dzNjcXRndmJ0a2JieiJ9.Y_xABmAqvD-qZeed8MabxQ"
@@ -20,19 +19,21 @@ export default function MapboxEditor({ pullKey, onPullKeyChange }) {
   const [attribution, setAttribution] = useState(false);
   const [lang, setLang] = useState("en");
   const [validStyle, setValidStyle] = useState(true);
+
+  const indicatorStyleB64 = encodeURIComponent(
+    window.btoa(JSON.stringify(indicatorStyle))
+  );
   const url = `https://overlays.rtirl.com/${mapLibrary}.html?key=${
     pullKey.value
   }&access_token=${apiKey}&style=${styleId}&zoom=${zoom}&lang=${lang}${
     fullscreen ? "&fullscreen=1" : ""
-  }&attribution=${attribution ? "1" : "0"}`;
+  }&attribution=${attribution ? "1" : "0"}&indicatorStyle=${indicatorStyleB64}`;
   const iFrameTag = `<iframe height="100%" width="100%" frameborder="0" 
   src="https://overlays.rtirl.com/compat.html?key=${
     pullKey.value
   }&access_token=${apiKey}&style=${styleId}&attribution=${
     attribution ? "1" : "0"
   }"> </iframe>`;
-
-  const [indicatorStyle, setIndicatorStyle] = useIndicatorStyle();
 
   useEffect(() => {
     fetch(`https://api.mapbox.com/styles/v1/${styleId}?access_token=${apiKey}`)
