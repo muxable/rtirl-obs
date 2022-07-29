@@ -8,6 +8,8 @@ import cortexImage from "../images/cortex.png";
 import distanceImage from "../images/distance.svg";
 import googleMapsImage from "../images/google_maps.jpg";
 import headingImage from "../images/heading.svg";
+import inclinationImage from "../images/inclination.svg";
+import googleStreetViewImage from "../images/streetview.png";
 import mapboxImage from "../images/mapbox.jpg";
 import speedImage from "../images/mph.svg";
 import neighborhoodImage from "../images/neighborhood.svg";
@@ -24,6 +26,11 @@ const pages = [
     name: "Google Maps",
     route: "/googlemap",
     image: googleMapsImage,
+  },
+  {
+    name: "Google Street View",
+    route: "/googlestreetview",
+    image: googleStreetViewImage,
   },
   {
     name: "Neighborhood",
@@ -59,6 +66,11 @@ const pages = [
     name: "Altitude",
     route: "/altitude",
     image: altitudeImage,
+  },
+  {
+    name: "Inclination by sprEEEzy",
+    route: "/inclination",
+    image: inclinationImage,
   },
 ];
 
