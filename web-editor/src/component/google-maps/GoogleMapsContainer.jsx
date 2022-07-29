@@ -26,12 +26,25 @@ export const GoogleMapsContainer = ({
       }}
     >
       {canPreview ? (
-        <iframe
-          style={containerStyle}
-          title="gmaps"
-          frameBorder={0}
-          src={uri}
-        ></iframe>
+        <>
+          <iframe
+            style={containerStyle}
+            title="gmaps"
+            frameBorder={0}
+            src={uri}
+          ></iframe>
+          <div
+            style={{
+              zIndex: "100",
+              position: "absolute",
+              width: `${indicatorStyle.width}px`,
+              height: `${indicatorStyle.height}px`,
+              borderRadius: `${indicatorStyle.borderRadius}%`,
+              backgroundColor: indicatorStyle.backgroundColor,
+              boxShadow: `0 0 10px ${indicatorStyle.backgroundColor}`,
+            }}
+          />
+        </>
       ) : (
         <div
           style={{
@@ -45,17 +58,6 @@ export const GoogleMapsContainer = ({
           <h1> Unable to preview, please verify the data provided </h1>
         </div>
       )}
-      <div
-        style={{
-          zIndex: "100",
-          position: "absolute",
-          width: `${indicatorStyle.width}px`,
-          height: `${indicatorStyle.height}px`,
-          borderRadius: `${indicatorStyle.borderRadius}%`,
-          backgroundColor: indicatorStyle.backgroundColor,
-          boxShadow: `0 0 10px ${indicatorStyle.backgroundColor}`,
-        }}
-      />
     </div>
   );
 };
