@@ -2,7 +2,6 @@ import { Box } from "@mui/material";
 import * as React from "react";
 
 function TextOverlayPreview({ textDivCSS, text }) {
-  console.log("textDivCSS", textDivCSS);
   return (
     <Box height="75vh">
       <div
