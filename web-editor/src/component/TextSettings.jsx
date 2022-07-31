@@ -8,7 +8,16 @@ import PaddingIcon from "@mui/icons-material/Padding";
 import RotateLeftIcon from "@mui/icons-material/RotateLeft";
 import ColorLensIcon from "@mui/icons-material/ColorLens";
 import BorderOuterIcon from "@mui/icons-material/BorderOuter";
-import { Divider, IconButton, Tooltip } from "@mui/material";
+import BlurOnIcon from "@mui/icons-material/BlurOn";
+import BlurLinearOutlinedIcon from "@mui/icons-material/BlurLinearOutlined";
+import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Divider,
+  IconButton,
+  Tooltip,
+} from "@mui/material";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import React from "react";
@@ -16,6 +25,7 @@ import BorderRadiusPicker from "./BorderRadiusPicker";
 import ColorPickerToggle from "./ColorPickerToggle";
 import FontPicker from "./FontPicker";
 import { NumberTextField } from "./NumberTextField";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
   return (
@@ -144,6 +154,105 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
               </Tooltip>
             </IconButton>
           </Stack>
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              Addtional Options
+            </AccordionSummary>
+            <AccordionDetails>
+              <Stack spacing={1}>
+                <label> Stroke </label>
+                <NumberTextField
+                  value={textDivCSS.strokeWidth}
+                  setValue={(strokeWidth) => {
+                    strokeWidth = parseInt(strokeWidth);
+                    setTextDivCSS({
+                      ...textDivCSS,
+                      strokeWidth,
+                    });
+                  }}
+                  endAdornmentUnit="px"
+                  prefixIcon={<BorderOuterIcon />}
+                  tooltipTitle="Stroke Width"
+                ></NumberTextField>
+                <Stack direction={"row"} spacing={1}>
+                  <Tooltip title="Stroke Color">
+                    <ColorLensIcon />
+                  </Tooltip>
+                  <ColorPickerToggle
+                    color={textDivCSS.strokeColor}
+                    setColor={(color) => {
+                      setTextDivCSS({
+                        ...textDivCSS,
+                        strokeColor: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`,
+                      });
+                    }}
+                  />
+                </Stack>
+                <label> Text Shadow </label>
+                <NumberTextField
+                  value={textDivCSS.hShadow}
+                  setValue={(hShadow) => {
+                    hShadow = parseInt(hShadow);
+                    setTextDivCSS({
+                      ...textDivCSS,
+                      hShadow,
+                    });
+                  }}
+                  endAdornmentUnit="px"
+                  prefixIcon={<BlurLinearOutlinedIcon />}
+                  tooltipTitle="H-Shadow"
+                ></NumberTextField>
+                <NumberTextField
+                  value={textDivCSS.vShadow}
+                  setValue={(vShadow) => {
+                    vShadow = parseInt(vShadow);
+                    setTextDivCSS({
+                      ...textDivCSS,
+                      vShadow,
+                    });
+                  }}
+                  endAdornmentUnit="px"
+                  prefixIcon={
+                    <BlurLinearOutlinedIcon
+                      sx={{ transform: "rotate(-90deg)" }}
+                    />
+                  }
+                  tooltipTitle="V-Shadow"
+                ></NumberTextField>
+                <NumberTextField
+                  value={textDivCSS.blurRadius}
+                  setValue={(blurRadius) => {
+                    blurRadius = parseInt(blurRadius);
+                    setTextDivCSS({
+                      ...textDivCSS,
+                      blurRadius,
+                    });
+                  }}
+                  endAdornmentUnit="px"
+                  prefixIcon={<BlurOnIcon />}
+                  tooltipTitle="Blur Radius"
+                ></NumberTextField>
+                <Stack direction={"row"} spacing={1}>
+                  <Tooltip title="Shadow Color">
+                    <ColorLensIcon />
+                  </Tooltip>
+                  <ColorPickerToggle
+                    color={textDivCSS.shadowColor}
+                    setColor={(color) => {
+                      setTextDivCSS({
+                        ...textDivCSS,
+                        shadowColor: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`,
+                      });
+                    }}
+                  />
+                </Stack>
+              </Stack>
+            </AccordionDetails>
+          </Accordion>
         </Stack>
 
         {/* background */}

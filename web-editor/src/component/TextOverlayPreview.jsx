@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import * as React from "react";
 
 function TextOverlayPreview({ textDivCSS, text }) {
+  console.log("textDivCSS", textDivCSS);
   return (
     <Box height="75vh">
       <div
@@ -26,6 +27,9 @@ function TextOverlayPreview({ textDivCSS, text }) {
             borderColor: textDivCSS.borderColor,
             borderWidth: `${textDivCSS.borderWidth}px`,
             justifyContent: textDivCSS.justifyContent,
+            WebkitTextStrokeWidth: `${textDivCSS.strokeWidth}px`,
+            WebkitTextStrokeColor: textDivCSS.strokeColor,
+            textShadow: `${textDivCSS.hShadow}px ${textDivCSS.vShadow}px ${textDivCSS.blurRadius}px ${textDivCSS.shadowColor}`,
           }}
         >
           {text}
