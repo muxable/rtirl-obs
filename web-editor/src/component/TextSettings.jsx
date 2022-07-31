@@ -10,6 +10,7 @@ import ColorLensIcon from "@mui/icons-material/ColorLens";
 import BorderOuterIcon from "@mui/icons-material/BorderOuter";
 import BlurOnIcon from "@mui/icons-material/BlurOn";
 import BlurLinearOutlinedIcon from "@mui/icons-material/BlurLinearOutlined";
+import LineWeightOutlinedIcon from "@mui/icons-material/LineWeightOutlined";
 import {
   Accordion,
   AccordionSummary,
@@ -175,7 +176,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
                     });
                   }}
                   endAdornmentUnit="px"
-                  prefixIcon={<BorderOuterIcon />}
+                  prefixIcon={<LineWeightOutlinedIcon />}
                   tooltipTitle="Stroke Width"
                 ></NumberTextField>
                 <Stack direction={"row"} spacing={1}>
