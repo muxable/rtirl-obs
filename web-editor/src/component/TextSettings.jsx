@@ -155,7 +155,9 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
               </Tooltip>
             </IconButton>
           </Stack>
-          <Accordion>
+          <Accordion sx={{
+            backgroundColor: "primary.main",
+          }}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
