@@ -2,8 +2,7 @@ import { Stack } from "@mui/material";
 import React from "react";
 import BorderStyleIcon from "@mui/icons-material/BorderStyle";
 import { NumberTextField } from "./NumberTextField";
-
-const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
+import { clamp } from "../utility";
 
 function BorderRadiusPicker({ textDivCSS, setTextDivCSS }) {
   return (
