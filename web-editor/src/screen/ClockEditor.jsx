@@ -19,74 +19,44 @@ function ClockEditor({
 
   const url = `https://overlays.rtirl.com/datetime/luxon.html?key=${pullKey.value}&lang=${lang}&format=${format}`;
 
-  const standadloneToken = [
-    "S",
-    "SSS",
-    "u",
-    "uu",
-    "uuu",
-    "s",
-    "ss",
-    "m",
-    "mm",
-    "h",
-    "hh",
-    "H",
-    "HH",
-    "Z",
-    "ZZ",
-    "ZZZ",
-    "ZZZZ",
-    "ZZZZZ",
-    "z",
-    "a",
-    "d",
-    "dd",
-    "c",
-    "ccc",
-    "cccc",
-    "ccccc",
-    "L",
-    "LL",
-    "LLL",
-    "LLLL",
-    "LLLLL",
-    "y",
-    "yy",
-    "yyyy",
-    "G",
-    "GG",
-    "GGGGG",
-    "kk",
-    "kkkk",
-    "W",
-    "WW",
-    "o",
-    "ooo",
-    "q",
-    "qq",
-    "D",
-    "DD",
-    "DDD",
-    "DDDD",
-    "t",
-    "tt",
-    "ttt",
-    "tttt",
-    "T",
-    "TT",
-    "TTT",
-    "TTTT",
-    "f",
-    "ff",
-    "fff",
-    "ffff",
-    "F",
-    "FF",
-    "FFF",
-    "FFFF",
-    "X",
-    "x",
+  const standaloneToken = [
+    { token: "D", hint: "Date" },
+    { token: "DD", hint: "Date" },
+    { token: "DDD", hint: "Date" },
+    { token: "DDDD", hint: "Date" },
+    { token: "t", hint: "Time (12-hour)" },
+    { token: "tt", hint: "Time (12-hour)" },
+    { token: "ttt", hint: "Time (12-hour)" },
+    { token: "tttt", hint: "Time (12-hour)" },
+    { token: "T", hint: "Time (24-hour)" },
+    { token: "TT", hint: "Time (24-hour)" },
+    { token: "TTT", hint: "Time (24-hour)" },
+    { token: "TTTT", hint: "Time (24-hour)" },
+    { token: "f", hint: "Date and time (12-hour)" },
+    { token: "ff", hint: "Date and time (12-hour)" },
+    { token: "fff", hint: "Date and time (12-hour)" },
+    { token: "ffff", hint: "Date and time (12-hour)" },
+    { token: "F", hint: "Date and time (24-hour)" },
+    { token: "FF", hint: "Date and time (24-hour)" },
+    { token: "FFF", hint: "Date and time (24-hour)" },
+    { token: "FFFF", hint: "Date and time (24-hour)" },
+    { token: "ss", hint: "Seconds" },
+    { token: "mm", hint: "Minutes" },
+    { token: "hh", hint: "Hours (12-hour)" },
+    { token: "HH", hint: "Hours (24-hour)" },
+    { token: "ZZZZ", hint: "Time zone" },
+    { token: "ZZZZZ", hint: "Full time zone" },
+    { token: "a", hint: "AM/PM" },
+    { token: "d", hint: "Day of the month" },
+    { token: "dd", hint: "Day of the month with zero" },
+    { token: "ccc", hint: "Day of the week" },
+    { token: "cccc", hint: "Full day of the week" },
+    { token: "L", hint: "Month number" },
+    { token: "LL", hint: "Month number with zero" },
+    { token: "LLL", hint: "Month" },
+    { token: "LLLL", hint: "Full month" },
+    { token: "y", hint: "Year" },
+    { token: "yy", hint: "Year (two digits)" },
   ];
 
   const luxonCountries = [
@@ -159,15 +129,21 @@ function ClockEditor({
               },
             }}
           >
-            {standadloneToken.map((token) => (
+            {standaloneToken.map(({ token, hint }) => (
               <MenuItem
                 key={token}
                 value={time.toFormat(token)}
                 onClick={() => {
                   setFormat(token);
                 }}
+                style={{ flexDirection: "column", alignItems: "flex-start" }}
               >
-                {time.toFormat(token)}
+                <div>{hint}</div>
+                <div>
+                  <Typography variant="caption">
+                    {time.toFormat(token)}
+                  </Typography>
+                </div>
               </MenuItem>
             ))}
           </Select>
