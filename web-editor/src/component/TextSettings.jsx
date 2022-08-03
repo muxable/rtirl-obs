@@ -46,6 +46,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
             <NumberTextField
               value={textDivCSS.fontSize}
               setValue={(fontSize) => {
+                fontSize = Math.max(parseInt(fontSize), 0);
                 setTextDivCSS({
                   ...textDivCSS,
                   fontSize,
@@ -173,7 +174,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
                 <NumberTextField
                   value={textDivCSS.strokeWidth}
                   setValue={(strokeWidth) => {
-                    strokeWidth = parseInt(strokeWidth);
+                    strokeWidth = Math.max(0, parseInt(strokeWidth));
                     setTextDivCSS({
                       ...textDivCSS,
                       strokeWidth,
@@ -231,7 +232,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
                 <NumberTextField
                   value={textDivCSS.blurRadius}
                   setValue={(blurRadius) => {
-                    blurRadius = parseInt(blurRadius);
+                    blurRadius = Math.max(0, parseInt(blurRadius));
                     setTextDivCSS({
                       ...textDivCSS,
                       blurRadius,
@@ -281,6 +282,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
             <NumberTextField
               value={textDivCSS.padding}
               setValue={(padding) => {
+                padding = Math.max(parseInt(padding), 0);
                 setTextDivCSS({
                   ...textDivCSS,
                   padding: parseInt(padding),
@@ -315,6 +317,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
               <NumberTextField
                 value={textDivCSS.borderWidth}
                 setValue={(borderWidth) => {
+                  borderWidth = Math.max(parseInt(borderWidth), 0);
                   setTextDivCSS({
                     ...textDivCSS,
                     borderWidth,
