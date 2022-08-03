@@ -13,7 +13,11 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export const IndicatorSetting = ({ indicatorStyle, setIndicatorStyle }) => {
   return (
-    <Accordion>
+    <Accordion
+      sx={{
+        backgroundColor: "primary.main",
+      }}
+    >
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
