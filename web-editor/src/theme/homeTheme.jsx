@@ -8,6 +8,12 @@ let homeTheme = createTheme({
     h2: {
       fontFamily: "Hanson, Arial",
     },
+    h4: {
+      fontFamily: "Hanson, Arial",
+    },
+    h5: {
+      fontFamily: "Hanson, Arial",
+    },
     allVariants: {
       color: "white",
     },

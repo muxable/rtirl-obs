@@ -1,7 +1,9 @@
 import { Box, Container, CssBaseline, Grid, Typography } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { OverlayPreview } from "../component/OverlayPreview";
+import { Select, MenuItem } from '@mui/material';
 import altitudeImage from "../images/altitude.svg";
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import backgroundImage from "../images/background.png";
 import clockImage from "../images/clock.svg";
 import cortexImage from "../images/cortex.png";
@@ -90,17 +92,45 @@ export const Home = (props) => {
       >
         <Container>
           <Typography variant="h2" component="h2" paddingTop={6}>
-            REALTIMEIRL OVERLAY EDITOR
+            REALTIMEIRL <Typography variant="h2" display="block">OVERLAY EDITOR</Typography>
           </Typography>
-          <Typography variant="h4" component="h4">
-            Choose an overlay to get started
-          </Typography>
+
+          <Select
+    labelId="overlayoptions"
+    disableUnderline
+    value="Design your own"
+    variant="standard"
+    IconComponent={KeyboardArrowDownIcon}
+    MenuProps={{
+      
+      sx:{
+        '.MuiMenu-paper' : {
+          outline:'solid 4px',
+          marginTop:"4px",
+        outlineColor:"white",
+          backgroundColor:'black',
+          width:"32%",
+          borderRadius:"0px"
+        }
+      }
+    }}
+    sx={{backgroundColor:"transparent", width:"35%", height:"6vh", outlineColor:"white", outlineStyle:"solid", outlineWidth:"3px", marginTop:"1%",
+    '.MuiSelect-iconStandard' : {
+      marginRight:'4%',
+      stroke:"white",
+      strokeWidth:'2px'
+    }
+  }}>
+    <MenuItem value={"Design your own"} defaultValue disableRipple><Typography variant="h5" sx={{marginTop:'5px'}}>Design your own</Typography></MenuItem>
+    <MenuItem value={"Community Templates"} disableRipple><Typography variant="h5">Community Templates</Typography></MenuItem>
+
+  </Select>
           <Grid
             container
             alignItems="center"
             justifyContent="center"
             spacing={{ xs: 1, sm: 1, md: 3 }}
-            sx={{ paddingTop: "2%", paddingBottom: "2%" }}
+            sx={{ paddingTop: "4%", paddingBottom: "2%" }}
           >
             {pages.map((page, index) => (
               <Grid item xs={10} sm={5} md={3} key={index}>
