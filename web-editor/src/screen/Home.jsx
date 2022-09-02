@@ -78,6 +78,7 @@ const pages = [
 
 export const Home = (props) => {
   const [option, setOption] = useState('Design your own');
+  const copyright = new Date().getFullYear() + " Muxable, LLC";
 
   const handleChange = (event) => {
     setOption(event.target.value);
@@ -169,6 +170,9 @@ export const Home = (props) => {
             </Grid>
           </Grid>
           )}
+            <div>
+                <Typography fontWeight="bold"> &copy; {copyright}</Typography>
+            </div>
         </Container>
       </Box>
     </ThemeProvider>
