@@ -1,7 +1,7 @@
-import { Box, Container, CssBaseline, Grid, Typography } from "@mui/material";
+import { Box, Container, CssBaseline, Grid, Typography, Select, MenuItem } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { OverlayPreview } from "../component/OverlayPreview";
-import { Select, MenuItem } from '@mui/material';
+import { useState } from 'react'
 import altitudeImage from "../images/altitude.svg";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import backgroundImage from "../images/background.png";
@@ -77,6 +77,12 @@ const pages = [
 ];
 
 export const Home = (props) => {
+  const [option, setOption] = useState('Design your own');
+
+  const handleChange = (event) => {
+    setOption(event.target.value);
+  };
+
   return (
     <ThemeProvider theme={homeTheme}>
       <CssBaseline />
@@ -98,8 +104,10 @@ export const Home = (props) => {
           <Select
     labelId="overlayoptions"
     disableUnderline
-    value="Design your own"
     variant="standard"
+    defaultValue={option}
+    value={option}
+    onChange={handleChange}
     IconComponent={KeyboardArrowDownIcon}
     MenuProps={{
       
@@ -116,15 +124,16 @@ export const Home = (props) => {
     }}
     sx={{backgroundColor:"transparent", width:"35%", height:"6vh", outlineColor:"white", outlineStyle:"solid", outlineWidth:"3px", marginTop:"1%",
     '.MuiSelect-iconStandard' : {
-      marginRight:'4%',
+      marginRight:'2%',
       stroke:"white",
       strokeWidth:'2px'
     }
   }}>
-    <MenuItem value={"Design your own"} defaultValue disableRipple><Typography variant="h5" sx={{marginTop:'5px'}}>Design your own</Typography></MenuItem>
-    <MenuItem value={"Community Templates"} disableRipple><Typography variant="h5">Community Templates</Typography></MenuItem>
+    <MenuItem value={"Design your own"} disableRipple><Typography variant="h5" sx={{marginTop:'5px'}}>Design your own</Typography></MenuItem>
+    <MenuItem value={"Community Templates"} disableRipple><Typography variant="h5" sx={{marginTop:'5px'}}>Community Templates</Typography></MenuItem>
 
   </Select>
+  {option === "Design your own" && (
           <Grid
             container
             alignItems="center"
@@ -142,9 +151,8 @@ export const Home = (props) => {
               </Grid>
             ))}
           </Grid>
-          <Typography variant="h3" component="h4">
-            Community Overlays
-          </Typography>
+  )}
+  {option === 'Community Templates' && (
           <Grid
             container
             alignItems="center"
@@ -160,6 +168,7 @@ export const Home = (props) => {
               />
             </Grid>
           </Grid>
+          )}
         </Container>
       </Box>
     </ThemeProvider>
