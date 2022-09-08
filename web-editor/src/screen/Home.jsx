@@ -114,24 +114,29 @@ export const Home = (props) => {
       
       sx:{
         '.MuiMenu-paper' : {
-          outline:'solid 4px',
+          outline:'solid 3px',
           marginTop:"4px",
         outlineColor:"white",
           backgroundColor:'black',
-          width:"32%",
+          minWidth:"auto",
           borderRadius:"0px"
         }
       }
     }}
-    sx={{backgroundColor:"transparent", width:"35%", height:"6vh", outlineColor:"white", outlineStyle:"solid", outlineWidth:"3px", marginTop:"1%",
+    sx={{backgroundColor:"transparent", minWidth:"37%", height:"3em", outlineColor:"white", outlineStyle:"solid", outlineWidth:"3px", marginTop:"1%",
     '.MuiSelect-iconStandard' : {
       marginRight:'2%',
       stroke:"white",
       strokeWidth:'2px'
     }
   }}>
-    <MenuItem value={"Design your own"} disableRipple><Typography variant="h5" sx={{marginTop:'5px'}}>Design your own</Typography></MenuItem>
-    <MenuItem value={"Community Templates"} disableRipple><Typography variant="h5" sx={{marginTop:'5px'}}>Community Templates</Typography></MenuItem>
+    <MenuItem value={"Design your own"} disableRipple style={
+          option === "Design your own"
+            ? {display:"none"} : {}
+          } ><Typography variant="h5" sx={{marginTop:'5px'}}>Design your own</Typography></MenuItem>
+    <MenuItem value={"Community Templates"} disableRipple style={
+          option === "Community Templates"
+            ? {display:"none"} : {} }><Typography variant="h5" sx={{marginTop:'5px'}}>Community Templates</Typography></MenuItem>
 
   </Select>
   {option === "Design your own" && (
