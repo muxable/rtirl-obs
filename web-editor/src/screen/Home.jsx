@@ -1,9 +1,16 @@
-import { Box, Container, CssBaseline, Grid, Typography, Select, MenuItem } from "@mui/material";
+import {
+  Box,
+  CssBaseline,
+  Grid,
+  Typography,
+  Select,
+  MenuItem,
+} from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { OverlayPreview } from "../component/OverlayPreview";
-import { useState } from 'react'
+import { useState } from "react";
 import altitudeImage from "../images/altitude.svg";
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import backgroundImage from "../images/background.png";
 import clockImage from "../images/clock.svg";
 import cortexImage from "../images/cortex.png";
@@ -77,7 +84,7 @@ const pages = [
 ];
 
 export const Home = (props) => {
-  const [option, setOption] = useState('Design your own');
+  const [option, setOption] = useState("Design your own");
   const copyright = new Date().getFullYear() + " Muxable, LLC";
 
   const handleChange = (event) => {
@@ -87,98 +94,134 @@ export const Home = (props) => {
   return (
     <ThemeProvider theme={homeTheme}>
       <CssBaseline />
-
       <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        minHeight="100vh"
-        sx={{
-          backgroundImage: `url(${backgroundImage})`,
-        }}
+        sx={{ backgroundImage: `url(${backgroundImage})`, minHeight: "100vh" }}
       >
-        <Container>
+        {/*Test bg image and test width on grid row wrapper to increase paddings*/}
+        <Box>
           <Typography variant="h2" component="h2" paddingTop={6}>
-            REALTIMEIRL <Typography variant="h2" display="block">OVERLAY EDITOR</Typography>
-          </Typography>
-
-          <Select
-    labelId="overlayoptions"
-    disableUnderline
-    variant="standard"
-    defaultValue={option}
-    value={option}
-    onChange={handleChange}
-    IconComponent={KeyboardArrowDownIcon}
-    MenuProps={{
-      
-      sx:{
-        '.MuiMenu-paper' : {
-          outline:'solid 3px',
-          marginTop:"4px",
-        outlineColor:"white",
-          backgroundColor:'black',
-          minWidth:"auto",
-          borderRadius:"0px"
-        }
-      }
-    }}
-    sx={{backgroundColor:"transparent", minWidth:"37%", height:"3em", outlineColor:"white", outlineStyle:"solid", outlineWidth:"3px", marginTop:"1%",
-    '.MuiSelect-iconStandard' : {
-      marginRight:'2%',
-      stroke:"white",
-      strokeWidth:'2px'
-    }
-  }}>
-    <MenuItem value={"Design your own"} disableRipple style={
-          option === "Design your own"
-            ? {display:"none"} : {}
-          } ><Typography variant="h5" sx={{marginTop:'5px'}}>Design your own</Typography></MenuItem>
-    <MenuItem value={"Community Templates"} disableRipple style={
-          option === "Community Templates"
-            ? {display:"none"} : {} }><Typography variant="h5" sx={{marginTop:'5px'}}>Community Templates</Typography></MenuItem>
-
-  </Select>
-  {option === "Design your own" && (
-          <Grid
-            container
-            alignItems="center"
-            justifyContent="center"
-            spacing={{ xs: 1, sm: 1, md: 3 }}
-            sx={{ paddingTop: "4%", paddingBottom: "2%" }}
-          >
-            {pages.map((page, index) => (
-              <Grid item xs={10} sm={5} md={3} key={index}>
-                <OverlayPreview
-                  name={page.name}
-                  route={page.route}
-                  image={page.image}
-                />
-              </Grid>
-            ))}
-          </Grid>
-  )}
-  {option === 'Community Templates' && (
-          <Grid
-            container
-            alignItems="center"
-            justifyContent="center"
-            spacing={{ xs: 1, sm: 1, md: 3 }}
-            sx={{ paddingTop: "2%", paddingBottom: "2%" }}
-          >
-            <Grid item xs={10} sm={5} md={3}>
-              <OverlayPreview
-                name={"Cortex's React-based Overlay System"}
-                href={"https://github.com/scallensc/react-realtimeirl"}
-                image={cortexImage}
-              />
-            </Grid>
-          </Grid>
-          )}
+            REALTIMEIRL
             <div>
-                <Typography fontWeight="bold"> &copy; {copyright}</Typography>
+              <Typography variant="h2" display="block">
+                OVERLAY EDITOR
+              </Typography>
             </div>
-        </Container>
+          </Typography>
+        </Box>
+
+        <Box>
+          <Select
+            labelId="overlayoptions"
+            disableUnderline
+            variant="standard"
+            defaultValue={option}
+            value={option}
+            onChange={handleChange}
+            IconComponent={KeyboardArrowDownIcon}
+            MenuProps={{
+              sx: {
+                ".MuiMenu-paper": {
+                  outline: "solid 3px",
+                  marginTop: "4px",
+                  outlineColor: "white",
+                  backgroundColor: "black",
+                  width: "28rem",
+                  borderRadius: "0px",
+                },
+              },
+            }}
+            sx={{
+              backgroundColor: "transparent",
+              width: "28rem",
+              height: "3rem",
+              outlineColor: "white",
+              outlineStyle: "solid",
+              outlineWidth: "3px",
+              marginTop: "1%",
+              ".MuiSelect-iconStandard": {
+                marginRight: "2%",
+                stroke: "white",
+                strokeWidth: "2px",
+              },
+            }}
+          >
+            <MenuItem
+              value={"Design your own"}
+              disableRipple
+              style={option === "Design your own" ? { display: "none" } : {}}
+            >
+              <Typography variant="h5" sx={{ marginTop: "5px" }}>
+                Design your own
+              </Typography>
+            </MenuItem>
+
+            <MenuItem
+              value={"Community Templates"}
+              disableRipple
+              style={
+                option === "Community Templates" ? { display: "none" } : {}
+              }
+            >
+              <Typography variant="h5" sx={{ marginTop: "5px" }}>
+                Community Templates
+              </Typography>
+            </MenuItem>
+          </Select>
+        </Box>
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          sx={{ overflowX: "auto" }}
+        >
+          {option === "Design your own" && (
+            <div sx={{ overflowX: "auto" }}>
+              <Grid
+                container
+                alignItems="center"
+                justifyContent="flex-start"
+                direction="row"
+                wrap="nowrap"
+                spacing={{ xs: 1, sm: 1, md: 3 }}
+                sx={{ paddingTop: "4%", paddingBottom: "2%" }}
+              >
+                {pages.map((page, index) => (
+                  <Grid item xs="auto" sm="auto" md="auto" key={index}>
+                    <OverlayPreview
+                      name={page.name}
+                      route={page.route}
+                      image={page.image}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            </div>
+          )}
+          {option === "Community Templates" && (
+            <div sx={{ overflowX: "auto" }}>
+              <Grid
+                container
+                alignItems="center"
+                justifyContent="center"
+                spacing={{ xs: 1, sm: 1, md: 3 }}
+                sx={{ paddingTop: "14%", paddingBottom: "2%" }}
+              >
+                <Grid item xs={10} sm={5} md={12}>
+                  <OverlayPreview
+                    name={"Cortex's React-based Overlay System"}
+                    href={"https://github.com/scallensc/react-realtimeirl"}
+                    image={cortexImage}
+                  />
+                </Grid>
+              </Grid>
+            </div>
+          )}
+        </Box>
+        <Box></Box>
+
+        <Box sx={{ bottom: "0", position: "fixed", width: "100%" }}>
+          <Typography fontWeight="bold"> &copy; {copyright}</Typography>
+        </Box>
       </Box>
     </ThemeProvider>
   );
