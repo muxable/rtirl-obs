@@ -85,7 +85,7 @@ const pages = [
 
 export const Home = (props) => {
   const [option, setOption] = useState("Design your own");
-  const copyright = new Date().getFullYear() + " Muxable, LLC";
+  const copyright = new Date().getFullYear() + " Muxable, Inc";
 
   const handleChange = (event) => {
     setOption(event.target.value);
