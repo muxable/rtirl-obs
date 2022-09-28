@@ -30,6 +30,9 @@ function OverlayExportPanel({
       `text-align: ${textDivCSS.textAlign}`,
       `border-radius: ${textDivCSS.border_top_left_radius}% ${textDivCSS.border_top_right_radius}% ${textDivCSS.border_bottom_right_radius}% ${textDivCSS.border_bottom_left_radius}%`,
       `padding: ${textDivCSS.padding}px`,
+      `-webkit-text-stroke-width: ${textDivCSS.strokeWidth}px`,
+      `-webkit-text-stroke-color: ${textDivCSS.strokeColor}`,
+      `text-shadow: ${textDivCSS.hShadow}px ${textDivCSS.vShadow}px ${textDivCSS.blurRadius}px ${textDivCSS.shadowColor}`,
     ].join(";\n");
     const fontLink = `https://fonts.googleapis.com/css2?family=${textDivCSS.fontFamily}&display=swap`;
     const encodedProperties = btoa(properties);

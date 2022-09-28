@@ -7,6 +7,7 @@
       integrity="sha256-BdqBGuaawDzMtW2Wn9ISUuYKUY/A7d5NVcj6Ix3jwv8="
       crossorigin="anonymous"
     ></script>
+    <script defer src="../css.js"></script>
   </head>
   <body>
     <div id="text"></div>
@@ -16,9 +17,7 @@
         new URLSearchParams(window.location.search).get("lang") || "en";
       var format =
         new URLSearchParams(window.location.search).get("format") || "tt";
-      const css = new URLSearchParams(window.location.search).get("css");
-      const font = new URLSearchParams(window.location.search).get("font");
-      
+
       var i = 0;
       var j = 0;
       var latestLocation = null;
@@ -55,24 +54,6 @@
           .setLocale(lang)
           .toFormat(format);
       }, 1000);
-
-      if (font) {
-        const decodedFont = atob(font);
-        const importFontFamily = document.createElement("link");
-        importFontFamily.href = decodedFont;
-        importFontFamily.type = "text/css";
-        importFontFamily.rel = "stylesheet";
-
-        // load google font
-        document.getElementsByTagName("head")[0].appendChild(importFontFamily);
-      } 
-
-      // migration nessessary for old users
-      if (css) {
-        document.body.setAttribute("style", css);
-        const decodedCSS = atob(css);
-        document.getElementsByTagName("body")[0].style = decodedCSS;
-      }
     </script>
   </body>
 </html>

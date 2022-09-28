@@ -2,36 +2,25 @@
 <html>
   <head>
     <script src="https://unpkg.com/@rtirl/api@latest/lib/index.min.js"></script>
+    <script defer src="../css.js"></script>
   </head>
   <body>
     <div id="text"><span id="speed">0</span> mph</div>
     <script>
       const pullKey = new URLSearchParams(window.location.search).get("key");
-      const css = new URLSearchParams(window.location.search).get("css");
-      const font = new URLSearchParams(window.location.search).get("font");
-      
+      var timer;
       RealtimeIRL.forPullKey(pullKey).addSpeedListener(function (speed) {
+
+        clearTimeout(timer); //don't reset to 0 if moving
+
         const speedInMph = (speed * 2.236936) | 0;
         document.getElementById("speed").innerText = speedInMph > 0 ? speedInMph : 0;
+
+        timer = setTimeout(() => { //reset to 0 if not moving for 30 sec
+          document.getElementById("speed").innerText = 0;
+        }, 30000);
+        
       });
-
-      if (font) {
-        const decodedFont = atob(font);
-        const importFontFamily = document.createElement("link");
-        importFontFamily.href = decodedFont;
-        importFontFamily.type = "text/css";
-        importFontFamily.rel = "stylesheet";
-
-        // load google font
-        document.getElementsByTagName("head")[0].appendChild(importFontFamily);
-      } 
-
-      // migration nessessary for old users
-      if (css) {
-        document.body.setAttribute("style", css);
-        const decodedCSS = atob(css);
-        document.getElementsByTagName("body")[0].style = decodedCSS;
-      }
     </script>
   </body>
 </html>

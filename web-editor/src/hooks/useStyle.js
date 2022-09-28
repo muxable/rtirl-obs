@@ -18,6 +18,12 @@ export default function useStyle() {
     border_bottom_left_radius: 0,
     border_bottom_right_radius: 0,
     textAlign: "left",
+    strokeColor: "rgba(255, 255, 255, 1)",
+    strokeWidth: 0,
+    hShadow: 0,
+    vShadow: 0,
+    blurRadius: 0,
+    shadowColor: "rgba(255, 255, 255, 1)",
   });
 
   return [textDivCSS, setTextDivCSS];

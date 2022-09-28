@@ -4,6 +4,7 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
     <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
     <script src="https://unpkg.com/@rtirl/api@latest/lib/index.min.js"></script>
+    <script defer src="css.js"></script>
     <link
       href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
       rel="stylesheet"
@@ -31,8 +32,6 @@
       var format =
         new URLSearchParams(window.location.search).get("format") ||
         "${data.neighborhood ? data.neighborhood.text + ', ' : ''}${data.place?.text}";
-      const css = new URLSearchParams(window.location.search).get("css");
-      const font = new URLSearchParams(window.location.search).get("font");
       
       RealtimeIRL.forPullKey(pullKey).addLocationListener(function (location) {
         if (i++ % 50 == 0) {
@@ -66,24 +65,6 @@
             });
         }
       });
-
-      if (font) {
-        const decodedFont = atob(font);
-        const importFontFamily = document.createElement("link");
-        importFontFamily.href = decodedFont;
-        importFontFamily.type = "text/css";
-        importFontFamily.rel = "stylesheet";
-
-        // load google font
-        document.getElementsByTagName("head")[0].appendChild(importFontFamily);
-      } 
-
-      // migration nessessary for old users
-      if (css) {
-        document.body.setAttribute("style", css);
-        const decodedCSS = atob(css);
-        document.getElementsByTagName("body")[0].style = decodedCSS;
-      }
     </script>
   </body>
 </html>
