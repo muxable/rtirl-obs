@@ -2,6 +2,7 @@
 <html>
   <head>
     <script src="https://unpkg.com/@rtirl/api@latest/lib/index.min.js"></script>
+    <script defer src="../css.js"></script>
   </head>
   <body>
     <div id="text"></div>
@@ -14,6 +15,7 @@
       };
 
       const pullKey = new URLSearchParams(window.location.search).get("key");
+      
       RealtimeIRL.forPullKey(pullKey).addHeadingListener(function (heading) {
           var params = new URLSearchParams(window.location.search);
           var data = COMPASS[params.get("lang") || "en"];

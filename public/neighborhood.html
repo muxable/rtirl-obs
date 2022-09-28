@@ -4,6 +4,7 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
     <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
     <script src="https://unpkg.com/@rtirl/api@latest/lib/index.min.js"></script>
+    <script defer src="css.js"></script>
     <link
       href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
       rel="stylesheet"
@@ -31,6 +32,7 @@
       var format =
         new URLSearchParams(window.location.search).get("format") ||
         "${data.neighborhood ? data.neighborhood.text + ', ' : ''}${data.place?.text}";
+      
       RealtimeIRL.forPullKey(pullKey).addLocationListener(function (location) {
         if (i++ % 50 == 0) {
           mapboxClient.geocoding

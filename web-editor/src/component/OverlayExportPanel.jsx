@@ -13,8 +13,10 @@ function OverlayExportPanel({
   type,
 }) {
   const isToExportMap = type.includes("map");
-  const getCSS = () => {
-    const properties = [
+
+  var properties;
+  if (textDivCSS) {
+    properties = [
       `color: ${textDivCSS.textColor}`,
       `font-size: ${textDivCSS.fontSize}px`,
       `font-family: ${textDivCSS.fontFamily}`,
@@ -28,7 +30,18 @@ function OverlayExportPanel({
       `text-align: ${textDivCSS.textAlign}`,
       `border-radius: ${textDivCSS.border_top_left_radius}% ${textDivCSS.border_top_right_radius}% ${textDivCSS.border_bottom_right_radius}% ${textDivCSS.border_bottom_left_radius}%`,
       `padding: ${textDivCSS.padding}px`,
+      `-webkit-text-stroke-width: ${textDivCSS.strokeWidth}px`,
+      `-webkit-text-stroke-color: ${textDivCSS.strokeColor}`,
+      `text-shadow: ${textDivCSS.hShadow}px ${textDivCSS.vShadow}px ${textDivCSS.blurRadius}px ${textDivCSS.shadowColor}`,
     ].join(";\n");
+    const fontLink = `https://fonts.googleapis.com/css2?family=${textDivCSS.fontFamily}&display=swap`;
+    const encodedProperties = btoa(properties);
+    const encodedFontLink = btoa(fontLink);
+
+    url += `&css=${encodedProperties}&font=${encodedFontLink}`;
+  }
+
+  const getCSS = () => {
     const css = `@import url('https://fonts.googleapis.com/css2?family=${textDivCSS.fontFamily}&display=swap');
   body {\n${properties}\n}`;
 
@@ -36,6 +49,8 @@ function OverlayExportPanel({
       <CopyIconTextField label="CSS" value={css} multiline={true} row={3} />
     );
   };
+
+  console.log("url", url);
 
   return (
     <Box

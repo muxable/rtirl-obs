@@ -6,12 +6,14 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import { EditorAppbar } from "./component/Appbar";
 import { NavigationDrawer } from "./component/NavigationDrawer";
+import useIndicatorStyle from "./hooks/useIndicatorStyle";
 import usePullKey from "./hooks/usePullKey";
 import useStyle from "./hooks/useStyle";
 import AltitudeEditor from "./screen/AltitudeEditor";
 import ClockEditor from "./screen/ClockEditor";
 import DistanceEditor from "./screen/DistanceEditor";
 import GoogleMapsEditor from "./screen/GoogleMapsEditor";
+import GoogleStreetViewEditor from "./screen/GoogleStreetViewEditor";
 import HeadingEditor from "./screen/HeadingEditor";
 import { Home } from "./screen/Home";
 import InclinationEditor from "./screen/InclinationEditor";
@@ -32,6 +34,7 @@ function App() {
   const query = useQuery();
   const [pullKey, setPullKey] = usePullKey(query.get("pullKey") ?? "");
   const [textStyle, setTextStyle] = useStyle();
+  const [indicatorStyle, setIndicatorStyle] = useIndicatorStyle();
 
   return (
     <div className="App">
@@ -45,7 +48,12 @@ function App() {
               exact
               path="/mapbox"
               element={
-                <MapboxEditor pullKey={pullKey} onPullKeyChange={setPullKey} />
+                <MapboxEditor
+                  pullKey={pullKey}
+                  onPullKeyChange={setPullKey}
+                  indicatorStyle={indicatorStyle}
+                  setIndicatorStyle={setIndicatorStyle}
+                />
               }
             />
             <Route
@@ -53,6 +61,18 @@ function App() {
               path="/googlemap"
               element={
                 <GoogleMapsEditor
+                  pullKey={pullKey}
+                  onPullKeyChange={setPullKey}
+                  indicatorStyle={indicatorStyle}
+                  setIndicatorStyle={setIndicatorStyle}
+                />
+              }
+            />
+            <Route
+              exact
+              path="/googlestreetview"
+              element={
+                <GoogleStreetViewEditor
                   pullKey={pullKey}
                   onPullKeyChange={setPullKey}
                 />

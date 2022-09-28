@@ -26,6 +26,9 @@ function TextOverlayPreview({ textDivCSS, text }) {
             borderColor: textDivCSS.borderColor,
             borderWidth: `${textDivCSS.borderWidth}px`,
             justifyContent: textDivCSS.justifyContent,
+            WebkitTextStrokeWidth: `${textDivCSS.strokeWidth}px`,
+            WebkitTextStrokeColor: textDivCSS.strokeColor,
+            textShadow: `${textDivCSS.hShadow}px ${textDivCSS.vShadow}px ${textDivCSS.blurRadius}px ${textDivCSS.shadowColor}`,
           }}
         >
           {text}
