@@ -95,7 +95,11 @@ export const Home = (props) => {
     <ThemeProvider theme={homeTheme}>
       <CssBaseline />
       <Box
-        sx={{ backgroundImage: `url(${backgroundImage})`, minHeight: "100vh" }}
+        sx={{
+          backgroundImage: `url(${backgroundImage})`,
+          minHeight: "100vh",
+          overflow: "hidden",
+        }}
       >
         {/*Test bg image and test width on grid row wrapper to increase paddings*/}
         <Box>
@@ -125,19 +129,20 @@ export const Home = (props) => {
                   marginTop: "4px",
                   outlineColor: "white",
                   backgroundColor: "black",
-                  width: "28rem",
+                  width: { xs: "23rem", md: "28rem" },
                   borderRadius: "0px",
                 },
               },
             }}
             sx={{
               backgroundColor: "transparent",
-              width: "28rem",
+              width: { xs: "23rem", md: "28rem" },
               height: "3rem",
               outlineColor: "white",
               outlineStyle: "solid",
               outlineWidth: "3px",
               marginTop: "1%",
+              marginBottom: "3%",
               ".MuiSelect-iconStandard": {
                 marginRight: "2%",
                 stroke: "white",
@@ -175,18 +180,18 @@ export const Home = (props) => {
           sx={{ overflowX: "auto" }}
         >
           {option === "Design your own" && (
-            <div sx={{ overflowX: "auto" }}>
+            <div>
               <Grid
                 container
                 alignItems="center"
                 justifyContent="flex-start"
-                direction="row"
+                direction={{ xs: "column", md: "row" }}
                 wrap="nowrap"
-                spacing={{ xs: 1, sm: 1, md: 3 }}
-                sx={{ paddingTop: "4%", paddingBottom: "2%" }}
+                spacing={{ xs: 4, sm: 3, md: 3 }}
+                sx={{ paddingBottom: "2%" }}
               >
                 {pages.map((page, index) => (
-                  <Grid item xs="auto" sm="auto" md="auto" key={index}>
+                  <Grid item xs="auto" key={index}>
                     <OverlayPreview
                       name={page.name}
                       route={page.route}
@@ -204,7 +209,7 @@ export const Home = (props) => {
                 alignItems="center"
                 justifyContent="center"
                 spacing={{ xs: 1, sm: 1, md: 3 }}
-                sx={{ paddingTop: "14%", paddingBottom: "2%" }}
+                sx={{ paddingBottom: "2%" }}
               >
                 <Grid item xs={10} sm={5} md={12}>
                   <OverlayPreview
@@ -217,10 +222,11 @@ export const Home = (props) => {
             </div>
           )}
         </Box>
-        <Box></Box>
 
-        <Box sx={{ bottom: "0", position: "fixed", width: "100%" }}>
-          <Typography fontWeight="bold"> &copy; {copyright}</Typography>
+        <Box sx={{ bottom: "0", position: { md: "absolute" }, width: "100%" }}>
+          <Typography fontWeight="bold">
+            &copy; {copyright}
+          </Typography>
         </Box>
       </Box>
     </ThemeProvider>
