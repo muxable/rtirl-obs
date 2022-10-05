@@ -224,9 +224,7 @@ export const Home = (props) => {
         </Box>
 
         <Box sx={{ bottom: "0", position: { md: "absolute" }, width: "100%" }}>
-          <Typography fontWeight="bold">
-            &copy; {copyright}
-          </Typography>
+          <Typography fontWeight="bold">&copy; {copyright}</Typography>
         </Box>
       </Box>
     </ThemeProvider>
