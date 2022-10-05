@@ -166,7 +166,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
               aria-controls="panel1a-content"
               id="panel1a-header"
             >
-              Addtional Options
+              Additional Options
             </AccordionSummary>
             <AccordionDetails>
               <Stack spacing={1}>

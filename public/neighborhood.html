@@ -58,10 +58,13 @@
                   feature.place_type.includes(param)
                 );
               }
-              document.getElementById("text").innerText = wrappedEval(
+              var result = wrappedEval(
                 "`" + format + "`",
                 context
               );
+              if (!result.includes("undefined")) {
+                document.getElementById("text").innerText = result; 
+              }
             });
         }
       });
