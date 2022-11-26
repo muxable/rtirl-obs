@@ -112,9 +112,7 @@ function ClockEditor({
           backgroundColor="primary.main"
           textAlign="left"
         >
-          <Typography variant="h6" component="div">
-            Settings
-          </Typography>
+
           <PullKeyInput pullKey={pullKey} onKeyChange={onPullKeyChange} />
           <Typography>Format</Typography>
           <Select

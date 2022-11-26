@@ -1,15 +1,11 @@
-import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
-import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { Box, Icon, Tooltip } from "@mui/material";
+import { Box, Tooltip, Link } from "@mui/material";
 import * as React from "react";
-import GitHubIcon from "@mui/icons-material/GitHub";
 import { useLocation } from "react-router-dom";
-import discordIcon from "../images/discord.png";
 
-export const EditorAppbar = ({ setOpenDrawer }) => {
+export const EditorAppbar = () => {
   const location = useLocation();
   // Do not render the app bar on the home screen
   if (location.pathname === "/") {
@@ -17,47 +13,35 @@ export const EditorAppbar = ({ setOpenDrawer }) => {
   }
   return (
     <AppBar position="static">
-      <Toolbar variant="dense" sx={{ justifyContent: "space-between" }}>
+      <Toolbar variant="dense" sx={{ justifyContent: "flex-start" }}>
         <Box
           sx={{
             display: "flex",
             alignItems: "center",
           }}
         >
-          <IconButton
-            size="large"
-            edge="start"
-            aria-label="menu"
-            onClick={() => {
-              setOpenDrawer(true);
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography variant="h6" color="inherit" component="div">
             RealtimeIRL Overlay Editor
           </Typography>
         </Box>
-        <Box>
+        <Box sx={{paddingLeft:"1%"}}>
+        <Tooltip title="Go back to main page">
+          <Link href="/" underline="none">Home</Link>
+        </Tooltip>
+        
+        </Box>
+        <Box sx={{paddingLeft:"1%"}}>
           <Tooltip title="Join the Discord">
-            <IconButton
-              onClick={() =>
+            <Link underline="none" sx={{cursor:"pointer"}} onClick={() =>
                 window.open("https://discord.gg/uWuzfEUBTX", "_blank")
-              }
-            >
-              <Icon>
-                <img src={discordIcon} alt="discord" height={25} width={25} />
-              </Icon>
-            </IconButton>
+              }>Discord</Link>
           </Tooltip>
+        </Box>
+        <Box sx={{paddingLeft:"1%"}}>
           <Tooltip title="View the repository">
-            <IconButton
-              onClick={() =>
+          <Link underline="none" sx={{cursor:"pointer"}} onClick={() =>
                 window.open("https://github.com/muxable/rtirl-obs", "_blank")
-              }
-            >
-              <GitHubIcon />
-            </IconButton>
+              }>GitHub</Link>
           </Tooltip>
         </Box>
       </Toolbar>
