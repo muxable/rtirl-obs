@@ -150,7 +150,6 @@ export default class FontPicker extends React.PureComponent {
 
     return (
       <FormControl color="text" variant="standard">
-        <InputLabel id="select-language-label"> Font Family </InputLabel>
         <Select
           disableUnderline
           label="Font Family"

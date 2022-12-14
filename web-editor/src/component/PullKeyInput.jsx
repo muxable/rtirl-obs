@@ -26,6 +26,9 @@ function PullKeyInput({ pullKey, onKeyChange }) {
             </InputAdornment>
           ),
         }}
+        sx={{
+          width:"95%"
+        }}
       />
     </Box>
   );

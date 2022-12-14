@@ -15,7 +15,6 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
-  Divider,
   IconButton,
   Tooltip,
 } from "@mui/material";
@@ -37,11 +36,10 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
     >
       <Stack
         spacing={1}
-        divider={<Divider orientation="horizontal" flexItem />}
       >
         {/* fonts */}
-        <Stack spacing={1}>
-          <label> Font </label>
+        <Stack spacing={1} bgcolor="black" sx={{marginTop:"3%", paddingLeft:"6%", paddingTop:"2%"}}>
+          <label> Font style </label>
           <Box sx={{ width: "110px" }}>
             <NumberTextField
               value={textDivCSS.fontSize}
@@ -89,7 +87,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
 
           <Stack direction="row">
             <IconButton
-              color={textDivCSS.isBold ? "secondary" : "default"}
+              color={textDivCSS.isBold ? "inherit" : "default"}
               onClick={() => {
                 setTextDivCSS({
                   ...textDivCSS,
@@ -102,7 +100,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
               </Tooltip>
             </IconButton>
             <IconButton
-              color={textDivCSS.isItalic ? "secondary" : "default"}
+              color={textDivCSS.isItalic ? "inherit" : "default"}
               onClick={() => {
                 setTextDivCSS({
                   ...textDivCSS,
@@ -115,7 +113,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
               </Tooltip>
             </IconButton>
             <IconButton
-              color={textDivCSS.textAlign === "left" ? "secondary" : "default"}
+              color={textDivCSS.textAlign === "left" ? "inherit" : "default"}
               onClick={() => {
                 setTextDivCSS({
                   ...textDivCSS,
@@ -129,7 +127,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
             </IconButton>
             <IconButton
               color={
-                textDivCSS.textAlign === "center" ? "secondary" : "default"
+                textDivCSS.textAlign === "center" ? "inherit" : "default"
               }
               onClick={() => {
                 setTextDivCSS({
@@ -143,7 +141,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
               </Tooltip>
             </IconButton>
             <IconButton
-              color={textDivCSS.textAlign === "right" ? "secondary" : "default"}
+              color={textDivCSS.textAlign === "right" ? "inherit" : "default"}
               onClick={() => {
                 setTextDivCSS({
                   ...textDivCSS,
@@ -156,9 +154,12 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
               </Tooltip>
             </IconButton>
           </Stack>
+          <Stack>
           <Accordion
             sx={{
               backgroundColor: "primary.main",
+              width:"85%",
+              marginBottom:"4%"
             }}
           >
             <AccordionSummary
@@ -259,10 +260,11 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
               </Stack>
             </AccordionDetails>
           </Accordion>
+          </Stack>
         </Stack>
 
         {/* background */}
-        <Stack spacing={1}>
+        <Stack spacing={1} bgcolor="black" sx={{marginTop:"3%", paddingLeft:"6%", paddingTop:"2%", paddingBottom:"2%"}}>
           <label> Background </label>
           <Box sx={{ width: "110px" }}>
             <NumberTextField
@@ -310,7 +312,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
         </Stack>
 
         {/* border */}
-        <Stack spacing={1}>
+        <Stack spacing={1} bgcolor="black" sx={{paddingLeft:"6%",paddingTop:"2%",paddingBottom:"5%"}}>
           <label> Border </label>
           <Stack direction={"row"} spacing={3}>
             <Box sx={{ width: "110px" }}>
@@ -348,7 +350,6 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
             setTextDivCSS={setTextDivCSS}
           />
         </Stack>
-        <Stack></Stack>
       </Stack>
     </Box>
   );

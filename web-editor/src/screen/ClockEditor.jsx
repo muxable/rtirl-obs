@@ -103,8 +103,7 @@ function ClockEditor({
       <Grid item xs={1} md={2.5}>
         <Box
           style={{
-            padding: "16px",
-            height: "100%",
+            height: "94.9vb",
           }}
           borderRight={1}
           borderBottom={1}
@@ -112,9 +111,11 @@ function ClockEditor({
           backgroundColor="primary.main"
           textAlign="left"
         >
-
-          <PullKeyInput pullKey={pullKey} onKeyChange={onPullKeyChange} />
-          <Typography>Format</Typography>
+          <Box bgcolor="black" sx={{paddingTop:"2%", paddingLeft:"6%"}}>
+            <PullKeyInput pullKey={pullKey} onKeyChange={onPullKeyChange} />
+          </Box>
+          <Box bgcolor="black" sx={{marginTop:"3%"}}>
+          <Typography sx={{paddingLeft:"6%", paddingTop:"2%"}}>Format</Typography>
           <Select
             fullWidth
             disableUnderline
@@ -125,6 +126,9 @@ function ClockEditor({
               style: {
                 maxHeight: "65%",
               },
+            }}
+            sx={{
+              paddingLeft: "6%",
             }}
           >
             {standaloneToken.map(({ token, hint }) => (
@@ -145,17 +149,20 @@ function ClockEditor({
               </MenuItem>
             ))}
           </Select>
-          <Typography>Language</Typography>
+          </Box>
+          <Box bgcolor="black" sx={{marginTop:"3%"}}>
+          <Typography sx={{paddingLeft:"6%", paddingTop:"2%"}}>Language</Typography>
           <CountryPicker
             lang={lang}
             setLang={setLang}
             countries={luxonCountries}
           />
+          </Box>
           <TextSettings
             textDivCSS={textStyle}
             setTextDivCSS={onTextStyleChange}
           />
-        </Box>
+      </Box>
       </Grid>
       <Grid item xs={1} md={9.5} lg={12}>
         <Box padding={1} paddingBottom={0}>
