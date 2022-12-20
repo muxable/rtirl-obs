@@ -5,7 +5,13 @@ import * as React from "react";
 
 function PullKeyInput({ pullKey, onKeyChange }) {
   return (
-    <Box component="form" noValidate autoComplete="off">
+    <Box
+      component="form"
+      noValidate
+      autoComplete="off"
+      bgcolor="black"
+      sx={{ paddingTop: "2%", paddingLeft: "6%", paddingBottom: "2%" }}
+    >
       <TextField
         fullWidth
         required
@@ -27,7 +33,7 @@ function PullKeyInput({ pullKey, onKeyChange }) {
           ),
         }}
         sx={{
-          width:"95%"
+          width: "95%",
         }}
       />
     </Box>

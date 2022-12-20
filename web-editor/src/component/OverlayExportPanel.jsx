@@ -4,7 +4,6 @@ import * as React from "react";
 import { CopyIconTextField } from "./CopyIconTextField";
 
 function OverlayExportPanel({
-  overlayDescription,
   isExportable,
   url,
   streamElementExportable,
@@ -55,22 +54,19 @@ function OverlayExportPanel({
   return (
     <Box
       style={{
-        marginTop: "8px",
-        padding: "8px",
+        paddingLeft: "6%",
+        paddingTop: "1%",
+        paddingBottom: "3%",
       }}
-      border={1}
-      borderColor="primary.border"
-      backgroundColor="primary.main"
     >
       <aside>
-        <h2> {overlayDescription} </h2>
         {isExportable ? (
           <Stack spacing={2}>
             <CopyIconTextField
               type={type}
               value={url}
               multiline={false}
-              row={1}
+              row={2}
             />
             {streamElementExportable && (
               <>
@@ -90,8 +86,8 @@ function OverlayExportPanel({
             {!isToExportMap && getCSS()}
           </Stack>
         ) : (
-          <Typography color="inherit">
-            Please correct all the errors in the settings section.
+          <Typography color="inherit" sx={{ textDecoration: "underline" }}>
+            Please correct all errors.
           </Typography>
         )}
       </aside>

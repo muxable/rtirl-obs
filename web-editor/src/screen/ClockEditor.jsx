@@ -103,7 +103,7 @@ function ClockEditor({
       <Grid item xs={1} md={2.5}>
         <Box
           style={{
-            height: "94.9vb",
+            height: "max-content",
           }}
           borderRight={1}
           borderBottom={1}
@@ -111,71 +111,79 @@ function ClockEditor({
           backgroundColor="primary.main"
           textAlign="left"
         >
-          <Box bgcolor="black" sx={{paddingTop:"2%", paddingLeft:"6%"}}>
-            <PullKeyInput pullKey={pullKey} onKeyChange={onPullKeyChange} />
+          <PullKeyInput pullKey={pullKey} onKeyChange={onPullKeyChange} />
+
+          <Box bgcolor="black" sx={{ marginTop: "3%" }}>
+            <Typography sx={{ paddingLeft: "6%", paddingTop: "1%" }}>
+              Export
+            </Typography>
+            <OverlayExportPanel
+              overlayDescription="Clock Overlay URL"
+              isExportable={pullKey.valid}
+              url={url}
+              textDivCSS={textStyle}
+              type="clock_overlay"
+            />
           </Box>
-          <Box bgcolor="black" sx={{marginTop:"3%"}}>
-          <Typography sx={{paddingLeft:"6%", paddingTop:"2%"}}>Format</Typography>
-          <Select
-            fullWidth
-            disableUnderline
-            variant="standard"
-            label="Format"
-            value={time.toFormat(format)}
-            MenuProps={{
-              style: {
-                maxHeight: "65%",
-              },
-            }}
-            sx={{
-              paddingLeft: "6%",
-            }}
-          >
-            {standaloneToken.map(({ token, hint }) => (
-              <MenuItem
-                key={token}
-                value={time.toFormat(token)}
-                onClick={() => {
-                  setFormat(token);
-                }}
-                style={{ flexDirection: "column", alignItems: "flex-start" }}
-              >
-                <div>{hint}</div>
-                <div>
-                  <Typography variant="caption">
-                    {time.toFormat(token)}
-                  </Typography>
-                </div>
-              </MenuItem>
-            ))}
-          </Select>
+          <Box bgcolor="black" sx={{ marginTop: "3%" }}>
+            <Typography sx={{ paddingLeft: "6%", paddingTop: "2%" }}>
+              Format
+            </Typography>
+            <Select
+              fullWidth
+              disableUnderline
+              variant="standard"
+              label="Format"
+              value={time.toFormat(format)}
+              MenuProps={{
+                style: {
+                  maxHeight: "65%",
+                },
+              }}
+              sx={{
+                paddingLeft: "6%",
+              }}
+            >
+              {standaloneToken.map(({ token, hint }) => (
+                <MenuItem
+                  key={token}
+                  value={time.toFormat(token)}
+                  onClick={() => {
+                    setFormat(token);
+                  }}
+                  style={{ flexDirection: "column", alignItems: "flex-start" }}
+                >
+                  <div>{hint}</div>
+                  <div>
+                    <Typography variant="caption">
+                      {time.toFormat(token)}
+                    </Typography>
+                  </div>
+                </MenuItem>
+              ))}
+            </Select>
           </Box>
-          <Box bgcolor="black" sx={{marginTop:"3%"}}>
-          <Typography sx={{paddingLeft:"6%", paddingTop:"2%"}}>Language</Typography>
-          <CountryPicker
-            lang={lang}
-            setLang={setLang}
-            countries={luxonCountries}
-          />
+          <Box bgcolor="black" sx={{ marginTop: "3%" }}>
+            <Typography sx={{ paddingLeft: "6%", paddingTop: "2%" }}>
+              Language
+            </Typography>
+            <CountryPicker
+              lang={lang}
+              setLang={setLang}
+              countries={luxonCountries}
+            />
           </Box>
           <TextSettings
             textDivCSS={textStyle}
             setTextDivCSS={onTextStyleChange}
           />
-      </Box>
+        </Box>
       </Grid>
       <Grid item xs={1} md={9.5} lg={12}>
         <Box padding={1} paddingBottom={0}>
           <TextOverlayPreview
             text={time.toFormat(format)}
             textDivCSS={textStyle}
-          />
-          <OverlayExportPanel
-            overlayDescription="Clock Overlay URL"
-            isExportable={pullKey.valid}
-            url={url}
-            textDivCSS={textStyle}
-            type="clock_overlay"
           />
         </Box>
       </Grid>
