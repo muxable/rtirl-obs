@@ -177,8 +177,8 @@ function CountryPicker({
         },
       }}
       sx={{
-        paddingLeft:"6%",
-        paddingBottom:"2%"
+        paddingLeft: "6%",
+        paddingBottom: "2%",
       }}
     >
       {countries.map((country) => (

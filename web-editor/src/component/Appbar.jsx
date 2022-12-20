@@ -24,24 +24,37 @@ export const EditorAppbar = () => {
             RealtimeIRL Overlay Editor
           </Typography>
         </Box>
-        <Box sx={{paddingLeft:"1%"}}>
-        <Tooltip title="Go back to main page">
-          <Link href="/" underline="none">Home</Link>
-        </Tooltip>
-        
-        </Box>
-        <Box sx={{paddingLeft:"1%"}}>
-          <Tooltip title="Join the Discord">
-            <Link underline="none" sx={{cursor:"pointer"}} onClick={() =>
-                window.open("https://discord.gg/uWuzfEUBTX", "_blank")
-              }>Discord</Link>
+        <Box sx={{ paddingLeft: "1%" }}>
+          <Tooltip title="Go back to main page">
+            <Link href="/" underline="none">
+              Home
+            </Link>
           </Tooltip>
         </Box>
-        <Box sx={{paddingLeft:"1%"}}>
+        <Box sx={{ paddingLeft: "1%" }}>
+          <Tooltip title="Join the Discord">
+            <Link
+              underline="none"
+              sx={{ cursor: "pointer" }}
+              onClick={() =>
+                window.open("https://discord.gg/uWuzfEUBTX", "_blank")
+              }
+            >
+              Discord
+            </Link>
+          </Tooltip>
+        </Box>
+        <Box sx={{ paddingLeft: "1%" }}>
           <Tooltip title="View the repository">
-          <Link underline="none" sx={{cursor:"pointer"}} onClick={() =>
+            <Link
+              underline="none"
+              sx={{ cursor: "pointer" }}
+              onClick={() =>
                 window.open("https://github.com/muxable/rtirl-obs", "_blank")
-              }>GitHub</Link>
+              }
+            >
+              GitHub
+            </Link>
           </Tooltip>
         </Box>
       </Toolbar>
