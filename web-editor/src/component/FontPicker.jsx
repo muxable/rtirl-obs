@@ -1,10 +1,4 @@
-import {
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  MenuItem,
-  Select,
-} from "@mui/material";
+import { FormControl, FormHelperText, MenuItem, Select } from "@mui/material";
 import {
   FontManager,
   FONT_FAMILY_DEFAULT,
