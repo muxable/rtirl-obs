@@ -103,8 +103,7 @@ function ClockEditor({
       <Grid item xs={1} md={2.5}>
         <Box
           style={{
-            padding: "16px",
-            height: "100%",
+            height: "max-content",
           }}
           borderRight={1}
           borderBottom={1}
@@ -112,47 +111,68 @@ function ClockEditor({
           backgroundColor="primary.main"
           textAlign="left"
         >
-          <Typography variant="h6" component="div">
-            Settings
-          </Typography>
           <PullKeyInput pullKey={pullKey} onKeyChange={onPullKeyChange} />
-          <Typography>Format</Typography>
-          <Select
-            fullWidth
-            disableUnderline
-            variant="standard"
-            label="Format"
-            value={time.toFormat(format)}
-            MenuProps={{
-              style: {
-                maxHeight: "65%",
-              },
-            }}
-          >
-            {standaloneToken.map(({ token, hint }) => (
-              <MenuItem
-                key={token}
-                value={time.toFormat(token)}
-                onClick={() => {
-                  setFormat(token);
-                }}
-                style={{ flexDirection: "column", alignItems: "flex-start" }}
-              >
-                <div>{hint}</div>
-                <div>
-                  <Typography variant="caption">
-                    {time.toFormat(token)}
-                  </Typography>
-                </div>
-              </MenuItem>
-            ))}
-          </Select>
-          <Typography>Language</Typography>
-          <CountryPicker
-            lang={lang}
-            setLang={setLang}
-            countries={luxonCountries}
-          />
+
+          <Box bgcolor="black" sx={{ marginTop: "3%" }}>
+            <Typography sx={{ paddingLeft: "6%", paddingTop: "1%" }}>
+              Export
+            </Typography>
+            <OverlayExportPanel
+              overlayDescription="Clock Overlay URL"
+              isExportable={pullKey.valid}
+              url={url}
+              textDivCSS={textStyle}
+              type="clock_overlay"
+            />
+          </Box>
+          <Box bgcolor="black" sx={{ marginTop: "3%" }}>
+            <Typography sx={{ paddingLeft: "6%", paddingTop: "2%" }}>
+              Format
+            </Typography>
+            <Select
+              fullWidth
+              disableUnderline
+              variant="standard"
+              label="Format"
+              value={time.toFormat(format)}
+              MenuProps={{
+                style: {
+                  maxHeight: "65%",
+                },
+              }}
+              sx={{
+                paddingLeft: "6%",
+              }}
+            >
+              {standaloneToken.map(({ token, hint }) => (
+                <MenuItem
+                  key={token}
+                  value={time.toFormat(token)}
+                  onClick={() => {
+                    setFormat(token);
+                  }}
+                  style={{ flexDirection: "column", alignItems: "flex-start" }}
+                >
+                  <div>{hint}</div>
+                  <div>
+                    <Typography variant="caption">
+                      {time.toFormat(token)}
+                    </Typography>
+                  </div>
+                </MenuItem>
+              ))}
+            </Select>
+          </Box>
+          <Box bgcolor="black" sx={{ marginTop: "3%" }}>
+            <Typography sx={{ paddingLeft: "6%", paddingTop: "2%" }}>
+              Language
+            </Typography>
+            <CountryPicker
+              lang={lang}
+              setLang={setLang}
+              countries={luxonCountries}
+            />
+          </Box>
           <TextSettings
             textDivCSS={textStyle}
             setTextDivCSS={onTextStyleChange}
@@ -164,13 +184,6 @@ function ClockEditor({
           <TextOverlayPreview
             text={time.toFormat(format)}
             textDivCSS={textStyle}
-          />
-          <OverlayExportPanel
-            overlayDescription="Clock Overlay URL"
-            isExportable={pullKey.valid}
-            url={url}
-            textDivCSS={textStyle}
-            type="clock_overlay"
           />
         </Box>
       </Grid>

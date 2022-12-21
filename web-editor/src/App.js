@@ -1,11 +1,10 @@
 import { CssBaseline } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import { ThemeProvider } from "@mui/material/styles";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import { EditorAppbar } from "./component/Appbar";
-import { NavigationDrawer } from "./component/NavigationDrawer";
 import useIndicatorStyle from "./hooks/useIndicatorStyle";
 import usePullKey from "./hooks/usePullKey";
 import useStyle from "./hooks/useStyle";
@@ -30,7 +29,6 @@ function useQuery() {
 }
 
 function App() {
-  const [openDrawer, setOpenDrawer] = useState(false);
   const query = useQuery();
   const [pullKey, setPullKey] = usePullKey(query.get("pullKey") ?? "");
   const [textStyle, setTextStyle] = useStyle();
@@ -41,7 +39,7 @@ function App() {
       <ThemeProvider theme={editorTheme}>
         <CssBaseline />
         <Stack>
-          <EditorAppbar setOpenDrawer={setOpenDrawer} />
+          <EditorAppbar />
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route
@@ -176,7 +174,6 @@ function App() {
             />
           </Routes>
         </Stack>
-        <NavigationDrawer open={openDrawer} setOpen={setOpenDrawer} />
       </ThemeProvider>
     </div>
   );

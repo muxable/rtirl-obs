@@ -176,6 +176,10 @@ function CountryPicker({
           maxHeight: "65%",
         },
       }}
+      sx={{
+        paddingLeft: "6%",
+        paddingBottom: "2%",
+      }}
     >
       {countries.map((country) => (
         <MenuItem value={country} key={country}>
