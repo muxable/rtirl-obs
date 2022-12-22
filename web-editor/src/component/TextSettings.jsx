@@ -15,7 +15,6 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
-  Divider,
   IconButton,
   Tooltip,
 } from "@mui/material";
@@ -35,13 +34,14 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
         height: "100%",
       }}
     >
-      <Stack
-        spacing={1}
-        divider={<Divider orientation="horizontal" flexItem />}
-      >
+      <Stack spacing={1}>
         {/* fonts */}
-        <Stack spacing={1}>
-          <label> Font </label>
+        <Stack
+          spacing={1}
+          bgcolor="black"
+          sx={{ marginTop: "3%", paddingLeft: "6%", paddingTop: "2%" }}
+        >
+          <label> Font style </label>
           <Box sx={{ width: "110px" }}>
             <NumberTextField
               value={textDivCSS.fontSize}
@@ -89,7 +89,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
 
           <Stack direction="row">
             <IconButton
-              color={textDivCSS.isBold ? "secondary" : "default"}
+              color={textDivCSS.isBold ? "inherit" : "default"}
               onClick={() => {
                 setTextDivCSS({
                   ...textDivCSS,
@@ -102,7 +102,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
               </Tooltip>
             </IconButton>
             <IconButton
-              color={textDivCSS.isItalic ? "secondary" : "default"}
+              color={textDivCSS.isItalic ? "inherit" : "default"}
               onClick={() => {
                 setTextDivCSS({
                   ...textDivCSS,
@@ -115,7 +115,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
               </Tooltip>
             </IconButton>
             <IconButton
-              color={textDivCSS.textAlign === "left" ? "secondary" : "default"}
+              color={textDivCSS.textAlign === "left" ? "inherit" : "default"}
               onClick={() => {
                 setTextDivCSS({
                   ...textDivCSS,
@@ -128,9 +128,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
               </Tooltip>
             </IconButton>
             <IconButton
-              color={
-                textDivCSS.textAlign === "center" ? "secondary" : "default"
-              }
+              color={textDivCSS.textAlign === "center" ? "inherit" : "default"}
               onClick={() => {
                 setTextDivCSS({
                   ...textDivCSS,
@@ -143,7 +141,7 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
               </Tooltip>
             </IconButton>
             <IconButton
-              color={textDivCSS.textAlign === "right" ? "secondary" : "default"}
+              color={textDivCSS.textAlign === "right" ? "inherit" : "default"}
               onClick={() => {
                 setTextDivCSS({
                   ...textDivCSS,
@@ -156,113 +154,126 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
               </Tooltip>
             </IconButton>
           </Stack>
-          <Accordion
-            sx={{
-              backgroundColor: "primary.main",
-            }}
-          >
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
+          <Stack>
+            <Accordion
+              sx={{
+                backgroundColor: "primary.main",
+                width: "85%",
+                marginBottom: "4%",
+              }}
             >
-              Additional Options
-            </AccordionSummary>
-            <AccordionDetails>
-              <Stack spacing={1}>
-                <label> Stroke </label>
-                <NumberTextField
-                  value={textDivCSS.strokeWidth}
-                  setValue={(strokeWidth) => {
-                    strokeWidth = Math.max(0, parseInt(strokeWidth));
-                    setTextDivCSS({
-                      ...textDivCSS,
-                      strokeWidth,
-                    });
-                  }}
-                  endAdornmentUnit="px"
-                  prefixIcon={<LineWeightOutlinedIcon />}
-                  tooltipTitle="Stroke Width"
-                ></NumberTextField>
-                <Stack direction={"row"} spacing={1}>
-                  <Tooltip title="Stroke Color">
-                    <ColorLensIcon />
-                  </Tooltip>
-                  <ColorPickerToggle
-                    color={textDivCSS.strokeColor}
-                    setColor={(color) => {
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+                Additional Options
+              </AccordionSummary>
+              <AccordionDetails>
+                <Stack spacing={1}>
+                  <label> Stroke </label>
+                  <NumberTextField
+                    value={textDivCSS.strokeWidth}
+                    setValue={(strokeWidth) => {
+                      strokeWidth = Math.max(0, parseInt(strokeWidth));
                       setTextDivCSS({
                         ...textDivCSS,
-                        strokeColor: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`,
+                        strokeWidth,
                       });
                     }}
-                  />
-                </Stack>
-                <label> Text Shadow </label>
-                <NumberTextField
-                  value={textDivCSS.hShadow}
-                  setValue={(hShadow) => {
-                    hShadow = parseInt(hShadow);
-                    setTextDivCSS({
-                      ...textDivCSS,
-                      hShadow,
-                    });
-                  }}
-                  endAdornmentUnit="px"
-                  prefixIcon={<BlurLinearOutlinedIcon />}
-                  tooltipTitle="H-Shadow"
-                ></NumberTextField>
-                <NumberTextField
-                  value={textDivCSS.vShadow}
-                  setValue={(vShadow) => {
-                    vShadow = parseInt(vShadow);
-                    setTextDivCSS({
-                      ...textDivCSS,
-                      vShadow,
-                    });
-                  }}
-                  endAdornmentUnit="px"
-                  prefixIcon={
-                    <BlurLinearOutlinedIcon
-                      sx={{ transform: "rotate(-90deg)" }}
+                    endAdornmentUnit="px"
+                    prefixIcon={<LineWeightOutlinedIcon />}
+                    tooltipTitle="Stroke Width"
+                  ></NumberTextField>
+                  <Stack direction={"row"} spacing={1}>
+                    <Tooltip title="Stroke Color">
+                      <ColorLensIcon />
+                    </Tooltip>
+                    <ColorPickerToggle
+                      color={textDivCSS.strokeColor}
+                      setColor={(color) => {
+                        setTextDivCSS({
+                          ...textDivCSS,
+                          strokeColor: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`,
+                        });
+                      }}
                     />
-                  }
-                  tooltipTitle="V-Shadow"
-                ></NumberTextField>
-                <NumberTextField
-                  value={textDivCSS.blurRadius}
-                  setValue={(blurRadius) => {
-                    blurRadius = Math.max(0, parseInt(blurRadius));
-                    setTextDivCSS({
-                      ...textDivCSS,
-                      blurRadius,
-                    });
-                  }}
-                  endAdornmentUnit="px"
-                  prefixIcon={<BlurOnIcon />}
-                  tooltipTitle="Blur Radius"
-                ></NumberTextField>
-                <Stack direction={"row"} spacing={1}>
-                  <Tooltip title="Shadow Color">
-                    <ColorLensIcon />
-                  </Tooltip>
-                  <ColorPickerToggle
-                    color={textDivCSS.shadowColor}
-                    setColor={(color) => {
+                  </Stack>
+                  <label> Text Shadow </label>
+                  <NumberTextField
+                    value={textDivCSS.hShadow}
+                    setValue={(hShadow) => {
+                      hShadow = parseInt(hShadow);
                       setTextDivCSS({
                         ...textDivCSS,
-                        shadowColor: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`,
+                        hShadow,
                       });
                     }}
-                  />
+                    endAdornmentUnit="px"
+                    prefixIcon={<BlurLinearOutlinedIcon />}
+                    tooltipTitle="H-Shadow"
+                  ></NumberTextField>
+                  <NumberTextField
+                    value={textDivCSS.vShadow}
+                    setValue={(vShadow) => {
+                      vShadow = parseInt(vShadow);
+                      setTextDivCSS({
+                        ...textDivCSS,
+                        vShadow,
+                      });
+                    }}
+                    endAdornmentUnit="px"
+                    prefixIcon={
+                      <BlurLinearOutlinedIcon
+                        sx={{ transform: "rotate(-90deg)" }}
+                      />
+                    }
+                    tooltipTitle="V-Shadow"
+                  ></NumberTextField>
+                  <NumberTextField
+                    value={textDivCSS.blurRadius}
+                    setValue={(blurRadius) => {
+                      blurRadius = Math.max(0, parseInt(blurRadius));
+                      setTextDivCSS({
+                        ...textDivCSS,
+                        blurRadius,
+                      });
+                    }}
+                    endAdornmentUnit="px"
+                    prefixIcon={<BlurOnIcon />}
+                    tooltipTitle="Blur Radius"
+                  ></NumberTextField>
+                  <Stack direction={"row"} spacing={1}>
+                    <Tooltip title="Shadow Color">
+                      <ColorLensIcon />
+                    </Tooltip>
+                    <ColorPickerToggle
+                      color={textDivCSS.shadowColor}
+                      setColor={(color) => {
+                        setTextDivCSS({
+                          ...textDivCSS,
+                          shadowColor: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`,
+                        });
+                      }}
+                    />
+                  </Stack>
                 </Stack>
-              </Stack>
-            </AccordionDetails>
-          </Accordion>
+              </AccordionDetails>
+            </Accordion>
+          </Stack>
         </Stack>
 
         {/* background */}
-        <Stack spacing={1}>
+        <Stack
+          spacing={1}
+          bgcolor="black"
+          sx={{
+            marginTop: "3%",
+            paddingLeft: "6%",
+            paddingTop: "2%",
+            paddingBottom: "2%",
+          }}
+        >
           <label> Background </label>
           <Box sx={{ width: "110px" }}>
             <NumberTextField
@@ -310,7 +321,11 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
         </Stack>
 
         {/* border */}
-        <Stack spacing={1}>
+        <Stack
+          spacing={1}
+          bgcolor="black"
+          sx={{ paddingLeft: "6%", paddingTop: "2%", paddingBottom: "5%" }}
+        >
           <label> Border </label>
           <Stack direction={"row"} spacing={3}>
             <Box sx={{ width: "110px" }}>
@@ -348,7 +363,6 @@ export const TextSettings = React.memo(({ textDivCSS, setTextDivCSS }) => {
             setTextDivCSS={setTextDivCSS}
           />
         </Stack>
-        <Stack></Stack>
       </Stack>
     </Box>
   );

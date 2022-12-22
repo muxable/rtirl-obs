@@ -1,10 +1,4 @@
-import {
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  MenuItem,
-  Select,
-} from "@mui/material";
+import { FormControl, FormHelperText, MenuItem, Select } from "@mui/material";
 import {
   FontManager,
   FONT_FAMILY_DEFAULT,
@@ -150,7 +144,6 @@ export default class FontPicker extends React.PureComponent {
 
     return (
       <FormControl color="text" variant="standard">
-        <InputLabel id="select-language-label"> Font Family </InputLabel>
         <Select
           disableUnderline
           label="Font Family"
