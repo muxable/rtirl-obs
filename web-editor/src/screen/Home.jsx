@@ -101,7 +101,6 @@ export const Home = (props) => {
           overflow: "hidden",
         }}
       >
-        {/*Test bg image and test width on grid row wrapper to increase paddings*/}
         <Box>
           <Typography variant="h2" component="h2" paddingTop={6}>
             REALTIMEIRL
