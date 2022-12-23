@@ -5,7 +5,7 @@ import * as React from "react";
 
 function ExclusiveToggle({ name, selectedOption, onOptionChange, options }) {
   return (
-    <Box bgcolor="black" sx={{marginTop:"3%", padding:"4%"}}>
+    <Box bgcolor="black" sx={{ marginTop: "3%", padding: "4%" }}>
       <Typography gutterBottom>{name}</Typography>
       <ToggleButtonGroup
         value={selectedOption}
