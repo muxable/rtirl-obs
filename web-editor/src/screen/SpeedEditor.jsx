@@ -1,5 +1,4 @@
-import { Box, Grid } from "@mui/material";
-import Typography from "@mui/material/Typography";
+import { Box, Grid, Typography } from "@mui/material";
 import { useState } from "react";
 import ExclusiveToggle from "../component/ExclusiveToggle";
 import OverlayExportPanel from "../component/OverlayExportPanel";
@@ -26,8 +25,7 @@ function SpeedEditor({
       <Grid item xs={1} md={2.5}>
         <Box
           style={{
-            padding: "16px",
-            height: "100%",
+            height: "max-content",
           }}
           borderRight={1}
           borderBottom={1}
@@ -35,10 +33,19 @@ function SpeedEditor({
           backgroundColor="primary.main"
           textAlign="left"
         >
-          <Typography variant="h6" component="div">
-            Settings
-          </Typography>
           <PullKeyInput pullKey={pullKey} onKeyChange={onPullKeyChange} />
+
+          <Box bgcolor="black" sx={{ marginTop: "3%" }}>
+            <Typography sx={{ paddingLeft: "6%", paddingTop: "1%" }}>
+              Export
+            </Typography>
+            <OverlayExportPanel
+              isExportable={pullKey.valid}
+              url={url}
+              textDivCSS={textStyle}
+              type="speed_overlay"
+            />
+          </Box>
           <ExclusiveToggle
             name="Units"
             selectedOption={units}
@@ -56,13 +63,6 @@ function SpeedEditor({
           <TextOverlayPreview
             text={`1000 ${units.toUpperCase()}`}
             textDivCSS={textStyle}
-          />
-          <OverlayExportPanel
-            overlayDescription="Speed Overlay URL"
-            isExportable={pullKey.valid}
-            url={url}
-            textDivCSS={textStyle}
-            type="speed_overlay"
           />
         </Box>
       </Grid>
