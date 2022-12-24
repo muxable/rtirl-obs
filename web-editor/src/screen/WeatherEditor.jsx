@@ -42,15 +42,17 @@ function WeatherEditor({
         >
           <PullKeyInput pullKey={pullKey} onKeyChange={onPullKeyChange} />
 
-          <Box bgcolor="black" sx={{marginTop:"3%"}}>
-            <Typography sx={{paddingLeft:"6%", paddingTop:"2%"}}>Export</Typography>
+          <Box bgcolor="black" sx={{ marginTop: "3%" }}>
+            <Typography sx={{ paddingLeft: "6%", paddingTop: "2%" }}>
+              Export
+            </Typography>
             <OverlayExportPanel
-            overlayDescription="Weather Overlay URL"
-            isExportable={pullKey.valid}
-            url={url}
-            textDivCSS={textStyle}
-            type="weather_overlay"
-          />
+              overlayDescription="Weather Overlay URL"
+              isExportable={pullKey.valid}
+              url={url}
+              textDivCSS={textStyle}
+              type="weather_overlay"
+            />
           </Box>
           <ExclusiveToggle
             name="Units"
