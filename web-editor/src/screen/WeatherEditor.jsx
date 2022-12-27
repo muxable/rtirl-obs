@@ -32,8 +32,7 @@ function WeatherEditor({
       <Grid item xs={1} md={2.5}>
         <Box
           style={{
-            padding: "16px",
-            height: "100%",
+            height: "max-height",
           }}
           borderRight={1}
           borderBottom={1}
@@ -41,10 +40,20 @@ function WeatherEditor({
           backgroundColor="primary.main"
           textAlign="left"
         >
-          <Typography variant="h6" component="div">
-            Settings
-          </Typography>
           <PullKeyInput pullKey={pullKey} onKeyChange={onPullKeyChange} />
+
+          <Box bgcolor="black" sx={{ marginTop: "12px" }}>
+            <Typography sx={{ paddingLeft: "24px", paddingTop: "10px" }}>
+              Export
+            </Typography>
+            <OverlayExportPanel
+              overlayDescription="Weather Overlay URL"
+              isExportable={pullKey.valid}
+              url={url}
+              textDivCSS={textStyle}
+              type="weather_overlay"
+            />
+          </Box>
           <ExclusiveToggle
             name="Units"
             selectedOption={units}
@@ -68,13 +77,6 @@ function WeatherEditor({
           <TextOverlayPreview
             text={`55 \u02DA${units.toUpperCase()}`}
             textDivCSS={textStyle}
-          />
-          <OverlayExportPanel
-            overlayDescription="Weather Overlay URL"
-            isExportable={pullKey.valid}
-            url={url}
-            textDivCSS={textStyle}
-            type="weather_overlay"
           />
         </Box>
       </Grid>
