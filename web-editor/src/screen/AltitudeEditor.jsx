@@ -25,7 +25,7 @@ function AltitudeEditor({
       <Grid item xs={1} md={2.5}>
         <Box
           style={{
-            height: "max-height",
+            height: "max-content",
           }}
           borderRight={1}
           borderBottom={1}
