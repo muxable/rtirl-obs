@@ -163,7 +163,7 @@ function ClockEditor({
               ))}
             </Select>
           </Box>
-          <Box bgcolor="black" sx={{ marginTop: "12px"}}>
+          <Box bgcolor="black" sx={{ marginTop: "12px" }}>
             <Typography sx={{ paddingLeft: "24px", paddingTop: "10px" }}>
               Language
             </Typography>
