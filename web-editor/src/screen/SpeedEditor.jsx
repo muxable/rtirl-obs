@@ -35,8 +35,8 @@ function SpeedEditor({
         >
           <PullKeyInput pullKey={pullKey} onKeyChange={onPullKeyChange} />
 
-          <Box bgcolor="black" sx={{ marginTop: "3%" }}>
-            <Typography sx={{ paddingLeft: "6%", paddingTop: "1%" }}>
+          <Box bgcolor="black" sx={{ marginTop: "12px" }}>
+            <Typography sx={{ paddingLeft: "24px", paddingTop: "10px" }}>
               Export
             </Typography>
             <OverlayExportPanel
