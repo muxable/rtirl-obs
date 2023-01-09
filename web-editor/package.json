@@ -19,7 +19,7 @@
     "firebase": "^9.8.3",
     "immutable": "^4.0.0",
     "leaflet": "^1.8.0",
-    "luxon": "^2.4.0",
+    "luxon": "^2.5.2",
     "mapbox-gl": "^2.8.1",
     "react": "^18.0.0",
     "react-color": "^2.19.3",
