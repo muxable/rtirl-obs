@@ -14,7 +14,7 @@
             },
             {
               "key": "X-Frame-Options",
-              "value": "ALLOW-FROM https://streamelements.com/"
+              "value": "frame-ancestors 'self' https://streamelements.com/;"
             }
           ]
         }
