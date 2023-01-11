@@ -13,8 +13,8 @@
               "value": "*"
             },
             {
-              "key": "X-Frame-Options",
-              "value": "frame-ancestors 'self' https://streamelements.com/;"
+              "key": "Content-Security-Policy",
+              "value": "frame-ancestors 'self' https://streamelements.com/"
             }
           ]
         }
