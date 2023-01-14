@@ -2,7 +2,6 @@ import { Box, Grid, Stack } from "@mui/material";
 import * as React from "react";
 import { useState } from "react";
 import { GoogleStreetViewSettings } from "../component/google-maps/GoogleStreetViewSettings";
-import OverlayExportPanel from "../component/OverlayExportPanel";
 
 export default function GoogleStreetViewEditor({ pullKey, onPullKeyChange }) {
   const [apiKey, setAPIKey] = useState("");
@@ -46,12 +45,6 @@ export default function GoogleStreetViewEditor({ pullKey, onPullKeyChange }) {
                   <h1> Unable to preview, please verify the data provided </h1>
                 </div>
               )}
-              <OverlayExportPanel
-                overlayDescription="Goole Street View Overlay URL"
-                isExportable={pullKey.valid && apiKey}
-                url={url}
-                type="google_maps_overlay"
-              />
             </Stack>
           </Box>
         </Box>
