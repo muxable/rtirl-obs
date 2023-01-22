@@ -87,15 +87,14 @@ export function forPullKey(pullKey: string) {
       });
     },
     /**
-     * This listener reports the number of steps since the last time it was
-     * called. Note that this does not report the total number of steps or
-     * on every step, but rather the delta since the last time the listener
-     * was called.
-     *
-     * This number is calculated by the streamer's device and is not
-     * guaranteed to be accurate.
+     * This listener reports the number of steps taken so far. Note that this
+     * number does not reset when the streamer goes offline. It is up to the
+     * client to reset the number when the streamer goes offline or online.
+     * Instead, the number is reported as the total number of steps taken since
+     * an arbitrary point in time, and guaranteed to be monotonically increasing
+     * for a given session id.
      */
-    addPedometerStepsListener(callback: (delta: Steps) => void) {
+    addPedometerStepsListener(callback: (steps: Steps) => void) {
       logEvent(analytics, "listener", { type: "pedometer_steps", pullKey });
       return onValue(child(reference, "pedometer_steps"), (snapshot) => {
         callback(snapshot.val());
