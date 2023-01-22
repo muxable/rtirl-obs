@@ -6,6 +6,7 @@ type MetersPerSecond = number;
 type Degrees = number;
 type Meters = number;
 type BeatsPerMinute = number;
+type Steps = number;
 type Location = { latitude: Degrees; longitude: Degrees };
 type UUID = string;
 
@@ -81,6 +82,22 @@ export function forPullKey(pullKey: string) {
     addHeartRateListener(callback: (altitude: BeatsPerMinute) => void) {
       logEvent(analytics, "listener", { type: "heart_rate", pullKey });
       return onValue(child(reference, "heart_rate"), (snapshot) => {
+        callback(snapshot.val());
+        logEvent(analytics, "data", { type: "sessionId", pullKey });
+      });
+    },
+    /**
+     * This listener reports the number of steps since the last time it was
+     * called. Note that this does not report the total number of steps or
+     * on every step, but rather the delta since the last time the listener
+     * was called.
+     *
+     * This number is calculated by the streamer's device and is not
+     * guaranteed to be accurate.
+     */
+    addPedometerStepsListener(callback: (delta: Steps) => void) {
+      logEvent(analytics, "listener", { type: "pedometer_steps", pullKey });
+      return onValue(child(reference, "pedometer_steps"), (snapshot) => {
         callback(snapshot.val());
         logEvent(analytics, "data", { type: "sessionId", pullKey });
       });
