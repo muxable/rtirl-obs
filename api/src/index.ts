@@ -95,8 +95,8 @@ export function forPullKey(pullKey: string) {
      * for a given session id.
      */
     addPedometerStepsListener(callback: (steps: Steps) => void) {
-      logEvent(analytics, "listener", { type: "pedometer_steps", pullKey });
-      return onValue(child(reference, "pedometer_steps"), (snapshot) => {
+      logEvent(analytics, "listener", { type: "pedometerSteps", pullKey });
+      return onValue(child(reference, "pedometerSteps"), (snapshot) => {
         callback(snapshot.val());
         logEvent(analytics, "data", { type: "sessionId", pullKey });
       });
