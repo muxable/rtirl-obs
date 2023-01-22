@@ -6,6 +6,7 @@ type MetersPerSecond = number;
 type Degrees = number;
 type Meters = number;
 type BeatsPerMinute = number;
+type Steps = number;
 type Location = { latitude: Degrees; longitude: Degrees };
 type UUID = string;
 
@@ -81,6 +82,21 @@ export function forPullKey(pullKey: string) {
     addHeartRateListener(callback: (altitude: BeatsPerMinute) => void) {
       logEvent(analytics, "listener", { type: "heart_rate", pullKey });
       return onValue(child(reference, "heart_rate"), (snapshot) => {
+        callback(snapshot.val());
+        logEvent(analytics, "data", { type: "sessionId", pullKey });
+      });
+    },
+    /**
+     * This listener reports the number of steps taken so far. Note that this
+     * number does not reset when the streamer goes offline. It is up to the
+     * client to reset the number when the streamer goes offline or online.
+     * Instead, the number is reported as the total number of steps taken since
+     * an arbitrary point in time, and guaranteed to be monotonically increasing
+     * for a given session id.
+     */
+    addPedometerStepsListener(callback: (steps: Steps) => void) {
+      logEvent(analytics, "listener", { type: "pedometerSteps", pullKey });
+      return onValue(child(reference, "pedometerSteps"), (snapshot) => {
         callback(snapshot.val());
         logEvent(analytics, "data", { type: "sessionId", pullKey });
       });
