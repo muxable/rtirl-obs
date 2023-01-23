@@ -11,10 +11,6 @@
             {
               "key": "Access-Control-Allow-Origin",
               "value": "*"
-            },
-            {
-              "key": "Content-Security-Policy",
-              "value": "frame-ancestors 'self' https://streamelements.com/"
             }
           ]
         }
