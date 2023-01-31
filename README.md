@@ -90,13 +90,17 @@ This renders the temperature at your location.
 
 This overlay is in beta. The speed is not super accurate, especially at low speeds. If you have feedback, please join the [Muxable discord](https://discord.gg/UKHJMQs74u).
 
-`https://overlays.rtirl.com/speed/kph.html?key=<YOUR_PULL_KEY> https://overlays.rtirl.com/speed/mph.html?key=<YOUR_PULL_KEY>`
+`https://overlays.rtirl.com/speed/kph.html?key=<YOUR_PULL_KEY>` 
+
+`https://overlays.rtirl.com/speed/mph.html?key=<YOUR_PULL_KEY>`
 
 ## [BETA] Heading
 
 This overlay is in beta. The heading is not super accurate and relies on your phone's orientation, which may not always be correct. If you have feedback, please join the [Muxable discord](https://discord.gg/UKHJMQs74u).
 
-`https://overlays.rtirl.com/heading/deg.html?key=<YOUR_PULL_KEY> https://overlays.rtirl.com/heading/nsew.html?key=<YOUR_PULL_KEY>`
+`https://overlays.rtirl.com/heading/deg.html?key=<YOUR_PULL_KEY>` 
+
+`https://overlays.rtirl.com/heading/nsew.html?key=<YOUR_PULL_KEY>`
 
 ### Optional URL parameters
 
@@ -106,13 +110,17 @@ This overlay is in beta. The heading is not super accurate and relies on your ph
 
 This overlay is in beta. This renders the reported altitude above sea level using EGM96. If you have feedback, please join the [Muxable discord](https://discord.gg/UKHJMQs74u).
 
-`https://overlays.rtirl.com/altitude/feet.html?key=<YOUR_PULL_KEY> https://overlays.rtirl.com/altitude/meters.html?key=<YOUR_PULL_KEY>`
+`https://overlays.rtirl.com/altitude/feet.html?key=<YOUR_PULL_KEY>` 
+
+`https://overlays.rtirl.com/altitude/meters.html?key=<YOUR_PULL_KEY>`
 
 ## [BETA] Total Distance
 
 This overlay is in beta. It shows the total distance traveled since the RealtimeIRL and stream started. Because of the GPS drift it may still accumulate tiny distances when you are stationary and this will result showing a slightly higher total distance. If you have feedback, please join the [Muxable discord](https://discord.gg/UKHJMQs74u).
 
-`https://overlays.rtirl.com/distance/km.html?key=<YOUR_PULL_KEY> https://overlays.rtirl.com/distance/miles.html?key=<YOUR_PULL_KEY>`
+`https://overlays.rtirl.com/distance/km.html?key=<YOUR_PULL_KEY>` 
+
+`https://overlays.rtirl.com/distance/miles.html?key=<YOUR_PULL_KEY>`
 
 ## StreamElements
 
