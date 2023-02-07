@@ -54,10 +54,8 @@ export default function MapboxSettings({
   return (
     <Box
       style={{
-        padding: "16px",
-        height: "100%",
+        height: "max-content",
       }}
-      paddingLeft={4}
       borderRight={1}
       borderBottom={1}
       borderColor="primary.border"
@@ -65,16 +63,14 @@ export default function MapboxSettings({
     >
       <Stack
         divider={<Divider orientation="vertical" flexItem />}
-        spacing={2}
+        spacing={1}
         textAlign="left"
       >
-        <Typography variant="h6" component="div">
-          Settings
-        </Typography>
+
 
         <PullKeyInput pullKey={pullKey} onKeyChange={onPullKeyChange} />
 
-        <Box component="form" noValidate autoComplete="off">
+        <Box component="form" noValidate autoComplete="off" bgcolor="black" sx={{paddingLeft: "24px", paddingTop: "10px", paddingBottom:"15px"}}>
           <TextField
             fullWidth
             required
@@ -86,6 +82,9 @@ export default function MapboxSettings({
             helperText={apiKey ? "" : "The API key is required"}
             onKeyPress={(e) => e.key === "Enter" && e.preventDefault()}
             onChange={(e) => onApiKeyChange(e.target.value)}
+            sx={{
+              width:"95%"
+            }}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -105,6 +104,8 @@ export default function MapboxSettings({
           onSubmit={(e) => {
             e.preventDefault();
           }}
+          bgcolor="black"
+          sx={{paddingLeft: "24px", paddingTop: "10px", paddingBottom:"15px"}}
         >
           <TextField
             fullWidth
@@ -135,11 +136,14 @@ export default function MapboxSettings({
                 </InputAdornment>
               ),
             }}
+            sx={{
+              width:"95%"
+            }}
           />
         </Box>
 
-        <Box>
-          <InputLabel id="select-language-label"> Language </InputLabel>
+        <Box bgcolor="black" sx={{marginTop: "12px" }}>
+          <InputLabel id="select-language-label" sx={{ paddingLeft: "24px", paddingTop: "10px" }}> Language </InputLabel>
           <CountryPicker
             lang={lang}
             setLang={setLang}
@@ -171,7 +175,7 @@ export default function MapboxSettings({
           />
         </Box>
 
-        <Box>
+        <Box bgcolor="black" sx={{marginTop:"12px"}}>
           <FormControlLabel
             control={
               <Checkbox
@@ -180,10 +184,11 @@ export default function MapboxSettings({
               />
             }
             label="Fullscreen"
+            sx={{paddingLeft: "24px", paddingTop: "5px", paddingBottom:"5px"}}
           />
         </Box>
 
-        <Box>
+        <Box bgcolor="black" sx={{padding:"15px"}}>
           <IndicatorSetting
             indicatorStyle={indicatorStyle}
             setIndicatorStyle={setIndicatorStyle}
@@ -197,17 +202,18 @@ export default function MapboxSettings({
             options={libraries}
             onOptionChange={onMapLibraryChange}
           />
-
+          <Box bgcolor="black">
           <Typography sx={{ p: 1 }}>
             <InfoIcon style={{ verticalAlign: "middle" }} />
             While both libraries use Mapbox tiles, Leaflet is more compatible
             with streaming tools such as Prism Live, StreamLabs and
             StreamElements.
           </Typography>
+          </Box>
         </Box>
 
         {mapLibrary === "leaflet" && (
-          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Box bgcolor="black" sx={{ display: "flex", justifyContent: "space-between" }}>
             <FormControlLabel
               control={
                 <Checkbox
