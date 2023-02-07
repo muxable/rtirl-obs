@@ -38,12 +38,12 @@
 
       RealtimeIRL.forPullKey(pullKey).addLocationListener(function (location) {
         latestLocation = location;
-        if (i++ % 500 == 0) {
+        if (i++ % 1800 == 0) {
           refreshTzOffset();
         }
       });
       setInterval(function () {
-        if (++j % (60 * 60) == 0) {
+        if (++j % (60 * 60 * 2) == 0) {
           refreshTzOffset();
         }
         if (zoneId == null) {
