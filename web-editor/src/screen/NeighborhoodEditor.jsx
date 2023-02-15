@@ -144,8 +144,7 @@ function NeighborhoodEditor({
       <Grid item xs={1} md={2.5}>
         <Box
           style={{
-            padding: "16px",
-            height: "100%",
+            height: "max-content",
           }}
           borderRight={1}
           borderBottom={1}
@@ -153,21 +152,46 @@ function NeighborhoodEditor({
           backgroundColor="primary.main"
           textAlign="left"
         >
-          <Typography variant="h6" component="div">
-            Settings
-          </Typography>
           <PullKeyInput pullKey={pullKey} onKeyChange={onPullKeyChange} />
+
+          <Box bgcolor="black" sx={{ marginTop: "12px" }}>
+            <Typography sx={{ paddingLeft: "24px", paddingTop: "10px" }}>
+              Export
+            </Typography>
+            <OverlayExportPanel
+              overlayDescription="Neighborhood Overlay URL"
+              isExportable={pullKey.valid}
+              streamElementExportable={false}
+              url={formatURL()}
+              textDivCSS={textStyle}
+              type="neighborhood_overlay"
+            />
+          </Box>
           {/* Select Types */}
-          <Typography> Format, the order matters </Typography>
-          <MultipleSelect
-            selected={selected}
-            setSelected={setSelected}
-            fullSet={fullSet}
-            inputLabel={"Types"}
-          />
+
+          <Box bgcolor="black" sx={{ marginTop: "12px" }}>
+            <Typography sx={{ paddingLeft: "12px", paddingTop: "10px" }}>
+              {" "}
+              Format, the order matters{" "}
+            </Typography>
+            <MultipleSelect
+              selected={selected}
+              setSelected={setSelected}
+              fullSet={fullSet}
+              inputLabel={"Types"}
+            />
+          </Box>
           {/* Select Language */}
-          <Typography>Language</Typography>
-          <CountryPicker countries={countries} lang={lang} setLang={setLang} />
+          <Box bgcolor="black" sx={{ marginTop: "12px" }}>
+            <Typography sx={{ paddingLeft: "24px", paddingTop: "10px" }}>
+              Language
+            </Typography>
+            <CountryPicker
+              countries={countries}
+              lang={lang}
+              setLang={setLang}
+            />
+          </Box>
           <TextSettings
             textDivCSS={textStyle}
             setTextDivCSS={onTextStyleChange}
@@ -177,14 +201,6 @@ function NeighborhoodEditor({
       <Grid item xs={1} md={9.5} lg={12}>
         <Box padding={1} paddingBottom={0}>
           <TextOverlayPreview text={text} textDivCSS={textStyle} />
-          <OverlayExportPanel
-            overlayDescription="Neighborhood Overlay URL"
-            isExportable={pullKey.valid}
-            streamElementExportable={false}
-            url={formatURL()}
-            textDivCSS={textStyle}
-            type="neighborhood_overlay"
-          />
         </Box>
       </Grid>
     </Grid>
