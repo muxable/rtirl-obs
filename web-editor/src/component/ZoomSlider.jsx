@@ -5,7 +5,6 @@ import MuiInput from "@mui/material/Input";
 import Slider from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-
 export const ZoomSlider = ({
   zoomValue,
   minZoomLevel,
@@ -15,11 +14,9 @@ export const ZoomSlider = ({
   const handleSliderChange = (_, newValue) => {
     onZoomChange(newValue);
   };
-
   const handleInputChange = (event) => {
     onZoomChange(event.target.value === "" ? "" : Number(event.target.value));
   };
-
   const handleBlur = () => {
     if (zoomValue < minZoomLevel) {
       onZoomChange(minZoomLevel);
@@ -29,11 +26,11 @@ export const ZoomSlider = ({
   };
 
   return (
-    <Box>
-      <Typography id="input-slider" gutterBottom>
+    <Box bgcolor="black">
+      <Typography id="input-slider" gutterBottom sx={{ paddingLeft: "28px", paddingTop: "10px" }}>
         Zoom level
       </Typography>
-      <Grid container spacing={2} alignItems="center">
+      <Grid container spacing={2}>
         <Grid item>
           <ZoomInIcon />
         </Grid>
@@ -46,9 +43,14 @@ export const ZoomSlider = ({
             max={maxZoomLevel}
             onChange={handleSliderChange}
             aria-labelledby="input-slider"
+            sx={{
+              paddingLeft: "6%",
+              paddingBottom: "2%",
+              width:"70%"
+            }}
           />
         </Grid>
-        <Grid item>
+        <Grid item sx={{paddingBottom:"8px", paddingRight:"20px"}}>
           <MuiInput
             value={zoomValue}
             size="small"

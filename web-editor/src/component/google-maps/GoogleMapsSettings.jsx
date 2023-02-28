@@ -52,10 +52,8 @@ export const GoogleMapsSettings = ({
   return (
     <Box
       style={{
-        padding: "16px",
         height: "100%",
       }}
-      paddingLeft={4}
       borderRight={1}
       borderBottom={1}
       borderColor="primary.border"
@@ -63,16 +61,13 @@ export const GoogleMapsSettings = ({
     >
       <Stack
         divider={<Divider orientation="vertical" flexItem />}
-        spacing={2}
+        spacing={1}
         textAlign="left"
       >
-        <Typography variant="h6" component="div">
-          Settings
-        </Typography>
 
         <PullKeyInput pullKey={pullKey} onKeyChange={onPullKeyChange} />
 
-        <Box component="form" noValidate autoComplete="off">
+        <Box bgcolor="black" component="form" noValidate autoComplete="off"  sx={{ paddingTop: "8px", paddingLeft: "24px", paddingBottom: "8px" }} >
           <TextField
             fullWidth
             required
@@ -98,11 +93,15 @@ export const GoogleMapsSettings = ({
                 </InputAdornment>
               ),
             }}
+            sx={{
+              width: "95%",
+            }}
           />
         </Box>
 
         {/* Style Id form */}
         <Box
+          bgcolor="black"
           component="form"
           noValidate
           autoComplete="off"
@@ -110,6 +109,7 @@ export const GoogleMapsSettings = ({
           onSubmit={(e) => {
             e.preventDefault();
           }}
+          sx={{paddingTop:"15px", paddingBottom:"5px"}}
         >
           <TextField
             fullWidth
@@ -158,19 +158,20 @@ export const GoogleMapsSettings = ({
           />
         </Box>
 
-        <Box>
+        <Box bgcolor="black">
           <FormControlLabel
             control={
               <Checkbox
                 value={fullscreen}
                 onChange={(event) => setFullscreen(event.target.checked)}
+                sx={{paddingLeft: "24px", paddingTop: "5px", paddingBottom:"5px"}}
               />
             }
             label="Fullscreen"
           />
         </Box>
 
-        <Box>
+        <Box bgcolor="black" sx={{padding:"10px"}}>
           <IndicatorSetting
             indicatorStyle={indicatorStyle}
             setIndicatorStyle={setIndicatorStyle}
