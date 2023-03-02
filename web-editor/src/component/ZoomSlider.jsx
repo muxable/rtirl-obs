@@ -27,7 +27,11 @@ export const ZoomSlider = ({
 
   return (
     <Box bgcolor="black">
-      <Typography id="input-slider" gutterBottom sx={{ paddingLeft: "28px", paddingTop: "10px" }}>
+      <Typography
+        id="input-slider"
+        gutterBottom
+        sx={{ paddingLeft: "28px", paddingTop: "10px" }}
+      >
         Zoom level
       </Typography>
       <Grid container spacing={2}>
@@ -46,11 +50,11 @@ export const ZoomSlider = ({
             sx={{
               paddingLeft: "6%",
               paddingBottom: "2%",
-              width:"70%"
+              width: "70%",
             }}
           />
         </Grid>
-        <Grid item sx={{paddingBottom:"8px", paddingRight:"20px"}}>
+        <Grid item sx={{ paddingBottom: "8px", paddingRight: "20px" }}>
           <MuiInput
             value={zoomValue}
             size="small"
