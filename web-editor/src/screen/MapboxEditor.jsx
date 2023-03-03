@@ -25,21 +25,6 @@ export default function MapboxEditor({
   const [lang, setLang] = useState("en");
   const [validStyle, setValidStyle] = useState(true);
 
-  const indicatorStyleB64 = encodeURIComponent(
-    window.btoa(JSON.stringify(indicatorStyle))
-  );
-  const url = `https://overlays.rtirl.com/${mapLibrary}.html?key=${
-    pullKey.value
-  }&access_token=${apiKey}&style=${styleId}&zoom=${zoom}&lang=${lang}${
-    fullscreen ? "&fullscreen=1" : ""
-  }&attribution=${attribution ? "1" : "0"}&indicatorStyle=${indicatorStyleB64}`;
-  const iFrameTag = `<iframe height="100%" width="100%" frameborder="0" 
-  src="https://overlays.rtirl.com/compat.html?key=${
-    pullKey.value
-  }&access_token=${apiKey}&style=${styleId}&attribution=${
-    attribution ? "1" : "0"
-  }"> </iframe>`;
-
   useEffect(() => {
     fetch(`https://api.mapbox.com/styles/v1/${styleId}?access_token=${apiKey}`)
       .then((res) => {
@@ -64,6 +49,8 @@ export default function MapboxEditor({
           onApiKeyChange={setAPIKey}
           lang={lang}
           setLang={setLang}
+          validStyle={validStyle}
+          setValidStyle={setValidStyle}
           zoom={zoom}
           setZoom={setZoom}
           fullscreen={fullscreen}
@@ -88,14 +75,6 @@ export default function MapboxEditor({
                 mapStyle={mapStyle}
                 apiKey={apiKey}
                 indicatorStyle={indicatorStyle}
-              />
-              <OverlayExportPanel
-                overlayDescription="Mapbox Overlay URL"
-                isExportable={pullKey.valid && apiKey && styleId && validStyle}
-                url={url}
-                streamElementExportable={true}
-                iFrameTag={iFrameTag}
-                type="mapbox_overlay"
               />
             </Stack>
           </Box>
