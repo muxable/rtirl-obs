@@ -3,7 +3,6 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import MapboxContainer from "../component/mapbox/MapboxContainer";
 import MapboxSettings from "../component/mapbox/MapboxSettings";
-import OverlayExportPanel from "../component/OverlayExportPanel";
 
 const mapboxMapStyleJsonCache = [];
 
