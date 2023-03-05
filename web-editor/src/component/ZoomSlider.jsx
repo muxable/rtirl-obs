@@ -29,11 +29,15 @@ export const ZoomSlider = ({
   };
 
   return (
-    <Box>
-      <Typography id="input-slider" gutterBottom>
+    <Box bgcolor="black">
+      <Typography
+        id="input-slider"
+        gutterBottom
+        sx={{ paddingLeft: "28px", paddingTop: "10px" }}
+      >
         Zoom level
       </Typography>
-      <Grid container spacing={2} alignItems="center">
+      <Grid container spacing={2}>
         <Grid item>
           <ZoomInIcon />
         </Grid>
@@ -46,9 +50,14 @@ export const ZoomSlider = ({
             max={maxZoomLevel}
             onChange={handleSliderChange}
             aria-labelledby="input-slider"
+            sx={{
+              paddingLeft: "6%",
+              paddingBottom: "2%",
+              width: "70%",
+            }}
           />
         </Grid>
-        <Grid item>
+        <Grid item sx={{ paddingBottom: "8px", paddingRight: "20px" }}>
           <MuiInput
             value={zoomValue}
             size="small"

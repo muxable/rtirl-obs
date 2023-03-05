@@ -23,6 +23,7 @@ import PullKeyInput from "../PullKeyInput";
 import { ZoomSlider } from "../ZoomSlider";
 import { AttributionDialog } from "./AttributionDialog";
 import { StyleIDHelperDialog } from "./StyleIDHelperDialog";
+import OverlayExportPanel from "../OverlayExportPanel";
 
 export default function MapboxSettings({
   pullKey,
@@ -33,6 +34,8 @@ export default function MapboxSettings({
   onApiKeyChange,
   lang,
   setLang,
+  validStyle,
+  setValidStyle,
   zoom,
   setZoom,
   fullscreen,
@@ -50,14 +53,26 @@ export default function MapboxSettings({
     { name: "Leaflet", value: "leaflet" },
     { name: "Mapbox GL", value: "mapbox" },
   ];
+  const indicatorStyleB64 = encodeURIComponent(
+    window.btoa(JSON.stringify(indicatorStyle))
+  );
+  const url = `https://overlays.rtirl.com/${mapLibrary}.html?key=${
+    pullKey.value
+  }&access_token=${apiKey}&style=${styleId}&zoom=${zoom}&lang=${lang}${
+    fullscreen ? "&fullscreen=1" : ""
+  }&attribution=${attribution ? "1" : "0"}&indicatorStyle=${indicatorStyleB64}`;
+  const iFrameTag = `<iframe height="100%" width="100%" frameborder="0" 
+  src="https://overlays.rtirl.com/compat.html?key=${
+    pullKey.value
+  }&access_token=${apiKey}&style=${styleId}&attribution=${
+    attribution ? "1" : "0"
+  }"> </iframe>`;
 
   return (
     <Box
       style={{
-        padding: "16px",
-        height: "100%",
+        height: "max-content",
       }}
-      paddingLeft={4}
       borderRight={1}
       borderBottom={1}
       borderColor="primary.border"
@@ -65,16 +80,22 @@ export default function MapboxSettings({
     >
       <Stack
         divider={<Divider orientation="vertical" flexItem />}
-        spacing={2}
+        spacing={1}
         textAlign="left"
       >
-        <Typography variant="h6" component="div">
-          Settings
-        </Typography>
-
         <PullKeyInput pullKey={pullKey} onKeyChange={onPullKeyChange} />
 
-        <Box component="form" noValidate autoComplete="off">
+        <Box
+          component="form"
+          noValidate
+          autoComplete="off"
+          bgcolor="black"
+          sx={{
+            paddingLeft: "24px",
+            paddingTop: "10px",
+            paddingBottom: "15px",
+          }}
+        >
           <TextField
             fullWidth
             required
@@ -86,6 +107,9 @@ export default function MapboxSettings({
             helperText={apiKey ? "" : "The API key is required"}
             onKeyPress={(e) => e.key === "Enter" && e.preventDefault()}
             onChange={(e) => onApiKeyChange(e.target.value)}
+            sx={{
+              width: "95%",
+            }}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -93,6 +117,20 @@ export default function MapboxSettings({
                 </InputAdornment>
               ),
             }}
+          />
+        </Box>
+
+        <Box bgcolor="black" sx={{ marginTop: "12px" }}>
+          <Typography sx={{ paddingLeft: "24px", paddingTop: "10px" }}>
+            Export
+          </Typography>
+          <OverlayExportPanel
+            overlayDescription="Mapbox Overlay URL"
+            isExportable={pullKey.valid && apiKey && styleId && validStyle}
+            url={url}
+            streamElementExportable={true}
+            iFrameTag={iFrameTag}
+            type="mapbox_overlay"
           />
         </Box>
 
@@ -104,6 +142,12 @@ export default function MapboxSettings({
           style={{ position: "relative" }}
           onSubmit={(e) => {
             e.preventDefault();
+          }}
+          bgcolor="black"
+          sx={{
+            paddingLeft: "24px",
+            paddingTop: "10px",
+            paddingBottom: "15px",
           }}
         >
           <TextField
@@ -135,11 +179,20 @@ export default function MapboxSettings({
                 </InputAdornment>
               ),
             }}
+            sx={{
+              width: "95%",
+            }}
           />
         </Box>
 
-        <Box>
-          <InputLabel id="select-language-label"> Language </InputLabel>
+        <Box bgcolor="black" sx={{ marginTop: "12px" }}>
+          <InputLabel
+            id="select-language-label"
+            sx={{ paddingLeft: "24px", paddingTop: "10px" }}
+          >
+            {" "}
+            Language{" "}
+          </InputLabel>
           <CountryPicker
             lang={lang}
             setLang={setLang}
@@ -171,7 +224,7 @@ export default function MapboxSettings({
           />
         </Box>
 
-        <Box>
+        <Box bgcolor="black" sx={{ marginTop: "12px" }}>
           <FormControlLabel
             control={
               <Checkbox
@@ -180,10 +233,15 @@ export default function MapboxSettings({
               />
             }
             label="Fullscreen"
+            sx={{
+              paddingLeft: "24px",
+              paddingTop: "5px",
+              paddingBottom: "5px",
+            }}
           />
         </Box>
 
-        <Box>
+        <Box bgcolor="black" sx={{ padding: "15px" }}>
           <IndicatorSetting
             indicatorStyle={indicatorStyle}
             setIndicatorStyle={setIndicatorStyle}
@@ -197,17 +255,21 @@ export default function MapboxSettings({
             options={libraries}
             onOptionChange={onMapLibraryChange}
           />
-
-          <Typography sx={{ p: 1 }}>
-            <InfoIcon style={{ verticalAlign: "middle" }} />
-            While both libraries use Mapbox tiles, Leaflet is more compatible
-            with streaming tools such as Prism Live, StreamLabs and
-            StreamElements.
-          </Typography>
+          <Box bgcolor="black">
+            <Typography sx={{ p: 1 }}>
+              <InfoIcon style={{ verticalAlign: "middle" }} />
+              While both libraries use Mapbox tiles, Leaflet is more compatible
+              with streaming tools such as Prism Live, StreamLabs and
+              StreamElements.
+            </Typography>
+          </Box>
         </Box>
 
         {mapLibrary === "leaflet" && (
-          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Box
+            bgcolor="black"
+            sx={{ display: "flex", justifyContent: "space-between" }}
+          >
             <FormControlLabel
               control={
                 <Checkbox
