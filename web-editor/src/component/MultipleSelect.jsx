@@ -17,7 +17,7 @@ function MultipleSelect({ selected, setSelected, inputLabel, fullSet }) {
   const rest = fullSet.filter((item) => !selected.includes(item));
 
   return (
-    <Box>
+    <Box sx={{ paddingTop: "15px" }}>
       <FormControl fullWidth>
         <InputLabel> {inputLabel} </InputLabel>
         <Select
@@ -25,6 +25,7 @@ function MultipleSelect({ selected, setSelected, inputLabel, fullSet }) {
           value={selected}
           onChange={handleSelectChange}
           input={<Input />}
+          disableUnderline
           renderValue={(select) => (
             <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
               {selected.map((value) => (

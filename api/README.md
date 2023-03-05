@@ -11,7 +11,7 @@ An API to access RealtimeIRL data.
 Alternatively, use it in the browser:
 
 ```html
-<script src="https://unpkg.com/@rtirl/api@latest/lib/index.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@rtirl/api@latest/lib/index.min.js"></script>
 ```
 
 ## Usage

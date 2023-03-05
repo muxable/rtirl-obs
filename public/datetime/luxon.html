@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="https://unpkg.com/@rtirl/api@latest/lib/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@rtirl/api@latest/lib/index.min.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/luxon@2.0.1/build/global/luxon.min.js"
       integrity="sha256-BdqBGuaawDzMtW2Wn9ISUuYKUY/A7d5NVcj6Ix3jwv8="
@@ -38,12 +38,12 @@
 
       RealtimeIRL.forPullKey(pullKey).addLocationListener(function (location) {
         latestLocation = location;
-        if (i++ % 500 == 0) {
+        if (i++ % 1800 == 0) {
           refreshTzOffset();
         }
       });
       setInterval(function () {
-        if (++j % (60 * 60) == 0) {
+        if (++j % (60 * 60 * 2) == 0) {
           refreshTzOffset();
         }
         if (zoneId == null) {

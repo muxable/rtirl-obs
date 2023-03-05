@@ -30,8 +30,7 @@ function HeadingEditor({
       <Grid item xs={1} md={2.5}>
         <Box
           style={{
-            padding: "16px",
-            height: "100%",
+            height: "max-content",
           }}
           borderRight={1}
           borderBottom={1}
@@ -39,22 +38,35 @@ function HeadingEditor({
           backgroundColor="primary.main"
           textAlign="left"
         >
-          <Typography variant="h6" component="div">
-            Settings
-          </Typography>
           <PullKeyInput pullKey={pullKey} onKeyChange={onPullKeyChange} />
+          <Box bgcolor="black" sx={{ marginTop: "12px" }}>
+            <Typography sx={{ paddingLeft: "24px", paddingTop: "10px" }}>
+              Export
+            </Typography>
+            <OverlayExportPanel
+              overlayDescription="Heading Overlay URL"
+              isExportable={pullKey.valid}
+              url={url}
+              textDivCSS={textStyle}
+              type="heading_overlay"
+            />
+          </Box>
           <ExclusiveToggle
             name="Format"
             selectedOption={units}
             options={headingOptions}
             onOptionChange={setUnits}
           />
-          <Typography>Language</Typography>
-          <CountryPicker
-            lang={lang}
-            setLang={setLang}
-            countries={headingCountries}
-          />
+          <Box bgcolor="black" sx={{ marginTop: "12px" }}>
+            <Typography sx={{ paddingLeft: "24px", paddingTop: "10px" }}>
+              Language
+            </Typography>
+            <CountryPicker
+              lang={lang}
+              setLang={setLang}
+              countries={headingCountries}
+            />
+          </Box>
           <TextSettings
             textDivCSS={textStyle}
             setTextDivCSS={onTextStyleChange}
@@ -66,13 +78,6 @@ function HeadingEditor({
           <TextOverlayPreview
             text={units === "nsew" ? "NW" : `1000\u00B0`}
             textDivCSS={textStyle}
-          />
-          <OverlayExportPanel
-            overlayDescription="Heading Overlay URL"
-            isExportable={pullKey.valid}
-            url={url}
-            textDivCSS={textStyle}
-            type="heading_overlay"
           />
         </Box>
       </Grid>
