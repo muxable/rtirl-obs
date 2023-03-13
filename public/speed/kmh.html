@@ -13,8 +13,8 @@
 
         clearTimeout(timer); //don't reset to 0 if moving
 
-        const speedInKph = (speed * 3.6) | 0;
-        document.getElementById("speed").innerText = speedInKph > 0 ? speedInKph : 0;
+        const speedInKmh = (speed * 3.6) | 0;
+        document.getElementById("speed").innerText = speedInKmh > 0 ? speedInKmh : 0;
 
         timer = setTimeout(() => { //reset to 0 if not moving for 30 sec
           document.getElementById("speed").innerText = 0;

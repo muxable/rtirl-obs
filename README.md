@@ -90,7 +90,7 @@ This renders the temperature at your location.
 
 This overlay is in beta. The speed is not super accurate, especially at low speeds. If you have feedback, please join the [Muxable discord](https://discord.gg/UKHJMQs74u).
 
-`https://overlays.rtirl.com/speed/kph.html?key=<YOUR_PULL_KEY>` 
+`https://overlays.rtirl.com/speed/kmh.html?key=<YOUR_PULL_KEY>` 
 
 `https://overlays.rtirl.com/speed/mph.html?key=<YOUR_PULL_KEY>`
 
