@@ -10,7 +10,7 @@ function PullKeyInput({ pullKey, onKeyChange }) {
       noValidate
       autoComplete="off"
       bgcolor="black"
-      sx={{ paddingTop: "2%", paddingLeft: "6%", paddingBottom: "2%" }}
+      sx={{ paddingTop: "8px", paddingLeft: "24px", paddingBottom: "8px" }}
     >
       <TextField
         fullWidth

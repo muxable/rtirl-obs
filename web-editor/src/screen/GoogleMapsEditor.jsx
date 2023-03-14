@@ -3,7 +3,6 @@ import * as React from "react";
 import { useState } from "react";
 import { GoogleMapsContainer } from "../component/google-maps/GoogleMapsContainer";
 import { GoogleMapsSettings } from "../component/google-maps/GoogleMapsSettings";
-import OverlayExportPanel from "../component/OverlayExportPanel";
 
 export default function GoogleMapsEditor({
   pullKey,
@@ -19,14 +18,6 @@ export default function GoogleMapsEditor({
   const styleB64 = encodeURIComponent(
     window.btoa(JSON.stringify(jsonMapStyle))
   );
-  const indicatorStyleB64 = encodeURIComponent(
-    window.btoa(JSON.stringify(indicatorStyle))
-  );
-  const url = `https://overlays.rtirl.com/googlemaps.html?key=${
-    pullKey.value
-  }&api_key=${apiKey}&style=${styleB64}&zoom=${zoom}${
-    fullscreen ? "&fullscreen=1" : ""
-  }&indicatorStyle=${indicatorStyleB64}`;
 
   return (
     <Grid container columns={{ xs: 1, md: 12 }} direction="row">
@@ -58,12 +49,6 @@ export default function GoogleMapsEditor({
                 mapStyle={styleB64}
                 apiKey={apiKey}
                 indicatorStyle={indicatorStyle}
-              />
-              <OverlayExportPanel
-                overlayDescription="Goole Maps Overlay URL"
-                isExportable={pullKey.valid && apiKey && mapStyle.valid}
-                url={url}
-                type="google_maps_overlay"
               />
             </Stack>
           </Box>

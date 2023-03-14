@@ -5,7 +5,6 @@ import MuiInput from "@mui/material/Input";
 import Slider from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-
 export const ZoomSlider = ({
   zoomValue,
   minZoomLevel,
@@ -15,11 +14,9 @@ export const ZoomSlider = ({
   const handleSliderChange = (_, newValue) => {
     onZoomChange(newValue);
   };
-
   const handleInputChange = (event) => {
     onZoomChange(event.target.value === "" ? "" : Number(event.target.value));
   };
-
   const handleBlur = () => {
     if (zoomValue < minZoomLevel) {
       onZoomChange(minZoomLevel);
