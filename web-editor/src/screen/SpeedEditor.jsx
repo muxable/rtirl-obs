@@ -8,7 +8,7 @@ import { TextSettings } from "../component/TextSettings";
 
 const speedOptions = [
   { name: "MPH", value: "mph" },
-  { name: "KMH", value: "kmh" },
+  { name: "KMH", value: "kph" },
 ];
 
 function SpeedEditor({
