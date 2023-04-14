@@ -30,9 +30,7 @@ function useQuery() {
 
 function App() {
     const query = useQuery();
-    const [pullKey, setPullKey] = usePullKey(
-        query.get("pullKey") ?? "rm0qb5jr0qtis39f"
-    );
+    const [pullKey, setPullKey] = usePullKey(query.get("pullKey") ?? "rm0qb5jr0qtis39f");
     const [textStyle, setTextStyle] = useStyle();
     const [indicatorStyle, setIndicatorStyle] = useIndicatorStyle();
 
