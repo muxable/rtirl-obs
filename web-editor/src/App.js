@@ -23,160 +23,162 @@ import WeatherEditor from "./screen/WeatherEditor";
 import editorTheme from "./theme/editorTheme";
 
 function useQuery() {
-    const { search } = useLocation();
+  const { search } = useLocation();
 
-    return useMemo(() => new URLSearchParams(search), [search]);
+  return useMemo(() => new URLSearchParams(search), [search]);
 }
 
 function App() {
-    const query = useQuery();
-    const [pullKey, setPullKey] = usePullKey(query.get("pullKey") ?? "rm0qb5jr0qtis39f");
-    const [textStyle, setTextStyle] = useStyle();
-    const [indicatorStyle, setIndicatorStyle] = useIndicatorStyle();
+  const query = useQuery();
+  const [pullKey, setPullKey] = usePullKey(
+    query.get("pullKey") ?? "rm0qb5jr0qtis39f"
+  );
+  const [textStyle, setTextStyle] = useStyle();
+  const [indicatorStyle, setIndicatorStyle] = useIndicatorStyle();
 
-    return (
-        <div className="App">
-            <ThemeProvider theme={editorTheme}>
-                <CssBaseline />
-                <Stack>
-                    <EditorAppbar />
-                    <Routes>
-                        <Route exact path="/" element={<Home />} />
-                        <Route
-                            exact
-                            path="/mapbox"
-                            element={
-                                <MapboxEditor
-                                    pullKey={pullKey}
-                                    onPullKeyChange={setPullKey}
-                                    indicatorStyle={indicatorStyle}
-                                    setIndicatorStyle={setIndicatorStyle}
-                                />
-                            }
-                        />
-                        <Route
-                            exact
-                            path="/googlemap"
-                            element={
-                                <GoogleMapsEditor
-                                    pullKey={pullKey}
-                                    onPullKeyChange={setPullKey}
-                                    indicatorStyle={indicatorStyle}
-                                    setIndicatorStyle={setIndicatorStyle}
-                                />
-                            }
-                        />
-                        <Route
-                            exact
-                            path="/googlestreetview"
-                            element={
-                                <GoogleStreetViewEditor
-                                    pullKey={pullKey}
-                                    onPullKeyChange={setPullKey}
-                                />
-                            }
-                        />
-                        <Route
-                            exact
-                            path="/neighborhood"
-                            element={
-                                <NeighborhoodEditor
-                                    pullKey={pullKey}
-                                    onPullKeyChange={setPullKey}
-                                    textStyle={textStyle}
-                                    onTextStyleChange={setTextStyle}
-                                />
-                            }
-                        />
-                        <Route
-                            exact
-                            path="/clock"
-                            element={
-                                <ClockEditor
-                                    pullKey={pullKey}
-                                    onPullKeyChange={setPullKey}
-                                    textStyle={textStyle}
-                                    onTextStyleChange={setTextStyle}
-                                />
-                            }
-                        />
-                        <Route
-                            exact
-                            path="/weather"
-                            element={
-                                <WeatherEditor
-                                    pullKey={pullKey}
-                                    onPullKeyChange={setPullKey}
-                                    textStyle={textStyle}
-                                    onTextStyleChange={setTextStyle}
-                                />
-                            }
-                        />
-                        <Route
-                            exact
-                            path="/speed"
-                            element={
-                                <SpeedEditor
-                                    pullKey={pullKey}
-                                    onPullKeyChange={setPullKey}
-                                    textStyle={textStyle}
-                                    onTextStyleChange={setTextStyle}
-                                />
-                            }
-                        />
-                        <Route
-                            exact
-                            path="/heading"
-                            element={
-                                <HeadingEditor
-                                    pullKey={pullKey}
-                                    onPullKeyChange={setPullKey}
-                                    textStyle={textStyle}
-                                    onTextStyleChange={setTextStyle}
-                                />
-                            }
-                        />
-                        <Route
-                            exact
-                            path="/altitude"
-                            element={
-                                <AltitudeEditor
-                                    pullKey={pullKey}
-                                    onPullKeyChange={setPullKey}
-                                    textStyle={textStyle}
-                                    onTextStyleChange={setTextStyle}
-                                />
-                            }
-                        />
-                        <Route
-                            exact
-                            path="/distance"
-                            element={
-                                <DistanceEditor
-                                    pullKey={pullKey}
-                                    onPullKeyChange={setPullKey}
-                                    textStyle={textStyle}
-                                    onTextStyleChange={setTextStyle}
-                                />
-                            }
-                        />
-                        <Route
-                            exact
-                            path="/inclination"
-                            element={
-                                <InclinationEditor
-                                    pullKey={pullKey}
-                                    onPullKeyChange={setPullKey}
-                                    textStyle={textStyle}
-                                    onTextStyleChange={setTextStyle}
-                                />
-                            }
-                        />
-                    </Routes>
-                </Stack>
-            </ThemeProvider>
-        </div>
-    );
+  return (
+    <div className="App">
+      <ThemeProvider theme={editorTheme}>
+        <CssBaseline />
+        <Stack>
+          <EditorAppbar />
+          <Routes>
+            <Route exact path="/" element={<Home />} />
+            <Route
+              exact
+              path="/mapbox"
+              element={
+                <MapboxEditor
+                  pullKey={pullKey}
+                  onPullKeyChange={setPullKey}
+                  indicatorStyle={indicatorStyle}
+                  setIndicatorStyle={setIndicatorStyle}
+                />
+              }
+            />
+            <Route
+              exact
+              path="/googlemap"
+              element={
+                <GoogleMapsEditor
+                  pullKey={pullKey}
+                  onPullKeyChange={setPullKey}
+                  indicatorStyle={indicatorStyle}
+                  setIndicatorStyle={setIndicatorStyle}
+                />
+              }
+            />
+            <Route
+              exact
+              path="/googlestreetview"
+              element={
+                <GoogleStreetViewEditor
+                  pullKey={pullKey}
+                  onPullKeyChange={setPullKey}
+                />
+              }
+            />
+            <Route
+              exact
+              path="/neighborhood"
+              element={
+                <NeighborhoodEditor
+                  pullKey={pullKey}
+                  onPullKeyChange={setPullKey}
+                  textStyle={textStyle}
+                  onTextStyleChange={setTextStyle}
+                />
+              }
+            />
+            <Route
+              exact
+              path="/clock"
+              element={
+                <ClockEditor
+                  pullKey={pullKey}
+                  onPullKeyChange={setPullKey}
+                  textStyle={textStyle}
+                  onTextStyleChange={setTextStyle}
+                />
+              }
+            />
+            <Route
+              exact
+              path="/weather"
+              element={
+                <WeatherEditor
+                  pullKey={pullKey}
+                  onPullKeyChange={setPullKey}
+                  textStyle={textStyle}
+                  onTextStyleChange={setTextStyle}
+                />
+              }
+            />
+            <Route
+              exact
+              path="/speed"
+              element={
+                <SpeedEditor
+                  pullKey={pullKey}
+                  onPullKeyChange={setPullKey}
+                  textStyle={textStyle}
+                  onTextStyleChange={setTextStyle}
+                />
+              }
+            />
+            <Route
+              exact
+              path="/heading"
+              element={
+                <HeadingEditor
+                  pullKey={pullKey}
+                  onPullKeyChange={setPullKey}
+                  textStyle={textStyle}
+                  onTextStyleChange={setTextStyle}
+                />
+              }
+            />
+            <Route
+              exact
+              path="/altitude"
+              element={
+                <AltitudeEditor
+                  pullKey={pullKey}
+                  onPullKeyChange={setPullKey}
+                  textStyle={textStyle}
+                  onTextStyleChange={setTextStyle}
+                />
+              }
+            />
+            <Route
+              exact
+              path="/distance"
+              element={
+                <DistanceEditor
+                  pullKey={pullKey}
+                  onPullKeyChange={setPullKey}
+                  textStyle={textStyle}
+                  onTextStyleChange={setTextStyle}
+                />
+              }
+            />
+            <Route
+              exact
+              path="/inclination"
+              element={
+                <InclinationEditor
+                  pullKey={pullKey}
+                  onPullKeyChange={setPullKey}
+                  textStyle={textStyle}
+                  onTextStyleChange={setTextStyle}
+                />
+              }
+            />
+          </Routes>
+        </Stack>
+      </ThemeProvider>
+    </div>
+  );
 }
 
 export default App;
