@@ -2,6 +2,20 @@ import { createTheme } from "@mui/material/styles";
 import OskariBook from "../fonts/OskariG2-Book.ttf";
 import OskariSemiBold from "../fonts/OskariG2-SemiBold.ttf";
 
+export const scrollbarStyles = {
+  "&::-webkit-scrollbar": {
+    width: "0.5em",
+  },
+  "&::-webkit-scrollbar-track": {
+    boxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
+    webkitBoxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
+  },
+  "&::-webkit-scrollbar-thumb": {
+    backgroundColor: "rgba(0,0,0,.1)",
+    outline: "1px solid slategrey",
+  },
+};
+
 const colors = {
   primary: {
     main: "#262626",

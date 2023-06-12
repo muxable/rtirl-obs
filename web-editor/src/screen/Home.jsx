@@ -9,6 +9,7 @@ import {
 import { ThemeProvider } from "@mui/material/styles";
 import { OverlayPreview } from "../component/OverlayPreview";
 import { useState } from "react";
+import { scrollbarStyles } from "../theme/editorTheme";
 import altitudeImage from "../images/altitude.svg";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import backgroundImage from "../images/background.png";
@@ -176,7 +177,8 @@ export const Home = (props) => {
           display="flex"
           justifyContent="center"
           alignItems="center"
-          sx={{ overflowX: "auto" }}
+          padding={4}
+          sx={{ overflowX: "auto", ...scrollbarStyles }}
         >
           {option === "Design your own" && (
             <div>
