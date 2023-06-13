@@ -3,6 +3,7 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import MapboxContainer from "../component/mapbox/MapboxContainer";
 import MapboxSettings from "../component/mapbox/MapboxSettings";
+import { scrollbarStyles } from "../theme/editorTheme";
 
 const mapboxMapStyleJsonCache = [];
 
@@ -38,7 +39,16 @@ export default function MapboxEditor({
 
   return (
     <Grid container columns={{ xs: 1, md: 12 }} direction="row">
-      <Grid item xs={1} md={2.5}>
+      <Grid
+        item
+        xs={1}
+        md={2.5}
+        sx={{
+          overflow: "auto",
+          height: "100vh",
+          ...scrollbarStyles,
+        }}
+      >
         <MapboxSettings
           pullKey={pullKey}
           onPullKeyChange={onPullKeyChange}

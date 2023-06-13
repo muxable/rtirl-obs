@@ -7,6 +7,7 @@ import OverlayExportPanel from "../component/OverlayExportPanel";
 import PullKeyInput from "../component/PullKeyInput";
 import TextOverlayPreview from "../component/TextOverlayPreview";
 import { TextSettings } from "../component/TextSettings";
+import { scrollbarStyles } from "../theme/editorTheme";
 
 function ClockEditor({
   pullKey,
@@ -100,7 +101,16 @@ function ClockEditor({
 
   return (
     <Grid container columns={{ xs: 1, md: 12 }} direction="row">
-      <Grid item xs={1} md={2.5}>
+      <Grid
+        item
+        xs={1}
+        md={2.5}
+        sx={{
+          overflow: "auto",
+          height: "100vh",
+          ...scrollbarStyles,
+        }}
+      >
         <Box
           style={{
             height: "max-content",
