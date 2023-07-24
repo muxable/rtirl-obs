@@ -7,6 +7,7 @@
       integrity="sha256-BdqBGuaawDzMtW2Wn9ISUuYKUY/A7d5NVcj6Ix3jwv8="
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/browser-geo-tz@0.0.4/dist/geotz.js"></script>
     <script defer src="../css.js"></script>
   </head>
   <body>
@@ -25,27 +26,18 @@
 
       function refreshTzOffset() {
         var timestamp = (Date.now() / 1000) | 0;
-        fetch(
-          `https://maps.googleapis.com/maps/api/timezone/json?location=${latestLocation.latitude},${latestLocation.longitude}&timestamp=${timestamp}&key=AIzaSyDs0skEj6nVAY1RXEkaHkdoN_i-DWF27rg`
-        )
-          .then(function (response) {
-            return response.json();
-          })
-          .then(function (data) {
-            zoneId = data["timeZoneId"];
-          });
+        GeoTZ.find(latestLocation.latitude, latestLocation.longitude).then(
+          function (data) {
+            zoneId = data.length > 0 ? data[0] : "UTC";
+          }
+        );
       }
 
       RealtimeIRL.forPullKey(pullKey).addLocationListener(function (location) {
         latestLocation = location;
-        if (i++ % 1800 == 0) {
-          refreshTzOffset();
-        }
+        refreshTzOffset();
       });
       setInterval(function () {
-        if (++j % (60 * 60 * 2) == 0) {
-          refreshTzOffset();
-        }
         if (zoneId == null) {
           return;
         }

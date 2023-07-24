@@ -7,6 +7,7 @@ import OverlayExportPanel from "../component/OverlayExportPanel";
 import PullKeyInput from "../component/PullKeyInput";
 import TextOverlayPreview from "../component/TextOverlayPreview";
 import { TextSettings } from "../component/TextSettings";
+import { scrollbarStyles } from "../theme/editorTheme";
 
 function ClockEditor({
   pullKey,
@@ -36,10 +37,10 @@ function ClockEditor({
     { token: "ff", hint: "Date and time (12-hour)" },
     { token: "fff", hint: "Date and time (12-hour)" },
     { token: "ffff", hint: "Date and time (12-hour)" },
-    { token: "F", hint: "Date and time (24-hour)" },
-    { token: "FF", hint: "Date and time (24-hour)" },
-    { token: "FFF", hint: "Date and time (24-hour)" },
-    { token: "FFFF", hint: "Date and time (24-hour)" },
+    { token: "F", hint: "Date and time with seconds (12-hour)" },
+    { token: "FF", hint: "Date and time with seconds (12-hour)" },
+    { token: "FFF", hint: "Date and time with seconds (12-hour)" },
+    { token: "FFFF", hint: "Date and time with seconds (12-hour)" },
     { token: "ss", hint: "Seconds" },
     { token: "mm", hint: "Minutes" },
     { token: "hh", hint: "Hours (12-hour)" },
@@ -100,7 +101,16 @@ function ClockEditor({
 
   return (
     <Grid container columns={{ xs: 1, md: 12 }} direction="row">
-      <Grid item xs={1} md={2.5}>
+      <Grid
+        item
+        xs={1}
+        md={2.5}
+        sx={{
+          overflow: "auto",
+          height: "100vh",
+          ...scrollbarStyles,
+        }}
+      >
         <Box
           style={{
             height: "max-content",
