@@ -37,7 +37,7 @@ export default function MapboxContainer({
         <>
           <MapGL
             style={{
-              height: fullscreen ? "100%" : "300px",
+              height: fullscreen ? "100%" : "250px",
               width: fullscreen ? "100%" : "300px",
             }}
             ref={mapRef}
