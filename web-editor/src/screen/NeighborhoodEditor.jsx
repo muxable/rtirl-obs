@@ -21,7 +21,7 @@ function NeighborhoodEditor({
   const [text, setText] = useState("Williamsburg, Brooklyn, NY");
 
   const formatURL = () => {
-    var base = `https://overlays.rtirl.com/neighborhood.html?key=${pullKey.value}&format=`;
+    var base = `https://overlays.rtirl.com/neighborhood.html?key=${pullKey.value}&lang=${lang}&format=`;
     var formatStr = "";
     /* eslint-disable */
     const mp = {
