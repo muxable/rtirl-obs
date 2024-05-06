@@ -7,6 +7,7 @@ type Degrees = number;
 type Meters = number;
 type BeatsPerMinute = number;
 type Steps = number;
+type Watts = number;
 type Location = { latitude: Degrees; longitude: Degrees };
 type UUID = string;
 
@@ -80,8 +81,15 @@ export function forPullKey(pullKey: string) {
       });
     },
     addHeartRateListener(callback: (altitude: BeatsPerMinute) => void) {
-      logEvent(analytics, "listener", { type: "heart_rate", pullKey });
-      return onValue(child(reference, "heart_rate"), (snapshot) => {
+      logEvent(analytics, "listener", { type: "heartRate", pullKey });
+      return onValue(child(reference, "heartRate"), (snapshot) => {
+        callback(snapshot.val());
+        logEvent(analytics, "data", { type: "sessionId", pullKey });
+      });
+    },
+    addCyclingPowerListener(callback: (power: Watts) => void) {
+      logEvent(analytics, "listener", { type: "cyclingPower", pullKey });
+      return onValue(child(reference, "cyclingPower"), (snapshot) => {
         callback(snapshot.val());
         logEvent(analytics, "data", { type: "sessionId", pullKey });
       });
