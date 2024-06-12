@@ -5,7 +5,9 @@
     "declaration": true,
     "moduleResolution": "node",
     "outDir": "./lib",
-    "strict": true
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true
   },
-  "include": ["src"]
+  "include": ["src", "rollup.config.ts"]
 }
