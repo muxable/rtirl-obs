@@ -1,5 +1,8 @@
 # RealtimeIRL Client API
 
+![npm](https://img.shields.io/npm/v/@rtirl/api)
+![npm](https://img.shields.io/npm/dw/@rtirl/api)
+
 An API to access RealtimeIRL data.
 
 ## Installation
