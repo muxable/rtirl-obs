@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/@rtirl/api@latest/lib/index.min.js"></script>
+    <script defer src="../css.js"></script>
+  </head>
+  <body>
+    <div id="text"><span id="cadence">0</span> rpm</div>
+    <script>
+      const pullKey = new URLSearchParams(window.location.search).get("key");
+      let previous = null;
+      RealtimeIRL.forPullKey(pullKey).addCyclingCadenceListener(function (
+        data
+      ) {
+        if (!data) {
+          return;
+        }
+
+        if (previous) {
+          const dt = data.eventTime - previous.eventTime;
+          // dt is in 1024ths of a second modulo 65536
+          if (dt < 65536) {
+            dt += 65536;
+          }
+          const seconds = dt / 1024;
+
+          if (seconds === 0) {
+            return;
+          }
+
+          const revolutions = data.revolutions - previous.revolutions;
+
+          const rpm = ((revolutions * 60) / seconds) | 0;
+
+          document.getElementById("cadence").innerText = rpm > 0 ? rpm : 0;
+        }
+
+        previous = data;
+      });
+    </script>
+  </body>
+</html>

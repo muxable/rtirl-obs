@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/@rtirl/api@latest/lib/index.min.js"></script>
+    <script defer src="../css.js"></script>
+  </head>
+  <body>
+    <div id="text"><span id="speed">0</span> km/h</div>
+    <script>
+      const pullKey = new URLSearchParams(window.location.search).get("key");
+      let previous = null;
+      RealtimeIRL.forPullKey(pullKey).addCyclingWheelListener(function (data) {
+        if (!data) {
+          return;
+        }
+
+        if (previous) {
+          const dt = data.eventTime - previous.eventTime;
+          // dt is in 1024ths of a second modulo 65536
+          if (dt < 65536) {
+            dt += 65536;
+          }
+          const seconds = dt / 1024;
+
+          if (seconds === 0) {
+            return;
+          }
+
+          const revolutions = data.revolutions - previous.revolutions;
+
+          const circumference = 0.622 * Math.PI; // 0.622m = 700c wheel
+
+          const speed = (circumference * revolutions) / (seconds * 1000); // m/s
+
+          const speedInKmh = (speed * 3.6) | 0;
+
+          document.getElementById("speed").innerText =
+            speedInKmh > 0 ? speedInKmh : 0;
+        }
+
+        previous = data;
+      });
+    </script>
+  </body>
+</html>

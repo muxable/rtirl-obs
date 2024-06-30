@@ -94,6 +94,20 @@ export function forPullKey(pullKey: string) {
         logEvent(analytics, "data", { type: "sessionId", pullKey });
       });
     },
+    addCyclingCrankListener(callback: (power: Watts) => void) {
+      logEvent(analytics, "listener", { type: "cyclingCrank", pullKey });
+      return onValue(child(reference, "cyclingCrank"), (snapshot) => {
+        callback(snapshot.val());
+        logEvent(analytics, "data", { type: "sessionId", pullKey });
+      });
+    },
+    addCyclingWheelListener(callback: (power: Watts) => void) {
+      logEvent(analytics, "listener", { type: "cyclingWheel", pullKey });
+      return onValue(child(reference, "cyclingWheel"), (snapshot) => {
+        callback(snapshot.val());
+        logEvent(analytics, "data", { type: "sessionId", pullKey });
+      });
+    },
     /**
      * This listener reports the number of steps taken so far. Note that this
      * number does not reset when the streamer goes offline. It is up to the
