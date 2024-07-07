@@ -24,6 +24,7 @@ import mapboxImage from "../images/mapbox.jpg";
 import speedImage from "../images/mph.svg";
 import neighborhoodImage from "../images/neighborhood.svg";
 import temperatureImage from "../images/temperature.svg";
+import heartRateImage from "../images/heart_rate.svg";
 import homeTheme from "../theme/homeTheme";
 
 const pages = [
@@ -81,6 +82,11 @@ const pages = [
     name: "Inclination by sprEEEzy",
     route: "/inclination",
     image: inclinationImage,
+  },
+  {
+    name: "Heart Rate",
+    route: "/heart_rate",
+    image: heartRateImage,
   },
 ];
 
