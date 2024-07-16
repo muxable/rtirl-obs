@@ -122,6 +122,20 @@ This overlay is in beta. It shows the total distance traveled since the Realtime
 
 `https://overlays.rtirl.com/distance/miles.html?key=<YOUR_PULL_KEY>`
 
+## Heart Rate
+
+This overlay renders the heart rate in beats per minute (bpm). This requires a bluetooth
+device connected to the beacon app.
+
+`https://overlays.rtirl.com/heart_rate/bpm.html?key=<YOUR_PULL_KEY>`
+
+## Cycling Cadence
+
+This overlay renders the cycling cadence in revolutions per minute (rpm). This requires 
+a bluetooth device connected to the beacon app.
+
+`https://overlays.rtirl.com/cycling_cadence/rpm.html?key=<YOUR_PULL_KEY>`
+
 ## StreamElements
 
 If you would like to display RealtimeIRL data using StreamElements overlays, you will need to add a Custom widget and then add the iFrame to the HTML section. (Settings > Open Editor)
