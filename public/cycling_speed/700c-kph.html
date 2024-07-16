@@ -17,7 +17,7 @@
         if (previous) {
           const dt = data.eventTime - previous.eventTime;
           // dt is in 1024ths of a second modulo 65536
-          if (dt < 65536) {
+          if (dt < 0) {
             dt += 65536;
           }
           const seconds = dt / 1024;
