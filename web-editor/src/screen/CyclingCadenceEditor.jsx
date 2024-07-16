@@ -1,5 +1,4 @@
 import { Box, Grid, Typography } from "@mui/material";
-import { useState } from "react";
 import OverlayExportPanel from "../component/OverlayExportPanel";
 import PullKeyInput from "../component/PullKeyInput";
 import TextOverlayPreview from "../component/TextOverlayPreview";
