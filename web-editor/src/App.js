@@ -20,6 +20,7 @@ import MapboxEditor from "./screen/MapboxEditor";
 import NeighborhoodEditor from "./screen/NeighborhoodEditor";
 import SpeedEditor from "./screen/SpeedEditor";
 import WeatherEditor from "./screen/WeatherEditor";
+import HeartRateEditor from "./screen/HeartRateEditor";
 import editorTheme from "./theme/editorTheme";
 
 function useQuery() {
@@ -167,6 +168,18 @@ function App() {
               path="/inclination"
               element={
                 <InclinationEditor
+                  pullKey={pullKey}
+                  onPullKeyChange={setPullKey}
+                  textStyle={textStyle}
+                  onTextStyleChange={setTextStyle}
+                />
+              }
+            />
+            <Route
+              exact
+              path="/heart_rate"
+              element={
+                <HeartRateEditor
                   pullKey={pullKey}
                   onPullKeyChange={setPullKey}
                   textStyle={textStyle}

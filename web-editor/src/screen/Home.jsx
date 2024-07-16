@@ -82,6 +82,11 @@ const pages = [
     route: "/inclination",
     image: inclinationImage,
   },
+  {
+    name: "Heart Rate",
+    route: "/heart_rate",
+    text: "72 bpm",
+  },
 ];
 
 export const Home = (props) => {
@@ -197,6 +202,7 @@ export const Home = (props) => {
                       name={page.name}
                       route={page.route}
                       image={page.image}
+                      text={page.text}
                     />
                   </Grid>
                 ))}
