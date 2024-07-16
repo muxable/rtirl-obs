@@ -1,12 +1,16 @@
 import { Box, Grid, Typography } from "@mui/material";
-import { useState } from "react";
 import PullKeyInput from "../component/PullKeyInput";
 import OverlayExportPanel from "../component/OverlayExportPanel";
-import TextSettings from "../component/TextSettings";
+import { TextSettings } from "../component/TextSettings";
 import TextOverlayPreview from "../component/TextOverlayPreview";
 import { scrollbarStyles } from "../theme/editorTheme";
 
-function HeartRateEditor({ pullKey, onPullKeyChange, textStyle, onTextStyleChange }) {
+function HeartRateEditor({
+  pullKey,
+  onPullKeyChange,
+  textStyle,
+  onTextStyleChange,
+}) {
   const url = `https://overlays.rtirl.com/heart_rate/bpm.html?key=${pullKey.value}`;
 
   return (
