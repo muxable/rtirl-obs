@@ -87,6 +87,11 @@ const pages = [
     route: "/heart_rate",
     text: "72 bpm",
   },
+  {
+    name: "Cycling Cadence",
+    route: "/cycling_cadence",
+    text: "75 rpm",
+  },
 ];
 
 export const Home = (props) => {
