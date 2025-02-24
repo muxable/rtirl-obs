@@ -17,7 +17,7 @@ function MultipleSelect({ selected, setSelected, inputLabel, fullSet }) {
   const rest = fullSet.filter((item) => !selected.includes(item));
 
   return (
-    <Box sx={{ paddingTop: "15px" }}>
+    <Box sx={{ paddingTop: "15px", paddingLeft: "12px" }}>
       <FormControl fullWidth>
         <InputLabel> {inputLabel} </InputLabel>
         <Select
