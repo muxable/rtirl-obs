@@ -16,8 +16,11 @@ RealtimeIRL.forPullKey(key).addListener(
         // We have new gps points. Let's calculate the delta distance using previously saved gps points (IN METERS)
         delta = distanceInKmBetweenEarthCoordinates(gps.new.latitude, gps.new.longitude, gps.old.latitude, gps.old.longitude) * 1000;
 
-        // Now calculate the slope percentage, based on altitude change and distance travelled
-        gps.new.inclination = ((gps.new.altitude - gps.old.altitude) / delta * 100);
+        if (delta !== 0) {
+            gps.new.inclination = ((gps.new.altitude - gps.old.altitude) / delta * 100);
+        } else {
+            gps.new.inclination = 0;
+        }
 
         // Ease-in inclination, no sudden jumps
         inclination = (gps.new.inclination + gps.old.inclination) / 2;
@@ -25,7 +28,7 @@ RealtimeIRL.forPullKey(key).addListener(
         gps.old.inclination = gps.new.inclination;
 
         // "Fix" errors
-        if ((inclination > 40) || (inclination < -40)){
+        if ((inclination > 40) || (inclination < -40) || isNaN(inclination)){
             inclination = 0.0;
         }
 
