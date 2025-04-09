@@ -13,7 +13,7 @@
 
         clearTimeout(timer); //don't reset to 0 if moving
 
-	      const speedInMinsPerKm = (16.66666666666666667 / speed);
+	const speedInMinsPerKm = (16.66666666666666667 / speed);
         document.getElementById("speed").innerText = (speedInMinsPerKm | 0)+':'+((speedInMinsPerKm % 1)*60 | 0).toString().padStart(2, '0');
 
         timer = setTimeout(() => { //reset to 0 if not moving for 30 sec
