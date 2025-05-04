@@ -9,7 +9,7 @@ import { scrollbarStyles } from "../theme/editorTheme";
 
 const speedOptions = [
   { name: "MPH", value: "mph" },
-  { name: "KMH", value: "kph" },
+  { name: "KMH", value: "kmh" },
   { name: "MIN/KM", value: "minperkm" },
 ];
 
