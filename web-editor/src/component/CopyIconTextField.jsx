@@ -18,6 +18,7 @@ export const CopyIconTextField = ({ value, multiline, row, label, type }) => {
   return (
     <TextField
       disabled
+      hiddenLabel
       label={label}
       readOnly
       multiline={multiline}
@@ -28,6 +29,7 @@ export const CopyIconTextField = ({ value, multiline, row, label, type }) => {
       sx={{ paddingRight: "3%" }}
       InputProps={{
         disableUnderline: true,
+        sx: { borderRadius: "8px" },
         startAdornment: (
           <InputAdornment position="start">
             <Tooltip title={copied ? "Copied" : "Copy"} placement={"top"}>
