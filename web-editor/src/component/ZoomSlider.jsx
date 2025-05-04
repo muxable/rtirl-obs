@@ -26,11 +26,11 @@ export const ZoomSlider = ({
   };
 
   return (
-    <Box bgcolor="black">
+    <Box bgcolor="black" paddingLeft={"12px"}>
       <Typography
         id="input-slider"
         gutterBottom
-        sx={{ paddingLeft: "28px", paddingTop: "10px" }}
+        sx={{ paddingLeft: "16px", paddingTop: "10px" }}
       >
         Zoom level
       </Typography>
