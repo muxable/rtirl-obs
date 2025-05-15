@@ -21,7 +21,6 @@ function SpeedEditor({
 }) {
   const [units, setUnits] = useState("mph");
 
-  // Function to get the display format for each unit type
   const getDisplayUnits = (unitType) => {
     switch (unitType) {
       case "mph":
