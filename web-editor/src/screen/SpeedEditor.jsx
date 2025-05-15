@@ -20,6 +20,21 @@ function SpeedEditor({
   onTextStyleChange,
 }) {
   const [units, setUnits] = useState("mph");
+
+  // Function to get the display format for each unit type
+  const getDisplayUnits = (unitType) => {
+    switch (unitType) {
+      case "mph":
+        return "mph";
+      case "kph":
+        return "kmh";
+      case "minperkm":
+        return "/km";
+      default:
+        return unitType;
+    }
+  };
+
   const url = `https://overlays.rtirl.com/speed/${units}.html?key=${pullKey.value}`;
 
   return (
@@ -72,7 +87,7 @@ function SpeedEditor({
       <Grid item xs={1} md={9.5} lg={12}>
         <Box padding={1} paddingBottom={0}>
           <TextOverlayPreview
-            text={`1000 ${units.toUpperCase()}`}
+            text={`1000 ${getDisplayUnits(units)}`}
             textDivCSS={textStyle}
           />
         </Box>
