@@ -20,6 +20,7 @@ function SpeedEditor({
   onTextStyleChange,
 }) {
   const [units, setUnits] = useState("mph");
+
   const url = `https://overlays.rtirl.com/speed/${units}.html?key=${pullKey.value}`;
 
   return (

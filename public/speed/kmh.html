@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/@rtirl/api@latest/lib/index.min.js"></script>
+    <script defer src="../css.js"></script>
+  </head>
+  <body>
+    <div id="text"><span id="speed">0</span> km/h</div>
+    <script>
+      const pullKey = new URLSearchParams(window.location.search).get("key");
+      var timer;
+      RealtimeIRL.forPullKey(pullKey).addSpeedListener(function (speed) {
+
+        clearTimeout(timer); //don't reset to 0 if moving
+
+        const speedInKmh = (speed * 3.6) | 0;
+        document.getElementById("speed").innerText = speedInKmh > 0 ? speedInKmh : 0;
+
+        timer = setTimeout(() => { //reset to 0 if not moving for 30 sec
+          document.getElementById("speed").innerText = 0;
+        }, 30000);
+
+      });
+    </script>
+  </body>
+</html>
