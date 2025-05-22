@@ -9,7 +9,7 @@ import { scrollbarStyles } from "../theme/editorTheme";
 
 const speedOptions = [
   { name: "MPH", value: "mph" },
-  { name: "KMH", value: "kph" },
+  { name: "KMH", value: "kmh" },
   { name: "MIN/KM", value: "minperkm" },
 ];
 
@@ -20,19 +20,6 @@ function SpeedEditor({
   onTextStyleChange,
 }) {
   const [units, setUnits] = useState("mph");
-
-  const getDisplayUnits = (unitType) => {
-    switch (unitType) {
-      case "mph":
-        return "mph";
-      case "kph":
-        return "kmh";
-      case "minperkm":
-        return "/km";
-      default:
-        return unitType;
-    }
-  };
 
   const url = `https://overlays.rtirl.com/speed/${units}.html?key=${pullKey.value}`;
 
@@ -86,7 +73,7 @@ function SpeedEditor({
       <Grid item xs={1} md={9.5} lg={12}>
         <Box padding={1} paddingBottom={0}>
           <TextOverlayPreview
-            text={`1000 ${getDisplayUnits(units)}`}
+            text={`1000 ${units.toUpperCase()}`}
             textDivCSS={textStyle}
           />
         </Box>
