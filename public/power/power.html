@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@rtirl/api@latest/lib/index.min.js"></script>
+  <script defer src="../css.js"></script>
+</head>
+
+<body>
+  <div id="text"><span id="power">0</span> watts</div>
+  <script>
+    const pullKey = new URLSearchParams(window.location.search).get("key");
+    RealtimeIRL.forPullKey(pullKey).addCyclingPowerListener(function (
+      data
+    ) {
+      if (!data) {
+        return;
+      }
+
+      console.log(data);
+
+      document.getElementById("power").innerText = data > 0 ? data : 0;
+    });
+  </script>
+</body>
+
+</html>
