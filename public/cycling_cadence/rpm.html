@@ -9,7 +9,7 @@
     <script>
       const pullKey = new URLSearchParams(window.location.search).get("key");
       let previous = null;
-      RealtimeIRL.forPullKey(pullKey).addCyclingCadenceListener(function (
+      RealtimeIRL.forPullKey(pullKey).addCyclingCrankListener(function (
         data
       ) {
         if (!data) {
