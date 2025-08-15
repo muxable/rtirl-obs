@@ -169,7 +169,18 @@ export function forPullKey(pullKey: string) {
 /** Creates a listener source for a streamer's public data. */
 export function forStreamer(provider: "twitch", userId: string) {
   const db = getDatabase(getApp());
+  const analytics = getAnalytics(getApp());
   const reference = child(ref(db, "streamers"), `${provider}:${userId}`);
+  const safeLogEvent = (eventName: string, eventParams?: any) => {
+    isSupported()
+      .then((supported) => {
+        if (supported) {
+          logEvent(analytics, eventName, eventParams);
+        }
+      })
+      .catch(() => {});
+  };
+
   return {
     /** If the public location is hidden (eg streamer is offline), null is passed. */
     addLocationListener(callback: (location: Location | null) => void) {
