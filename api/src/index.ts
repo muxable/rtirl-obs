@@ -54,7 +54,18 @@ export function addSessionIdListener(
 /** Creates a listener source for a streamer's private data with a pull key. */
 export function forPullKey(pullKey: string) {
   const db = getDatabase(getApp());
+  const analytics = getAnalytics(getApp());
   const reference = child(ref(db, "pullables"), pullKey);
+  const safeLogEvent = (eventName: string, eventParams?: any) => {
+    isSupported()
+      .then((supported) => {
+        if (supported) {
+          logEvent(analytics, eventName, eventParams);
+        }
+      })
+      .catch(() => {});
+  };
+
   return {
     addLocationListener(callback: (location: Location) => void) {
       safeLogEvent("listener", { type: "location", pullKey });
@@ -188,23 +199,3 @@ function getApp() {
   }
   return app;
 }
-
-const safeLogEvent = (() => {
-  let analyticsInstance: Analytics | null = null;
-
-  return (eventName: string, eventParams?: any) => {
-    if (analyticsInstance) {
-      logEvent(analyticsInstance, eventName, eventParams);
-      return;
-    }
-
-    isSupported()
-      .then((supported) => {
-        if (supported) {
-          analyticsInstance = getAnalytics(getApp());
-          logEvent(analyticsInstance, eventName, eventParams);
-        }
-      })
-      .catch(() => {});
-  };
-})();
