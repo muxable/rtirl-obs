@@ -2,6 +2,7 @@
   "name": "@rtirl/api",
   "version": "1.2.2",
   "main": "lib/index.js",
+  "module": "lib/index.mjs",
   "browser": "lib/index.min.js",
   "types": "lib/index.d.ts",
   "scripts": {
@@ -12,7 +13,12 @@
     "lib/**/*"
   ],
   "exports": {
-    ".": "./lib"
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.js",
+      "browser": "./lib/index.min.js"
+    }
   },
   "author": "muxfdz@gmail.com",
   "license": "MIT",
@@ -25,7 +31,7 @@
     "@rollup/plugin-typescript": "^11.1.6",
     "prettier": "^3.3.2",
     "rollup": "^4.18.0",
-    "rollup-plugin-terser": "^7.0.2",
+    "@rollup/plugin-terser": "^0.4.4",
     "typescript": "^5.4.5"
   },
   "description": "Client API library for rtirl.com"
