@@ -3,11 +3,14 @@
     "target": "es5",
     "module": "esnext",
     "declaration": true,
+    "declarationDir": "./lib",
     "moduleResolution": "node",
     "outDir": "./lib",
     "strict": true,
     "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "emitDeclarationOnly": true
   },
-  "include": ["src", "rollup.config.ts"]
+  "include": ["src"],
+  "exclude": ["rollup.config.ts"]
 }
