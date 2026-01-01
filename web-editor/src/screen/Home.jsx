@@ -92,6 +92,11 @@ const pages = [
     route: "/cycling_cadence",
     text: "75 rpm",
   },
+  {
+    name: "Cycling Power",
+    route: "/cycling_power",
+    text: "250 W",
+  },
 ];
 
 export const Home = (props) => {
