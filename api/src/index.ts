@@ -1,4 +1,9 @@
-import { getAnalytics, logEvent } from "firebase/analytics";
+import {
+  Analytics,
+  getAnalytics,
+  isSupported,
+  logEvent,
+} from "firebase/analytics";
 import { FirebaseApp, initializeApp } from "firebase/app";
 import { child, getDatabase, onValue, ref } from "firebase/database";
 
@@ -13,35 +18,35 @@ type UUID = string;
 
 export function addLocationListener(
   pullKey: string,
-  callback: (location: Location) => void
+  callback: (location: Location) => void,
 ) {
   return forPullKey(pullKey).addLocationListener(callback);
 }
 
 export function addSpeedListener(
   pullKey: string,
-  callback: (speed: MetersPerSecond) => void
+  callback: (speed: MetersPerSecond) => void,
 ) {
   return forPullKey(pullKey).addSpeedListener(callback);
 }
 
 export function addHeadingListener(
   pullKey: string,
-  callback: (heading: Degrees) => void
+  callback: (heading: Degrees) => void,
 ) {
   return forPullKey(pullKey).addHeadingListener(callback);
 }
 
 export function addAltitudeListener(
   pullKey: string,
-  callback: (altitude: Meters) => void
+  callback: (altitude: Meters) => void,
 ) {
   return forPullKey(pullKey).addAltitudeListener(callback);
 }
 
 export function addSessionIdListener(
   pullKey: string,
-  callback: (sessionId: UUID | null) => void
+  callback: (sessionId: UUID | null) => void,
 ) {
   return forPullKey(pullKey).addSessionIdListener(callback);
 }
@@ -51,61 +56,71 @@ export function forPullKey(pullKey: string) {
   const db = getDatabase(getApp());
   const analytics = getAnalytics(getApp());
   const reference = child(ref(db, "pullables"), pullKey);
+  const safeLogEvent = (eventName: string, eventParams?: any) => {
+    isSupported()
+      .then((supported) => {
+        if (supported) {
+          logEvent(analytics, eventName, eventParams);
+        }
+      })
+      .catch(() => {});
+  };
+
   return {
     addLocationListener(callback: (location: Location) => void) {
-      logEvent(analytics, "listener", { type: "location", pullKey });
+      safeLogEvent("listener", { type: "location", pullKey });
       return onValue(child(reference, "location"), (snapshot) => {
         callback(snapshot.val());
-        logEvent(analytics, "data", { type: "sessionId", pullKey });
+        safeLogEvent("data", { type: "sessionId", pullKey });
       });
     },
     addSpeedListener(callback: (speed: MetersPerSecond) => void) {
-      logEvent(analytics, "listener", { type: "speed", pullKey });
+      safeLogEvent("listener", { type: "speed", pullKey });
       return onValue(child(reference, "speed"), (snapshot) => {
         callback(snapshot.val());
-        logEvent(analytics, "data", { type: "sessionId", pullKey });
+        safeLogEvent("data", { type: "sessionId", pullKey });
       });
     },
     addHeadingListener(callback: (heading: Degrees) => void) {
-      logEvent(analytics, "listener", { type: "heading", pullKey });
+      safeLogEvent("listener", { type: "heading", pullKey });
       return onValue(child(reference, "heading"), (snapshot) => {
         callback(snapshot.val());
-        logEvent(analytics, "data", { type: "sessionId", pullKey });
+        safeLogEvent("data", { type: "sessionId", pullKey });
       });
     },
     addAltitudeListener(callback: (altitude: Meters) => void) {
-      logEvent(analytics, "listener", { type: "altitude", pullKey });
+      safeLogEvent("listener", { type: "altitude", pullKey });
       return onValue(child(reference, "altitude"), (snapshot) => {
         callback(snapshot.val());
-        logEvent(analytics, "data", { type: "sessionId", pullKey });
+        safeLogEvent("data", { type: "sessionId", pullKey });
       });
     },
     addHeartRateListener(callback: (altitude: BeatsPerMinute) => void) {
-      logEvent(analytics, "listener", { type: "heartRate", pullKey });
+      safeLogEvent("listener", { type: "heartRate", pullKey });
       return onValue(child(reference, "heartRate"), (snapshot) => {
         callback(snapshot.val());
-        logEvent(analytics, "data", { type: "sessionId", pullKey });
+        safeLogEvent("data", { type: "sessionId", pullKey });
       });
     },
     addCyclingPowerListener(callback: (power: Watts) => void) {
-      logEvent(analytics, "listener", { type: "cyclingPower", pullKey });
+      safeLogEvent("listener", { type: "cyclingPower", pullKey });
       return onValue(child(reference, "cyclingPower"), (snapshot) => {
         callback(snapshot.val());
-        logEvent(analytics, "data", { type: "sessionId", pullKey });
+        safeLogEvent("data", { type: "sessionId", pullKey });
       });
     },
     addCyclingCrankListener(callback: (power: Watts) => void) {
-      logEvent(analytics, "listener", { type: "cyclingCrank", pullKey });
+      safeLogEvent("listener", { type: "cyclingCrank", pullKey });
       return onValue(child(reference, "cyclingCrank"), (snapshot) => {
         callback(snapshot.val());
-        logEvent(analytics, "data", { type: "sessionId", pullKey });
+        safeLogEvent("data", { type: "sessionId", pullKey });
       });
     },
     addCyclingWheelListener(callback: (power: Watts) => void) {
-      logEvent(analytics, "listener", { type: "cyclingWheel", pullKey });
+      safeLogEvent("listener", { type: "cyclingWheel", pullKey });
       return onValue(child(reference, "cyclingWheel"), (snapshot) => {
         callback(snapshot.val());
-        logEvent(analytics, "data", { type: "sessionId", pullKey });
+        safeLogEvent("data", { type: "sessionId", pullKey });
       });
     },
     /**
@@ -117,10 +132,10 @@ export function forPullKey(pullKey: string) {
      * for a given session id.
      */
     addPedometerStepsListener(callback: (steps: Steps) => void) {
-      logEvent(analytics, "listener", { type: "pedometerSteps", pullKey });
+      safeLogEvent("listener", { type: "pedometerSteps", pullKey });
       return onValue(child(reference, "pedometerSteps"), (snapshot) => {
         callback(snapshot.val());
-        logEvent(analytics, "data", { type: "sessionId", pullKey });
+        safeLogEvent("data", { type: "sessionId", pullKey });
       });
     },
     /**
@@ -129,10 +144,10 @@ export function forPullKey(pullKey: string) {
      * as bluetooth heart rate or telemetry data.
      */
     addListener(callback: (data: any) => void) {
-      logEvent(analytics, "listener", { type: "root", pullKey });
+      safeLogEvent("listener", { type: "root", pullKey });
       return onValue(reference, (snapshot) => {
         callback(snapshot.val());
-        logEvent(analytics, "data", { type: "root", pullKey });
+        safeLogEvent("data", { type: "root", pullKey });
       });
     },
     /**
@@ -142,10 +157,10 @@ export function forPullKey(pullKey: string) {
      * possible for two sequential non-null sessionIds to be sent.
      */
     addSessionIdListener(callback: (sessionId: UUID | null) => void) {
-      logEvent(analytics, "listener", { type: "sessionId", pullKey });
+      safeLogEvent("listener", { type: "sessionId", pullKey });
       return onValue(child(reference, "sessionId"), (snapshot) => {
         callback(snapshot.val());
-        logEvent(analytics, "data", { type: "sessionId", pullKey });
+        safeLogEvent("data", { type: "sessionId", pullKey });
       });
     },
   };
@@ -156,13 +171,23 @@ export function forStreamer(provider: "twitch", userId: string) {
   const db = getDatabase(getApp());
   const analytics = getAnalytics(getApp());
   const reference = child(ref(db, "streamers"), `${provider}:${userId}`);
+  const safeLogEvent = (eventName: string, eventParams?: any) => {
+    isSupported()
+      .then((supported) => {
+        if (supported) {
+          logEvent(analytics, eventName, eventParams);
+        }
+      })
+      .catch(() => {});
+  };
+
   return {
     /** If the public location is hidden (eg streamer is offline), null is passed. */
     addLocationListener(callback: (location: Location | null) => void) {
-      logEvent(analytics, "listener", { type: "location", provider, userId });
+      safeLogEvent("listener", { type: "location", provider, userId });
       return onValue(child(reference, "location"), (snapshot) => {
         callback(snapshot.val());
-        logEvent(analytics, "data", { type: "location", provider, userId });
+        safeLogEvent("data", { type: "location", provider, userId });
       });
     },
   };
@@ -180,7 +205,7 @@ function getApp() {
         appId: "1:684852107701:web:d77a8ed0ee5095279a61fc",
         measurementId: "G-TR97D81LT3",
       },
-      "rtirl-api"
+      "rtirl-api",
     );
   }
   return app;
