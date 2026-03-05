@@ -17,7 +17,7 @@
     "@types/react": "^18.0.6",
     "@types/react-dom": "^18.0.2",
     "firebase": "^9.8.3",
-    "immutable": "^4.0.0",
+    "immutable": "^4.3.8",
     "leaflet": "^1.8.0",
     "luxon": "^2.5.2",
     "mapbox-gl": "^2.8.1",
