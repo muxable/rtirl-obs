@@ -59,7 +59,7 @@
       RealtimeIRL.forPullKey(pullKey).addLocationListener(async function (
         location
       ) {
-        if (i++ % 50 !== 0) return;
+        if (i++ % 10 !== 0) return;
         let matches;
         try {
           matches = await client.lookup(location.latitude, location.longitude);
