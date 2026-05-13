@@ -23,17 +23,10 @@
         params.get("format") ||
         "${data.neighborhood ? data.neighborhood.text + ', ' : ''}${data.place?.text}";
 
-      const R2 = "https://pub-ba286604ef7044678dbc982b6ccb7fa4.r2.dev";
-      const client = await new LookupClient({
-        indexUrl: `${R2}/planet-districts.drt`,
-        namesBaseUrl: R2,
-        manifestUrl: `${R2}/planet-names.manifest.json`,
-      }).open();
+      const client = await new LookupClient().open();
       try {
         await client.setLocale(lang);
       } catch (e) {
-        // Fall back to local-script names if the requested locale doesn't
-        // have an overlay (e.g. obscure language code).
         console.warn(`no overlay for lang=${lang}; using local names`, e);
       }
 
