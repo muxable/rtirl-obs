@@ -7,14 +7,6 @@
   <body>
     <div id="text"></div>
     <script type="module">
-      // browser-district reverse geocode — drops the Mapbox dependency.
-      // The URL params (`key`, `format`, `lang`) are unchanged.
-      // The default format and any custom format that references
-      // `data.neighborhood.text` / `data.place.text` continues to work
-      // because we shape the lookup result into the same context object
-      // Mapbox produced. Tag-only fields Mapbox emitted that don't exist
-      // in OSM admin data (postcode, address, poi, country, region,
-      // district) become undefined.
       import { LookupClient } from "https://unpkg.com/browser-district@latest/src/index.js";
 
       function wrappedEval(textExpression, contextData) {
