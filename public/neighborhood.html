@@ -39,6 +39,12 @@
       // cannot be derived. We stub those with empty text so custom formats like
       // `${data.country.text}` render as "" instead of "undefined" (which the
       // safety filter below would otherwise suppress entirely).
+      //
+      // Polygon features whose bbox contains the query but whose actual polygon
+      // does not (e.g. North Bergen, NJ for a Manhattan query) come back with
+      // insidePolygon=false when the lookup is made with { refine: true }; we
+      // skip those so we don't label points with the wrong city. Point features
+      // have insidePolygon=null and are accepted in distance order.
       function buildContext(matches) {
         const ctx = {
           country: { text: "" },
@@ -50,6 +56,7 @@
         };
         const nameOf = (m) => m.translatedName || m.name;
         for (const m of matches) {
+          if (m.insidePolygon === false) continue;
           const t = m.tags;
           const pl = t.place;
           const lvl = t.admin_level;
@@ -82,7 +89,9 @@
         if (i++ % 10 !== 0) return;
         let matches;
         try {
-          matches = await client.lookup(location.latitude, location.longitude);
+          matches = await client.lookup(location.latitude, location.longitude, {
+            refine: true,
+          });
         } catch (e) {
           console.error("browser-district lookup failed", e);
           return;
