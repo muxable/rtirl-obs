@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@rtirl/api@latest/lib/index.min.js"></script>
     <script defer src="css.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div id="text"></div>
-    <script type="module">
-      import { LookupClient } from "https://unpkg.com/browser-district@latest/src/index.js";
-
+    <script>
       function wrappedEval(textExpression, contextData) {
         let fn = Function(
           `"use strict"; var data = this;return (${textExpression})`
@@ -16,61 +20,52 @@
         return fn.bind(contextData)();
       }
 
-      const params = new URLSearchParams(window.location.search);
-      const pullKey = params.get("key");
-      const lang = params.get("lang") || "en";
-      const format =
-        params.get("format") ||
+      var mapboxClient = mapboxSdk({
+        accessToken:
+          "pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2w0MW1qaTh3MG80dzNjcXRndmJ0a2JieiJ9.Y_xABmAqvD-qZeed8MabxQ",
+      });
+
+      var i = 0;
+
+      var params = new URLSearchParams(window.location.search);
+      var pullKey = new URLSearchParams(window.location.search).get("key");
+      var format =
+        new URLSearchParams(window.location.search).get("format") ||
         "${data.neighborhood ? data.neighborhood.text + ', ' : ''}${data.place?.text}";
-
-      const client = await new LookupClient().open();
-      try {
-        await client.setLocale(lang);
-      } catch (e) {
-        console.warn(`no overlay for lang=${lang}; using local names`, e);
-      }
-
-      // Map a list of browser-district matches into the Mapbox-shaped
-      // context object the default + custom format strings expect.
-      function buildContext(matches) {
-        const ctx = {};
-        const nameOf = (m) => m.translatedName || m.name;
-        for (const m of matches) {
-          const t = m.tags;
-          const pl = t.place;
-          const lvl = t.admin_level;
-          if (!ctx.neighborhood &&
-              (pl === "neighbourhood" || pl === "quarter" || pl === "suburb" ||
-               pl === "borough" || pl === "city_district" || pl === "district" ||
-               lvl === "10" || lvl === "9")) {
-            ctx.neighborhood = { text: nameOf(m), tags: t };
-          }
-          if (!ctx.locality && lvl === "9") {
-            ctx.locality = { text: nameOf(m), tags: t };
-          }
-          if (!ctx.place && lvl === "8") {
-            ctx.place = { text: nameOf(m), tags: t };
-          }
-        }
-        return ctx;
-      }
-
-      let i = 0;
-      RealtimeIRL.forPullKey(pullKey).addLocationListener(async function (
-        location
-      ) {
-        if (i++ % 10 !== 0) return;
-        let matches;
-        try {
-          matches = await client.lookup(location.latitude, location.longitude);
-        } catch (e) {
-          console.error("browser-district lookup failed", e);
-          return;
-        }
-        const context = buildContext(matches);
-        const result = wrappedEval("`" + format + "`", context);
-        if (!result.includes("undefined")) {
-          document.getElementById("text").innerText = result;
+      
+      RealtimeIRL.forPullKey(pullKey).addLocationListener(function (location) {
+        if (i++ % 50 == 0) {
+          mapboxClient.geocoding
+            .reverseGeocode({
+              query: [location.longitude, location.latitude],
+              language: [params.get("lang") || "en"],
+            })
+            .send()
+            .then((response) => {
+              var context = {};
+              for (var param of [
+                "country",
+                "region",
+                "postcode",
+                "district",
+                "place",
+                "locality",
+                "neighborhood",
+                "address",
+                "poi",
+              ]) {
+                context[param] = response.body.features.find((feature) =>
+                  feature.place_type.includes(param)
+                );
+              }
+              var result = wrappedEval(
+                "`" + format + "`",
+                context
+              );
+              if (!result.includes("undefined")) {
+                document.getElementById("text").innerText = result; 
+              }
+            });
         }
       });
     </script>
