@@ -34,11 +34,16 @@
       // that user-supplied format strings expect. The full Mapbox v5 token set
       // is country/region/postcode/district/place/locality/neighborhood/address/poi.
       //
-      // Browser-district only carries OSM admin_level >= 8 boundaries plus
-      // neighborhood-tier place tags, so country/region/postcode/district/address/poi
-      // cannot be derived. We stub those with empty text so custom formats like
-      // `${data.country.text}` render as "" instead of "undefined" (which the
-      // safety filter below would otherwise suppress entirely).
+      // Browser-district carries admin_level >= 2 boundaries plus neighborhood-
+      // tier place tags. We map OSM admin_level to Mapbox v5 tokens by the
+      // convention 2=country, 4=region (state/province), 6=district (county),
+      // 8=place (city), 9=locality, 10=neighborhood. postcode/address/poi have
+      // no OSM analog at all and stay stubbed with empty text so custom formats
+      // like `${data.postcode.text}` render as "" instead of "undefined" (which
+      // the safety filter below would otherwise suppress entirely). The slots
+      // we *can* derive are left undefined when no match contains the point, so
+      // legacy ternary patterns like `${data.neighborhood ? ... : ''}` keep
+      // working the same way they did against Mapbox.
       //
       // Polygon features whose bbox contains the query but whose actual polygon
       // does not (e.g. North Bergen, NJ for a Manhattan query) come back with
@@ -47,14 +52,19 @@
       // have insidePolygon=null and are accepted in distance order.
       function buildContext(matches) {
         const ctx = {
-          country: { text: "" },
-          region: { text: "" },
           postcode: { text: "" },
-          district: { text: "" },
           address: { text: "" },
           poi: { text: "" },
         };
         const nameOf = (m) => m.translatedName || m.name;
+        const slotForAdminLevel = {
+          "2": "country",
+          "4": "region",
+          "6": "district",
+          "8": "place",
+          "9": "locality",
+          "10": "neighborhood",
+        };
         for (const m of matches) {
           if (m.insidePolygon === false) continue;
           const t = m.tags;
@@ -71,12 +81,11 @@
               lvl === "10")
           ) {
             ctx.neighborhood = { text: nameOf(m), tags: t };
+            continue;
           }
-          if (!ctx.locality && lvl === "9") {
-            ctx.locality = { text: nameOf(m), tags: t };
-          }
-          if (!ctx.place && lvl === "8") {
-            ctx.place = { text: nameOf(m), tags: t };
+          const slot = slotForAdminLevel[lvl];
+          if (slot && !ctx[slot]) {
+            ctx[slot] = { text: nameOf(m), tags: t };
           }
         }
         return ctx;
