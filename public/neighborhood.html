@@ -35,21 +35,34 @@
       // is country/region/postcode/district/place/locality/neighborhood/address/poi.
       //
       // Browser-district carries admin_level >= 2 boundaries plus neighborhood-
-      // tier place tags. We map OSM admin_level to Mapbox v5 tokens by the
-      // convention 2=country, 4=region (state/province), 6=district (county),
-      // 8=place (city), 9=locality, 10=neighborhood. postcode/address/poi have
-      // no OSM analog at all and stay stubbed with empty text so custom formats
-      // like `${data.postcode.text}` render as "" instead of "undefined" (which
-      // the safety filter below would otherwise suppress entirely). The slots
-      // we *can* derive are left undefined when no match contains the point, so
-      // legacy ternary patterns like `${data.neighborhood ? ... : ''}` keep
-      // working the same way they did against Mapbox.
+      // tier place tags. The OSM admin_level number for a "city" varies by
+      // country (US/EU cities are 8, Tokyo wards are 7, NYC is 5), so for
+      // `place` we prefer admin_level=8 and fall back to the next OSM level
+      // below 8 (7 → 6 → 5) when no 8-boundary contains the point. The other
+      // slots map by their canonical level: country=2, region=4, district=6,
+      // locality=9, neighborhood=10 (or a neighborhood-tier place tag).
+      //
+      // postcode/address/poi have no OSM analog at all and stay stubbed with
+      // empty text so custom formats like `${data.postcode.text}` render as ""
+      // instead of "undefined" (which the safety filter below would otherwise
+      // suppress entirely). The slots we *can* derive are left undefined when
+      // nothing matches, so legacy ternary patterns like
+      // `${data.neighborhood ? ... : ''}` keep working the same way they did
+      // against Mapbox.
       //
       // Polygon features whose bbox contains the query but whose actual polygon
       // does not (e.g. North Bergen, NJ for a Manhattan query) come back with
       // insidePolygon=false when the lookup is made with { refine: true }; we
       // skip those so we don't label points with the wrong city. Point features
       // have insidePolygon=null and are accepted in distance order.
+      const NEIGHBORHOOD_PLACE_TAGS = new Set([
+        "neighbourhood",
+        "quarter",
+        "suburb",
+        "borough",
+        "city_district",
+        "district",
+      ]);
       function buildContext(matches) {
         const ctx = {
           postcode: { text: "" },
@@ -57,37 +70,41 @@
           poi: { text: "" },
         };
         const nameOf = (m) => m.translatedName || m.name;
-        const slotForAdminLevel = {
-          "2": "country",
-          "4": "region",
-          "6": "district",
-          "8": "place",
-          "9": "locality",
-          "10": "neighborhood",
+        const containing = matches.filter((m) => m.insidePolygon !== false);
+        const findAdminLevel = (lvl) =>
+          containing.find((m) => m.tags.admin_level === lvl);
+        const set = (slot, m) => {
+          if (m) ctx[slot] = { text: nameOf(m), tags: m.tags };
+          return m;
         };
-        for (const m of matches) {
-          if (m.insidePolygon === false) continue;
-          const t = m.tags;
-          const pl = t.place;
-          const lvl = t.admin_level;
-          if (
-            !ctx.neighborhood &&
-            (pl === "neighbourhood" ||
-              pl === "quarter" ||
-              pl === "suburb" ||
-              pl === "borough" ||
-              pl === "city_district" ||
-              pl === "district" ||
-              lvl === "10")
-          ) {
-            ctx.neighborhood = { text: nameOf(m), tags: t };
-            continue;
-          }
-          const slot = slotForAdminLevel[lvl];
-          if (slot && !ctx[slot]) {
-            ctx[slot] = { text: nameOf(m), tags: t };
+
+        set(
+          "neighborhood",
+          containing.find(
+            (m) =>
+              m.tags.admin_level === "10" ||
+              NEIGHBORHOOD_PLACE_TAGS.has(m.tags.place)
+          )
+        );
+        set("locality", findAdminLevel("9"));
+
+        // place: admin_level=8, else the next OSM level below 8 in the chain.
+        let placeMatch = findAdminLevel("8");
+        if (!placeMatch) {
+          for (const lvl of ["7", "6", "5"]) {
+            placeMatch = findAdminLevel(lvl);
+            if (placeMatch) break;
           }
         }
+        set("place", placeMatch);
+
+        // district: admin_level=6, unless place already consumed it.
+        const districtMatch = findAdminLevel("6");
+        if (districtMatch && districtMatch !== placeMatch) {
+          set("district", districtMatch);
+        }
+        set("region", findAdminLevel("4"));
+        set("country", findAdminLevel("2"));
         return ctx;
       }
 
