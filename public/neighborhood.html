@@ -1,18 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@rtirl/api@latest/lib/index.min.js"></script>
     <script defer src="css.js"></script>
-    <link
-      href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
-      rel="stylesheet"
-    />
   </head>
   <body>
     <div id="text"></div>
-    <script>
+    <script type="module">
+      import { LookupClient } from "https://unpkg.com/browser-district@latest/src/index.js";
+
       function wrappedEval(textExpression, contextData) {
         let fn = Function(
           `"use strict"; var data = this;return (${textExpression})`
@@ -20,52 +16,122 @@
         return fn.bind(contextData)();
       }
 
-      var mapboxClient = mapboxSdk({
-        accessToken:
-          "pk.eyJ1Ijoia2V2bW8zMTQiLCJhIjoiY2w0MW1qaTh3MG80dzNjcXRndmJ0a2JieiJ9.Y_xABmAqvD-qZeed8MabxQ",
-      });
+      const params = new URLSearchParams(window.location.search);
+      const pullKey = params.get("key");
+      const lang = params.get("lang") || "en";
+      const format =
+        params.get("format") ||
+        "${[data.neighborhood?.text, data.place?.text].filter(Boolean).join(', ')}";
 
-      var i = 0;
+      const client = await new LookupClient().open();
+      try {
+        await client.setLocale(lang);
+      } catch (e) {
+        console.warn(`no overlay for lang=${lang}; using local names`, e);
+      }
 
-      var params = new URLSearchParams(window.location.search);
-      var pullKey = new URLSearchParams(window.location.search).get("key");
-      var format =
-        new URLSearchParams(window.location.search).get("format") ||
-        "${data.neighborhood ? data.neighborhood.text + ', ' : ''}${data.place?.text}";
-      
-      RealtimeIRL.forPullKey(pullKey).addLocationListener(function (location) {
-        if (i++ % 50 == 0) {
-          mapboxClient.geocoding
-            .reverseGeocode({
-              query: [location.longitude, location.latitude],
-              language: [params.get("lang") || "en"],
-            })
-            .send()
-            .then((response) => {
-              var context = {};
-              for (var param of [
-                "country",
-                "region",
-                "postcode",
-                "district",
-                "place",
-                "locality",
-                "neighborhood",
-                "address",
-                "poi",
-              ]) {
-                context[param] = response.body.features.find((feature) =>
-                  feature.place_type.includes(param)
-                );
-              }
-              var result = wrappedEval(
-                "`" + format + "`",
-                context
-              );
-              if (!result.includes("undefined")) {
-                document.getElementById("text").innerText = result; 
-              }
-            });
+      // Map browser-district matches into the Mapbox v5 geocoding context shape
+      // that user-supplied format strings expect. The full Mapbox v5 token set
+      // is country/region/postcode/district/place/locality/neighborhood/address/poi.
+      //
+      // Browser-district carries admin_level >= 2 boundaries plus neighborhood-
+      // tier place tags. The OSM admin_level number for a "city" varies by
+      // country (US/EU cities are 8, Tokyo wards are 7, NYC is 5), so for
+      // `place` we prefer admin_level=8 and fall back to the next OSM level
+      // below 8 (7 → 6 → 5) when no 8-boundary contains the point. The other
+      // slots map by their canonical level: country=2, region=4, district=6,
+      // locality=9, neighborhood=10 (or a neighborhood-tier place tag).
+      //
+      // postcode/address/poi have no OSM analog at all and stay stubbed with
+      // empty text so custom formats like `${data.postcode.text}` render as ""
+      // instead of "undefined" (which the safety filter below would otherwise
+      // suppress entirely). The slots we *can* derive are left undefined when
+      // nothing matches, so legacy ternary patterns like
+      // `${data.neighborhood ? ... : ''}` keep working the same way they did
+      // against Mapbox.
+      //
+      // Polygon features whose bbox contains the query but whose actual polygon
+      // does not (e.g. North Bergen, NJ for a Manhattan query) come back with
+      // insidePolygon=false when the lookup is made with { refine: true }; we
+      // skip those so we don't label points with the wrong city. Point features
+      // have insidePolygon=null and are accepted in distance order.
+      const NEIGHBORHOOD_PLACE_TAGS = new Set([
+        "neighbourhood",
+        "quarter",
+        "suburb",
+        "borough",
+        "city_district",
+        "district",
+      ]);
+      function buildContext(matches) {
+        const ctx = {
+          postcode: { text: "" },
+          address: { text: "" },
+          poi: { text: "" },
+        };
+        const nameOf = (m) => m.translatedName || m.name;
+        const containing = matches.filter((m) => m.insidePolygon !== false);
+        const findAdminLevel = (lvl) =>
+          containing.find((m) => m.tags.admin_level === lvl);
+        const set = (slot, m) => {
+          if (m) ctx[slot] = { text: nameOf(m), tags: m.tags };
+          return m;
+        };
+
+        set(
+          "neighborhood",
+          containing.find(
+            (m) =>
+              m.tags.admin_level === "10" ||
+              NEIGHBORHOOD_PLACE_TAGS.has(m.tags.place)
+          )
+        );
+        set("locality", findAdminLevel("9"));
+
+        // place: admin_level=8, else the next OSM level below 8 in the chain.
+        let placeMatch = findAdminLevel("8");
+        if (!placeMatch) {
+          for (const lvl of ["7", "6", "5"]) {
+            placeMatch = findAdminLevel(lvl);
+            if (placeMatch) break;
+          }
+        }
+        set("place", placeMatch);
+
+        // district: admin_level=6, unless place already consumed it.
+        const districtMatch = findAdminLevel("6");
+        if (districtMatch && districtMatch !== placeMatch) {
+          set("district", districtMatch);
+        }
+        set("region", findAdminLevel("4"));
+        set("country", findAdminLevel("2"));
+        return ctx;
+      }
+
+      let i = 0;
+      RealtimeIRL.forPullKey(pullKey).addLocationListener(async function (
+        location
+      ) {
+        if (i++ % 10 !== 0) return;
+        let matches;
+        try {
+          matches = await client.lookup(location.latitude, location.longitude, {
+            refine: true,
+          });
+        } catch (e) {
+          console.error("browser-district lookup failed", e);
+          return;
+        }
+        const context = buildContext(matches);
+        let result;
+        try {
+          result = wrappedEval("`" + format + "`", context);
+        } catch (e) {
+          console.warn("format eval failed", e);
+          return;
+        }
+        if (result && !result.includes("undefined")) {
+          document.getElementById("text").innerText = result;
         }
       });
     </script>
