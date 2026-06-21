@@ -136,6 +136,13 @@ a bluetooth device connected to the beacon app.
 
 `https://overlays.rtirl.com/cycling_cadence/rpm.html?key=<YOUR_PULL_KEY>`
 
+## Cycling Power
+
+This overlay renders the cycling power in watts (W). This requires a bluetooth
+device connected to the beacon app.
+
+`https://overlays.rtirl.com/power/wattage.html?key=<YOUR_PULL_KEY>`
+
 ## StreamElements
 
 If you would like to display RealtimeIRL data using StreamElements overlays, you will need to add a Custom widget and then add the iFrame to the HTML section. (Settings > Open Editor)
