@@ -41,6 +41,10 @@ RealtimeIRL.forStreamer("twitch", "158394109").addLocationListener(function (
 });
 ```
 
+Public streamer locations also include `reportedAt`, the Unix timestamp in
+milliseconds for the coordinate update. Use `@rtirl/api` 1.2.4 or newer;
+earlier versions listen to the retired public location path.
+
 See `src/index.ts` for all available functions and types.
 
 ## Polling-based API

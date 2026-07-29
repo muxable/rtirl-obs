@@ -14,6 +14,7 @@ type BeatsPerMinute = number;
 type Steps = number;
 type Watts = number;
 type Location = { latitude: Degrees; longitude: Degrees };
+type PublicLocation = Location & { reportedAt: number };
 type UUID = string;
 
 export function addLocationListener(
@@ -170,7 +171,10 @@ export function forPullKey(pullKey: string) {
 export function forStreamer(provider: "twitch", userId: string) {
   const db = getDatabase(getApp());
   const analytics = getAnalytics(getApp());
-  const reference = child(ref(db, "streamers"), `${provider}:${userId}`);
+  const locationReference = child(
+    ref(db, "locations"),
+    `${provider}:${userId}`,
+  );
   const safeLogEvent = (eventName: string, eventParams?: any) => {
     isSupported()
       .then((supported) => {
@@ -183,9 +187,9 @@ export function forStreamer(provider: "twitch", userId: string) {
 
   return {
     /** If the public location is hidden (eg streamer is offline), null is passed. */
-    addLocationListener(callback: (location: Location | null) => void) {
+    addLocationListener(callback: (location: PublicLocation | null) => void) {
       safeLogEvent("listener", { type: "location", provider, userId });
-      return onValue(child(reference, "location"), (snapshot) => {
+      return onValue(locationReference, (snapshot) => {
         callback(snapshot.val());
         safeLogEvent("data", { type: "location", provider, userId });
       });

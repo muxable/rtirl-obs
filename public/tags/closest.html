@@ -111,6 +111,9 @@
         );
 
         addListener(function (location) {
+          if (location === null) {
+            return;
+          }
           // Update streamers location
           streamerMarker.setLatLng([location.latitude, location.longitude]);
           fitBounds();
@@ -122,8 +125,8 @@
       function addListener(callback) {
         const db = getDatabase(app);
         const dbRef = ref(db);
-        const pullables = child(dbRef, `streamers/twitch:${userId}/location`);
-        return onValue(pullables, (snapshot) => {
+        const locationRef = child(dbRef, `locations/twitch:${userId}`);
+        return onValue(locationRef, (snapshot) => {
           callback(snapshot.val());
         });
       }
