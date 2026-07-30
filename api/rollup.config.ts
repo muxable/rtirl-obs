@@ -2,14 +2,13 @@ import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import typescript from "@rollup/plugin-typescript";
 import terser from "@rollup/plugin-terser";
-import pkg from "./package.json" assert { type: "json" };
 
 export default [
   // CommonJS build for Node.js
   {
     input: "src/index.ts",
     output: {
-      file: pkg.main,
+      file: "lib/index.js",
       format: "cjs",
       sourcemap: true,
       exports: "auto",
@@ -41,7 +40,7 @@ export default [
     input: "src/index.ts",
     output: {
       name: "RealtimeIRL",
-      file: pkg.browser,
+      file: "lib/index.min.js",
       format: "iife",
       sourcemap: true,
     },
