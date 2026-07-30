@@ -1,21 +1,55 @@
 name: Publish API to NPM
+
 on:
   push:
     paths:
       - "api/**"
+      - ".github/workflows/npm-publish.yml"
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
-      - uses: actions/checkout@v2
-      - name: Publish if version has been updated
-        uses: pascalgn/npm-publish-action@1.3.8
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          create_tag: false
-          workspace: ./api/
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+          cache: npm
+          cache-dependency-path: api/package-lock.json
+
+      - name: Check whether this version is already published
+        id: package
+        working-directory: api
+        run: |
+          package_name=$(node -p "require('./package.json').name")
+          package_version=$(node -p "require('./package.json').version")
+          echo "name=$package_name" >> "$GITHUB_OUTPUT"
+          echo "version=$package_version" >> "$GITHUB_OUTPUT"
+          if npm view "$package_name@$package_version" version >/dev/null 2>&1; then
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Install dependencies
+        if: steps.package.outputs.publish == 'true'
+        working-directory: api
+        run: npm ci --ignore-scripts
+
+      - name: Build
+        if: steps.package.outputs.publish == 'true'
+        working-directory: api
+        run: npm run build
+
+      - name: Publish ${{ steps.package.outputs.name }}@${{ steps.package.outputs.version }}
+        if: steps.package.outputs.publish == 'true'
+        working-directory: api
+        run: npm publish --access public --ignore-scripts
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
