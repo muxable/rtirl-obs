@@ -30,6 +30,18 @@ RealtimeIRL.forPullKey(YOUR_PULL_KEY).addLocationListener(function ({
 });
 ```
 
+Firebase may fall back to long polling in some browser contexts. To force
+Realtime Database to use WebSockets, pass `{ forceWebSockets: true }` on the
+first `@rtirl/api` call:
+
+```javascript
+RealtimeIRL.forPullKey(YOUR_PULL_KEY, {
+  forceWebSockets: true,
+}).addLocationListener(function (location) {
+  // do something with location.latitude/location.longitude
+});
+```
+
 ```javascript
 import * as RealtimeIRL from '@rtirl/api';
 
