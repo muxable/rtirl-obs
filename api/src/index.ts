@@ -5,7 +5,13 @@ import {
   logEvent,
 } from "firebase/analytics";
 import { FirebaseApp, initializeApp } from "firebase/app";
-import { child, getDatabase, onValue, ref } from "firebase/database";
+import {
+  child,
+  forceWebSockets,
+  getDatabase,
+  onValue,
+  ref,
+} from "firebase/database";
 
 type MetersPerSecond = number;
 type Degrees = number;
@@ -17,45 +23,60 @@ type Location = { latitude: Degrees; longitude: Degrees };
 type PublicLocation = Location & { reportedAt: number };
 type UUID = string;
 
+export type ConnectionOptions = {
+  /**
+   * Forces Firebase Realtime Database to use WebSockets instead of falling back
+   * to long polling. This must be set before the first database listener is
+   * created.
+   */
+  forceWebSockets?: boolean;
+};
+
 export function addLocationListener(
   pullKey: string,
   callback: (location: Location) => void,
+  options?: ConnectionOptions,
 ) {
-  return forPullKey(pullKey).addLocationListener(callback);
+  return forPullKey(pullKey, options).addLocationListener(callback);
 }
 
 export function addSpeedListener(
   pullKey: string,
   callback: (speed: MetersPerSecond) => void,
+  options?: ConnectionOptions,
 ) {
-  return forPullKey(pullKey).addSpeedListener(callback);
+  return forPullKey(pullKey, options).addSpeedListener(callback);
 }
 
 export function addHeadingListener(
   pullKey: string,
   callback: (heading: Degrees) => void,
+  options?: ConnectionOptions,
 ) {
-  return forPullKey(pullKey).addHeadingListener(callback);
+  return forPullKey(pullKey, options).addHeadingListener(callback);
 }
 
 export function addAltitudeListener(
   pullKey: string,
   callback: (altitude: Meters) => void,
+  options?: ConnectionOptions,
 ) {
-  return forPullKey(pullKey).addAltitudeListener(callback);
+  return forPullKey(pullKey, options).addAltitudeListener(callback);
 }
 
 export function addSessionIdListener(
   pullKey: string,
   callback: (sessionId: UUID | null) => void,
+  options?: ConnectionOptions,
 ) {
-  return forPullKey(pullKey).addSessionIdListener(callback);
+  return forPullKey(pullKey, options).addSessionIdListener(callback);
 }
 
 /** Creates a listener source for a streamer's private data with a pull key. */
-export function forPullKey(pullKey: string) {
-  const db = getDatabase(getApp());
-  const analytics = getAnalytics(getApp());
+export function forPullKey(pullKey: string, options?: ConnectionOptions) {
+  const app = getApp(options);
+  const db = getDatabase(app);
+  const analytics = getAnalytics(app);
   const reference = child(ref(db, "pullables"), pullKey);
   const safeLogEvent = (eventName: string, eventParams?: any) => {
     isSupported()
@@ -168,9 +189,14 @@ export function forPullKey(pullKey: string) {
 }
 
 /** Creates a listener source for a streamer's public data. */
-export function forStreamer(provider: "twitch", userId: string) {
-  const db = getDatabase(getApp());
-  const analytics = getAnalytics(getApp());
+export function forStreamer(
+  provider: "twitch",
+  userId: string,
+  options?: ConnectionOptions,
+) {
+  const app = getApp(options);
+  const db = getDatabase(app);
+  const analytics = getAnalytics(app);
   const locationReference = child(
     ref(db, "locations"),
     `${provider}:${userId}`,
@@ -198,8 +224,14 @@ export function forStreamer(provider: "twitch", userId: string) {
 }
 
 let app: FirebaseApp | null = null;
+let forceWebSocketsApplied = false;
 
-function getApp() {
+function getApp(options?: ConnectionOptions) {
+  if (options?.forceWebSockets && !forceWebSocketsApplied) {
+    forceWebSockets();
+    forceWebSocketsApplied = true;
+  }
+
   if (!app) {
     app = initializeApp(
       {
